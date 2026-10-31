@@ -260,7 +260,17 @@
 
     function showMessage(section) {
       alert(section + ' is planned for a future EDUVANTA update.');
-    }
-  </script>
+    } 
+    </script>
+  
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js")
+        .then(() => console.log("EDUVANTA offline support enabled"))
+        .catch((error) => console.error("Service Worker error:", error));
+    });
+  }
+</script>
 </body>
 </html>
