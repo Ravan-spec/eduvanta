@@ -25,8 +25,26 @@
       justify-content: space-between;
       align-items: center;
     }
-    .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-    .logo span { color: #35c9bb; }
+    .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.logo span {
+  color: #35c9bb;
+}
     nav a {
       color: white;
       text-decoration: none;
@@ -149,12 +167,16 @@
 
 <body>
   <header>
-    <div class="logo">EDU<span>VANTA</span></div>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#classes">Classes</a>
-      <a href="#courses">Courses</a>
-    </nav>
+  <a class="logo" href="#home">
+    <img src="icon.svg" alt="EDUVANTA Logo">
+    <span>EDU<span>VANTA</span></span>
+  </a>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#classes">Classes</a>
+    <a href="#courses">Courses</a>
+  </nav>
   </header>
 
   <section class="hero" id="home">
