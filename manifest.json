@@ -1,0 +1,14 @@
+
+{
+  "id": "/eduvanta/",
+  "name": "EDUVANTA - Learn Beyond Limits",
+  "short_name": "EDUVANTA",
+  "description": "A learning platform for students across India.",
+  "start_url": "/eduvanta/",
+  "scope": "/eduvanta/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fb",
+  "theme_color": "#101d35",
+  "categories": ["education"]
+}
