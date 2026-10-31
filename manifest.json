@@ -10,5 +10,13 @@
   "orientation": "portrait",
   "background_color": "#f5f7fb",
   "theme_color": "#101d35",
-  "categories": ["education"]
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
