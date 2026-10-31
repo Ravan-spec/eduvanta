@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101d35">
+  <meta name="description" content="EDUVANTA - Learning platform for students across India.">
+  <title>EDUVANTA | Learn Beyond Limits</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #17233b;
+    }
+    header {
+      background: #101d35;
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: #35c9bb; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+      font-size: 14px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #101d35, #174c85);
+      color: white;
+      padding: 65px 7%;
+      text-align: center;
+    }
+    .tag {
+      display: inline-block;
+      background: #ffffff20;
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(32px, 7vw, 55px); margin-bottom: 15px; }
+    .hero h1 span { color: #42d6c5; }
+    .hero p { color: #d8e5f5; line-height: 1.7; max-width: 600px; margin: auto; }
+    .hero button {
+      margin-top: 25px;
+      background: #35c9bb;
+      border: 0;
+      padding: 14px 25px;
+      border-radius: 9px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    main { max-width: 1100px; margin: auto; padding: 40px 6%; }
+    .section-title { font-size: 25px; margin-bottom: 8px; }
+    .muted { color: #68758a; line-height: 1.6; }
+    .search {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #dce2ec;
+      border-radius: 10px;
+      margin: 22px 0;
+      font-size: 15px;
+    }
+    .classes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 20px;
+    }
+    .class-card {
+      background: white;
+      border: 1px solid #e5eaf2;
+      padding: 20px 10px;
+      text-align: center;
+      border-radius: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .class-card:hover, .class-card.active {
+      border-color: #2563eb;
+      background: #edf4ff;
+      transform: translateY(-2px);
+    }
+    .class-card strong { display: block; font-size: 17px; }
+    .class-card small { color: #68758a; display: block; margin-top: 6px; }
+    .course-area { margin-top: 45px; }
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .course {
+      background: white;
+      border: 1px solid #e5eaf2;
+      padding: 22px;
+      border-radius: 13px;
+    }
+    .course .emoji { font-size: 28px; }
+    .course h3 { margin: 12px 0 8px; }
+    .course p { color: #68758a; font-size: 14px; line-height: 1.5; }
+    .course button {
+      margin-top: 16px;
+      padding: 10px 14px;
+      border: 0;
+      background: #eaf1ff;
+      color: #2455b5;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .notice {
+      background: #eaf7f5;
+      border: 1px solid #c7ebe5;
+      padding: 17px;
+      border-radius: 10px;
+      margin-top: 30px;
+      color: #205b54;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    footer {
+      background: #101d35;
+      color: #d8e5f5;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    @media(max-width:600px) {
+      header { padding: 16px 5%; }
+      nav a { margin-left: 9px; font-size: 12px; }
+      .classes { grid-template-columns: repeat(2, 1fr); }
+      .courses { grid-template-columns: 1fr; }
+      .hero { padding: 55px 6%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">EDU<span>VANTA</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#classes">Classes</a>
+      <a href="#courses">Courses</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="tag">YOUR LEARNING JOURNEY STARTS HERE</div>
+    <h1>Learn Beyond <span>Limits.</span></h1>
+    <p>Explore learning resources, practice your skills and move towards your educational goals with EDUVANTA.</p>
+    <button onclick="document.getElementById('classes').scrollIntoView({behavior:'smooth'})">
+      Explore Classes →
+    </button>
+  </section>
+
+  <main>
+    <section id="classes">
+      <h2 class="section-title">Choose Your Learning Level</h2>
+      <p class="muted">Select your class or exam category to explore learning options.</p>
+
+      <input class="search" id="search" type="search"
+        placeholder="Search Class 12, NEET, JEE..."
+        aria-label="Search learning levels">
+
+      <div class="classes" id="classGrid">
+        <div class="class-card" data-name="class 1"><strong>Class 1</strong><small>Primary</small></div>
+        <div class="class-card" data-name="class 2"><strong>Class 2</strong><small>Primary</small></div>
+        <div class="class-card" data-name="class 3"><strong>Class 3</strong><small>Primary</small></div>
+        <div class="class-card" data-name="class 4"><strong>Class 4</strong><small>Primary</small></div>
+        <div class="class-card" data-name="class 5"><strong>Class 5</strong><small>Primary</small></div>
+        <div class="class-card" data-name="class 6"><strong>Class 6</strong><small>Middle School</small></div>
+        <div class="class-card" data-name="class 7"><strong>Class 7</strong><small>Middle School</small></div>
+        <div class="class-card" data-name="class 8"><strong>Class 8</strong><small>Middle School</small></div>
+        <div class="class-card" data-name="class 9"><strong>Class 9</strong><small>Secondary</small></div>
+        <div class="class-card" data-name="class 10"><strong>Class 10</strong><small>Secondary</small></div>
+        <div class="class-card" data-name="class 11"><strong>Class 11</strong><small>Senior Secondary</small></div>
+        <div class="class-card" data-name="class 12"><strong>Class 12</strong><small>Senior Secondary</small></div>
+        <div class="class-card" data-name="jee"><strong>JEE</strong><small>Engineering</small></div>
+        <div class="class-card" data-name="neet"><strong>NEET</strong><small>Medical</small></div>
+        <div class="class-card" data-name="cuet"><strong>CUET</strong><small>University Entrance</small></div>
+        <div class="class-card" data-name="upsc"><strong>UPSC</strong><small>Civil Services</small></div>
+      </div>
+    </section>
+
+    <section class="course-area" id="courses">
+      <h2 class="section-title">Explore Learning</h2>
+      <p class="muted">Your learning space, organised in one place.</p>
+
+      <div class="courses">
+        <div class="course">
+          <div class="emoji">📚</div>
+          <h3>Learning Library</h3>
+          <p>Study notes and topic-wise learning resources.</p>
+          <button onclick="showMessage('Learning Library')">Explore</button>
+        </div>
+        <div class="course">
+          <div class="emoji">✍️</div>
+          <h3>Practice Zone</h3>
+          <p>Build your knowledge with practice activities.</p>
+          <button onclick="showMessage('Practice Zone')">Explore</button>
+        </div>
+        <div class="course">
+          <div class="emoji">📝</div>
+          <h3>Mock Tests</h3>
+          <p>Prepare for exams with topic-based assessments.</p>
+          <button onclick="showMessage('Mock Tests')">Explore</button>
+        </div>
+        <div class="course">
+          <div class="emoji">📈</div>
+          <h3>My Progress</h3>
+          <p>Track your learning journey as you study.</p>
+          <button onclick="showMessage('My Progress')">Explore</button>
+        </div>
+      </div>
+
+      <div class="notice">
+        <strong>Early Development Version</strong><br>
+        EDUVANTA is under development. Course content and learning tools will be added after verification. This page does not yet provide live AI teaching or complete course coverage.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>EDUVANTA</strong> — Learn Beyond Limits.<br>
+    Building a better learning experience for everyone.<br>
+    © 2026 EDUVANTA. All rights reserved.
+  </footer>
+
+  <script>
+    const search = document.getElementById('search');
+    const cards = document.querySelectorAll('.class-card');
+
+    search.addEventListener('input', () => {
+      const query = search.value.toLowerCase().trim();
+      cards.forEach(card => {
+        card.style.display = card.dataset.name.includes(query) ? '' : 'none';
+      });
+    });
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(item => item.classList.remove('active'));
+        card.classList.add('active');
+        alert(card.innerText.replace('\n', ' ') + ' selected. Learning content will be added soon.');
+      });
+    });
+
+    function showMessage(section) {
+      alert(section + ' is planned for a future EDUVANTA update.');
+    }
+  </script>
+</body>
+</html>
