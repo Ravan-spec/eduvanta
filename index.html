@@ -431,6 +431,29 @@
     function showMessage(section) {
       alert(section + ' is planned for a future EDUVANTA update.');
     } 
+    const studentClassSelect = document.getElementById("studentClass");
+
+if (studentClassSelect) {
+  const savedClass = localStorage.getItem("eduvantaStudentClass");
+
+  if (savedClass) {
+    const classExists = Array.from(studentClassSelect.options)
+      .some(option => option.value === savedClass);
+
+    if (classExists) {
+      studentClassSelect.value = savedClass;
+    }
+  }
+
+  studentClassSelect.addEventListener("change", function () {
+    if (this.value) {
+      localStorage.setItem("eduvantaStudentClass", this.value);
+      alert(this.value + " saved successfully!");
+    } else {
+      localStorage.removeItem("eduvantaStudentClass");
+    }
+  });
+}
     </script>
   
 <script>
