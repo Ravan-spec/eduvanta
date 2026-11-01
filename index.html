@@ -411,10 +411,10 @@
             <option value="Class 12">Class 12</option>
           </optgroup>
           <optgroup label="Competitive Exams">
-            <option value="JEE">JEE Preparation</option>
-            <option value="NEET">NEET Preparation</option>
-            <option value="CUET">CUET Preparation</option>
-            <option value="UPSC">UPSC Preparation</option>
+            <option value="JEE Preparation">JEE Preparation</option>
+            <option value="NEET Preparation">NEET Preparation</option>
+            <option value="CUET Preparation">CUET Preparation</option>
+            <option value="UPSC Preparation">UPSC Preparation</option>
           </optgroup>
         </select>
 
@@ -480,7 +480,7 @@
         <div class="class-card" data-name="cuet"><strong>CUET</strong><small>University Entrance</small></div>
         <div class="class-card" data-name="upsc"><strong>UPSC</strong><small>Civil Services</small></div>
       </div>
-<div id="learningContent" style="display:none;"></div>
+      <div id="learningContent" style="display:none;"></div>
     </section>
 
     <section class="course-area" id="courses">
@@ -538,6 +538,28 @@
     alert(section + " is planned for a future EDUVANTA update.");
   }
 
+  function normalizeText(value = "") {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function findMatchingOption(select, value) {
+    const target = normalizeText(value);
+
+    return Array.from(select.options).find(option => {
+      if (!option.value) return false;
+
+      const optionValue = normalizeText(option.value);
+      const optionText = normalizeText(option.textContent);
+      const valueWithoutPrep = normalizeText(option.value.replace(/ preparation/gi, ""));
+      const textWithoutPrep = normalizeText(option.textContent.replace(/ preparation/gi, ""));
+
+      return optionValue === target ||
+        optionText === target ||
+        valueWithoutPrep === target ||
+        textWithoutPrep === target;
+    });
+  }
+
   // Student profile: restore saved selection
   const studentClassSelect = document.getElementById("studentClass");
 
@@ -545,7 +567,10 @@
     const savedClass = localStorage.getItem("eduvantaStudentClass");
 
     if (savedClass) {
-      studentClassSelect.value = savedClass;
+      const savedOption = findMatchingOption(studentClassSelect, savedClass);
+      if (savedOption) {
+        studentClassSelect.value = savedOption.value;
+      }
     }
 
     studentClassSelect.addEventListener("change", function () {
@@ -562,29 +587,31 @@
   const classGrid = document.getElementById("classGrid");
   const learningContent = document.getElementById("learningContent");
 
-    // Search
+  // Search
   if (searchInput) {
     searchInput.addEventListener("input", function () {
-      const query = this.value.toLowerCase().trim();
+      const query = normalizeText(this.value);
 
       document.querySelectorAll(".class-card").forEach(card => {
-        card.style.display = card.dataset.name.includes(query) ? "" : "none";
+        const matchText = normalizeText(card.textContent);
+        const matchData = normalizeText(card.dataset.name || "");
+        card.style.display = matchText.includes(query) || matchData.includes(query) ? "" : "none";
       });
     });
   }
 
   // Restore selected card appearance
   if (studentClassSelect && studentClassSelect.value) {
-    const saved = studentClassSelect.value.toLowerCase();
+    const saved = normalizeText(studentClassSelect.value);
 
     document.querySelectorAll(".class-card").forEach(card => {
-      if (card.dataset.name === saved) {
+      const cardMatch = normalizeText(card.dataset.name || "");
+      if (cardMatch === saved || normalizeText(card.textContent).includes(saved)) {
         card.classList.add("active");
       }
     });
   }
 
-    
   // Open dashboard
   if (classGrid && searchInput && learningContent) {
     classGrid.addEventListener("click", function (event) {
@@ -601,9 +628,8 @@
       card.classList.add("active");
 
       if (studentClassSelect) {
-        const option = Array.from(studentClassSelect.options).find(
-          item => item.value.toLowerCase() === value.toLowerCase()
-        );
+        const option = findMatchingOption(studentClassSelect, value) ||
+          Array.from(studentClassSelect.options).find(item => normalizeText(item.value) === normalizeText(name));
 
         if (option) {
           studentClassSelect.value = option.value;
@@ -622,7 +648,7 @@
       const message = document.createElement("p");
       message.textContent = "Welcome to " + name +
         ". Learning resources will be added here.";
-     
+      
       const subjectPanel = document.createElement("div");
 
       if (name.toLowerCase().includes("12")) {
@@ -660,7 +686,7 @@
                   <li>Semiconductor Electronics</li>
                 </ol>
               `;
-                            subjectPanel.querySelectorAll("li").forEach((chapter, index) => {
+              subjectPanel.querySelectorAll("li").forEach((chapter, index) => {
                 chapter.style.cursor = "pointer";
                 chapter.style.padding = "10px";
 
@@ -692,7 +718,6 @@
                   }
                 });
               });
-              
             } else {
               subjectPanel.innerHTML =
                 "<h3>" + this.dataset.subject + "</h3><p>Content will be added next.</p>";
