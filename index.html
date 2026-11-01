@@ -751,15 +751,51 @@ function showPhysicsChapters() {
     item.style.cssText = "padding:12px;cursor:pointer;";
 
     item.addEventListener("click", () => {
+  subjectPanel.innerHTML = `
+    <h3>Chapter ${index + 1}: ${name}</h3>
+    <p>Choose your learning mode:</p>
+
+    <button id="bookMode">📖 Book Mode</button>
+    <button id="lessonMode">🎓 Lesson Mode</button>
+    <button id="backChapters">← Back to Chapters</button>
+  `;
+
+  styleButtons("#bookMode");
+  styleButtons("#lessonMode");
+
+  document.getElementById("backChapters")
+    .addEventListener("click", showPhysicsChapters);
+
+  document.getElementById("bookMode")
+    .addEventListener("click", () => {
       subjectPanel.innerHTML = `
-        <h3>Chapter ${index + 1}: ${name}</h3>
-        <p>Chapter lessons and notes will be added here.</p>
-        <button id="backChapters">← Back to Chapters</button>
+        <h3>📖 Book Mode</h3>
+        <h4>Chapter ${index + 1}: ${name}</h4>
+        <p>Detailed chapter notes will appear here.</p>
+        <button id="backModes">← Back</button>
       `;
 
-      document.getElementById("backChapters")
-        .addEventListener("click", showPhysicsChapters);
+      document.getElementById("backModes")
+        .addEventListener("click", () => {
+          item.click();
+        });
     });
+
+  document.getElementById("lessonMode")
+    .addEventListener("click", () => {
+      subjectPanel.innerHTML = `
+        <h3>🎓 Lesson Mode</h3>
+        <h4>Chapter ${index + 1}: ${name}</h4>
+        <p>Step-by-step lessons will appear here.</p>
+        <button id="backModes">← Back</button>
+      `;
+
+      document.getElementById("backModes")
+        .addEventListener("click", () => {
+          item.click();
+        });
+    });
+});
 
     list.appendChild(item);
   });
