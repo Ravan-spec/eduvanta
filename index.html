@@ -302,27 +302,296 @@ document.getElementById("lessonMode").addEventListener("click",()=>showLessonMod
 document.getElementById("backChapters").addEventListener("click",()=>showPhysicsChapters(board));
 }
 
+
 function showBookMode(index,name,board){
+
+const chapter1 = `
+<h2>📖 Chapter 1: Electric Charges and Fields</h2>
+
+<h3>1. Introduction to Electric Charge</h3>
+<p>Electric charge is a basic property of matter due to which particles experience electrical force.</p>
+<p><b>Definition (Exam):</b> Electric charge is the fundamental property of matter responsible for electrical interactions.</p>
+
+<h3>2. Types of Electric Charges</h3>
+<ul>
+<li>Positive Charge (+): Found on protons.</li>
+<li>Negative Charge (-): Found on electrons.</li>
+</ul>
+<p>Like charges repel each other, whereas unlike charges attract each other.</p>
+
+<h3>3. Properties of Electric Charge</h3>
+<p><b>(a) Additivity:</b> Total charge is the algebraic sum of individual charges.</p>
+<p><b>(b) Conservation:</b> Electric charge can neither be created nor destroyed; it can only be transferred.</p>
+<p><b>(c) Quantisation:</b> Charge exists in integral multiples of elementary charge.</p>
+<p><b>Formula:</b> q = ne</p>
+<ul>
+<li>q = total charge</li>
+<li>n = integer</li>
+<li>e = 1.6 × 10⁻¹⁹ C</li>
+</ul>
+
+<h3>4. Conductors and Insulators</h3>
+<p><b>Conductors:</b> Materials in which electric charges can move freely. Examples: Copper, aluminium.</p>
+<p><b>Insulators:</b> Materials in which electric charges cannot move freely. Examples: Rubber, glass.</p>
+
+<h3>5. Coulomb's Law</h3>
+<p><b>Statement:</b> The electrostatic force between two stationary point charges is directly proportional to the product of their charges and inversely proportional to the square of the distance between them.</p>
+<p><b>Formula:</b></p>
+<p>F = (1 / 4πε₀) × |q₁q₂| / r²</p>
+<p>Or, F = k |q₁q₂| / r²</p>
+<ul>
+<li>F = Electrostatic force (N)</li>
+<li>q₁, q₂ = Charges (C)</li>
+<li>r = Distance (m)</li>
+<li>k = 9 × 10⁹ N m²/C² (approximately, in vacuum)</li>
+</ul>
+
+<h3>6. Principle of Superposition</h3>
+<p>When several charges act on a charge, the net force is the vector sum of the individual forces.</p>
+<p><b>Formula:</b> Fnet = F₁ + F₂ + F₃ + ...</p>
+
+<h3>7. Electric Field</h3>
+<p>Electric field is the region around a charge in which another charge experiences an electric force.</p>
+<p><b>Definition (Exam):</b> Electric field at a point is the force experienced per unit positive test charge placed at that point.</p>
+<p><b>Formula:</b> E = F/q₀</p>
+<p>SI Unit: N/C or V/m</p>
+<p>For a point charge:</p>
+<p>E = (1 / 4πε₀) × |Q| / r²</p>
+
+<h3>8. Electric Field Lines</h3>
+<ul>
+<li>Field lines start from positive charges and end at negative charges.</li>
+<li>Two electric field lines never intersect.</li>
+<li>Closer lines indicate a stronger electric field.</li>
+<li>Field lines are perpendicular to the surface of a conductor in electrostatic equilibrium.</li>
+</ul>
+
+<h3>9. Electric Dipole</h3>
+<p>An electric dipole consists of two equal and opposite charges separated by a small distance.</p>
+<p><b>Dipole Moment:</b> p = q × 2a</p>
+<ul>
+<li>q = magnitude of either charge</li>
+<li>2a = separation between charges</li>
+<li>Direction: Negative to positive charge</li>
+</ul>
+<p>SI Unit: C m</p>
+
+<h3>10. Electric Flux</h3>
+<p>Electric flux measures the number of electric field lines passing through a surface.</p>
+<p><b>Formula:</b> Φ = EA cos θ</p>
+<p>For a non-uniform field, flux is expressed as the surface integral of the electric field.</p>
+<p>SI Unit: N m²/C</p>
+
+<h3>11. Gauss's Law</h3>
+<p><b>Statement:</b> The total electric flux through any closed surface is equal to 1/ε₀ times the total charge enclosed by that surface.</p>
+<p><b>Formula:</b></p>
+<p>Φ = q(enclosed) / ε₀</p>
+<p>Or, ∮ E · dA = q(enclosed)/ε₀</p>
+
+<h3>12. Applications of Gauss's Law</h3>
+<p><b>(a) Infinite Straight Charged Wire:</b></p>
+<p>E = λ / (2πε₀r)</p>
+<p>λ = Linear charge density</p>
+
+<p><b>(b) Infinite Plane Sheet:</b></p>
+<p>E = σ / (2ε₀)</p>
+<p>σ = Surface charge density</p>
+
+<p><b>(c) Charged Spherical Shell:</b></p>
+<p>Outside the shell: E = (1 / 4πε₀) × Q/r²</p>
+<p>Inside the shell: E = 0</p>
+
+<h3>13. Important Constants</h3>
+<ul>
+<li>Elementary charge = 1.6 × 10⁻¹⁹ C</li>
+<li>Permittivity of free space (ε₀) = 8.854 × 10⁻¹² C²/N m²</li>
+<li>Coulomb constant (k) ≈ 9 × 10⁹ N m²/C²</li>
+</ul>
+
+<h3>14. Solved Numerical</h3>
+<p><b>Question:</b> Two charges of 2 μC and 3 μC are separated by 0.3 m in vacuum. Find the electrostatic force.</p>
+<p><b>Given:</b></p>
+<p>q₁ = 2 × 10⁻⁶ C</p>
+<p>q₂ = 3 × 10⁻⁶ C</p>
+<p>r = 0.3 m</p>
+<p>k = 9 × 10⁹ N m²/C²</p>
+<p><b>Using Coulomb's Law:</b></p>
+<p>F = k |q₁q₂| / r²</p>
+<p>F = (9 × 10⁹ × 2 × 10⁻⁶ × 3 × 10⁻⁶) / (0.3)²</p>
+<p><b>Answer: F = 0.6 N</b></p>
+
+<h3>15. Practice Questions</h3>
+<ol>
+<li>Define electric charge.</li>
+<li>State Coulomb's law and write its mathematical expression.</li>
+<li>Explain the conservation of electric charge.</li>
+<li>Define electric dipole moment and give its SI unit.</li>
+<li>What is electric flux?</li>
+<li>State Gauss's law.</li>
+<li>Derive the electric field due to an infinitely long straight charged wire using Gauss's law.</li>
+</ol>
+
+<p><b>Important:</b> These are introductory chapter notes. Full derivations, diagrams, board PYQs and additional numerical practice will be added separately.</p>
+`;
+
 showScreen(`
-<h3>📖 Book Mode</h3>
-<h4>Chapter ${index+1}: ${name}</h4>
-<p>Detailed notes, definitions, formulas, derivations and solved examples will appear in this section.</p>
-<p>Chapter content is being prepared.</p>
+<div class="book-content">
+${index === 0 ? chapter1 : `
+<h2>📖 Chapter ${index+1}: ${name}</h2>
+<p>Detailed notes for this chapter are being prepared.</p>
+`}
+<button class="back-button" id="backModes">← Back to Learning Modes</button>
+</div>
+`);
+
+document.getElementById("backModes").addEventListener("click",()=>{
+showLearningModes(index,name,board);
+});
+
+}
+  
+function showLessonMode(index,name,board){
+
+const lessons = [
+{
+title:"1. Introduction to Electric Charge",
+content:"Electric charge matter ki ek basic property hai. Isi property ke karan charged objects ek doosre par electrical force lagate hain.",
+definition:"Electric charge is the fundamental property of matter responsible for electrical interactions.",
+example:"Glass rod ko silk se rub karne par glass rod positive charge acquire kar sakti hai."
+},
+{
+title:"2. Types of Electric Charges",
+content:"Electric charge do types ka hota hai: Positive (+) aur Negative (-). Proton positive hota hai aur electron negative.",
+definition:"Like charges repel each other and unlike charges attract each other.",
+example:"Positive-positive charges repel; positive-negative charges attract."
+},
+{
+title:"3. Properties of Electric Charge",
+content:"Charge ki three important properties hain: Additivity, Conservation aur Quantisation.",
+definition:"Charge is conserved, additive and quantised.",
+example:"q = ne, where e = 1.6 × 10⁻¹⁹ C."
+},
+{
+title:"4. Conductors and Insulators",
+content:"Conductors mein charges easily move kar sakte hain. Insulators mein charges ka movement restricted hota hai.",
+definition:"Conductors allow free movement of electric charges, whereas insulators strongly restrict it.",
+example:"Copper is a conductor; rubber is an insulator."
+},
+{
+title:"5. Coulomb's Law",
+content:"Do stationary point charges ke beech force, charges ke product ke directly proportional aur distance ke square ke inversely proportional hota hai.",
+definition:"The electrostatic force between two point charges is directly proportional to the product of their charges and inversely proportional to the square of their separation.",
+formula:"F = k |q₁q₂| / r²",
+example:"q₁ = 2 μC, q₂ = 3 μC, r = 0.3 m. Vacuum mein F = 0.6 N."
+},
+{
+title:"6. Principle of Superposition",
+content:"Jab ek charge par multiple charges force lagate hain, toh net force individual forces ka vector sum hota hai.",
+definition:"The net electrostatic force is the vector sum of forces due to all other charges.",
+formula:"Fnet = F₁ + F₂ + F₃ + ..."
+},
+{
+title:"7. Electric Field",
+content:"Kisi charged object ke aas-paas ka region jahan doosra charge force experience karta hai, electric field kehlata hai.",
+definition:"Electric field at a point is the force experienced per unit positive test charge placed at that point.",
+formula:"E = F/q₀",
+example:"Electric field ka SI unit N/C hai."
+},
+{
+title:"8. Electric Field Lines",
+content:"Electric field lines ek imaginary representation hain jo electric field ki direction aur strength show karti hain.",
+definition:"Electric field lines are imaginary curves whose tangent at any point gives the direction of electric field.",
+example:"Positive charge se lines bahar nikalti hain aur negative charge par end hoti hain."
+},
+{
+title:"9. Electric Dipole",
+content:"Electric dipole mein equal magnitude ke opposite charges chhoti distance se separated hote hain.",
+definition:"An electric dipole consists of two equal and opposite charges separated by a small distance.",
+formula:"p = q × 2a",
+example:"Dipole moment ki SI unit C m hai."
+},
+{
+title:"10. Electric Flux",
+content:"Electric flux kisi surface se pass hone wale electric field ka measure hai.",
+definition:"Electric flux is the measure of the electric field passing through a given surface.",
+formula:"Φ = EA cos θ",
+example:"Electric flux ki SI unit N m²/C hai."
+},
+{
+title:"11. Gauss's Law",
+content:"Kisi closed surface se total electric flux us surface ke andar enclosed charge divided by ε₀ ke equal hota hai.",
+definition:"The total electric flux through a closed surface is equal to the enclosed charge divided by the permittivity of free space.",
+formula:"Φ = q(enclosed)/ε₀",
+example:"Agar enclosed charge zero hai, toh net electric flux zero hoga."
+}
+];
+
+if(index !== 0){
+showScreen(`
+<h2>🎓 Lesson Mode</h2>
+<h3>Chapter ${index+1}: ${name}</h3>
+<p>Is chapter ke lessons abhi prepare kiye ja rahe hain.</p>
 <button class="back-button" id="backModes">← Back to Learning Modes</button>
 `);
+document.getElementById("backModes").addEventListener("click",()=>showLearningModes(index,name,board));
+return;
+}
+
+let current = 0;
+
+function renderLesson(){
+
+const lesson = lessons[current];
+
+showScreen(`
+<h2>🎓 Lesson Mode</h2>
+<h3>Chapter 1: Electric Charges and Fields</h3>
+<p>Lesson ${current+1} of ${lessons.length}</p>
+
+<div class="lesson-card">
+<h3>${lesson.title}</h3>
+<p>${lesson.content}</p>
+
+<h4>📘 Exam Definition</h4>
+<p>${lesson.definition}</p>
+
+${lesson.formula ? `<h4>📐 Important Formula</h4><p><b>${lesson.formula}</b></p>` : ""}
+
+${lesson.example ? `<h4>💡 Example</h4><p>${lesson.example}</p>` : ""}
+</div>
+
+<button class="mode-btn" id="prevLesson" ${current===0?"disabled":""}>← Previous</button>
+<button class="mode-btn" id="nextLesson">${current===lessons.length-1?"Finish Lessons":"Next Lesson →"}</button>
+<button class="back-button" id="backModes">← Back to Learning Modes</button>
+`);
+
+document.getElementById("prevLesson").addEventListener("click",()=>{
+if(current>0){current--;renderLesson();}
+});
+
+document.getElementById("nextLesson").addEventListener("click",()=>{
+if(current<lessons.length-1){current++;renderLesson();}
+else{
+showScreen(`
+<h2>🎉 Lessons Completed!</h2>
+<p>Tumne Chapter 1 ke ${lessons.length} introductory lessons complete kar liye.</p>
+<button class="mode-btn" id="restartLessons">Restart Lessons</button>
+<button class="back-button" id="backModes">← Back to Learning Modes</button>
+`);
+document.getElementById("restartLessons").addEventListener("click",()=>{
+current=0;
+renderLesson();
+});
+document.getElementById("backModes").addEventListener("click",()=>showLearningModes(index,name,board));
+}
+});
+
 document.getElementById("backModes").addEventListener("click",()=>showLearningModes(index,name,board));
 }
 
-function showLessonMode(index,name,board){
-showScreen(`
-<h3>🎓 Lesson Mode</h3>
-<h4>Chapter ${index+1}: ${name}</h4>
-<p>Lessons will be divided into small step-by-step topics with explanations and practice questions.</p>
-<p>Lesson content is being prepared.</p>
-<button class="back-button" id="backModes">← Back to Learning Modes</button>
-`);
-document.getElementById("backModes").addEventListener("click",()=>showLearningModes(index,name,board));
+renderLesson();
 }
+  
 
 function backToClasses(){
 learningContent.style.display="none";
