@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -481,8 +480,7 @@
         <div class="class-card" data-name="cuet"><strong>CUET</strong><small>University Entrance</small></div>
         <div class="class-card" data-name="upsc"><strong>UPSC</strong><small>Civil Services</small></div>
       </div>
-
-      <div id="learningContent" hidden></div>
+<div id="learningContent" style="display:none;"></div>
     </section>
 
     <section class="course-area" id="courses">
@@ -533,36 +531,39 @@
     © 2026 EDUVANTA. All rights reserved.
   </footer>
 
-  <script>
-    // Placeholder message for features not built yet
-    function showMessage(section) {
-      alert(section + " is planned for a future EDUVANTA update.");
+  
+<script>
+  // Placeholder messages
+  function showMessage(section) {
+    alert(section + " is planned for a future EDUVANTA update.");
+  }
+
+  // Student profile: restore saved selection
+  const studentClassSelect = document.getElementById("studentClass");
+
+  if (studentClassSelect) {
+    const savedClass = localStorage.getItem("eduvantaStudentClass");
+
+    if (savedClass) {
+      studentClassSelect.value = savedClass;
     }
 
-    // Student class: restore and save
-    const studentClassSelect = document.getElementById("studentClass");
-
-    if (studentClassSelect) {
-      const savedClass = localStorage.getItem("eduvantaStudentClass");
-
-      if (savedClass) {
-        studentClassSelect.value = savedClass;
+    studentClassSelect.addEventListener("change", function () {
+      if (this.value) {
+        localStorage.setItem("eduvantaStudentClass", this.value);
+      } else {
+        localStorage.removeItem("eduvantaStudentClass");
       }
+    });
+  }
 
-      studentClassSelect.addEventListener("change", function () {
-        if (this.value) {
-          localStorage.setItem("eduvantaStudentClass", this.value);
-        } else {
-          localStorage.removeItem("eduvantaStudentClass");
-        }
-      });
-    }
+  // Elements
+  const searchInput = document.getElementById("search");
+  const classGrid = document.getElementById("classGrid");
+  const learningContent = document.getElementById("learningContent");
 
-    // Search classes and exams
-    const searchInput = document.getElementById("search");
-    const classGrid = document.getElementById("classGrid");
-    const learningContent = document.getElementById("learningContent");
-
+    // Search
+  if (searchInput) {
     searchInput.addEventListener("input", function () {
       const query = this.value.toLowerCase().trim();
 
@@ -570,14 +571,28 @@
         card.style.display = card.dataset.name.includes(query) ? "" : "none";
       });
     });
+  }
 
-    // Open selected class or exam dashboard
+  // Restore selected card appearance
+  if (studentClassSelect && studentClassSelect.value) {
+    const saved = studentClassSelect.value.toLowerCase();
+
+    document.querySelectorAll(".class-card").forEach(card => {
+      if (card.dataset.name === saved) {
+        card.classList.add("active");
+      }
+    });
+  }
+
+    
+  // Open dashboard
+  if (classGrid && searchInput && learningContent) {
     classGrid.addEventListener("click", function (event) {
       const card = event.target.closest(".class-card");
       if (!card) return;
 
-      const selectedName = card.querySelector("strong").textContent.trim();
-      const selectedValue = card.dataset.name;
+      const name = card.querySelector("strong")?.textContent.trim() || "Learning";
+      const value = card.dataset.name;
 
       document.querySelectorAll(".class-card").forEach(item => {
         item.classList.remove("active");
@@ -585,66 +600,46 @@
 
       card.classList.add("active");
 
-      // Save matching selection in the profile dropdown
       if (studentClassSelect) {
-        const matchingOption = Array.from(studentClassSelect.options).find(option => {
-          return option.value.toLowerCase() === selectedValue.toLowerCase();
-        });
+        const option = Array.from(studentClassSelect.options).find(
+          item => item.value.toLowerCase() === value.toLowerCase()
+        );
 
-        if (matchingOption) {
-          studentClassSelect.value = matchingOption.value;
-          localStorage.setItem("eduvantaStudentClass", matchingOption.value);
+        if (option) {
+          studentClassSelect.value = option.value;
+          localStorage.setItem("eduvantaStudentClass", option.value);
         }
       }
 
-      // Hide cards and show dashboard
-      classGrid.hidden = true;
-      searchInput.hidden = true;
-      learningContent.hidden = false;
+      classGrid.style.display = "none";
+      searchInput.style.display = "none";
+      learningContent.style.display = "block";
       learningContent.innerHTML = "";
 
       const heading = document.createElement("h2");
-      heading.textContent = selectedName + " Dashboard";
+      heading.textContent = name + " Dashboard";
 
       const message = document.createElement("p");
-      message.textContent =
-        "Welcome to " + selectedName +
-        ". Learning resources for this category will appear here as they are added.";
+      message.textContent = "Welcome to " + name +
+        ". Learning resources will be added here.";
 
-      const backButton = document.createElement("button");
-      backButton.className = "back-button";
-      backButton.textContent = "← Back to Classes";
+      const back = document.createElement("button");
+      back.textContent = "← Back to Classes";
+      back.className = "back-button";
 
-      backButton.addEventListener("click", function () {
-        learningContent.hidden = true;
-        classGrid.hidden = false;
-        searchInput.hidden = false;
+      back.style.cssText =
+        "padding:12px 18px;margin-top:20px;border:0;border-radius:8px;background:#174c85;color:white;font-size:15px;";
+
+      back.addEventListener("click", function () {
+        learningContent.style.display = "none";
+        classGrid.style.display = "grid";
+        searchInput.style.display = "block";
       });
 
-      learningContent.append(heading, message, backButton);
-      learningContent.scrollIntoView({ behavior: "smooth", block: "start" });
+      learningContent.append(heading, message, back);
+      learningContent.scrollIntoView({ behavior: "smooth" });
     });
-
-    // Restore saved profile selection
-    if (studentClassSelect && studentClassSelect.value) {
-      const savedValue = studentClassSelect.value.toLowerCase();
-
-      document.querySelectorAll(".class-card").forEach(card => {
-        if (card.dataset.name === savedValue) {
-          card.classList.add("active");
-        }
-      });
-    }
-
-    // Register service worker
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker.register("./sw.js")
-          .then(() => console.log("EDUVANTA offline support enabled"))
-          .catch(error => console.error("Service Worker error:", error));
-      });
-    }
-  </script>
-
+  }
+</script>
 </body>
 </html>
