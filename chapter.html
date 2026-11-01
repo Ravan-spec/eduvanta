@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter Learning | EDUVANTA</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:18px;background:#0b1020;color:#fff;font-family:Arial,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;color:#8b9cff}
+.back{background:#202a43;color:white;padding:10px 14px;border-radius:10px;text-decoration:none}
+main{max-width:800px;margin:35px auto}
+.muted{color:#aab4ca}
+.panel{background:#151e33;border:1px solid #293653;padding:20px;border-radius:16px;margin-top:20px}
+.option{display:block;width:100%;text-align:left;background:#202c47;border:1px solid #344568;color:white;padding:20px;margin:12px 0;border-radius:13px;font-size:17px;cursor:pointer}
+.option small{display:block;color:#aab4ca;margin-top:8px}
+.option:hover{border-color:#91a4ff}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">EDUVANTA</div>
+<a class="back" href="javascript:history.back()">← Back</a>
+</header>
+
+<main>
+<p class="muted" id="courseInfo"></p>
+<h1 id="chapterTitle">Chapter</h1>
+<p class="muted">Choose how you want to study this chapter.</p>
+
+<section class="panel">
+<h2>Learning Modes</h2>
+
+<button class="option" onclick="openMode('book.html')">
+📖 Book Mode
+<small>Detailed notes, concepts, formulas and examples.</small>
+</button>
+
+<button class="option" onclick="openMode('lesson.html')">
+🎓 Lesson Mode
+<small>Learn step by step through small lessons.</small>
+</button>
+
+<button class="option" onclick="openMode('practice.html')">
+✍️ Practice Mode
+<small>Test your understanding with questions.</small>
+</button>
+</section>
+</main>
+
+<script>
+const params=new URLSearchParams(location.search);
+const selectedClass=params.get("class")||"Class 12";
+const board=params.get("board")||"CBSE";
+const subject=params.get("subject")||"Physics";
+const chapter=params.get("chapter")||"Chapter";
+const number=params.get("number")||"1";
+
+document.getElementById("courseInfo").textContent=
+board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
+
+document.getElementById("chapterTitle").textContent=chapter;
+
+function openMode(page){
+const query=new URLSearchParams({
+class:selectedClass,
+board:board,
+subject:subject,
+chapter:chapter,
+number:number
+});
+location.href=page+"?"+query.toString();
+}
+</script>
+</body>
+</html>
