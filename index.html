@@ -622,7 +622,51 @@
       const message = document.createElement("p");
       message.textContent = "Welcome to " + name +
         ". Learning resources will be added here.";
+     
+      const subjectPanel = document.createElement("div");
 
+      if (name.toLowerCase().includes("12")) {
+        message.textContent = "Choose your subject to start learning.";
+
+        subjectPanel.innerHTML = `
+          <h3>Select Subject</h3>
+          <button class="subject-btn" data-subject="Physics">Physics</button>
+          <button class="subject-btn" data-subject="Chemistry">Chemistry</button>
+          <button class="subject-btn" data-subject="Mathematics">Mathematics</button>
+        `;
+
+        subjectPanel.querySelectorAll(".subject-btn").forEach(button => {
+          button.style.cssText =
+            "display:block;width:100%;padding:15px;margin:10px 0;border:0;border-radius:10px;background:#174c85;color:white;font-size:17px;";
+
+          button.addEventListener("click", function () {
+            if (this.dataset.subject === "Physics") {
+              subjectPanel.innerHTML = `
+                <h3>Class 12 Physics Chapters</h3>
+                <ol>
+                  <li>Electric Charges and Fields</li>
+                  <li>Electrostatic Potential and Capacitance</li>
+                  <li>Current Electricity</li>
+                  <li>Moving Charges and Magnetism</li>
+                  <li>Magnetism and Matter</li>
+                  <li>Electromagnetic Induction</li>
+                  <li>Alternating Current</li>
+                  <li>Electromagnetic Waves</li>
+                  <li>Ray Optics and Optical Instruments</li>
+                  <li>Wave Optics</li>
+                  <li>Dual Nature of Radiation and Matter</li>
+                  <li>Atoms</li>
+                  <li>Nuclei</li>
+                  <li>Semiconductor Electronics</li>
+                </ol>
+              `;
+            } else {
+              subjectPanel.innerHTML =
+                "<h3>" + this.dataset.subject + "</h3><p>Content will be added next.</p>";
+            }
+          });
+        });
+      }
       const back = document.createElement("button");
       back.textContent = "← Back to Classes";
       back.className = "back-button";
@@ -636,7 +680,7 @@
         searchInput.style.display = "block";
       });
 
-      learningContent.append(heading, message, back);
+      learningContent.append(heading, message, subjectPanel, back);
       learningContent.scrollIntoView({ behavior: "smooth" });
     });
   }
