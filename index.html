@@ -660,6 +660,39 @@
                   <li>Semiconductor Electronics</li>
                 </ol>
               `;
+                            subjectPanel.querySelectorAll("li").forEach((chapter, index) => {
+                chapter.style.cursor = "pointer";
+                chapter.style.padding = "10px";
+
+                chapter.addEventListener("click", function () {
+                  if (index === 0) {
+                    subjectPanel.innerHTML = `
+                      <h3>Chapter 1: Electric Charges and Fields</h3>
+                      <p>Complete chapter content will be added here.</p>
+                      <h4>Learning Sections</h4>
+                      <ul>
+                        <li>Introduction to Electric Charge</li>
+                        <li>Conductors and Insulators</li>
+                        <li>Basic Properties of Electric Charge</li>
+                        <li>Coulomb's Law</li>
+                        <li>Forces between Multiple Charges</li>
+                        <li>Electric Field</li>
+                        <li>Electric Field Lines</li>
+                        <li>Electric Dipole</li>
+                        <li>Electric Flux</li>
+                        <li>Gauss's Law</li>
+                      </ul>
+                      <button id="backToChapters">← Back to Chapters</button>
+                    `;
+
+                    document.getElementById("backToChapters")
+                      .addEventListener("click", function () {
+                        alert("Chapter list will be restored in the next update.");
+                      });
+                  }
+                });
+              });
+              
             } else {
               subjectPanel.innerHTML =
                 "<h3>" + this.dataset.subject + "</h3><p>Content will be added next.</p>";
