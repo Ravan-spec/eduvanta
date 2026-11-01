@@ -429,35 +429,92 @@
       });
     });
 
-    function showMessage(section) {
-      alert(section + ' is planned for a future EDUVANTA update.');
-    } 
-    const studentClassSelect = document.getElementById("studentClass");
-
-if (studentClassSelect) {
-  const savedClass = localStorage.getItem("eduvantaStudentClass");
-
-  if (savedClass) {
-    const classExists = Array.from(studentClassSelect.options)
-      .some(option => option.value === savedClass);
-
-    if (classExists) {
-      studentClassSelect.value = savedClass;
-    }
+    
+<script>
+  // Existing placeholder message
+  function showMessage(section) {
+    alert(section + ' is planned for a future EDUVANTA update.');
   }
 
-  studentClassSelect.addEventListener("change", function () {
-    if (this.value) {
-      localStorage.setItem("eduvantaStudentClass", this.value);
-      alert(this.value + " saved successfully!");
-    } else {
-      localStorage.removeItem("eduvantaStudentClass");
+  // Save and restore student's selected class
+  const studentClassSelect = document.getElementById("studentClass");
+
+  if (studentClassSelect) {
+    const savedClass = localStorage.getItem("eduvantaStudentClass");
+
+    if (savedClass) {
+      const classExists = Array.from(studentClassSelect.options)
+        .some(option => option.value === savedClass);
+
+      if (classExists) {
+        studentClassSelect.value = savedClass;
+      }
     }
-  });
-}
-    </script>
-  
-<script>
+
+    studentClassSelect.addEventListener("change", function () {
+      if (this.value) {
+        localStorage.setItem("eduvantaStudentClass", this.value);
+        alert(this.value + " saved successfully!");
+      } else {
+        localStorage.removeItem("eduvantaStudentClass");
+      }
+    });
+  }
+
+  // Class and Exam Dashboard navigation
+  const classGrid = document.getElementById("classGrid");
+  const learningContent = document.getElementById("learningContent");
+  const searchInput = document.getElementById("search");
+
+  if (classGrid && learningContent) {
+    classGrid.addEventListener("click", function(event) {
+      const card = event.target.closest(".class-card");
+      if (!card) return;
+
+      const selectedName = card.querySelector("strong").textContent.trim();
+      const selectedValue = card.dataset.name;
+
+      // Save matching class when available
+      if (studentClassSelect) {
+        const matchingOption = Array.from(studentClassSelect.options).find(
+          option => option.value.toLowerCase() === selectedValue.toLowerCase()
+        );
+
+        if (matchingOption) {
+          studentClassSelect.value = matchingOption.value;
+          studentClassSelect.dispatchEvent(new Event("change"));
+        }
+      }
+
+      classGrid.style.display = "none";
+      if (searchInput) searchInput.style.display = "none";
+
+      learningContent.style.display = "block";
+      learningContent.innerHTML = "";
+
+      const heading = document.createElement("h2");
+      heading.textContent = selectedName + " Dashboard";
+
+      const message = document.createElement("p");
+      message.textContent = "Welcome to " + selectedName +
+        ". Study materials are being added.";
+
+      const backButton = document.createElement("button");
+      backButton.textContent = "← Back to Classes";
+      backButton.style.cssText =
+        "padding:12px 18px; margin-top:15px; border:0; border-radius:8px; background:#174c85; color:white; font-size:15px;";
+
+      backButton.addEventListener("click", function() {
+        learningContent.style.display = "none";
+        classGrid.style.display = "grid";
+        if (searchInput) searchInput.style.display = "block";
+      });
+
+      learningContent.append(heading, message, backButton);
+    });
+  }
+</script>
+  <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("./sw.js")
@@ -465,6 +522,6 @@ if (studentClassSelect) {
         .catch((error) => console.error("Service Worker error:", error));
     });
   }
-</script>
+  </script>
 </body>
 </html>
