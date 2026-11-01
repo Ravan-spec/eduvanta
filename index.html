@@ -654,76 +654,135 @@
       if (name.toLowerCase().includes("12")) {
         message.textContent = "Choose your subject to start learning.";
 
+       
+subjectPanel.innerHTML = `
+  <h3>Select Your Board</h3>
+  <button class="board-btn" data-board="CBSE">CBSE Board</button>
+  <button class="board-btn" data-board="UP Board">UP Board</button>
+`;
+
+function styleButtons(selector) {
+  subjectPanel.querySelectorAll(selector).forEach(button => {
+    button.style.cssText =
+      "display:block;width:100%;padding:15px;margin:10px 0;border:0;border-radius:10px;background:#174c85;color:white;font-size:17px;";
+  });
+}
+
+function showBoardSelection() {
+  subjectPanel.innerHTML = `
+    <h3>Select Your Board</h3>
+    <button class="board-btn" data-board="CBSE">CBSE Board</button>
+    <button class="board-btn" data-board="UP Board">UP Board</button>
+  `;
+
+  styleButtons(".board-btn");
+
+  subjectPanel.querySelectorAll(".board-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      showSubjects(this.dataset.board);
+    });
+  });
+}
+
+function showSubjects(board) {
+  localStorage.setItem("eduvantaBoard", board);
+
+  subjectPanel.innerHTML = `
+    <h3>${board} - Class 12</h3>
+    <p>Select Your Subject</p>
+    <button class="subject-btn" data-subject="Physics">Physics</button>
+    <button class="subject-btn" data-subject="Chemistry">Chemistry</button>
+    <button class="subject-btn" data-subject="Mathematics">Mathematics</button>
+    <button id="changeBoard">← Change Board</button>
+  `;
+
+  styleButtons(".subject-btn");
+
+  subjectPanel.querySelectorAll(".subject-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      if (this.dataset.subject === "Physics") {
+        showPhysicsChapters();
+      } else {
         subjectPanel.innerHTML = `
-          <h3>Select Subject</h3>
-          <button class="subject-btn" data-subject="Physics">Physics</button>
-          <button class="subject-btn" data-subject="Chemistry">Chemistry</button>
-          <button class="subject-btn" data-subject="Mathematics">Mathematics</button>
+          <h3>${this.dataset.subject}</h3>
+          <p>Content will be added next.</p>
+          <button id="backSubjects">← Back to Subjects</button>
         `;
 
-        subjectPanel.querySelectorAll(".subject-btn").forEach(button => {
-          button.style.cssText =
-            "display:block;width:100%;padding:15px;margin:10px 0;border:0;border-radius:10px;background:#174c85;color:white;font-size:17px;";
+        document.getElementById("backSubjects")
+          .addEventListener("click", () => showSubjects(board));
+      }
+    });
+  });
 
-          button.addEventListener("click", function () {
-            if (this.dataset.subject === "Physics") {
-              subjectPanel.innerHTML = `
-                <h3>Class 12 Physics Chapters</h3>
-                <ol>
-                  <li>Electric Charges and Fields</li>
-                  <li>Electrostatic Potential and Capacitance</li>
-                  <li>Current Electricity</li>
-                  <li>Moving Charges and Magnetism</li>
-                  <li>Magnetism and Matter</li>
-                  <li>Electromagnetic Induction</li>
-                  <li>Alternating Current</li>
-                  <li>Electromagnetic Waves</li>
-                  <li>Ray Optics and Optical Instruments</li>
-                  <li>Wave Optics</li>
-                  <li>Dual Nature of Radiation and Matter</li>
-                  <li>Atoms</li>
-                  <li>Nuclei</li>
-                  <li>Semiconductor Electronics</li>
-                </ol>
-              `;
-              subjectPanel.querySelectorAll("li").forEach((chapter, index) => {
-                chapter.style.cursor = "pointer";
-                chapter.style.padding = "10px";
+  document.getElementById("changeBoard")
+    .addEventListener("click", showBoardSelection);
+}
 
-                chapter.addEventListener("click", function () {
-                  if (index === 0) {
-                    subjectPanel.innerHTML = `
-                      <h3>Chapter 1: Electric Charges and Fields</h3>
-                      <p>Complete chapter content will be added here.</p>
-                      <h4>Learning Sections</h4>
-                      <ul>
-                        <li>Introduction to Electric Charge</li>
-                        <li>Conductors and Insulators</li>
-                        <li>Basic Properties of Electric Charge</li>
-                        <li>Coulomb's Law</li>
-                        <li>Forces between Multiple Charges</li>
-                        <li>Electric Field</li>
-                        <li>Electric Field Lines</li>
-                        <li>Electric Dipole</li>
-                        <li>Electric Flux</li>
-                        <li>Gauss's Law</li>
-                      </ul>
-                      <button id="backToChapters">← Back to Chapters</button>
-                    `;
+function showPhysicsChapters() {
+  const chapters = [
+    "Electric Charges and Fields",
+    "Electrostatic Potential and Capacitance",
+    "Current Electricity",
+    "Moving Charges and Magnetism",
+    "Magnetism and Matter",
+    "Electromagnetic Induction",
+    "Alternating Current",
+    "Electromagnetic Waves",
+    "Ray Optics and Optical Instruments",
+    "Wave Optics",
+    "Dual Nature of Radiation and Matter",
+    "Atoms",
+    "Nuclei",
+    "Semiconductor Electronics"
+  ];
 
-                    document.getElementById("backToChapters")
-                      .addEventListener("click", function () {
-                        alert("Chapter list will be restored in the next update.");
-                      });
-                  }
-                });
-              });
-            } else {
-              subjectPanel.innerHTML =
-                "<h3>" + this.dataset.subject + "</h3><p>Content will be added next.</p>";
-            }
-          });
-        });
+  subjectPanel.innerHTML = `
+    <h3>Class 12 Physics Chapters</h3>
+    <ol id="physicsChapterList"></ol>
+    <button id="backSubjects">← Back to Subjects</button>
+  `;
+
+  const list = document.getElementById("physicsChapterList");
+
+  chapters.forEach((name, index) => {
+    const item = document.createElement("li");
+    item.textContent = name;
+    item.style.cssText = "padding:12px;cursor:pointer;";
+
+    item.addEventListener("click", () => {
+      subjectPanel.innerHTML = `
+        <h3>Chapter ${index + 1}: ${name}</h3>
+        <p>Chapter lessons and notes will be added here.</p>
+        <button id="backChapters">← Back to Chapters</button>
+      `;
+
+      document.getElementById("backChapters")
+        .addEventListener("click", showPhysicsChapters);
+    });
+
+    list.appendChild(item);
+  });
+
+  document.getElementById("backSubjects")
+    .addEventListener("click", () => {
+      showSubjects(localStorage.getItem("eduvantaBoard") || "CBSE");
+    });
+}
+
+styleButtons(".board-btn");
+
+subjectPanel.querySelectorAll(".board-btn").forEach(button => {
+  button.addEventListener("click", function () {
+    showSubjects(this.dataset.board);
+  });
+});
+
+const savedBoard = localStorage.getItem("eduvantaBoard");
+
+if (savedBoard) {
+  showSubjects(savedBoard);
+  }
       }
       const back = document.createElement("button");
       back.textContent = "← Back to Classes";
