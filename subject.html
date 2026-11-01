@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subject | EDUVANTA</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:18px;background:#0b1020;color:#fff;font-family:Arial,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;color:#8b9cff}
+.back{background:#202a43;color:white;padding:10px 14px;border-radius:10px;text-decoration:none}
+main{max-width:850px;margin:35px auto}
+.muted{color:#aab4ca}
+.panel{background:#151e33;border:1px solid #293653;padding:18px;border-radius:16px;margin-top:20px}
+.chapter{display:block;width:100%;text-align:left;background:#202c47;border:1px solid #344568;color:white;padding:17px;margin:10px 0;border-radius:12px;font-size:16px;cursor:pointer}
+.chapter small{display:block;color:#aab4ca;margin-top:7px}
+.chapter:hover{border-color:#91a4ff}
+@media(max-width:450px){body{padding:14px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">EDUVANTA</div>
+<a class="back" href="javascript:history.back()">← Back</a>
+</header>
+
+<main>
+<p class="muted" id="classBoard"></p>
+<h1 id="subjectTitle">Subject</h1>
+<p class="muted">Select a chapter to continue learning.</p>
+
+<section class="panel">
+<h2>Chapters</h2>
+<div id="chapterList"></div>
+</section>
+</main>
+
+<script>
+const params=new URLSearchParams(location.search);
+const selectedClass=params.get("class")||"Class 12";
+const board=params.get("board")||"CBSE";
+const subject=params.get("subject")||"Physics";
+
+document.getElementById("classBoard").textContent=board+" • "+selectedClass;
+document.getElementById("subjectTitle").textContent=subject;
+
+const chapters={
+Physics:[
+"Electric Charges and Fields",
+"Electrostatic Potential and Capacitance",
+"Current Electricity",
+"Moving Charges and Magnetism",
+"Magnetism and Matter",
+"Electromagnetic Induction",
+"Alternating Current",
+"Electromagnetic Waves",
+"Ray Optics and Optical Instruments",
+"Wave Optics",
+"Dual Nature of Radiation and Matter",
+"Atoms",
+"Nuclei",
+"Semiconductor Electronics"
+],
+Chemistry:[
+"Solutions",
+"Electrochemistry",
+"Chemical Kinetics",
+"The d- and f-Block Elements",
+"Coordination Compounds",
+" haloalkanes and haloarenes",
+"Alcohols, Phenols and Ethers",
+"Aldehydes, Ketones and Carboxylic Acids",
+"Amines",
+"Biomolecules"
+],
+Mathematics:[
+"Relations and Functions",
+"Inverse Trigonometric Functions",
+"Matrices",
+"Determinants",
+"Continuity and Differentiability",
+"Application of Derivatives",
+"Integrals",
+"Application of Integrals",
+"Differential Equations",
+"Vector Algebra",
+"Three Dimensional Geometry",
+"Linear Programming",
+"Probability"
+]
+};
+
+const list=document.getElementById("chapterList");
+const subjectKey=Object.keys(chapters).find(x=>x.toLowerCase()===subject.toLowerCase());
+
+if(subjectKey){
+chapters[subjectKey].forEach((chapter,index)=>{
+const button=document.createElement("button");
+button.className="chapter";
+button.innerHTML="Chapter "+(index+1)+": "+chapter+"<small>Open chapter learning options →</small>";
+button.onclick=()=>{
+location.href="chapter.html?class="+encodeURIComponent(selectedClass)
++"&board="+encodeURIComponent(board)
++"&subject="+encodeURIComponent(subject)
++"&chapter="+encodeURIComponent(chapter)
++"&number="+(index+1);
+};
+list.appendChild(button);
+});
+}else{
+list.textContent="Chapter list is not available for this subject yet.";
+}
+</script>
+</body>
+</html>
