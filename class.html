@@ -7,74 +7,215 @@
 <title>Class Dashboard | EDUVANTA</title>
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b1020;
-  color:#fff;
-  padding:20px;
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#1b2943;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+
 header{
+  position:sticky;
+  top:0;
+  z-index:10;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  padding:14px 6%;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
 }
 .logo{
   font-size:22px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+.logo span{color:var(--teal)}
+.home-btn{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  padding:10px 14px;
+  border-radius:9px;
+  font-size:13px;
+}
+
+main{
+  max-width:1050px;
+  margin:auto;
+  padding:28px 5% 85px;
+}
+
+.hero{
+  padding:35px 25px;
+  border-radius:21px;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 65%,#123c51);
+}
+.tag{
+  display:inline-block;
+  color:var(--teal);
+  background:#ffffff15;
+  padding:8px 12px;
+  border-radius:30px;
+  font-size:11px;
   font-weight:bold;
-  color:#8b9cff;
+  letter-spacing:1px;
+  margin-bottom:17px;
 }
-button,a{cursor:pointer}
-.back{
-  background:#202a43;
-  color:white;
-  border:0;
-  padding:10px 15px;
-  border-radius:10px;
-  text-decoration:none;
+.hero h1{
+  font-size:clamp(28px,5vw,43px);
+  line-height:1.2;
+  margin-bottom:12px;
 }
-.container{
-  max-width:850px;
-  margin:35px auto;
+.hero h1 span{color:var(--teal)}
+.hero p{
+  color:#d0dced;
+  line-height:1.8;
+  font-size:14px;
+  max-width:600px;
 }
-h1{font-size:30px;margin-bottom:8px}
-.muted{color:#aab4ca}
+
+.section{margin-top:32px}
+.heading{margin-bottom:17px}
+.heading h2{font-size:21px;margin-bottom:7px}
+.muted{color:var(--muted);font-size:13px;line-height:1.7}
+
 .panel{
-  background:#151e33;
-  border:1px solid #293653;
-  padding:20px;
-  border-radius:18px;
-  margin:20px 0;
+  padding:22px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
 }
-.boards,.subjects{
+
+.label{
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:12px;
+  display:block;
+}
+
+.board-options{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  gap:12px;
 }
-.card{
-  background:#202c47;
-  border:1px solid #344568;
-  color:white;
-  padding:20px;
-  border-radius:14px;
+.board-btn{
+  padding:16px 12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--surface2);
+  color:var(--text);
   text-align:left;
-  font-size:17px;
-  cursor:pointer;
+  transition:.2s;
 }
-.card:hover{border-color:#91a4ff}
-.card small{
+.board-btn strong{display:block;font-size:15px}
+.board-btn small{
   display:block;
-  color:#aab4ca;
-  margin-top:8px;
+  color:var(--muted);
+  margin-top:6px;
+  font-size:11px;
 }
-.subjects{
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+.board-btn.active{
+  border-color:var(--teal);
+  background:#173c42;
+  box-shadow:0 0 0 1px var(--teal);
 }
-.hidden{display:none}
-@media(max-width:450px){
-  body{padding:15px}
-  h1{font-size:25px}
+.board-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.subject-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+.subject-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px 15px;
+  transition:.2s;
+}
+.subject-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--teal);
+}
+.subject-icon{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:#283a60;
+  font-size:23px;
+  margin-bottom:14px;
+}
+.subject-card h3{font-size:16px;margin-bottom:7px}
+.subject-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  min-height:38px;
+}
+.open-link{
+  display:inline-block;
+  margin-top:15px;
+  color:var(--teal);
+  font-size:12px;
+  font-weight:bold;
+}
+
+.notice{
+  margin-top:20px;
+  padding:16px;
+  border-radius:12px;
+  border:1px solid #24534f;
+  background:#132d36;
+  color:#b9e9e1;
+  font-size:13px;
+  line-height:1.7;
+}
+.warning{
+  border-color:#705b2c;
+  background:#302819;
+  color:#f5dfaa;
+}
+
+footer{
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:25px 5%;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+
+@media(max-width:650px){
+  header{padding:13px 5%}
+  .logo{font-size:20px}
+  main{padding:20px 5% 65px}
+  .hero{padding:29px 20px}
+  .subject-grid{grid-template-columns:1fr}
+  .subject-card{display:flex;align-items:center;gap:14px;padding:15px}
+  .subject-icon{flex-shrink:0;margin:0}
+  .subject-info{flex:1}
+  .subject-card p{min-height:0}
+  .open-link{margin-top:8px}
+  .panel{padding:17px}
 }
 </style>
 </head>
@@ -82,124 +223,193 @@ h1{font-size:30px;margin-bottom:8px}
 <body>
 
 <header>
-  <div class="logo">EDUVANTA</div>
-  <a class="back" href="index.html">← Home</a>
+  <a class="logo" href="index.html">EDU<span>VANTA</span></a>
+  <a class="home-btn" href="index.html">← Home</a>
 </header>
 
-<main class="container">
+<main>
 
-<p class="muted">YOUR LEARNING SPACE</p>
+<section class="hero">
+  <div class="tag">YOUR PERSONAL CLASSROOM</div>
+  <h1 id="pageTitle">Welcome to <span>Class 12</span></h1>
+  <p id="pageDescription">
+    Choose your education board and explore available subjects.
+  </p>
+</section>
 
-<h1 id="classTitle">Class Dashboard</h1>
+<section class="section">
+  <div class="heading">
+    <h2>Choose Your Board</h2>
+    <p class="muted">Select the board you are studying under.</p>
+  </div>
 
-<p class="muted">
-Choose your board and continue learning.
-</p>
+  <div class="panel">
+    <span class="label">Available Education Boards</span>
 
-<section class="panel" id="boardSection">
-  <h2>Select Your Board</h2>
+    <div class="board-options">
+      <button class="board-btn" id="cbseBtn" type="button">
+        <strong>CBSE</strong>
+        <small>Central Board of Secondary Education</small>
+      </button>
 
-  <div class="boards">
-    <button class="card" onclick="selectBoard('CBSE')">
-      CBSE
-      <small>Central Board</small>
-    </button>
-
-    <button class="card" onclick="selectBoard('UP Board')">
-      UP Board
-      <small>Uttar Pradesh Board</small>
-    </button>
+      <button class="board-btn" id="upBtn" type="button">
+        <strong>UP Board</strong>
+        <small>Uttar Pradesh Madhyamik Shiksha Parishad</small>
+      </button>
+    </div>
   </div>
 </section>
 
-<section class="panel hidden" id="subjectSection">
+<section class="section" id="subjectsSection">
+  <div class="heading">
+    <h2>Explore Your Subjects</h2>
+    <p class="muted" id="subjectSubtitle">
+      Select a subject to explore its chapters.
+    </p>
+  </div>
 
-  <p class="muted" id="boardTitle"></p>
+  <div class="subject-grid" id="subjectGrid">
 
-  <h2>Your Subjects</h2>
+    <a class="subject-card" id="physicsLink" href="#">
+      <div class="subject-icon">⚡</div>
+      <div class="subject-info">
+        <h3>Physics</h3>
+        <p>Explore concepts, chapters and practice questions.</p>
+        <span class="open-link">Explore Physics →</span>
+      </div>
+    </a>
 
-  <div class="subjects">
+    <a class="subject-card" id="chemistryLink" href="#">
+      <div class="subject-icon">🧪</div>
+      <div class="subject-info">
+        <h3>Chemistry</h3>
+        <p>Study chemical concepts and chapter-wise material.</p>
+        <span class="open-link">Explore Chemistry →</span>
+      </div>
+    </a>
 
-    <button class="card" onclick="openSubject('Physics')">
-      ⚡ Physics
-      <small>Explore chapters</small>
-    </button>
-
-    <button class="card" onclick="openSubject('Chemistry')">
-      🧪 Chemistry
-      <small>Explore chapters</small>
-    </button>
-
-    <button class="card" onclick="openSubject('Mathematics')">
-      📐 Mathematics
-      <small>Explore chapters</small>
-    </button>
+    <a class="subject-card" id="mathLink" href="#">
+      <div class="subject-icon">📐</div>
+      <div class="subject-info">
+        <h3>Mathematics</h3>
+        <p>Learn formulas, concepts and solve questions.</p>
+        <span class="open-link">Explore Mathematics →</span>
+      </div>
+    </a>
 
   </div>
 
+  <div class="notice" id="availabilityNotice">
+    Currently available: Class 12 PCM learning sections.
+    More learning content will be added in future updates.
+  </div>
 </section>
 
 </main>
 
+<footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  A learning platform built for students.<br>
+  © 2026 EDUVANTA. All rights reserved.
+</footer>
+
 <script>
+const params = new URLSearchParams(window.location.search);
 
-const params=new URLSearchParams(location.search);
+const selectedClass = params.get("class") || "Class 12";
+const validClass12 = selectedClass === "Class 12";
 
-const selectedClass=params.get("class")||"Class 12";
+const title = document.getElementById("pageTitle");
+const description = document.getElementById("pageDescription");
+const subjectGrid = document.getElementById("subjectGrid");
+const subjectSubtitle = document.getElementById("subjectSubtitle");
+const notice = document.getElementById("availabilityNotice");
 
-const classTitle=document.getElementById("classTitle");
-const boardSection=document.getElementById("boardSection");
-const subjectSection=document.getElementById("subjectSection");
-const boardTitle=document.getElementById("boardTitle");
+title.innerHTML = "Welcome to <span>" + selectedClass + "</span>";
 
-classTitle.textContent=selectedClass+" Dashboard";
+const savedClass = localStorage.getItem("eduvantaStudentClass");
 
-/* RESTORE SELECTED BOARD */
-
-const savedBoard=localStorage.getItem("eduvantaBoard");
-const savedClass=localStorage.getItem("eduvantaClass");
-
-if(savedBoard && savedClass===selectedClass){
-  showSubjects(savedBoard);
+if(savedClass === selectedClass){
+  // Keep the saved student class.
+}else if(selectedClass.startsWith("Class ")){
+  localStorage.setItem("eduvantaStudentClass", selectedClass);
+  localStorage.setItem("eduvantaClass", selectedClass);
 }
 
-/* SELECT BOARD */
+const cbseBtn = document.getElementById("cbseBtn");
+const upBtn = document.getElementById("upBtn");
 
-function selectBoard(board){
+let board = localStorage.getItem("eduvantaBoard") || "CBSE";
 
-  localStorage.setItem("eduvantaBoard",board);
-  localStorage.setItem("eduvantaClass",selectedClass);
+function setBoard(value){
+  board = value;
+  localStorage.setItem("eduvantaBoard", value);
 
-  showSubjects(board);
+  cbseBtn.classList.toggle("active", value === "CBSE");
+  upBtn.classList.toggle("active", value === "UP Board");
 
+  updateSubjectLinks();
 }
 
-/* SHOW SUBJECTS */
+function updateSubjectLinks(){
 
-function showSubjects(board){
+  if(!validClass12){
+    description.textContent =
+      "This learning level is listed in EDUVANTA. Its chapter content is being prepared.";
 
-  boardTitle.textContent=board+" • "+selectedClass;
+    subjectSubtitle.textContent =
+      "Subject-wise content for this class is not available yet.";
 
-  boardSection.classList.add("hidden");
+    subjectGrid.style.display = "none";
 
-  subjectSection.classList.remove("hidden");
+    notice.className = "notice warning";
+    notice.textContent =
+      "Coming Soon: Detailed lessons, chapters and practice material for " +
+      selectedClass + " are not available yet. Class 12 PCM is currently the available learning section.";
 
+    return;
+  }
+
+  description.textContent =
+    "Choose your board and explore Class 12 Physics, Chemistry and Mathematics.";
+
+  subjectSubtitle.textContent =
+    "Selected board: " + board + ". Choose a subject to continue.";
+
+  subjectGrid.style.display = "grid";
+
+  notice.className = "notice";
+  notice.textContent =
+    "Currently available: Class 12 PCM learning sections. Some chapters may still be under development.";
+
+  const commonParams = {
+    class: selectedClass,
+    board: board
+  };
+
+  document.getElementById("physicsLink").href =
+    "subject.html?" + new URLSearchParams({
+      ...commonParams,
+      subject: "Physics"
+    }).toString();
+
+  document.getElementById("chemistryLink").href =
+    "subject.html?" + new URLSearchParams({
+      ...commonParams,
+      subject: "Chemistry"
+    }).toString();
+
+  document.getElementById("mathLink").href =
+    "subject.html?" + new URLSearchParams({
+      ...commonParams,
+      subject: "Mathematics"
+    }).toString();
 }
 
-/* OPEN SUBJECT */
+cbseBtn.addEventListener("click",()=>setBoard("CBSE"));
+upBtn.addEventListener("click",()=>setBoard("UP Board"));
 
-function openSubject(subject){
-
-  const query=new URLSearchParams({
-    class:selectedClass,
-    board:localStorage.getItem("eduvantaBoard")||"CBSE",
-    subject:subject
-  });
-
-  location.href="subject.html?"+query.toString();
-
-}
-
+setBoard(board);
 </script>
 
 </body>
