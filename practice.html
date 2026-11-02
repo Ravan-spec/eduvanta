@@ -4,104 +4,269 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>Practice Mode | EDUVANTA</title>
+<title>EDUVANTA | Practice Arena</title>
 
 <style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:#0b1020;
-  color:#fff;
-  font-family:Arial,sans-serif;
-  padding:16px;
-  line-height:1.6;
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#202c47;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  line-height:1.7;
+  min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
 
 header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:900px;
+  margin:auto;
+  padding:13px 5%;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
 }
-
 .logo{
-  font-size:22px;
-  font-weight:bold;
-  color:#91a4ff;
+  font-size:21px;
+  font-weight:800;
 }
-
+.logo span{color:var(--teal)}
 .back{
-  background:#26334f;
+  background:var(--surface2);
+  border:1px solid var(--border);
   color:white;
   padding:9px 13px;
   border-radius:9px;
-  text-decoration:none;
+  font-size:13px;
 }
-
 main{
-  max-width:750px;
-  margin:30px auto;
+  max-width:800px;
+  margin:auto;
+  padding:25px 5% 65px;
 }
-
-.muted{color:#aab4ca}
-
+.hero{
+  padding:25px 22px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 65%,#123c51);
+}
+.tag{
+  display:inline-block;
+  color:var(--teal);
+  background:#ffffff15;
+  padding:6px 11px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:12px;
+}
+.hero h1{
+  font-size:clamp(25px,5vw,34px);
+  line-height:1.3;
+  margin-bottom:9px;
+}
+.muted{color:var(--muted);font-size:13px}
+.course-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
+}
+.course-tags span{
+  background:#ffffff15;
+  border:1px solid #ffffff20;
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:11px;
+}
 .panel{
-  background:#151e33;
-  border:1px solid #293653;
-  border-radius:16px;
-  padding:20px;
+  margin-top:20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:22px;
 }
-
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+#questionCount{font-size:13px;color:var(--muted)}
+#progressPercent{font-size:13px;color:var(--teal);font-weight:bold}
+.progress{
+  height:8px;
+  background:#293653;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:23px;
+}
+.progress-bar{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,var(--blue),var(--teal));
+  border-radius:20px;
+  transition:width .3s;
+}
+.question-label{
+  font-size:11px;
+  color:var(--teal);
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:9px;
+}
+#question{
+  font-size:21px;
+  line-height:1.5;
+  margin-bottom:20px;
+}
 .option{
   display:block;
   width:100%;
   text-align:left;
-  margin:10px 0;
-  padding:14px;
-  background:#202c47;
+  margin:11px 0;
+  padding:14px 15px;
+  background:var(--surface2);
   color:white;
   border:1px solid #344568;
-  border-radius:10px;
-  font-size:16px;
-  cursor:pointer;
+  border-radius:11px;
+  font-size:15px;
+  line-height:1.6;
+  transition:border-color .2s,background .2s;
 }
-
-.option:disabled{
-  cursor:default;
-  opacity:1;
+.option:not(:disabled):active{
+  border-color:var(--teal);
 }
-
+.option:disabled{cursor:default;opacity:1}
 .option.correct{
   border-color:#39c98a;
   background:#153b34;
 }
-
 .option.wrong{
   border-color:#f07878;
   background:#44272e;
 }
-
-button.next{
-  margin-top:18px;
+#feedback{
+  margin-top:17px;
+  padding:14px;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.8;
+  display:none;
+}
+#feedback.success{
+  display:block;
+  background:#153b34;
+  border:1px solid #287b5b;
+  color:#a9f3ce;
+}
+#feedback.error{
+  display:block;
+  background:#44272e;
+  border:1px solid #87434b;
+  color:#ffc0c0;
+}
+.next{
+  margin-top:20px;
   padding:12px 18px;
   border:0;
   border-radius:10px;
-  background:#647ce8;
+  background:linear-gradient(135deg,#637ee8,#5268c9);
   color:white;
-  font-size:15px;
-  cursor:pointer;
-}
-
-button:disabled{opacity:.4}
-
-#feedback{
-  margin-top:15px;
+  font-size:14px;
   font-weight:bold;
 }
-
-@media(max-width:450px){
-  main{margin:22px auto}
+.next:disabled{opacity:.4;cursor:not-allowed}
+.score-line{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+}
+.result{
+  text-align:center;
+  padding:15px 5px;
+}
+.result-icon{font-size:53px;margin-bottom:10px}
+.result h2{
+  color:var(--teal);
+  font-size:27px;
+  margin-bottom:8px;
+}
+.result-subtitle{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:23px;
+}
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:20px 0;
+}
+.result-card{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 7px;
+}
+.result-card strong{
+  display:block;
+  font-size:24px;
+  color:var(--teal);
+}
+.result-card span{
+  font-size:11px;
+  color:var(--muted);
+}
+.result-message{
+  background:#172747;
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:14px;
+  font-size:13px;
+  margin:18px 0;
+}
+footer{
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:24px 5%;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:500px){
+  main{padding:18px 4% 50px}
+  .hero{padding:21px 17px}
   .panel{padding:15px}
+  #question{font-size:19px}
+  .option{font-size:14px;padding:13px}
+  .result-card strong{font-size:21px}
 }
 </style>
 </head>
@@ -109,65 +274,87 @@ button:disabled{opacity:.4}
 <body>
 
 <header>
-  <div class="logo">EDUVANTA</div>
-  <a class="back" id="backButton" href="#">← Back</a>
+  <div class="header-inner">
+    <a class="logo" href="index.html">EDU<span>VANTA</span></a>
+    <a class="back" id="backButton" href="#">← Learning Modes</a>
+  </div>
 </header>
 
 <main>
 
-  <p class="muted" id="courseInfo"></p>
-
+<section class="hero">
+  <div class="tag">EDUVANTA PRACTICE ARENA</div>
   <h1 id="pageTitle">Practice Mode</h1>
+  <p class="muted">Test your understanding. Learn from mistakes. Improve your accuracy.</p>
 
-  <p class="muted">
-    Answer each question and check your understanding.
-  </p>
+  <div class="course-tags">
+    <span id="boardInfo"></span>
+    <span id="classInfo"></span>
+    <span id="subjectInfo"></span>
+    <span id="chapterInfo"></span>
+  </div>
+</section>
 
-  <section class="panel">
+<section class="panel" id="practicePanel">
 
-    <p class="muted" id="questionCount"></p>
+  <div class="progress-top">
+    <span id="questionCount">Question 1 of 10</span>
+    <span id="progressPercent">0%</span>
+  </div>
 
-    <h2 id="question"></h2>
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
 
-    <div id="options"></div>
+  <div class="question-label" id="questionLabel">QUESTION 01</div>
 
-    <div id="feedback"></div>
+  <h2 id="question"></h2>
 
-    <button class="next" id="nextButton" disabled>
-      Next Question →
-    </button>
+  <div id="options"></div>
 
-  </section>
+  <div id="feedback" role="status" aria-live="polite"></div>
 
-  <p class="muted" id="score"></p>
+  <button class="next" id="nextButton" disabled>
+    Next Question →
+  </button>
+
+  <div class="score-line">
+    <span id="correctCount">Correct: 0</span>
+    <span id="attemptCount">Attempted: 0</span>
+  </div>
+
+</section>
 
 </main>
 
+<footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  Practice makes progress.
+</footer>
+
 <script>
 
-/* GET PAGE DETAILS */
+/* PAGE DETAILS */
 
-const params=new URLSearchParams(location.search);
+const params = new URLSearchParams(location.search);
 
-const selectedClass=params.get("class")||"Class 12";
-const board=params.get("board")||"CBSE";
-const subject=params.get("subject")||"Physics";
-const chapter=params.get("chapter")||"Electric Charges and Fields";
-const number=params.get("number")||"1";
+const selectedClass = params.get("class") || "Class 12";
+const board = params.get("board") || "CBSE";
+const subject = params.get("subject") || "Physics";
+const chapter = params.get("chapter") || "Electric Charges and Fields";
+const number = params.get("number") || "1";
 
+document.getElementById("boardInfo").textContent = board;
+document.getElementById("classInfo").textContent = selectedClass;
+document.getElementById("subjectInfo").textContent = subject;
+document.getElementById("chapterInfo").textContent = "Chapter " + number;
 
-/* COURSE INFORMATION */
+document.getElementById("pageTitle").textContent =
+  chapter + " — Practice";
 
-document.getElementById("courseInfo").textContent=
-board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
+/* BACK NAVIGATION */
 
-document.getElementById("pageTitle").textContent=
-chapter+" — Practice";
-
-
-/* FIXED BACK BUTTON */
-
-const backQuery=new URLSearchParams({
+const backQuery = new URLSearchParams({
   class:selectedClass,
   board:board,
   subject:subject,
@@ -175,13 +362,12 @@ const backQuery=new URLSearchParams({
   number:number
 });
 
-document.getElementById("backButton").href=
-"chapter.html?"+backQuery.toString();
-
+document.getElementById("backButton").href =
+  "chapter.html?" + backQuery.toString();
 
 /* PHYSICS CHAPTER 1 QUESTIONS */
 
-const physicsQuestions=[
+const physicsQuestions = [
 
 {
 q:"What is the SI unit of electric charge?",
@@ -285,74 +471,108 @@ explanation:"Electric flux ka SI unit N m²/C hai."
 
 ];
 
+/* CONTENT AVAILABILITY */
 
-/* CHECK CONTENT AVAILABILITY */
+const isPhysicsChapter1 =
+  subject === "Physics" &&
+  number === "1" &&
+  chapter === "Electric Charges and Fields";
 
-const isPhysicsChapter1=
-subject==="Physics" &&
-number==="1" &&
-chapter==="Electric Charges and Fields";
-
-const questions=isPhysicsChapter1?physicsQuestions:[];
-
+const questions = isPhysicsChapter1 ? physicsQuestions : [];
 
 /* ELEMENTS */
 
-let current=0;
-let totalCorrect=0;
-let answered=false;
-let completed=false;
+let current = 0;
+let totalCorrect = 0;
+let attempted = 0;
+let answered = false;
+let completed = false;
+let userAnswers = [];
 
-const question=document.getElementById("question");
-const options=document.getElementById("options");
-const feedback=document.getElementById("feedback");
-const nextButton=document.getElementById("nextButton");
-const questionCount=document.getElementById("questionCount");
-const score=document.getElementById("score");
+const questionElement = document.getElementById("question");
+const optionsElement = document.getElementById("options");
+const feedbackElement = document.getElementById("feedback");
+const nextButton = document.getElementById("nextButton");
+const questionCount = document.getElementById("questionCount");
+const scoreCorrect = document.getElementById("correctCount");
+const scoreAttempt = document.getElementById("attemptCount");
+const progressBar = document.getElementById("progressBar");
+const progressPercent = document.getElementById("progressPercent");
+const questionLabel = document.getElementById("questionLabel");
+const practicePanel = document.getElementById("practicePanel");
 
+/* UPDATE SCORE */
+
+function updateScore(){
+
+  scoreCorrect.textContent =
+    "Correct: " + totalCorrect;
+
+  scoreAttempt.textContent =
+    "Attempted: " + attempted;
+
+}
+
+/* UPDATE PROGRESS */
+
+function updateProgress(){
+
+  const percentage = Math.round(
+    (current / questions.length) * 100
+  );
+
+  progressBar.style.width = percentage + "%";
+  progressPercent.textContent = percentage + "%";
+
+}
 
 /* SHOW QUESTION */
 
 function showQuestion(){
 
-  answered=false;
-  completed=false;
+  answered = false;
 
-  feedback.textContent="";
-  feedback.style.color="#fff";
+  feedbackElement.className = "";
+  feedbackElement.style.display = "none";
+  feedbackElement.textContent = "";
 
-  nextButton.disabled=true;
-  nextButton.textContent="Next Question →";
+  nextButton.disabled = true;
+  nextButton.textContent = "Next Question →";
 
-  const item=questions[current];
+  const item = questions[current];
 
-  question.textContent=item.q;
+  questionElement.textContent = item.q;
 
-  questionCount.textContent=
-  "Question "+(current+1)+" of "+questions.length;
+  questionLabel.textContent =
+    "QUESTION " + String(current + 1).padStart(2,"0");
 
-  options.innerHTML="";
+  questionCount.textContent =
+    "Question " + (current + 1) + " of " + questions.length;
+
+  optionsElement.innerHTML = "";
 
   item.options.forEach((option,index)=>{
 
-    const button=document.createElement("button");
+    const button = document.createElement("button");
 
-    button.className="option";
+    button.className = "option";
+    button.type = "button";
 
-    button.textContent=
-    String.fromCharCode(65+index)+". "+option;
+    button.textContent =
+      String.fromCharCode(65 + index) + ". " + option;
 
-    button.onclick=()=>checkAnswer(index);
+    button.addEventListener("click",()=>{
+      checkAnswer(index);
+    });
 
-    options.appendChild(button);
+    optionsElement.appendChild(button);
 
   });
 
-  score.textContent=
-  "Correct answers: "+totalCorrect;
+  updateProgress();
+  updateScore();
 
 }
-
 
 /* CHECK ANSWER */
 
@@ -360,106 +580,175 @@ function checkAnswer(selected){
 
   if(answered || completed)return;
 
-  answered=true;
+  answered = true;
+  attempted++;
 
-  const item=questions[current];
-
-  const buttons=options.querySelectorAll("button");
+  const item = questions[current];
+  const buttons = optionsElement.querySelectorAll(".option");
 
   buttons.forEach((button,index)=>{
 
-    button.disabled=true;
+    button.disabled = true;
 
-    if(index===item.answer){
+    if(index === item.answer){
       button.classList.add("correct");
     }
 
-    if(index===selected && selected!==item.answer){
+    if(index === selected && selected !== item.answer){
       button.classList.add("wrong");
     }
 
   });
 
-  if(selected===item.answer){
+  if(selected === item.answer){
 
     totalCorrect++;
 
-    feedback.textContent=
-    "Correct! "+item.explanation;
+    feedbackElement.className = "success";
 
-    feedback.style.color="#55dda5";
+    feedbackElement.textContent =
+      "✓ Correct Answer! " + item.explanation;
 
   }else{
 
-    feedback.textContent=
-    "Incorrect. Correct answer: "+
-    item.options[item.answer]+". "+
-    item.explanation;
+    feedbackElement.className = "error";
 
-    feedback.style.color="#ff9999";
+    feedbackElement.textContent =
+      "✕ Incorrect Answer. Correct answer: " +
+      item.options[item.answer] + ". " +
+      item.explanation;
 
   }
 
-  score.textContent=
-  "Correct answers: "+totalCorrect;
+  userAnswers.push({
+    question:item.q,
+    selected:selected,
+    correct:item.answer,
+    isCorrect:selected === item.answer
+  });
 
-  nextButton.disabled=false;
+  feedbackElement.style.display = "block";
 
-  if(current===questions.length-1){
-    nextButton.textContent="Finish Practice ✓";
-  }
+  nextButton.disabled = false;
+
+  nextButton.textContent =
+    current === questions.length - 1
+    ? "View Result ✓"
+    : "Next Question →";
+
+  updateScore();
 
 }
 
-
-/* COMPLETE PRACTICE */
+/* FINISH PRACTICE */
 
 function finishPractice(){
 
-  completed=true;
+  completed = true;
 
-  question.textContent="Practice Completed!";
+  const total = questions.length;
 
-  questionCount.textContent="All questions completed";
+  const accuracy = total > 0
+    ? Math.round((totalCorrect / total) * 100)
+    : 0;
 
-  options.innerHTML="";
+  const wrong = attempted - totalCorrect;
+  const skipped = total - attempted;
 
-  feedback.textContent=
-  "Your final score: "+totalCorrect+" / "+questions.length;
+  let message = "";
 
-  feedback.style.color="#55dda5";
+  if(accuracy >= 80){
+    message = "You have demonstrated a strong understanding of these questions. Keep practising.";
+  }else if(accuracy >= 50){
+    message = "You have a foundation to build on. Revise incorrect answers and practise again.";
+  }else{
+    message = "Revisit the chapter concepts and formulas before attempting the test again.";
+  }
 
-  score.textContent=
-  "You answered "+totalCorrect+
-  " out of "+questions.length+" questions correctly.";
+  questionLabel.textContent = "YOUR PERFORMANCE";
 
-  nextButton.disabled=false;
-  nextButton.textContent="Restart Practice";
+  questionElement.textContent = "Practice Completed!";
+
+  optionsElement.innerHTML = "";
+
+  feedbackElement.style.display = "none";
+
+  practicePanel.innerHTML = `
+    <div class="result">
+      <div class="result-icon">🏆</div>
+      <h2>Test Completed!</h2>
+      <p class="result-subtitle">
+        Your performance in ${total} practice questions
+      </p>
+
+      <div class="result-grid">
+        <div class="result-card">
+          <strong>${totalCorrect}/${total}</strong>
+          <span>Correct</span>
+        </div>
+
+        <div class="result-card">
+          <strong>${accuracy}%</strong>
+          <span>Accuracy</span>
+        </div>
+
+        <div class="result-card">
+          <strong>${attempted}</strong>
+          <span>Attempted</span>
+        </div>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-card">
+          <strong>${wrong}</strong>
+          <span>Incorrect</span>
+        </div>
+
+        <div class="result-card">
+          <strong>${skipped}</strong>
+          <span>Skipped</span>
+        </div>
+
+        <div class="result-card">
+          <strong>${total}</strong>
+          <span>Total</span>
+        </div>
+      </div>
+
+      <div class="result-message">
+        ${message}
+      </div>
+
+      <button class="next" id="restartButton">
+        ↻ Restart Practice
+      </button>
+    </div>
+  `;
+
+  progressBar.style.width = "100%";
+  progressPercent.textContent = "100%";
+  questionCount.textContent = "All questions completed";
+
+  document.getElementById("restartButton")
+    .addEventListener("click",restartPractice);
+
+  window.scrollTo({top:0,behavior:"smooth"});
 
 }
 
-
-/* NEXT / RESTART */
+/* NEXT QUESTION */
 
 function nextQuestion(){
 
-  if(completed){
+  if(!answered || completed)return;
 
-    current=0;
-    totalCorrect=0;
-
-    showQuestion();
-
-    return;
-  }
-
-  if(!answered)return;
-
-  if(current<questions.length-1){
+  if(current < questions.length - 1){
 
     current++;
 
     showQuestion();
+
+    window.scrollTo({top:0,behavior:"smooth"});
 
   }else{
 
@@ -469,26 +758,76 @@ function nextQuestion(){
 
 }
 
-nextButton.onclick=nextQuestion;
+/* RESTART */
 
+function restartPractice(){
+
+  current = 0;
+  totalCorrect = 0;
+  attempted = 0;
+  answered = false;
+  completed = false;
+  userAnswers = [];
+
+  practicePanel.innerHTML = `
+    <div class="progress-top">
+      <span id="questionCount">Question 1 of ${questions.length}</span>
+      <span id="progressPercent">0%</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="question-label" id="questionLabel">QUESTION 01</div>
+
+    <h2 id="question"></h2>
+
+    <div id="options"></div>
+
+    <div id="feedback" role="status" aria-live="polite"></div>
+
+    <button class="next" id="nextButton" disabled>
+      Next Question →
+    </button>
+
+    <div class="score-line">
+      <span id="correctCount">Correct: 0</span>
+      <span id="attemptCount">Attempted: 0</span>
+    </div>
+  `;
+
+  location.reload();
+
+}
+
+/* NEXT BUTTON */
+
+nextButton.addEventListener("click",nextQuestion);
 
 /* INITIAL LOAD */
 
-if(questions.length===0){
+if(questions.length === 0){
 
-  question.textContent=
-  "Practice questions are being prepared for this chapter.";
+  questionLabel.textContent = "CONTENT NOT AVAILABLE";
 
-  options.innerHTML="";
+  questionElement.textContent =
+    "Practice questions are being prepared for this chapter.";
 
-  questionCount.textContent="Coming soon";
+  optionsElement.innerHTML = "";
 
-  feedback.textContent=
-  "Please check back later for chapter-specific questions.";
+  questionCount.textContent = "Coming Soon";
 
-  nextButton.style.display="none";
+  feedbackElement.style.display = "block";
+  feedbackElement.textContent =
+    "Please check back later for chapter-specific questions.";
 
-  score.textContent="";
+  feedbackElement.className = "success";
+
+  nextButton.style.display = "none";
+
+  scoreCorrect.textContent = "";
+  scoreAttempt.textContent = "";
 
 }else{
 
