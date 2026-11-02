@@ -4,109 +4,248 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>Lesson Mode | EDUVANTA</title>
+<title>EDUVANTA | Lesson Mode</title>
 
 <style>
-*{box-sizing:border-box}
-
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#202c47;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;
-  background:#0b1020;
-  color:#fff;
+  background:var(--bg);
+  color:var(--text);
   font-family:Arial,sans-serif;
   line-height:1.7;
+  min-height:100vh;
 }
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
 
 header{
-  background:#111a2e;
-  padding:13px 17px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:950px;
+  margin:auto;
+  padding:13px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  font-size:21px;
+  font-weight:800;
+}
+.logo span{color:var(--teal)}
+.back{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  padding:9px 13px;
+  border-radius:9px;
+  font-size:13px;
+}
+main{
+  max-width:850px;
+  margin:auto;
+  padding:25px 5% 65px;
+}
+.hero{
+  padding:25px 23px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 65%,#123c51);
+}
+.tag{
+  display:inline-block;
+  color:var(--teal);
+  background:#ffffff15;
+  padding:6px 11px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:12px;
+}
+.hero h1{
+  font-size:clamp(25px,5vw,34px);
+  line-height:1.3;
+  margin-bottom:9px;
+}
+.muted{
+  color:var(--muted);
+  font-size:13px;
+}
+.course-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
+}
+.course-tags span{
+  background:#ffffff15;
+  border:1px solid #ffffff20;
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:11px;
+}
+.panel{
+  margin-top:20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:22px;
+}
+.progress-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid #293653;
+  gap:10px;
+  margin-bottom:10px;
 }
-
-.logo{
-  font-size:21px;
+#lessonCount{
+  font-size:13px;
+  color:var(--muted);
+}
+#progressPercent{
+  font-size:13px;
+  color:var(--teal);
   font-weight:bold;
-  color:#91a4ff;
 }
-
-.back{
-  background:#26334f;
-  color:white;
-  text-decoration:none;
-  padding:8px 13px;
-  border-radius:9px;
-}
-
-main{
-  max-width:800px;
-  margin:28px auto;
-  padding:0 16px 40px;
-}
-
-.muted{color:#aab4ca}
-
-.panel{
-  background:#151e33;
-  border:1px solid #293653;
-  border-radius:16px;
-  padding:20px;
-}
-
 .progress{
   height:8px;
   background:#293653;
   border-radius:20px;
   overflow:hidden;
-  margin:15px 0;
+  margin-bottom:20px;
 }
-
 .progress div{
   height:100%;
   width:0;
-  background:#91a4ff;
-  transition:.2s;
+  background:linear-gradient(90deg,var(--blue),var(--teal));
+  border-radius:20px;
+  transition:width .3s;
 }
-
 .lesson{
-  background:#202c47;
-  border-radius:12px;
-  padding:18px;
-  min-height:210px;
+  background:var(--surface2);
+  border:1px solid #344568;
+  border-radius:13px;
+  padding:23px;
+  min-height:240px;
 }
-
-button{
-  border:0;
-  border-radius:10px;
-  padding:12px 17px;
-  background:#647ce8;
-  color:white;
-  font-size:15px;
-  cursor:pointer;
+.lesson-number{
+  color:var(--teal);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:9px;
 }
-
-button:disabled{
-  opacity:.35;
-  cursor:not-allowed;
+.lesson h2{
+  font-size:23px;
+  line-height:1.4;
+  color:#c7d4ff;
+  margin-bottom:18px;
 }
-
+.lesson-content{
+  font-size:16px;
+  line-height:1.85;
+  overflow-wrap:anywhere;
+}
+.lesson-content p{margin:12px 0}
+.lesson-content ul,.lesson-content ol{
+  padding-left:24px;
+  margin:12px 0;
+}
+.lesson-content li{margin:8px 0}
+.lesson-content b{color:#fff}
+.formula{
+  background:#111b31;
+  border-left:4px solid var(--teal);
+  padding:12px 14px;
+  border-radius:8px;
+  margin:15px 0;
+  font-weight:bold;
+  color:#e5edff;
+}
 .controls{
   display:flex;
   justify-content:space-between;
   gap:12px;
-  margin-top:18px;
+  margin-top:20px;
 }
-
-#lessonCount{
+.btn{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 17px;
+  background:var(--surface2);
+  color:white;
   font-size:14px;
-  color:#aab4ca;
+  font-weight:bold;
 }
-
-@media(max-width:450px){
-  main{margin:20px auto}
+.btn.primary{
+  background:linear-gradient(135deg,#637ee8,#5268c9);
+  border-color:transparent;
+}
+.btn:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+.lesson-tip{
+  margin-top:18px;
+  padding:13px 15px;
+  background:#102c36;
+  border:1px solid #24515a;
+  border-radius:10px;
+  color:#b5e9e3;
+  font-size:12px;
+  line-height:1.7;
+}
+.completion{
+  text-align:center;
+  padding:28px 12px;
+}
+.completion-icon{
+  font-size:48px;
+  margin-bottom:10px;
+}
+.completion h2{
+  color:var(--teal);
+  font-size:25px;
+  margin-bottom:8px;
+}
+.completion p{
+  color:var(--muted);
+  margin:10px 0 20px;
+  font-size:14px;
+}
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 5%;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:500px){
+  main{padding:18px 4% 50px}
+  .hero{padding:21px 17px}
   .panel{padding:15px}
+  .lesson{padding:18px 15px}
+  .lesson h2{font-size:21px}
+  .lesson-content{font-size:15px}
+  .btn{padding:11px 12px;font-size:13px}
 }
 </style>
 </head>
@@ -114,64 +253,86 @@ button:disabled{
 <body>
 
 <header>
-  <div class="logo">EDUVANTA</div>
-  <a class="back" id="backButton" href="#">← Back</a>
+  <div class="header-inner">
+    <a class="logo" href="index.html">EDU<span>VANTA</span></a>
+    <a class="back" id="backButton" href="#">← Learning Modes</a>
+  </div>
 </header>
 
 <main>
 
-  <p class="muted" id="courseInfo"></p>
-
+<section class="hero">
+  <div class="tag">EDUVANTA LEARNING MODE</div>
   <h1 id="chapterTitle">Lesson Mode</h1>
+  <p class="muted">Learn one concept at a time. Understand, revise and move forward.</p>
 
-  <p class="muted">Learn one concept at a time.</p>
+  <div class="course-tags">
+    <span id="boardInfo"></span>
+    <span id="classInfo"></span>
+    <span id="subjectInfo"></span>
+    <span id="chapterInfo"></span>
+  </div>
+</section>
 
-  <section class="panel">
+<section class="panel">
 
-    <div id="lessonCount"></div>
+  <div class="progress-top">
+    <span id="lessonCount">Loading lessons...</span>
+    <span id="progressPercent">0%</span>
+  </div>
 
-    <div class="progress">
-      <div id="progressBar"></div>
-    </div>
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
 
-    <article class="lesson">
-      <h2 id="lessonTitle"></h2>
-      <div id="lessonContent"></div>
-    </article>
+  <article class="lesson" id="lessonCard">
+    <div class="lesson-number" id="lessonNumber"></div>
+    <h2 id="lessonTitle"></h2>
+    <div class="lesson-content" id="lessonContent"></div>
+  </article>
 
-    <div class="controls">
-      <button id="previous">← Previous</button>
-      <button id="next">Next →</button>
-    </div>
+  <div class="lesson-tip" id="lessonTip">
+    💡 Tip: Understand the concept before moving to the next lesson.
+  </div>
 
-  </section>
+  <div class="controls">
+    <button class="btn" id="previous">← Previous</button>
+    <button class="btn primary" id="next">Next →</button>
+  </div>
+
+</section>
 
 </main>
 
+<footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  Study one concept at a time.
+</footer>
+
 <script>
 
-/* GET PAGE DETAILS */
+/* PAGE PARAMETERS */
 
-const params=new URLSearchParams(location.search);
+const params = new URLSearchParams(location.search);
 
-const selectedClass=params.get("class")||"Class 12";
-const board=params.get("board")||"CBSE";
-const subject=params.get("subject")||"Physics";
-const chapter=params.get("chapter")||"Electric Charges and Fields";
-const number=params.get("number")||"1";
+const selectedClass = params.get("class") || "Class 12";
+const board = params.get("board") || "CBSE";
+const subject = params.get("subject") || "Physics";
+const chapter = params.get("chapter") || "Electric Charges and Fields";
+const number = params.get("number") || "1";
 
+/* COURSE INFORMATION */
 
-/* SHOW COURSE DETAILS */
+document.getElementById("boardInfo").textContent = board;
+document.getElementById("classInfo").textContent = selectedClass;
+document.getElementById("subjectInfo").textContent = subject;
+document.getElementById("chapterInfo").textContent = "Chapter " + number;
 
-document.getElementById("courseInfo").textContent=
-board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
+document.getElementById("chapterTitle").textContent = chapter;
 
-document.getElementById("chapterTitle").textContent=chapter;
+/* BACK NAVIGATION */
 
-
-/* FIXED BACK BUTTON */
-
-const backQuery=new URLSearchParams({
+const backQuery = new URLSearchParams({
   class:selectedClass,
   board:board,
   subject:subject,
@@ -179,13 +340,12 @@ const backQuery=new URLSearchParams({
   number:number
 });
 
-document.getElementById("backButton").href=
-"chapter.html?"+backQuery.toString();
+document.getElementById("backButton").href =
+  "chapter.html?" + backQuery.toString();
 
+/* LESSON CONTENT */
 
-/* LESSON CONTENT: PHYSICS CHAPTER 1 */
-
-const lessons=[
+const lessons = [
 
 {
 title:"Introduction to Electric Charge",
@@ -221,7 +381,7 @@ content:`
 
 <p><b>3. Quantisation:</b> Charge exists in integral multiples of elementary charge.</p>
 
-<p><b>Formula:</b> q = ne</p>
+<div class="formula">q = ne</div>
 
 <p>e = 1.6 × 10⁻¹⁹ C</p>
 `
@@ -245,7 +405,7 @@ title:"Coulomb's Law",
 content:`
 <p><b>Statement:</b> The electrostatic force between two stationary point charges is directly proportional to the product of their charges and inversely proportional to the square of their separation.</p>
 
-<p><b>Formula:</b> F = k |q₁q₂| / r²</p>
+<div class="formula">F = k |q₁q₂| / r²</div>
 
 <p>In vacuum, k ≈ 9 × 10⁹ N m²/C².</p>
 `
@@ -256,9 +416,9 @@ title:"Principle of Superposition",
 content:`
 <p>When several charges act on a charge, the net force is the vector sum of the individual forces.</p>
 
-<p><b>Formula:</b> Fnet = F₁ + F₂ + F₃ + ...</p>
+<div class="formula">Fnet = F₁ + F₂ + F₃ + ...</div>
 
-<p>Remember: Force is a vector quantity, so direction must be considered.</p>
+<p><b>Remember:</b> Force is a vector quantity, so direction must be considered.</p>
 `
 },
 
@@ -267,11 +427,13 @@ title:"Electric Field",
 content:`
 <p>Electric field is the region around a charge in which another charge experiences an electric force.</p>
 
-<p><b>Formula:</b> E = F/q₀</p>
+<div class="formula">E = F/q₀</div>
 
 <p>SI unit: N/C or V/m.</p>
 
-<p>For a point charge: E = k|Q|/r².</p>
+<p>For a point charge:</p>
+
+<div class="formula">E = k|Q|/r²</div>
 `
 },
 
@@ -295,7 +457,7 @@ title:"Electric Dipole",
 content:`
 <p>An electric dipole consists of two equal and opposite charges separated by a small distance.</p>
 
-<p><b>Dipole moment:</b> p = q × 2a</p>
+<div class="formula">Dipole moment: p = q × 2a</div>
 
 <p>Direction is from negative charge to positive charge.</p>
 
@@ -308,7 +470,7 @@ title:"Electric Flux",
 content:`
 <p>Electric flux measures the electric field passing through a surface.</p>
 
-<p><b>Formula:</b> Φ = EA cos θ</p>
+<div class="formula">Φ = EA cos θ</div>
 
 <p>SI unit: N m²/C.</p>
 
@@ -321,35 +483,83 @@ title:"Gauss's Law",
 content:`
 <p><b>Statement:</b> Total electric flux through a closed surface equals the enclosed charge divided by ε₀.</p>
 
-<p><b>Formula:</b> Φ = q(enclosed)/ε₀</p>
+<div class="formula">Φ = q(enclosed)/ε₀</div>
 
-<p>Mathematical form: ∮ E · dA = q(enclosed)/ε₀.</p>
+<p>Mathematical form:</p>
+
+<div class="formula">∮ E · dA = q(enclosed)/ε₀</div>
 `
 }
 
 ];
 
+/* CONTENT AVAILABILITY */
 
-/* CHECK CONTENT AVAILABILITY */
-
-const isPhysicsChapter1=
-subject==="Physics" &&
-number==="1" &&
-chapter==="Electric Charges and Fields";
-
+const isPhysicsChapter1 =
+  subject === "Physics" &&
+  number === "1" &&
+  chapter === "Electric Charges and Fields";
 
 /* ELEMENTS */
 
-let current=0;
+let current = 0;
 
-const title=document.getElementById("lessonTitle");
-const content=document.getElementById("lessonContent");
-const count=document.getElementById("lessonCount");
-const bar=document.getElementById("progressBar");
+const title = document.getElementById("lessonTitle");
+const content = document.getElementById("lessonContent");
+const count = document.getElementById("lessonCount");
+const bar = document.getElementById("progressBar");
+const percent = document.getElementById("progressPercent");
+const lessonNumber = document.getElementById("lessonNumber");
+const previous = document.getElementById("previous");
+const next = document.getElementById("next");
+const lessonTip = document.getElementById("lessonTip");
 
-const previous=document.getElementById("previous");
-const next=document.getElementById("next");
+/* SAVE PROGRESS SEPARATELY FOR EACH CHAPTER */
 
+const storageKey = "eduvanta_lesson_" + [
+  board,
+  selectedClass,
+  subject,
+  number,
+  chapter
+].join("_");
+
+function saveProgress(){
+  try{
+    localStorage.setItem(storageKey,String(current));
+  }catch(error){
+    console.warn("Progress could not be saved.");
+  }
+}
+
+function loadProgress(){
+  try{
+    const saved = Number(localStorage.getItem(storageKey));
+
+    if(Number.isInteger(saved) && saved >= 0 && saved < lessons.length){
+      current = saved;
+    }
+  }catch(error){
+    current = 0;
+  }
+}
+
+/* UPDATE PROGRESS */
+
+function updateProgress(){
+
+  const percentage = Math.round(
+    ((current + 1) / lessons.length) * 100
+  );
+
+  count.textContent =
+    "Lesson " + (current + 1) + " of " + lessons.length;
+
+  percent.textContent = percentage + "%";
+
+  bar.style.width = percentage + "%";
+
+}
 
 /* SHOW LESSON */
 
@@ -357,75 +567,169 @@ function showLesson(){
 
   if(!isPhysicsChapter1){
 
-    title.textContent="Lessons Coming Soon";
+    lessonNumber.textContent = "CONTENT NOT AVAILABLE";
 
-    content.innerHTML=`
+    title.textContent = "Lessons Coming Soon";
+
+    content.innerHTML = `
       <p>Detailed lessons for this chapter are being prepared.</p>
-
       <p>Please return to Learning Modes and choose another available option.</p>
     `;
 
-    count.textContent="Content not available yet";
+    count.textContent = "Content not available yet";
+    percent.textContent = "0%";
+    bar.style.width = "0%";
 
-    bar.style.width="0%";
+    previous.disabled = true;
+    next.disabled = true;
 
-    previous.disabled=true;
-    next.disabled=true;
+    lessonTip.style.display = "none";
 
     return;
   }
 
-  next.disabled=false;
+  const lesson = lessons[current];
 
-  const lesson=lessons[current];
+  lessonNumber.textContent =
+    "LESSON " + (current + 1);
 
-  title.textContent=lesson.title;
+  title.textContent = lesson.title;
+  content.innerHTML = lesson.content;
 
-  content.innerHTML=lesson.content;
+  updateProgress();
 
-  count.textContent=
-  "Lesson "+(current+1)+" of "+lessons.length;
+  previous.disabled = current === 0;
 
-  bar.style.width=
-  ((current+1)/lessons.length*100)+"%";
+  next.disabled = false;
 
-  previous.disabled=current===0;
+  next.textContent =
+    current === lessons.length - 1
+    ? "Finish ✓"
+    : "Next →";
 
-  next.textContent=
-  current===lessons.length-1
-  ?"Completed ✓"
-  :"Next →";
+  lessonTip.style.display = "block";
+
+  lessonTip.textContent =
+    current === lessons.length - 1
+    ? "🎯 You have reached the final lesson. Review the concepts before finishing."
+    : "💡 Tip: Understand the concept before moving to the next lesson.";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  saveProgress();
 
 }
 
+/* COMPLETION SCREEN */
 
-/* PREVIOUS BUTTON */
+function showCompletion(){
 
-previous.onclick=()=>{
+  lessonNumber.textContent = "CHAPTER LESSONS COMPLETED";
 
-  if(current>0){
+  title.textContent = "Well Done!";
+
+  content.innerHTML = `
+    <div class="completion">
+      <div class="completion-icon">🎉</div>
+      <h2>Lessons Completed!</h2>
+      <p>You have reached the end of all ${lessons.length} available lessons for this chapter.</p>
+      <p>Revise the concepts and practise questions to strengthen your understanding.</p>
+      <button class="btn primary" onclick="restartLessons()">↻ Restart Lessons</button>
+    </div>
+  `;
+
+  count.textContent = "All " + lessons.length + " lessons completed";
+  percent.textContent = "100%";
+  bar.style.width = "100%";
+
+  previous.disabled = false;
+  next.disabled = true;
+  next.textContent = "Completed ✓";
+
+  lessonTip.style.display = "none";
+
+  try{
+    localStorage.setItem(storageKey,"completed");
+  }catch(error){}
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+/* PREVIOUS */
+
+previous.addEventListener("click",()=>{
+
+  if(!isPhysicsChapter1)return;
+
+  if(current === lessons.length){
+    current = lessons.length - 1;
+    showLesson();
+    return;
+  }
+
+  if(current > 0){
     current--;
     showLesson();
   }
 
-};
+});
 
+/* NEXT */
 
-/* NEXT BUTTON */
+next.addEventListener("click",()=>{
 
-next.onclick=()=>{
+  if(!isPhysicsChapter1)return;
 
-  if(current<lessons.length-1){
+  if(current < lessons.length - 1){
     current++;
     showLesson();
+  }else if(current === lessons.length - 1){
+    current = lessons.length;
+    showCompletion();
   }
 
-};
+});
 
+/* RESTART */
+
+function restartLessons(){
+
+  current = 0;
+
+  try{
+    localStorage.setItem(storageKey,"0");
+  }catch(error){}
+
+  showLesson();
+
+}
 
 /* INITIAL LOAD */
 
-showLesson();
+if(isPhysicsChapter1){
+
+  try{
+    const saved = localStorage.getItem(storageKey);
+
+    if(saved === "completed"){
+      current = lessons.length;
+      showCompletion();
+    }else{
+      loadProgress();
+      showLesson();
+    }
+
+  }catch(error){
+    current = 0;
+    showLesson();
+  }
+
+}else{
+
+  showLesson();
+
+}
 
 </script>
 
