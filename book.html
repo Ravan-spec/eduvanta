@@ -3,69 +3,344 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book Mode | EDUVANTA</title>
+<meta name="theme-color" content="#0b1020">
+<title>EDUVANTA | Study Reader</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:#f4f6ff;font-family:Arial,sans-serif;line-height:1.7}
-header{position:sticky;top:0;background:#111a2e;border-bottom:1px solid #293653;padding:13px 17px;display:flex;justify-content:space-between;align-items:center;z-index:5}
-.logo{font-size:21px;font-weight:bold;color:#91a4ff}
-.back{background:#26334f;color:white;text-decoration:none;padding:8px 13px;border-radius:9px}
-main{max-width:850px;margin:25px auto;padding:0 16px 50px}
-.info{color:#aab4ca;font-size:14px}
-h1{font-size:27px;line-height:1.3}
-h2{color:#aebcff;border-bottom:1px solid #344568;padding-bottom:8px}
-h3{color:#d3dcff;margin-top:28px}
-.content{background:#151e33;border:1px solid #293653;border-radius:16px;padding:22px}
-.content p{margin:10px 0}
-li{margin:7px 0}
-.formula{background:#202c47;padding:12px 15px;border-left:3px solid #91a4ff;border-radius:7px;overflow-wrap:anywhere}
-.notice{background:#332d1d;color:#ffe5a3;padding:13px;border-radius:10px;margin-top:22px}
-@media(max-width:500px){h1{font-size:23px}.content{padding:16px}}
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#1b2943;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
+  --reading-size:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:1050px;
+  margin:auto;
+  padding:13px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+.logo span{color:var(--teal)}
+.back{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  padding:9px 13px;
+  border-radius:9px;
+  font-size:13px;
+}
+.progress-track{
+  height:3px;
+  background:#26334f;
+}
+.progress-bar{
+  height:3px;
+  width:0%;
+  background:var(--teal);
+  transition:width .1s linear;
+}
+main{
+  max-width:900px;
+  margin:auto;
+  padding:25px 5% 75px;
+}
+.hero{
+  padding:27px 24px;
+  border-radius:19px;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 65%,#123c51);
+}
+.tag{
+  display:inline-block;
+  color:var(--teal);
+  background:#ffffff15;
+  padding:7px 11px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:clamp(25px,5vw,36px);
+  line-height:1.3;
+  margin-bottom:10px;
+}
+.hero h1 span{color:var(--teal)}
+.info{
+  color:#d0dced;
+  font-size:13px;
+  line-height:1.8;
+}
+.course-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
+}
+.course-tags span{
+  background:#ffffff15;
+  border:1px solid #ffffff20;
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:11px;
+}
+.reader-toolbar{
+  position:sticky;
+  top:57px;
+  z-index:10;
+  margin-top:18px;
+  padding:12px;
+  background:#131d33f5;
+  border:1px solid var(--border);
+  border-radius:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.toolbar-label{
+  color:var(--muted);
+  font-size:12px;
+}
+.controls{
+  display:flex;
+  gap:8px;
+}
+.control-btn{
+  min-width:38px;
+  padding:8px 11px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--surface2);
+  color:white;
+  font-size:14px;
+}
+.control-btn:active{border-color:var(--teal)}
+.content{
+  margin-top:20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:27px;
+  font-size:var(--reading-size);
+  line-height:1.85;
+  overflow-wrap:anywhere;
+}
+.content h2{
+  color:var(--teal);
+  font-size:1.35em;
+  line-height:1.5;
+  margin:32px 0 15px;
+  padding-bottom:9px;
+  border-bottom:1px solid var(--border);
+}
+.content h2:first-child{margin-top:0}
+.content h3{
+  color:#b8c8ff;
+  font-size:1.08em;
+  line-height:1.5;
+  margin:27px 0 10px;
+}
+.content p{margin:12px 0}
+.content ul,.content ol{
+  padding-left:25px;
+  margin:12px 0;
+}
+.content li{margin:8px 0}
+.content b{color:#fff}
+.formula{
+  background:#202c47;
+  border:1px solid #344568;
+  border-left:4px solid var(--teal);
+  border-radius:9px;
+  padding:13px 15px;
+  margin:15px 0;
+  font-weight:bold;
+  color:#e6edff;
+  line-height:1.7;
+}
+.notice{
+  background:#302819;
+  border:1px solid #705b2c;
+  color:#f5dfaa;
+  padding:15px;
+  border-radius:10px;
+  margin-top:25px;
+  font-size:.9em;
+  line-height:1.8;
+}
+.reader-footer{
+  margin-top:20px;
+  padding:18px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.reader-footer a{
+  color:var(--teal);
+  font-size:13px;
+  font-weight:bold;
+}
+footer{
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:25px 5%;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+@media(max-width:600px){
+  .header-inner{padding:12px 5%}
+  .logo{font-size:19px}
+  main{padding:18px 4% 55px}
+  .hero{padding:23px 18px}
+  .reader-toolbar{top:54px}
+  .content{padding:19px 16px}
+  .reader-footer{align-items:flex-start;flex-direction:column}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<div class="logo">EDUVANTA</div>
-<a class="back" id="backButton" href="#">← Back</a>
+  <div class="header-inner">
+    <a class="logo" href="index.html">EDU<span>VANTA</span></a>
+    <a class="back" id="backButton" href="#">← Learning Modes</a>
+  </div>
+  <div class="progress-track">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
 </header>
 
 <main>
-<p class="info" id="courseInfo"></p>
-<h1 id="pageTitle">Book Mode</h1>
-<p class="info">Read concepts, understand formulas and revise important points.</p>
+
+<section class="hero">
+  <div class="tag">EDUVANTA STUDY READER</div>
+  <h1 id="pageTitle">📖 <span>Book Mode</span></h1>
+  <p class="info">Read concepts, understand formulas and revise important points.</p>
+
+  <div class="course-tags">
+    <span id="boardInfo">CBSE</span>
+    <span id="classInfo">Class 12</span>
+    <span id="subjectInfo">Physics</span>
+    <span id="numberInfo">Chapter 1</span>
+  </div>
+</section>
+
+<div class="reader-toolbar">
+  <span class="toolbar-label">Reading settings</span>
+  <div class="controls">
+    <button class="control-btn" id="decreaseFont" aria-label="Decrease font size">A−</button>
+    <button class="control-btn" id="increaseFont" aria-label="Increase font size">A+</button>
+    <button class="control-btn" id="resetFont" aria-label="Reset font size">↺</button>
+  </div>
+</div>
 
 <article class="content" id="bookContent"></article>
+
+<div class="reader-footer">
+  <span class="info">End of available chapter notes</span>
+  <a id="backBottom" href="#">← Back to Learning Modes</a>
+</div>
+
 </main>
 
+<footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  A learning platform built for students.<br>
+  © 2026 EDUVANTA. All rights reserved.
+</footer>
+
 <script>
-const params=new URLSearchParams(location.search);
-const selectedClass=params.get("class")||"Class 12";
-const board=params.get("board")||"CBSE";
-const subject=params.get("subject")||"Physics";
-const chapter=params.get("chapter")||"Electric Charges and Fields";
-const number=Number(params.get("number")||1);
 
-document.getElementById("courseInfo").textContent=
-board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
+/* URL PARAMETERS */
 
-document.getElementById("pageTitle").textContent="📖 "+chapter;
+const params = new URLSearchParams(location.search);
 
-document.getElementById("backButton").onclick=function(event){
-event.preventDefault();
+const selectedClass = params.get("class") || "Class 12";
+const board = params.get("board") || "CBSE";
+const subject = params.get("subject") || "Physics";
+const chapter = params.get("chapter") || "Electric Charges and Fields";
+const number = Number(params.get("number") || 1);
 
-const query=new URLSearchParams({
-class:selectedClass,
-board:board,
-subject:subject,
-chapter:chapter,
-number:number
-});
+/* COURSE INFORMATION */
 
-location.replace("chapter.html?"+query.toString());
-};
-  
+document.getElementById("pageTitle").innerHTML =
+  "📖 <span>" + escapeHTML(chapter) + "</span>";
+
+document.getElementById("boardInfo").textContent = board;
+document.getElementById("classInfo").textContent = selectedClass;
+document.getElementById("subjectInfo").textContent = subject;
+document.getElementById("numberInfo").textContent = "Chapter " + number;
+
+/* SAFE HTML TEXT */
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,function(char){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[char];
+  });
+}
+
+/* BACK NAVIGATION */
+
+const backURL = "chapter.html?" + new URLSearchParams({
+  class:selectedClass,
+  board:board,
+  subject:subject,
+  chapter:chapter,
+  number:String(number)
+}).toString();
+
+document.getElementById("backButton").href = backURL;
+document.getElementById("backBottom").href = backURL;
+
+/* CHAPTER 1 NOTES */
+
 const chapter1 = `
+
 <h2>Chapter 1: Electric Charges and Fields</h2>
 
 <h3>1. Introduction to Electric Charge</h3>
@@ -83,7 +358,7 @@ const chapter1 = `
 <p><b>(a) Additivity:</b> Total charge is the algebraic sum of individual charges.</p>
 <p><b>(b) Conservation:</b> Electric charge can neither be created nor destroyed; it can only be transferred.</p>
 <p><b>(c) Quantisation:</b> Charge exists in integral multiples of elementary charge.</p>
-<p class="formula"><b>Formula:</b> q = ne</p>
+<div class="formula">q = ne</div>
 <ul>
 <li>q = total charge</li>
 <li>n = integer</li>
@@ -97,7 +372,7 @@ const chapter1 = `
 <h3>5. Coulomb's Law</h3>
 <p><b>Statement:</b> The electrostatic force between two stationary point charges is directly proportional to the product of their charges and inversely proportional to the square of the distance between them.</p>
 <p><b>Formula:</b></p>
-<p class="formula">F = (1 / 4πε₀) × |q₁q₂| / r²</p>
+<div class="formula">F = (1 / 4πε₀) × |q₁q₂| / r²</div>
 <p>Or, F = k |q₁q₂| / r²</p>
 <ul>
 <li>F = Electrostatic force (N)</li>
@@ -108,15 +383,15 @@ const chapter1 = `
 
 <h3>6. Principle of Superposition</h3>
 <p>When several charges act on a charge, the net force is the vector sum of the individual forces.</p>
-<p class="formula">Fnet = F₁ + F₂ + F₃ + ...</p>
+<div class="formula">Fnet = F₁ + F₂ + F₃ + ...</div>
 
 <h3>7. Electric Field</h3>
 <p>Electric field is the region around a charge in which another charge experiences an electric force.</p>
 <p><b>Definition (Exam):</b> Electric field at a point is the force experienced per unit positive test charge placed at that point.</p>
-<p class="formula">E = F/q₀</p>
+<div class="formula">E = F/q₀</div>
 <p>SI Unit: N/C or V/m</p>
 <p>For a point charge:</p>
-<p class="formula">E = (1 / 4πε₀) × |Q| / r²</p>
+<div class="formula">E = (1 / 4πε₀) × |Q| / r²</div>
 
 <h3>8. Electric Field Lines</h3>
 <ul>
@@ -129,7 +404,7 @@ const chapter1 = `
 <h3>9. Electric Dipole</h3>
 <p>An electric dipole consists of two equal and opposite charges separated by a small distance.</p>
 <p><b>Dipole Moment:</b></p>
-<p class="formula">p = q × 2a</p>
+<div class="formula">p = q × 2a</div>
 <ul>
 <li>q = magnitude of either charge</li>
 <li>2a = separation between charges</li>
@@ -139,30 +414,30 @@ const chapter1 = `
 
 <h3>10. Electric Flux</h3>
 <p>Electric flux measures the number of electric field lines passing through a surface.</p>
-<p class="formula">Φ = EA cos θ</p>
+<div class="formula">Φ = EA cos θ</div>
 <p>For a non-uniform field, flux is expressed as the surface integral of the electric field.</p>
 <p>SI Unit: N m²/C</p>
 
 <h3>11. Gauss's Law</h3>
 <p><b>Statement:</b> The total electric flux through any closed surface is equal to 1/ε₀ times the total charge enclosed by that surface.</p>
 <p><b>Formula:</b></p>
-<p class="formula">Φ = q(enclosed) / ε₀</p>
-<p class="formula">∮ E · dA = q(enclosed)/ε₀</p>
+<div class="formula">Φ = q(enclosed) / ε₀</div>
+<div class="formula">∮ E · dA = q(enclosed)/ε₀</div>
 
 <h3>12. Applications of Gauss's Law</h3>
 <p><b>(a) Infinite Straight Charged Wire:</b></p>
-<p class="formula">E = λ / (2πε₀r)</p>
+<div class="formula">E = λ / (2πε₀r)</div>
 <p>λ = Linear charge density</p>
 
 <p><b>(b) Infinite Plane Sheet:</b></p>
-<p class="formula">E = σ / (2ε₀)</p>
+<div class="formula">E = σ / (2ε₀)</div>
 <p>σ = Surface charge density</p>
 
 <p><b>(c) Charged Spherical Shell:</b></p>
 <p>Outside the shell:</p>
-<p class="formula">E = (1 / 4πε₀) × Q/r²</p>
+<div class="formula">E = (1 / 4πε₀) × Q/r²</div>
 <p>Inside the shell:</p>
-<p class="formula">E = 0</p>
+<div class="formula">E = 0</div>
 
 <h3>13. Important Constants</h3>
 <ul>
@@ -201,17 +476,75 @@ const chapter1 = `
 </div>
 `;
 
-const content=document.getElementById("bookContent");
+/* DISPLAY CONTENT */
 
-if(subject==="Physics" && number===1){
-content.innerHTML=chapter1;
+const content = document.getElementById("bookContent");
+
+if(subject === "Physics" &&
+   number === 1 &&
+   chapter === "Electric Charges and Fields"){
+
+  content.innerHTML = chapter1;
+
 }else{
-content.innerHTML=`
-<h2>Chapter ${number}: ${chapter}</h2>
-<p>Detailed notes for this chapter are being prepared.</p>
-<div class="notice">This chapter's complete notes will be added separately.</div>
-`;
+
+  content.innerHTML = `
+    <h2>Chapter ${number}: ${escapeHTML(chapter)}</h2>
+    <p>Detailed notes for this chapter are being prepared.</p>
+    <div class="notice">
+      This chapter's complete notes will be added separately.
+    </div>
+  `;
+
 }
+
+/* FONT SIZE CONTROLS */
+
+let fontSize = 16;
+
+function updateFont(){
+  document.documentElement.style.setProperty(
+    "--reading-size",
+    fontSize + "px"
+  );
+}
+
+document.getElementById("increaseFont").addEventListener("click",()=>{
+  fontSize = Math.min(fontSize + 1,22);
+  updateFont();
+});
+
+document.getElementById("decreaseFont").addEventListener("click",()=>{
+  fontSize = Math.max(fontSize - 1,13);
+  updateFont();
+});
+
+document.getElementById("resetFont").addEventListener("click",()=>{
+  fontSize = 16;
+  updateFont();
+});
+
+/* READING PROGRESS */
+
+function updateProgress(){
+
+  const scrollable =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const progress = scrollable > 0
+    ? (window.scrollY / scrollable) * 100
+    : 100;
+
+  document.getElementById("progressBar").style.width =
+    Math.min(100,Math.max(0,progress)) + "%";
+
+}
+
+window.addEventListener("scroll",updateProgress);
+window.addEventListener("resize",updateProgress);
+updateProgress();
+
 </script>
+
 </body>
 </html>
