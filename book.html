@@ -28,7 +28,6 @@ body{
 }
 a{text-decoration:none;color:inherit}
 button{font:inherit;cursor:pointer}
-
 header{
   position:sticky;
   top:0;
@@ -45,11 +44,7 @@ header{
   align-items:center;
   justify-content:space-between;
 }
-.logo{
-  font-size:21px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
+.logo{font-size:21px;font-weight:800;letter-spacing:.5px}
 .logo span{color:var(--teal)}
 .back{
   background:var(--surface2);
@@ -58,13 +53,9 @@ header{
   border-radius:9px;
   font-size:13px;
 }
-.progress-track{
-  height:3px;
-  background:#26334f;
-}
+.progress-track{height:3px;background:#26334f}
 .progress-bar{
-  height:3px;
-  width:0%;
+  height:3px;width:0%;
   background:var(--teal);
   transition:width .1s linear;
 }
@@ -98,16 +89,9 @@ main{
   margin-bottom:10px;
 }
 .hero h1 span{color:var(--teal)}
-.info{
-  color:#d0dced;
-  font-size:13px;
-  line-height:1.8;
-}
+.info{color:#d0dced;font-size:13px;line-height:1.8}
 .course-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:15px;
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:15px;
 }
 .course-tags span{
   background:#ffffff15;
@@ -130,14 +114,8 @@ main{
   align-items:center;
   gap:10px;
 }
-.toolbar-label{
-  color:var(--muted);
-  font-size:12px;
-}
-.controls{
-  display:flex;
-  gap:8px;
-}
+.toolbar-label{color:var(--muted);font-size:12px}
+.controls{display:flex;gap:8px}
 .control-btn{
   min-width:38px;
   padding:8px 11px;
@@ -147,7 +125,6 @@ main{
   color:white;
   font-size:14px;
 }
-.control-btn:active{border-color:var(--teal)}
 .content{
   margin-top:20px;
   background:var(--surface);
@@ -174,10 +151,7 @@ main{
   margin:27px 0 10px;
 }
 .content p{margin:12px 0}
-.content ul,.content ol{
-  padding-left:25px;
-  margin:12px 0;
-}
+.content ul,.content ol{padding-left:25px;margin:12px 0}
 .content li{margin:8px 0}
 .content b{color:#fff}
 .formula{
@@ -189,7 +163,8 @@ main{
   margin:15px 0;
   font-weight:bold;
   color:#e6edff;
-  line-height:1.7;
+  line-height:1.8;
+  overflow-wrap:anywhere;
 }
 .notice{
   background:#302819;
@@ -212,11 +187,7 @@ main{
   align-items:center;
   gap:12px;
 }
-.reader-footer a{
-  color:var(--teal);
-  font-size:13px;
-  font-weight:bold;
-}
+.reader-footer a{color:var(--teal);font-size:13px;font-weight:bold}
 footer{
   border-top:1px solid var(--border);
   text-align:center;
@@ -255,7 +226,6 @@ footer{
   <div class="tag">EDUVANTA STUDY READER</div>
   <h1 id="pageTitle">📖 <span>Book Mode</span></h1>
   <p class="info">Read concepts, understand formulas and revise important points.</p>
-
   <div class="course-tags">
     <span id="boardInfo">CBSE</span>
     <span id="classInfo">Class 12</span>
@@ -267,9 +237,9 @@ footer{
 <div class="reader-toolbar">
   <span class="toolbar-label">Reading settings</span>
   <div class="controls">
-    <button class="control-btn" id="decreaseFont" aria-label="Decrease font size">A−</button>
-    <button class="control-btn" id="increaseFont" aria-label="Increase font size">A+</button>
-    <button class="control-btn" id="resetFont" aria-label="Reset font size">↺</button>
+    <button class="control-btn" id="decreaseFont">A−</button>
+    <button class="control-btn" id="increaseFont">A+</button>
+    <button class="control-btn" id="resetFont">↺</button>
   </div>
 </div>
 
@@ -302,16 +272,6 @@ const number = Number(params.get("number") || 1);
 
 /* COURSE INFORMATION */
 
-document.getElementById("pageTitle").innerHTML =
-  "📖 <span>" + escapeHTML(chapter) + "</span>";
-
-document.getElementById("boardInfo").textContent = board;
-document.getElementById("classInfo").textContent = selectedClass;
-document.getElementById("subjectInfo").textContent = subject;
-document.getElementById("numberInfo").textContent = "Chapter " + number;
-
-/* SAFE HTML TEXT */
-
 function escapeHTML(value){
   return String(value).replace(/[&<>"']/g,function(char){
     return {
@@ -323,6 +283,14 @@ function escapeHTML(value){
     }[char];
   });
 }
+
+document.getElementById("pageTitle").innerHTML =
+  "📖 <span>" + escapeHTML(chapter) + "</span>";
+
+document.getElementById("boardInfo").textContent = board;
+document.getElementById("classInfo").textContent = selectedClass;
+document.getElementById("subjectInfo").textContent = subject;
+document.getElementById("numberInfo").textContent = "Chapter " + number;
 
 /* BACK NAVIGATION */
 
@@ -337,7 +305,7 @@ const backURL = "chapter.html?" + new URLSearchParams({
 document.getElementById("backButton").href = backURL;
 document.getElementById("backBottom").href = backURL;
 
-/* CHAPTER 1 NOTES */
+/* CHAPTER 1 CONTENT */
 
 const chapter1 = `
 
@@ -371,14 +339,13 @@ const chapter1 = `
 
 <h3>5. Coulomb's Law</h3>
 <p><b>Statement:</b> The electrostatic force between two stationary point charges is directly proportional to the product of their charges and inversely proportional to the square of the distance between them.</p>
-<p><b>Formula:</b></p>
 <div class="formula">F = (1 / 4πε₀) × |q₁q₂| / r²</div>
 <p>Or, F = k |q₁q₂| / r²</p>
 <ul>
 <li>F = Electrostatic force (N)</li>
 <li>q₁, q₂ = Charges (C)</li>
 <li>r = Distance (m)</li>
-<li>k = 9 × 10⁹ N m²/C² (approximately, in vacuum)</li>
+<li>k = 9 × 10⁹ N m²/C² approximately in vacuum</li>
 </ul>
 
 <h3>6. Principle of Superposition</h3>
@@ -413,30 +380,22 @@ const chapter1 = `
 <p>SI Unit: C m</p>
 
 <h3>10. Electric Flux</h3>
-<p>Electric flux measures the number of electric field lines passing through a surface.</p>
+<p>Electric flux measures the electric field passing through a surface.</p>
 <div class="formula">Φ = EA cos θ</div>
-<p>For a non-uniform field, flux is expressed as the surface integral of the electric field.</p>
 <p>SI Unit: N m²/C</p>
 
 <h3>11. Gauss's Law</h3>
 <p><b>Statement:</b> The total electric flux through any closed surface is equal to 1/ε₀ times the total charge enclosed by that surface.</p>
-<p><b>Formula:</b></p>
-<div class="formula">Φ = q(enclosed) / ε₀</div>
 <div class="formula">∮ E · dA = q(enclosed)/ε₀</div>
 
 <h3>12. Applications of Gauss's Law</h3>
-<p><b>(a) Infinite Straight Charged Wire:</b></p>
+<p><b>Infinite Straight Charged Wire:</b></p>
 <div class="formula">E = λ / (2πε₀r)</div>
-<p>λ = Linear charge density</p>
-
-<p><b>(b) Infinite Plane Sheet:</b></p>
+<p><b>Infinite Plane Sheet:</b></p>
 <div class="formula">E = σ / (2ε₀)</div>
-<p>σ = Surface charge density</p>
-
-<p><b>(c) Charged Spherical Shell:</b></p>
-<p>Outside the shell:</p>
+<p><b>Charged Spherical Shell:</b> Outside:</p>
 <div class="formula">E = (1 / 4πε₀) × Q/r²</div>
-<p>Inside the shell:</p>
+<p>Inside an ideal thin spherical shell:</p>
 <div class="formula">E = 0</div>
 
 <h3>13. Important Constants</h3>
@@ -448,13 +407,7 @@ const chapter1 = `
 
 <h3>14. Solved Numerical</h3>
 <p><b>Question:</b> Two charges of 2 μC and 3 μC are separated by 0.3 m in vacuum. Find the electrostatic force.</p>
-<p><b>Given:</b></p>
-<ul>
-<li>q₁ = 2 × 10⁻⁶ C</li>
-<li>q₂ = 3 × 10⁻⁶ C</li>
-<li>r = 0.3 m</li>
-<li>k = 9 × 10⁹ N m²/C²</li>
-</ul>
+<p><b>Given:</b> q₁ = 2 × 10⁻⁶ C, q₂ = 3 × 10⁻⁶ C, r = 0.3 m.</p>
 <p><b>Using Coulomb's Law:</b></p>
 <p>F = k |q₁q₂| / r²</p>
 <p>F = (9 × 10⁹ × 2 × 10⁻⁶ × 3 × 10⁻⁶) / (0.3)²</p>
@@ -463,16 +416,817 @@ const chapter1 = `
 <h3>15. Practice Questions</h3>
 <ol>
 <li>Define electric charge.</li>
-<li>State Coulomb's law and write its mathematical expression.</li>
-<li>Explain the conservation of electric charge.</li>
-<li>Define electric dipole moment and give its SI unit.</li>
+<li>State Coulomb's law.</li>
+<li>Explain conservation of electric charge.</li>
+<li>Define electric dipole moment.</li>
 <li>What is electric flux?</li>
 <li>State Gauss's law.</li>
 <li>Derive the electric field due to an infinitely long straight charged wire using Gauss's law.</li>
 </ol>
 
 <div class="notice">
-<b>Important:</b> These are introductory chapter notes. Full derivations, diagrams, board PYQs and additional numerical practice still need to be added.
+<b>Study note:</b> These are introductory notes. Detailed derivations, diagrams and board PYQs need additional study.
+</div>
+`;
+
+/* CHAPTER 2 CONTENT */
+
+const chapter2 = `
+
+<h2>Chapter 2: Electrostatic Potential and Capacitance</h2>
+
+<h3>Chapter Overview</h3>
+<p>Is chapter mein hum samjhenge ki electric field mein kisi charge ko move karne ke liye work kyun karna padta hai, electric potential kya hota hai aur capacitor electrical energy kaise store karta hai.</p>
+
+<p><b>Chapter ke main topics:</b></p>
+<ul>
+<li>Electrostatic potential and potential difference</li>
+<li>Potential due to a point charge</li>
+<li>Potential due to an electric dipole</li>
+<li>Potential due to a system of charges</li>
+<li>Equipotential surfaces</li>
+<li>Potential energy of electric charges</li>
+<li>Conductors and electrostatic shielding</li>
+<li>Capacitance and capacitors</li>
+<li>Parallel plate capacitor</li>
+<li>Combination of capacitors</li>
+<li>Energy stored in a capacitor</li>
+<li>Dielectric and polarisation</li>
+</ul>
+
+<h2>1. Work Done in Moving a Charge</h2>
+
+<p>Jab hum kisi electric field mein ek charge ko ek point se doosre point tak move karte hain, toh electric force ke against ya along work ho sakta hai.</p>
+
+<p>Electrostatic field mein kisi charge ko slowly move karne ke liye external agent ko work karna pad sakta hai.</p>
+
+<p><b>Important idea:</b> Electrostatic force conservative force hota hai. Isliye closed path mein electrostatic force ka total work zero hota hai.</p>
+
+<div class="formula">
+W(closed path) = 0
+</div>
+
+<h3>Conservative Force</h3>
+<p>A conservative force is a force for which work done depends only on the initial and final positions, not on the path followed.</p>
+
+<p>Examples: Electrostatic force and gravitational force.</p>
+
+<h2>2. Electric Potential</h2>
+
+<p><b>Definition:</b> Electric potential at a point is the work done per unit positive test charge by an external agent in bringing the charge from infinity to that point slowly, without changing its kinetic energy.</p>
+
+<div class="formula">
+V = W(ext) / q₀
+</div>
+
+<p>Where:</p>
+<ul>
+<li>V = Electric potential</li>
+<li>W(ext) = External work done</li>
+<li>q₀ = Positive test charge</li>
+</ul>
+
+<p><b>SI Unit:</b> Volt (V)</p>
+
+<div class="formula">
+1 Volt = 1 Joule / 1 Coulomb
+</div>
+
+<p>Potential is a scalar quantity. Iski koi direction nahi hoti, sirf magnitude aur sign hota hai.</p>
+
+<h3>Electric Potential Difference</h3>
+
+<p>Do points A aur B ke beech potential difference, unit positive charge ko A se B tak slowly move karne mein external work per unit charge ke barabar hota hai.</p>
+
+<div class="formula">
+V(B) − V(A) = W(ext, A→B) / q₀
+</div>
+
+<p>Electrostatic force ka work:</p>
+
+<div class="formula">
+W(electric) = q₀ [V(A) − V(B)]
+</div>
+
+<p><b>Remember:</b> Potential difference ek point se doosre point tak change in potential batata hai.</p>
+
+<h2>3. Potential Due to a Point Charge</h2>
+
+<p>Suppose ek point charge Q hai aur hum usse distance r par electric potential calculate karna chahte hain.</p>
+
+<p>Point charge ke karan electric field:</p>
+
+<div class="formula">
+E = (1 / 4πε₀) × Q/r²
+</div>
+
+<p>Infinity par potential zero choose karte hain.</p>
+
+<p>Potential at distance r:</p>
+
+<div class="formula">
+V = (1 / 4πε₀) × Q/r
+</div>
+
+<p>Or:</p>
+
+<div class="formula">
+V = kQ/r
+</div>
+
+<p>Where k = 1/(4πε₀).</p>
+
+<h3>Sign of Potential</h3>
+
+<ul>
+<li>Positive charge ke karan potential positive hota hai.</li>
+<li>Negative charge ke karan potential negative hota hai.</li>
+<li>Potential distance badhne par magnitude mein decrease hota hai.</li>
+</ul>
+
+<p><b>Important:</b> Formula mein Q ka algebraic sign use karna hai. Sirf magnitude nahi.</p>
+
+<h2>4. Potential Due to a System of Charges</h2>
+
+<p>Agar kisi point par multiple point charges present hain, toh total electric potential individual potentials ka algebraic sum hota hai.</p>
+
+<div class="formula">
+V = V₁ + V₂ + V₃ + ...
+</div>
+
+<p>For point charges:</p>
+
+<div class="formula">
+V = k [q₁/r₁ + q₂/r₂ + q₃/r₃ + ...]
+</div>
+
+<p>Yahan r₁, r₂, r₃ observation point se respective charges ki distances hain.</p>
+
+<p><b>Important:</b> Electric potential scalar quantity hai, isliye vector addition ki zaroorat nahi hoti.</p>
+
+<h3>Numerical Example</h3>
+
+<p><b>Question:</b> Two charges +2 μC and −1 μC are placed at distances 0.2 m and 0.1 m respectively from a point P. Find the potential at P.</p>
+
+<p><b>Given:</b></p>
+<ul>
+<li>q₁ = +2 × 10⁻⁶ C</li>
+<li>q₂ = −1 × 10⁻⁶ C</li>
+<li>r₁ = 0.2 m</li>
+<li>r₂ = 0.1 m</li>
+<li>k = 9 × 10⁹ N m²/C²</li>
+</ul>
+
+<p><b>Formula:</b></p>
+<div class="formula">
+V = k(q₁/r₁ + q₂/r₂)
+</div>
+
+<p>Substitute values:</p>
+<div class="formula">
+V = 9 × 10⁹ [(2 × 10⁻⁶/0.2) − (1 × 10⁻⁶/0.1)]
+</div>
+
+<p>V = 9 × 10⁹ [10 × 10⁻⁶ − 10 × 10⁻⁶]</p>
+
+<p><b>Answer: V = 0 V</b></p>
+
+<p>Notice: Potential zero hone ka matlab ye nahi ki electric field bhi zero hoga.</p>
+
+<h2>5. Potential Due to an Electric Dipole</h2>
+
+<p>Electric dipole consists of two equal and opposite charges separated by a small distance.</p>
+
+<p>Dipole moment:</p>
+
+<div class="formula">
+p = q × 2a
+</div>
+
+<p>Where 2a is the separation between the charges.</p>
+
+<h3>General Formula</h3>
+
+<p>Dipole ke centre se distance r par kisi point ka angle θ dipole axis ke saath ho, toh dipole potential ka expression (far-field approximation, r much greater than a) hota hai:</p>
+
+<div class="formula">
+V = (1 / 4πε₀) × (p cos θ / r²)
+</div>
+
+<p>Or:</p>
+
+<div class="formula">
+V = kp cos θ / r²
+</div>
+
+<h3>Special Cases</h3>
+
+<p><b>(A) Axial Position:</b> Dipole axis par far away point ke liye θ = 0°.</p>
+
+<div class="formula">
+V(axial) = kp/r²
+</div>
+
+<p><b>(B) Equatorial Position:</b> Equatorial line par θ = 90°.</p>
+
+<div class="formula">
+V(equatorial) = 0
+</div>
+
+<p><b>Note:</b> Equatorial line par potential zero hota hai, lekin electric field generally zero nahi hota.</p>
+
+<h2>6. Potential Energy of a System of Charges</h2>
+
+<p>Do point charges ko infinity se unki final positions tak laane mein external work karna padta hai. Ye work system ki electrostatic potential energy ke roop mein store hota hai.</p>
+
+<p>Two point charges q₁ and q₂ separated by distance r:</p>
+
+<div class="formula">
+U = (1 / 4πε₀) × (q₁q₂/r)
+</div>
+
+<p>Or:</p>
+
+<div class="formula">
+U = kq₁q₂/r
+</div>
+
+<h3>Sign of Potential Energy</h3>
+
+<ul>
+<li>Like charges: U positive hoti hai.</li>
+<li>Unlike charges: U negative hoti hai.</li>
+</ul>
+
+<p>Three charges ke system ke liye:</p>
+
+<div class="formula">
+U = k(q₁q₂/r₁₂ + q₂q₃/r₂₃ + q₃q₁/r₃₁)
+</div>
+
+<p>Yahan r₁₂, r₂₃ aur r₃₁ respective charge pairs ke beech distances hain.</p>
+
+<h2>7. Potential Energy of a Dipole in Uniform Electric Field</h2>
+
+<p>Jab electric dipole ko uniform electric field mein rakha jata hai, toh us par torque act karta hai.</p>
+
+<p>Dipole ki potential energy:</p>
+
+<div class="formula">
+U = −pE cos θ
+</div>
+
+<p>Where:</p>
+<ul>
+<li>p = Dipole moment</li>
+<li>E = Electric field</li>
+<li>θ = Dipole moment aur electric field ke beech angle</li>
+</ul>
+
+<h3>Special Positions</h3>
+
+<p><b>Stable Equilibrium:</b> θ = 0°</p>
+<div class="formula">
+U = −pE
+</div>
+
+<p><b>Unstable Equilibrium:</b> θ = 180°</p>
+<div class="formula">
+U = +pE
+</div>
+
+<h2>8. Equipotential Surfaces</h2>
+
+<p><b>Definition:</b> An equipotential surface is a surface on which electric potential is the same at every point.</p>
+
+<h3>Properties</h3>
+
+<ol>
+<li>Equipotential surface par kisi charge ko move karne mein electrostatic work zero hota hai.</li>
+<li>Electric field equipotential surface ke perpendicular hota hai.</li>
+<li>Do equipotential surfaces kabhi intersect nahi karti.</li>
+<li>Jahan equipotential surfaces close hoti hain, wahan electric field stronger hota hai.</li>
+</ol>
+
+<div class="formula">
+W = q ΔV
+</div>
+
+<p>Equipotential surface par ΔV = 0, isliye W = 0.</p>
+
+<h3>Examples</h3>
+
+<ul>
+<li>Point charge ke liye equipotential surfaces concentric spheres hoti hain.</li>
+<li>Uniform electric field mein equipotential surfaces field ke perpendicular parallel planes hoti hain.</li>
+</ul>
+
+<h2>9. Relation Between Electric Field and Potential</h2>
+<p>Electric field potential ke decrease hone ki direction mein hota hai.</p>
+
+<p>One-dimensional form:</p>
+
+<div class="formula">
+E = −dV/dr
+</div>
+
+<p>General vector form:</p>
+
+<div class="formula">
+E = −∇V
+</div>
+
+<p>Uniform electric field mein displacement d ke along:</p>
+
+<div class="formula">
+ΔV = −Ed
+</div>
+
+<p>Yahan d electric field ki direction mein displacement hai.</p>
+
+<p><b>Important:</b> Negative sign batata hai ki electric field ki direction mein potential decrease hota hai.</p>
+
+<h2>10. Electrostatic Potential of a Conductor</h2>
+
+<p>Electrostatic equilibrium mein conductor ke andar electric field zero hota hai.</p>
+
+<div class="formula">
+E(inside conductor) = 0
+</div>
+
+<p>Iska matlab conductor ke andar potential constant hota hai.</p>
+
+<h3>Important Properties of Conductors</h3>
+
+<ul>
+<li>Conductor ke interior mein electric field zero hota hai.</li>
+<li>Excess charge conductor ki outer surface par reside karta hai.</li>
+<li>Conductor ki surface equipotential hoti hai.</li>
+<li>Electric field conductor ki surface par perpendicular hota hai.</li>
+<li>Electrostatic equilibrium mein conductor ke andar potential constant hota hai.</li>
+</ul>
+
+<h3>Electrostatic Shielding</h3>
+
+<p>Electrostatic shielding is the phenomenon in which the electric field inside a closed conducting shell is zero under electrostatic equilibrium conditions, even when external electric fields are present.</p>
+
+<p>Example: Properly enclosed conducting metal body can protect its interior from external electrostatic fields.</p>
+
+<h2>11. Capacitance</h2>
+
+<p><b>Definition:</b> Capacitance is the ability of a conductor or capacitor to store electric charge per unit potential difference.</p>
+
+<div class="formula">
+C = Q/V
+</div>
+
+<p>Where:</p>
+<ul>
+<li>C = Capacitance</li>
+<li>Q = Charge magnitude</li>
+<li>V = Potential difference</li>
+</ul>
+
+<p><b>SI Unit:</b> Farad (F)</p>
+
+<div class="formula">
+1 F = 1 C/V
+</div>
+
+<p>Capacitance depends on conductor geometry and the surrounding medium. For an ideal capacitor, it does not depend on Q or V individually.</p>
+
+<h3>Smaller Units</h3>
+<ul>
+<li>1 μF = 10⁻⁶ F</li>
+<li>1 nF = 10⁻⁹ F</li>
+<li>1 pF = 10⁻¹² F</li>
+</ul>
+
+<h2>12. Parallel Plate Capacitor</h2>
+
+<p>A parallel plate capacitor consists of two large conducting plates separated by a small distance. The plates carry equal and opposite charges.</p>
+
+<p>Let:</p>
+<ul>
+<li>A = Area of each plate</li>
+<li>d = Separation between plates</li>
+<li>Q = Charge magnitude on each plate</li>
+<li>σ = Surface charge density</li>
+</ul>
+
+<p>Surface charge density:</p>
+
+<div class="formula">
+σ = Q/A
+</div>
+
+<p>Electric field between the plates (neglecting edge effects):</p>
+
+<div class="formula">
+E = σ/ε₀
+</div>
+
+<p>Potential difference:</p>
+
+<div class="formula">
+V = Ed = σd/ε₀
+</div>
+
+<p>Using C = Q/V:</p>
+
+<div class="formula">
+C = ε₀A/d
+</div>
+
+<p><b>Final Formula:</b></p>
+
+<div class="formula">
+C = ε₀A/d
+</div>
+
+<h3>Factors Affecting Capacitance</h3>
+
+<ul>
+<li>Area A increase karne par capacitance increase hoti hai.</li>
+<li>Separation d increase karne par capacitance decrease hoti hai.</li>
+<li>Dielectric medium insert karne par capacitance increase ho sakti hai.</li>
+</ul>
+
+<h2>13. Dielectric and Dielectric Constant</h2>
+
+<p><b>Dielectric:</b> A dielectric is an insulating material that can be polarised in an electric field.</p>
+
+<p>Examples: Air, glass, mica and plastic.</p>
+
+<p>Dielectric constant K is the ratio of the permittivity of the medium to the permittivity of free space.</p>
+
+<div class="formula">
+K = ε/ε₀
+</div>
+
+<p>For a completely filled parallel plate capacitor:</p>
+
+<div class="formula">
+C = Kε₀A/d
+</div>
+
+<p>Therefore:</p>
+
+<div class="formula">
+C = KC₀
+</div>
+
+<p>Where C₀ is the capacitance without the dielectric.</p>
+
+<h3>Polarisation</h3>
+
+<p>When a dielectric is placed in an external electric field, its molecules or atoms develop induced dipole moments or their existing dipoles align partially. This phenomenon is called polarisation.</p>
+
+<p>Polarisation reduces the effective electric field inside the dielectric compared with the field that would exist without it, under the usual linear dielectric model.</p>
+
+<h2>14. Combination of Capacitors</h2>
+
+<h3>(A) Capacitors in Parallel</h3>
+
+<p>Parallel combination mein all capacitors ke across potential difference same hota hai.</p>
+
+<div class="formula">
+V = V₁ = V₂ = V₃
+</div>
+
+<p>Total charge:</p>
+
+<div class="formula">
+Q = Q₁ + Q₂ + Q₃
+</div>
+
+<p>Equivalent capacitance:</p>
+
+<div class="formula">
+Cₚ = C₁ + C₂ + C₃
+</div>
+
+<p><b>Remember:</b> Parallel combination mein capacitances directly add hoti hain.</p>
+
+<h3>(B) Capacitors in Series</h3>
+
+<p>Series combination mein har capacitor par charge magnitude same hota hai.</p>
+
+<div class="formula">
+Q = Q₁ = Q₂ = Q₃
+</div>
+
+<p>Total potential difference:</p>
+
+<div class="formula">
+V = V₁ + V₂ + V₃
+</div>
+
+<p>Equivalent capacitance:</p>
+
+<div class="formula">
+1/Cₛ = 1/C₁ + 1/C₂ + 1/C₃
+</div>
+
+<p>For two capacitors:</p>
+
+<div class="formula">
+Cₛ = C₁C₂/(C₁ + C₂)
+</div>
+
+<p><b>Remember:</b> Series combination mein reciprocal values add hoti hain.</p>
+
+<h2>15. Energy Stored in a Capacitor</h2>
+
+<p>Capacitor ko charge karte waqt work done hota hai. Ye work capacitor mein electrostatic potential energy ke roop mein store hota hai.</p>
+
+<p>Energy stored:</p>
+
+<div class="formula">
+U = ½ QV
+</div>
+
+<p>Using Q = CV:</p>
+
+<div class="formula">
+U = ½ CV²
+</div>
+
+<p>Using V = Q/C:</p>
+
+<div class="formula">
+U = Q²/(2C)
+</div>
+
+<h3>All Three Important Forms</h3>
+
+<div class="formula">
+U = ½ QV = ½ CV² = Q²/(2C)
+</div>
+
+<p>SI Unit: Joule (J)</p>
+
+<h3>Energy Density</h3>
+
+<p>Energy stored per unit volume of electric field is called energy density.</p>
+
+<div class="formula">
+u = ½ ε₀E²
+</div>
+
+<p>For a linear dielectric medium:</p>
+
+<div class="formula">
+u = ½ εE²
+</div>
+
+<h2>16. Effect of Dielectric on a Capacitor</h2>
+
+<p>Dielectric insert karne par capacitor ki capacitance increase hoti hai.</p>
+
+<h3>Case 1: Battery Connected</h3>
+
+<p>Battery connected rehne par potential difference constant rehta hai.</p>
+
+<ul>
+<li>Capacitance: C' = KC</li>
+<li>Potential difference: V' = V</li>
+<li>Charge: Q' = KQ</li>
+<li>Energy: U' = KU</li>
+</ul>
+
+<h3>Case 2: Battery Disconnected</h3>
+
+<p>Battery disconnect hone par capacitor ka charge constant rehta hai.</p>
+
+<ul>
+<li>Capacitance: C' = KC</li>
+<li>Charge: Q' = Q</li>
+<li>Potential difference: V' = V/K</li>
+<li>Energy: U' = U/K</li>
+</ul>
+
+<div class="notice">
+<b>Exam alert:</b> Dielectric ke questions mein pehle identify karo ki battery connected hai ya disconnected. Dono cases ke results different hote hain.
+</div>
+
+<h2>17. Solved Numerical 1: Potential Due to a Point Charge</h2>
+
+<p><b>Question:</b> A point charge of +2 μC is placed in air. Find the electric potential at a distance of 0.3 m.</p>
+
+<p><b>Given:</b></p>
+<ul>
+<li>Q = 2 × 10⁻⁶ C</li>
+<li>r = 0.3 m</li>
+<li>k = 9 × 10⁹ N m²/C²</li>
+</ul>
+
+<p><b>Formula:</b></p>
+<div class="formula">
+V = kQ/r
+</div>
+
+<p>Substitute:</p>
+<div class="formula">
+V = (9 × 10⁹ × 2 × 10⁻⁶)/0.3
+</div>
+
+<p>V = 18 × 10³ / 0.3</p>
+
+<p><b>Answer:</b></p>
+<div class="formula">
+V = 60,000 V
+</div>
+
+<h2>18. Solved Numerical 2: Capacitance</h2>
+
+<p><b>Question:</b> A capacitor stores 20 μC charge at a potential difference of 10 V. Find its capacitance.</p>
+
+<p><b>Given:</b></p>
+<ul>
+<li>Q = 20 × 10⁻⁶ C</li>
+<li>V = 10 V</li>
+</ul>
+
+<p><b>Formula:</b></p>
+<div class="formula">
+C = Q/V
+</div>
+
+<p>Substitute:</p>
+<div class="formula">
+C = (20 × 10⁻⁶)/10
+</div>
+
+<p><b>Answer:</b></p>
+<div class="formula">
+C = 2 × 10⁻⁶ F = 2 μF
+</div>
+
+<h2>19. Solved Numerical 3: Parallel Plate Capacitor</h2>
+
+<p><b>Question:</b> A parallel plate capacitor has plate area 0.02 m² and separation 1 mm. Calculate its capacitance in air.</p>
+
+<p><b>Given:</b></p>
+<ul>
+<li>A = 0.02 m²</li>
+<li>d = 1 × 10⁻³ m</li>
+<li>ε₀ = 8.85 × 10⁻¹² F/m</li>
+</ul>
+
+<p><b>Formula:</b></p>
+<div class="formula">
+C = ε₀A/d
+</div>
+
+<p>Substitute:</p>
+<div class="formula">
+C = (8.85 × 10⁻¹² × 0.02)/(10⁻³)
+</div>
+
+<p><b>Answer:</b></p>
+<div class="formula">
+C = 1.77 × 10⁻¹⁰ F
+</div>
+
+<h2>20. Solved Numerical 4: Series Combination</h2>
+
+<p><b>Question:</b> Two capacitors of 3 μF and 6 μF are connected in series. Find equivalent capacitance.</p>
+
+<p><b>Formula:</b></p>
+<div class="formula">
+Cₛ = C₁C₂/(C₁ + C₂)
+</div>
+
+<p>Substitute:</p>
+<div class="formula">
+Cₛ = (3 × 6)/(3 + 6)
+</div>
+
+<p><b>Answer:</b></p>
+<div class="formula">
+Cₛ = 18/9 = 2 μF
+</div>
+
+<h2>21. Solved Numerical 5: Energy Stored</h2>
+
+<p><b>Question:</b> A 4 μF capacitor is connected to a 100 V battery. Find the energy stored.</p>
+
+<p><b>Given:</b></p>
+<ul>
+<li>C = 4 × 10⁻⁶ F</li>
+<li>V = 100 V</li>
+</ul>
+
+<p><b>Formula:</b></p>
+<div class="formula">
+U = ½ CV²
+</div>
+
+<p>Substitute:</p>
+<div class="formula">
+U = ½ × 4 × 10⁻⁶ × 100²
+</div>
+
+<p><b>Answer:</b></p>
+<div class="formula">
+U = 0.02 J
+</div>
+
+<h2>22. Important Formula Revision Sheet</h2>
+
+<div class="formula">1. Potential: V = W/q</div>
+<div class="formula">2. Potential difference: ΔV = W(ext)/q</div>
+<div class="formula">3. Point charge: V = kQ/r</div>
+<div class="formula">4. System of charges: V = k Σ(qᵢ/rᵢ)</div>
+<div class="formula">5. Dipole potential (far field): V = kp cos θ/r²</div>
+<div class="formula">6. Potential energy of two charges: U = kq₁q₂/r</div>
+<div class="formula">7. Dipole potential energy: U = −pE cos θ</div>
+<div class="formula">8. Electric field: E = −dV/dr</div>
+<div class="formula">9. Capacitance: C = Q/V</div>
+<div class="formula">10. Parallel plate capacitor: C = ε₀A/d</div>
+<div class="formula">11. With dielectric: C = Kε₀A/d</div>
+<div class="formula">12. Parallel capacitors: Cₚ = C₁ + C₂ + ...</div>
+<div class="formula">13. Series capacitors: 1/Cₛ = 1/C₁ + 1/C₂ + ...</div>
+<div class="formula">14. Energy: U = ½ QV</div>
+<div class="formula">15. Energy: U = ½ CV²</div>
+<div class="formula">16. Energy: U = Q²/(2C)</div>
+<div class="formula">17. Energy density: u = ½ ε₀E²</div>
+
+<h2>23. Important SI Units</h2>
+
+<ul>
+<li>Electric potential: Volt (V)</li>
+<li>Potential difference: Volt (V)</li>
+<li>Potential energy: Joule (J)</li>
+<li>Capacitance: Farad (F)</li>
+<li>Charge: Coulomb (C)</li>
+<li>Electric field: N/C or V/m</li>
+<li>Energy density: J/m³</li>
+</ul>
+
+<h2>24. Common Mistakes to Avoid</h2>
+
+<ol>
+<li><b>Charge conversion:</b> μC ko C mein convert karna mat bhoolna. 1 μC = 10⁻⁶ C.</li>
+<li><b>Distance:</b> mm ko metre mein convert karo. 1 mm = 10⁻³ m.</li>
+<li><b>Potential:</b> Potential scalar hota hai; algebraic addition use karo.</li>
+<li><b>Potential energy:</b> Charges ke signs ko formula mein include karo.</li>
+<li><b>Series:</b> Series capacitors mein equivalent capacitance smallest individual capacitance se bhi kam hoti hai.</li>
+<li><b>Parallel:</b> Parallel capacitors mein equivalent capacitance sabhi individual capacitances ke sum ke barabar hoti hai.</li>
+<li><b>Dielectric:</b> Battery connected aur disconnected cases ko confuse mat karo.</li>
+<li><b>Units:</b> Final numerical answer ke saath SI unit zaroor likho.</li>
+</ol>
+
+<h2>25. Chapter Practice Questions</h2>
+
+<h3>Short Answer Questions</h3>
+<ol>
+<li>Define electric potential. Write its SI unit.</li>
+<li>What is potential difference?</li>
+<li>Why is electric potential a scalar quantity?</li>
+<li>Define equipotential surface.</li>
+<li>Why is no work done in moving a charge along an equipotential surface?</li>
+<li>Define capacitance and write its SI unit.</li>
+<li>What is dielectric polarisation?</li>
+</ol>
+
+<h3>Long Answer Questions</h3>
+<ol>
+<li>Derive the expression for electric potential due to a point charge.</li>
+<li>Obtain the expression for potential due to an electric dipole at a far-field point.</li>
+<li>Derive the relation between electric field and electric potential.</li>
+<li>Derive the capacitance of a parallel plate capacitor.</li>
+<li>Derive the expression for energy stored in a capacitor.</li>
+<li>Derive equivalent capacitance for capacitors connected in series and parallel.</li>
+</ol>
+
+<h3>Numerical Practice</h3>
+<ol>
+<li>A charge of +4 μC is placed in air. Calculate the potential at 0.2 m from it.</li>
+<li>A capacitor stores 50 μC charge at 25 V. Find its capacitance.</li>
+<li>Two capacitors of 4 μF and 8 μF are connected in parallel. Find equivalent capacitance.</li>
+<li>Two capacitors of 4 μF and 8 μF are connected in series. Find equivalent capacitance.</li>
+<li>Calculate energy stored in a 5 μF capacitor connected to a 20 V battery.</li>
+</ol>
+
+<div class="notice">
+<b>Chapter completion checklist:</b><br>
+□ Electric potential and potential difference<br>
+□ Potential due to point charge and dipole<br>
+□ Potential energy<br>
+□ Equipotential surfaces<br>
+□ Electric field and potential relation<br>
+□ Conductors and electrostatic shielding<br>
+□ Capacitance and parallel plate capacitor<br>
+□ Dielectric and polarisation<br>
+□ Series and parallel combinations<br>
+□ Energy stored in a capacitor<br><br>
+Read the explanations, practise derivations in your notebook and solve numerical questions independently.
+</div>
+
+<div class="notice">
+<b>Content note:</b> These are structured learning notes, not a substitute for the prescribed NCERT textbook. Check derivations, diagrams and current board syllabus against your official textbook. Board PYQs and a complete diagram collection will be added separately.
 </div>
 `;
 
@@ -486,13 +1240,19 @@ if(subject === "Physics" &&
 
   content.innerHTML = chapter1;
 
+}else if(subject === "Physics" &&
+         number === 2 &&
+         chapter === "Electrostatic Potential and Capacitance"){
+
+  content.innerHTML = chapter2;
+
 }else{
 
   content.innerHTML = `
     <h2>Chapter ${number}: ${escapeHTML(chapter)}</h2>
     <p>Detailed notes for this chapter are being prepared.</p>
     <div class="notice">
-      This chapter's complete notes will be added separately.
+      This chapter's complete notes are not available yet.
     </div>
   `;
 
@@ -548,3 +1308,4 @@ updateProgress();
 
 </body>
 </html>
+
