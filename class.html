@@ -1,76 +1,206 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
 <title>Class Dashboard | EDUVANTA</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff;padding:20px}
-header{display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:22px;font-weight:bold;color:#8b9cff}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b1020;
+  color:#fff;
+  padding:20px;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#8b9cff;
+}
 button,a{cursor:pointer}
-.back{background:#202a43;color:white;border:0;padding:10px 15px;border-radius:10px;text-decoration:none}
-.container{max-width:850px;margin:35px auto}
+.back{
+  background:#202a43;
+  color:white;
+  border:0;
+  padding:10px 15px;
+  border-radius:10px;
+  text-decoration:none;
+}
+.container{
+  max-width:850px;
+  margin:35px auto;
+}
 h1{font-size:30px;margin-bottom:8px}
 .muted{color:#aab4ca}
-.panel{background:#151e33;border:1px solid #293653;padding:20px;border-radius:18px;margin:20px 0}
-.boards,.subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.card{background:#202c47;border:1px solid #344568;color:white;padding:20px;border-radius:14px;text-align:left;font-size:17px}
+.panel{
+  background:#151e33;
+  border:1px solid #293653;
+  padding:20px;
+  border-radius:18px;
+  margin:20px 0;
+}
+.boards,.subjects{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.card{
+  background:#202c47;
+  border:1px solid #344568;
+  color:white;
+  padding:20px;
+  border-radius:14px;
+  text-align:left;
+  font-size:17px;
+  cursor:pointer;
+}
 .card:hover{border-color:#91a4ff}
-.card small{display:block;color:#aab4ca;margin-top:8px}
-.subjects{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.card small{
+  display:block;
+  color:#aab4ca;
+  margin-top:8px;
+}
+.subjects{
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+}
 .hidden{display:none}
-@media(max-width:450px){body{padding:15px}h1{font-size:25px}}
+@media(max-width:450px){
+  body{padding:15px}
+  h1{font-size:25px}
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="logo">EDUVANTA</div>
-<a class="back" href="index.html">← Home</a>
+  <div class="logo">EDUVANTA</div>
+  <a class="back" href="index.html">← Home</a>
 </header>
 
 <main class="container">
+
 <p class="muted">YOUR LEARNING SPACE</p>
+
 <h1 id="classTitle">Class Dashboard</h1>
-<p class="muted">Choose your board and continue learning.</p>
+
+<p class="muted">
+Choose your board and continue learning.
+</p>
 
 <section class="panel" id="boardSection">
-<h2>Select Your Board</h2>
-<div class="boards">
-<button class="card" onclick="selectBoard('CBSE')">CBSE<small>Central Board</small></button>
-<button class="card" onclick="selectBoard('UP Board')">UP Board<small>Uttar Pradesh Board</small></button>
-</div>
+  <h2>Select Your Board</h2>
+
+  <div class="boards">
+    <button class="card" onclick="selectBoard('CBSE')">
+      CBSE
+      <small>Central Board</small>
+    </button>
+
+    <button class="card" onclick="selectBoard('UP Board')">
+      UP Board
+      <small>Uttar Pradesh Board</small>
+    </button>
+  </div>
 </section>
 
 <section class="panel hidden" id="subjectSection">
-<p class="muted" id="boardTitle"></p>
-<h2>Your Subjects</h2>
-<div class="subjects">
-<button class="card" onclick="openSubject('Physics')">⚡ Physics<small>Explore chapters</small></button>
-<button class="card" onclick="openSubject('Chemistry')">🧪 Chemistry<small>Explore chapters</small></button>
-<button class="card" onclick="openSubject('Mathematics')">📐 Mathematics<small>Explore chapters</small></button>
-</div>
+
+  <p class="muted" id="boardTitle"></p>
+
+  <h2>Your Subjects</h2>
+
+  <div class="subjects">
+
+    <button class="card" onclick="openSubject('Physics')">
+      ⚡ Physics
+      <small>Explore chapters</small>
+    </button>
+
+    <button class="card" onclick="openSubject('Chemistry')">
+      🧪 Chemistry
+      <small>Explore chapters</small>
+    </button>
+
+    <button class="card" onclick="openSubject('Mathematics')">
+      📐 Mathematics
+      <small>Explore chapters</small>
+    </button>
+
+  </div>
+
 </section>
+
 </main>
 
 <script>
+
 const params=new URLSearchParams(location.search);
+
 const selectedClass=params.get("class")||"Class 12";
-document.getElementById("classTitle").textContent=selectedClass+" Dashboard";
+
+const classTitle=document.getElementById("classTitle");
+const boardSection=document.getElementById("boardSection");
+const subjectSection=document.getElementById("subjectSection");
+const boardTitle=document.getElementById("boardTitle");
+
+classTitle.textContent=selectedClass+" Dashboard";
+
+/* RESTORE SELECTED BOARD */
+
+const savedBoard=localStorage.getItem("eduvantaBoard");
+const savedClass=localStorage.getItem("eduvantaClass");
+
+if(savedBoard && savedClass===selectedClass){
+  showSubjects(savedBoard);
+}
+
+/* SELECT BOARD */
 
 function selectBoard(board){
-localStorage.setItem("eduvantaBoard",board);
-localStorage.setItem("eduvantaClass",selectedClass);
-document.getElementById("boardTitle").textContent=board+" • "+selectedClass;
-document.getElementById("boardSection").classList.add("hidden");
-document.getElementById("subjectSection").classList.remove("hidden");
+
+  localStorage.setItem("eduvantaBoard",board);
+  localStorage.setItem("eduvantaClass",selectedClass);
+
+  showSubjects(board);
+
 }
 
-function openSubject(subject){
-location.href="subject.html?class="+encodeURIComponent(selectedClass)+"&board="+encodeURIComponent(localStorage.getItem("eduvantaBoard")||"CBSE")+"&subject="+encodeURIComponent(subject);
+/* SHOW SUBJECTS */
+
+function showSubjects(board){
+
+  boardTitle.textContent=board+" • "+selectedClass;
+
+  boardSection.classList.add("hidden");
+
+  subjectSection.classList.remove("hidden");
+
 }
+
+/* OPEN SUBJECT */
+
+function openSubject(subject){
+
+  const query=new URLSearchParams({
+    class:selectedClass,
+    board:localStorage.getItem("eduvantaBoard")||"CBSE",
+    subject:subject
+  });
+
+  location.href="subject.html?"+query.toString();
+
+}
+
 </script>
+
 </body>
 </html>
