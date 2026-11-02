@@ -610,11 +610,18 @@ const value=card.dataset.name;
 document.querySelectorAll(".class-card").forEach(item=>item.classList.remove("active"));
 card.classList.add("active");
 
-const option=Array.from(studentClassSelect.options).find(o=>o.value.toLowerCase()===value.toLowerCase()||o.textContent.toLowerCase()===name.toLowerCase());
+const option=Array.from(studentClassSelect.options).find(o=>
+o.value.toLowerCase()===value.toLowerCase()||
+o.textContent.toLowerCase()===name.toLowerCase()
+);
+
 if(option){
 studentClassSelect.value=option.value;
 saveProfile(option.value);
 }
+
+location.href="class.html?class="+encodeURIComponent(name);
+});
 
 classGrid.style.display="none";
 searchInput.style.display="none";
