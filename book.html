@@ -53,10 +53,12 @@ board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
 document.getElementById("pageTitle").textContent="📖 "+chapter;
 
 document.getElementById("backButton").href=
-"subject.html?"+new URLSearchParams({
+"chapter.html?"+new URLSearchParams({
 class:selectedClass,
 board:board,
-subject:subject
+subject:subject,
+chapter:chapter,
+number:number
 }).toString();
   
 const chapter1 = `
