@@ -1,63 +1,423 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101d35">
-<meta name="description" content="EDUVANTA - Learning platform for students across India.">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="EDUVANTA - Your smart learning destination.">
 <link rel="manifest" href="manifest.json">
 <title>EDUVANTA | Learn Beyond Limits</title>
 
 <style>
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#1b2943;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f7fb;color:#17233b}
-header{background:#101d35;color:white;padding:16px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;color:white;text-decoration:none}
-.logo img{width:42px;height:42px;object-fit:contain}
-.logo span span{color:#35c9bb}
-nav{display:flex;gap:16px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:14px}
-.hero{background:linear-gradient(135deg,#101d35,#174c85);color:white;padding:65px 7%;text-align:center}
-.tag{display:inline-block;background:#ffffff20;padding:8px 15px;border-radius:30px;font-size:12px;margin-bottom:20px}
-.hero h1{font-size:clamp(32px,7vw,55px);margin-bottom:15px}
-.hero h1 span{color:#42d6c5}
-.hero p{color:#d8e5f5;line-height:1.7;max-width:600px;margin:auto}
-button{cursor:pointer}
-.hero button{margin-top:25px;background:#35c9bb;border:0;padding:14px 25px;border-radius:9px;font-weight:bold;font-size:15px}
-main{max-width:1100px;margin:auto;padding:35px 6%}
-.section-title{font-size:25px;margin-bottom:8px}
-.muted{color:#68758a;line-height:1.6}
-.dashboard{margin:15px 0 40px}
-.dashboard-header{background:linear-gradient(135deg,#101d35,#174c85);color:white;padding:28px;border-radius:18px}
-.dashboard-header h2{font-size:25px;margin-bottom:8px}
-.dashboard-header p{color:#d8e5f5;line-height:1.6}
-.profile-panel,.dashboard-card,.course{background:white;padding:20px;border-radius:14px;border:1px solid #e5eaf2}
-.profile-panel{margin:20px 0}
-.profile-panel h3{margin-bottom:10px}
-.profile-panel p{color:#68758a;margin-bottom:14px;font-size:14px}
-.profile-panel label{display:block;margin-bottom:8px;font-weight:600}
-.profile-panel select{width:100%;padding:13px;border:1px solid #ccd5e2;border-radius:9px;background:white;font-size:16px}
-.dashboard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.dashboard-icon,.course .emoji{font-size:28px;margin-bottom:10px}
-.dashboard-card h3,.course h3{margin-bottom:9px}
-.dashboard-card p,.course p{color:#68758a;font-size:14px;line-height:1.5}
-.search{width:100%;padding:15px;border:1px solid #dce2ec;border-radius:10px;margin:22px 0;font-size:15px}
-.classes{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:20px}
-.class-card{background:white;border:1px solid #e5eaf2;padding:20px 10px;text-align:center;border-radius:13px;cursor:pointer;transition:.2s}
-.class-card:hover,.class-card.active{border-color:#2563eb;background:#edf4ff;transform:translateY(-2px)}
-.class-card strong{display:block;font-size:17px}
-.class-card small{color:#68758a;display:block;margin-top:6px}
-.course-area{margin-top:45px}
-.courses{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
-.course button{margin-top:16px;padding:10px 14px;border:0;background:#eaf1ff;color:#2455b5;border-radius:7px;font-weight:bold}
-.notice{background:#eaf7f5;border:1px solid #c7ebe5;padding:17px;border-radius:10px;margin-top:30px;color:#205b54;line-height:1.6;font-size:14px}
-footer{background:#101d35;color:#d8e5f5;text-align:center;padding:25px;font-size:13px;line-height:1.8}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:14px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:23px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.logo img{
+  width:39px;
+  height:39px;
+  object-fit:contain;
+}
+
+.logo span span{color:var(--teal)}
+
+nav{
+  display:flex;
+  gap:22px;
+  align-items:center;
+}
+
+nav a{
+  color:var(--muted);
+  font-size:14px;
+  transition:.2s;
+}
+
+nav a:hover{color:var(--teal)}
+
+.header-btn{
+  background:var(--blue);
+  color:#081020;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:13px;
+}
+
+main{
+  width:100%;
+  max-width:1150px;
+  padding:30px 5% 80px;
+  margin:auto;
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:55px 35px;
+  border:1px solid var(--border);
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 85% 15%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 60%,#123c51);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  right:-70px;
+  bottom:-120px;
+  border-radius:50%;
+  border:35px solid #ffffff0b;
+}
+
+.tag{
+  display:inline-block;
+  padding:8px 13px;
+  border-radius:30px;
+  background:#ffffff14;
+  color:var(--teal);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:19px;
+}
+
+.hero h1{
+  font-size:clamp(34px,6vw,57px);
+  line-height:1.15;
+  max-width:650px;
+  margin-bottom:16px;
+}
+
+.hero h1 span{color:var(--teal)}
+
+.hero p{
+  color:#d0dced;
+  max-width:590px;
+  line-height:1.8;
+  font-size:15px;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px;
+}
+
+.primary-btn,.secondary-btn{
+  display:inline-block;
+  padding:13px 19px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:14px;
+  border:0;
+}
+
+.primary-btn{
+  background:var(--teal);
+  color:#071c24;
+}
+
+.secondary-btn{
+  background:#ffffff16;
+  color:white;
+  border:1px solid #ffffff2a;
+}
+
+.section{margin-top:40px}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.section-heading h2{
+  font-size:23px;
+  margin-bottom:6px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.text-link{
+  color:var(--teal);
+  font-size:13px;
+  font-weight:bold;
+}
+
+.profile-card{
+  margin-top:25px;
+  padding:22px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:17px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.profile-info{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:#293e68;
+  font-size:26px;
+}
+
+.profile-info h3{margin-bottom:5px}
+
+.profile-action{
+  background:var(--surface2);
+  color:white;
+  border:1px solid var(--border);
+  padding:11px 15px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.stat-card{
+  padding:19px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:15px;
+}
+
+.stat-icon{font-size:25px;margin-bottom:13px}
+.stat-card h3{font-size:15px;margin-bottom:6px}
+.stat-card p{font-size:12px;color:var(--muted);line-height:1.6}
+
+.learning-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  transition:.2s;
+}
+
+.learning-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--blue);
+}
+
+.learning-icon{
+  width:47px;
+  height:47px;
+  display:grid;
+  place-items:center;
+  background:#283a60;
+  border-radius:13px;
+  font-size:24px;
+  margin-bottom:16px;
+}
+
+.learning-card h3{font-size:17px;margin-bottom:8px}
+
+.learning-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  min-height:44px;
+}
+
+.card-link{
+  display:inline-block;
+  margin-top:16px;
+  color:var(--teal);
+  font-size:13px;
+  font-weight:bold;
+}
+
+.search{
+  width:100%;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  margin-bottom:17px;
+  font-size:14px;
+  color:white;
+  background:var(--surface);
+  outline:none;
+}
+
+.search:focus{border-color:var(--blue)}
+
+.classes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
+.class-card{
+  padding:19px 12px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+  text-align:center;
+  transition:.2s;
+}
+
+.class-card:hover{
+  border-color:var(--teal);
+  background:var(--surface2);
+  transform:translateY(-3px);
+}
+
+.class-card strong{
+  display:block;
+  font-size:16px;
+}
+
+.class-card small{
+  display:block;
+  color:var(--muted);
+  margin-top:7px;
+  font-size:11px;
+}
+
+.empty{
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+  grid-column:1/-1;
+}
+
+.notice{
+  margin-top:30px;
+  background:#132d36;
+  border:1px solid #24534f;
+  border-radius:13px;
+  padding:18px;
+  color:#b9e9e1;
+  line-height:1.7;
+  font-size:13px;
+}
+
+footer{
+  border-top:1px solid var(--border);
+  padding:30px 6%;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+
+.mobile-nav{display:none}
+
+@media(max-width:850px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .classes{grid-template-columns:repeat(3,1fr)}
+}
+
 @media(max-width:600px){
-header{padding:16px 5%}
-.classes{grid-template-columns:repeat(2,1fr)}
-.courses,.dashboard-grid{grid-template-columns:1fr}
-.hero{padding:55px 6%}
+  header{padding:12px 5%}
+  .logo{font-size:20px}
+  .logo img{width:34px;height:34px}
+  nav{display:none}
+  .header-btn{font-size:12px;padding:9px 11px}
+  main{padding:20px 5% 95px}
+  .hero{padding:39px 22px;border-radius:19px}
+  .hero h1{font-size:36px}
+  .hero p{font-size:14px}
+  .section{margin-top:32px}
+  .section-heading h2{font-size:20px}
+  .profile-card{align-items:flex-start;flex-direction:column}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat-card{padding:14px}
+  .classes{grid-template-columns:repeat(2,1fr)}
+  .learning-card{padding:16px}
+  .mobile-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:30;
+    display:flex;
+    justify-content:space-around;
+    background:#111b30f5;
+    backdrop-filter:blur(14px);
+    border-top:1px solid var(--border);
+    padding:11px 5px calc(11px + env(safe-area-inset-bottom));
+  }
+  .mobile-nav a{
+    color:var(--muted);
+    font-size:11px;
+    text-align:center;
+  }
+  .mobile-nav span{
+    display:block;
+    font-size:19px;
+    margin-bottom:3px;
+  }
 }
 </style>
 </head>
@@ -65,243 +425,282 @@ header{padding:16px 5%}
 <body>
 
 <header>
-<a class="logo" href="#home">
-<img src="icon.svg" alt="EDUVANTA Logo">
-<span>EDU<span>VANTA</span></span>
-</a>
-<nav>
-<a href="#home">Home</a>
-<a href="#classes">Classes</a>
-<a href="#courses">Courses</a>
-</nav>
-</header>
+  <a class="logo" href="#home">
+    <img src="icon.svg" alt="EDUVANTA">
+    <span>EDU<span>VANTA</span></span>
+  </a>
 
-<section class="hero" id="home">
-<div class="tag">YOUR LEARNING JOURNEY STARTS HERE</div>
-<h1>Learn Beyond <span>Limits.</span></h1>
-<p>Explore learning resources, practice your skills and move towards your educational goals with EDUVANTA.</p>
-<button onclick="document.getElementById('classes').scrollIntoView({behavior:'smooth'})">
-Explore Classes →
-</button>
-</section>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#classes">Classes</a>
+    <a href="#learning">Learning</a>
+    <a href="#profile">My Profile</a>
+  </nav>
+
+  <a class="header-btn" href="#classes">Start Learning →</a>
+</header>
 
 <main>
 
-<section class="dashboard" id="dashboard">
-<div class="dashboard-header">
-<h2>Welcome to EDUVANTA! 👋</h2>
-<p>Your learning journey starts here. Choose your learning goal and keep moving forward.</p>
-</div>
+<section class="hero" id="home">
+  <div class="tag">YOUR SMART LEARNING DESTINATION</div>
 
-<div class="profile-panel">
-<h3>🎓 Set Up Your Student Profile</h3>
-<p>Select your class to personalise your learning dashboard.</p>
-<label for="studentClass">Select Your Class</label>
+  <h1>Learn Beyond <span>Limits.</span></h1>
 
-<select id="studentClass">
-<option value="">Choose your class</option>
-<optgroup label="Primary School">
-<option>Class 1</option>
-<option>Class 2</option>
-<option>Class 3</option>
-<option>Class 4</option>
-<option>Class 5</option>
-</optgroup>
-<optgroup label="Middle School">
-<option>Class 6</option>
-<option>Class 7</option>
-<option>Class 8</option>
-</optgroup>
-<optgroup label="Secondary School">
-<option>Class 9</option>
-<option>Class 10</option>
-</optgroup>
-<optgroup label="Senior Secondary">
-<option>Class 11</option>
-<option>Class 12</option>
-</optgroup>
-<optgroup label="Competitive Exams">
-<option>JEE Preparation</option>
-<option>NEET Preparation</option>
-<option>CUET Preparation</option>
-<option>UPSC Preparation</option>
-</optgroup>
-</select>
+  <p>
+    Discover concepts, explore subjects and build your knowledge
+    with a learning experience designed for your goals.
+  </p>
 
-<p style="font-size:12px;margin-top:10px">Your selection is saved on this browser. You can change it anytime.</p>
-</div>
-
-<div class="dashboard-grid">
-<div class="dashboard-card">
-<div class="dashboard-icon">📚</div>
-<h3>My Classes</h3>
-<p>Explore your class and subject-wise learning material.</p>
-</div>
-<div class="dashboard-card">
-<div class="dashboard-icon">📝</div>
-<h3>Practice Tests</h3>
-<p>Test your knowledge with quizzes and practice questions.</p>
-</div>
-<div class="dashboard-card">
-<div class="dashboard-icon">📖</div>
-<h3>Study Notes</h3>
-<p>Learn concepts with detailed chapter-wise notes.</p>
-</div>
-<div class="dashboard-card">
-<div class="dashboard-icon">📊</div>
-<h3>My Progress</h3>
-<p>Track your completed lessons and learning progress.</p>
-</div>
-</div>
+  <div class="hero-actions">
+    <a class="primary-btn" href="#classes">Explore Classes →</a>
+    <a class="secondary-btn" href="#learning">Explore Learning</a>
+  </div>
 </section>
 
-<section id="classes">
-<h2 class="section-title">Choose Your Learning Level</h2>
-<p class="muted">Select your class or exam category to explore learning options.</p>
+<section class="profile-card" id="profile">
+  <div class="profile-info">
+    <div class="avatar">🎓</div>
+    <div>
+      <h3>My Learning Profile</h3>
+      <p class="muted" id="profileText">Choose your class to get started.</p>
+    </div>
+  </div>
 
-<input class="search" id="search" type="search" placeholder="Search Class 12, NEET, JEE..." aria-label="Search learning levels">
-
-<div class="classes" id="classGrid">
-
-<div class="class-card" data-name="Class 1"><strong>Class 1</strong><small>Primary</small></div>
-<div class="class-card" data-name="Class 2"><strong>Class 2</strong><small>Primary</small></div>
-<div class="class-card" data-name="Class 3"><strong>Class 3</strong><small>Primary</small></div>
-<div class="class-card" data-name="Class 4"><strong>Class 4</strong><small>Primary</small></div>
-<div class="class-card" data-name="Class 5"><strong>Class 5</strong><small>Primary</small></div>
-<div class="class-card" data-name="Class 6"><strong>Class 6</strong><small>Middle School</small></div>
-<div class="class-card" data-name="Class 7"><strong>Class 7</strong><small>Middle School</small></div>
-<div class="class-card" data-name="Class 8"><strong>Class 8</strong><small>Middle School</small></div>
-<div class="class-card" data-name="Class 9"><strong>Class 9</strong><small>Secondary</small></div>
-<div class="class-card" data-name="Class 10"><strong>Class 10</strong><small>Secondary</small></div>
-<div class="class-card" data-name="Class 11"><strong>Class 11</strong><small>Senior Secondary</small></div>
-<div class="class-card" data-name="Class 12"><strong>Class 12</strong><small>Senior Secondary</small></div>
-<div class="class-card" data-name="JEE"><strong>JEE</strong><small>Engineering</small></div>
-<div class="class-card" data-name="NEET"><strong>NEET</strong><small>Medical</small></div>
-<div class="class-card" data-name="CUET"><strong>CUET</strong><small>University Entrance</small></div>
-<div class="class-card" data-name="UPSC"><strong>UPSC</strong><small>Civil Services</small></div>
-
-</div>
+  <button class="profile-action" id="changeClass">
+    Select Class
+  </button>
 </section>
 
-<section class="course-area" id="courses">
-<h2 class="section-title">Explore Learning</h2>
-<p class="muted">Your learning space, organised in one place.</p>
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <h2>Your Learning Space</h2>
+      <p class="muted">Quick access to your study tools.</p>
+    </div>
+  </div>
 
-<div class="courses">
-<div class="course">
-<div class="emoji">📚</div>
-<h3>Learning Library</h3>
-<p>Study notes and topic-wise learning resources.</p>
-<button onclick="showMessage('Learning Library')">Explore</button>
-</div>
+  <div class="grid">
+    <div class="stat-card">
+      <div class="stat-icon">📚</div>
+      <h3>Study Library</h3>
+      <p>Chapter-wise study resources.</p>
+    </div>
 
-<div class="course">
-<div class="emoji">✍️</div>
-<h3>Practice Zone</h3>
-<p>Build your knowledge with practice activities.</p>
-<button onclick="showMessage('Practice Zone')">Explore</button>
-</div>
+    <div class="stat-card">
+      <div class="stat-icon">✍️</div>
+      <h3>Practice Zone</h3>
+      <p>Test your subject knowledge.</p>
+    </div>
 
-<div class="course">
-<div class="emoji">📝</div>
-<h3>Mock Tests</h3>
-<p>Prepare for exams with topic-based assessments.</p>
-<button onclick="showMessage('Mock Tests')">Explore</button>
-</div>
+    <div class="stat-card">
+      <div class="stat-icon">🎯</div>
+      <h3>Learning Goals</h3>
+      <p>Choose what you want to study.</p>
+    </div>
 
-<div class="course">
-<div class="emoji">📈</div>
-<h3>My Progress</h3>
-<p>Track your learning journey as you study.</p>
-<button onclick="showMessage('My Progress')">Explore</button>
-</div>
-</div>
+    <div class="stat-card">
+      <div class="stat-icon">📈</div>
+      <h3>Progress</h3>
+      <p>Progress tracking is coming soon.</p>
+    </div>
+  </div>
+</section>
 
-<div class="notice">
-<strong>Early Development Version</strong><br>
-EDUVANTA is under development. Course content and learning tools will be added in future updates.
-</div>
+<section class="section" id="classes">
+
+  <div class="section-heading">
+    <div>
+      <h2>Choose Your Learning Level</h2>
+      <p class="muted">Select a class or exam category.</p>
+    </div>
+  </div>
+
+  <input
+    class="search"
+    id="search"
+    type="search"
+    placeholder="Search Class 12, JEE, NEET..."
+    aria-label="Search classes"
+  >
+
+  <div class="classes" id="classGrid">
+
+    <a class="class-card" data-name="Class 1" href="#"><strong>Class 1</strong><small>Primary</small></a>
+    <a class="class-card" data-name="Class 2" href="#"><strong>Class 2</strong><small>Primary</small></a>
+    <a class="class-card" data-name="Class 3" href="#"><strong>Class 3</strong><small>Primary</small></a>
+    <a class="class-card" data-name="Class 4" href="#"><strong>Class 4</strong><small>Primary</small></a>
+    <a class="class-card" data-name="Class 5" href="#"><strong>Class 5</strong><small>Primary</small></a>
+    <a class="class-card" data-name="Class 6" href="#"><strong>Class 6</strong><small>Middle School</small></a>
+    <a class="class-card" data-name="Class 7" href="#"><strong>Class 7</strong><small>Middle School</small></a>
+    <a class="class-card" data-name="Class 8" href="#"><strong>Class 8</strong><small>Middle School</small></a>
+    <a class="class-card" data-name="Class 9" href="#"><strong>Class 9</strong><small>Secondary</small></a>
+    <a class="class-card" data-name="Class 10" href="#"><strong>Class 10</strong><small>Secondary</small></a>
+    <a class="class-card" data-name="Class 11" href="#"><strong>Class 11</strong><small>Senior Secondary</small></a>
+    <a class="class-card" data-name="Class 12" href="#"><strong>Class 12</strong><small>Senior Secondary</small></a>
+    <a class="class-card" data-name="JEE" href="#"><strong>JEE</strong><small>Engineering</small></a>
+    <a class="class-card" data-name="NEET" href="#"><strong>NEET</strong><small>Medical</small></a>
+    <a class="class-card" data-name="CUET" href="#"><strong>CUET</strong><small>University Entrance</small></a>
+    <a class="class-card" data-name="UPSC" href="#"><strong>UPSC</strong><small>Civil Services</small></a>
+
+    <div class="empty" id="emptyMessage">
+      No matching class found.
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="learning">
+
+  <div class="section-heading">
+    <div>
+      <h2>Explore Learning</h2>
+      <p class="muted">Choose a way to continue your studies.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <article class="learning-card">
+      <div class="learning-icon">📖</div>
+      <h3>Learning Library</h3>
+      <p>Open your class and explore chapter-wise learning resources.</p>
+      <a class="card-link" href="#classes">Explore Library →</a>
+    </article>
+
+    <article class="learning-card">
+      <div class="learning-icon">🧠</div>
+      <h3>Practice Zone</h3>
+      <p>Open available chapter practice questions and test yourself.</p>
+      <a class="card-link" href="#classes">Start Practice →</a>
+    </article>
+
+    <article class="learning-card">
+      <div class="learning-icon">📝</div>
+      <h3>Mock Tests</h3>
+      <p>Mock test feature is planned for a future update.</p>
+      <span class="card-link">Coming Soon</span>
+    </article>
+
+    <article class="learning-card">
+      <div class="learning-icon">📊</div>
+      <h3>My Progress</h3>
+      <p>Detailed learning analytics will be added in a future update.</p>
+      <span class="card-link">Coming Soon</span>
+    </article>
+
+  </div>
+
+  <div class="notice">
+    <strong>EDUVANTA is growing!</strong><br>
+    More classes, chapters, lessons, practice questions and learning
+    tools will be added in upcoming updates. Only currently available
+    content is shown inside each learning section.
+  </div>
+
 </section>
 
 </main>
 
 <footer>
-<strong>EDUVANTA</strong> — Learn Beyond Limits.<br>
-Building a better learning experience for everyone.<br>
-© 2026 EDUVANTA. All rights reserved.
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  A learning platform built for students.<br>
+  © 2026 EDUVANTA. All rights reserved.
 </footer>
 
+<nav class="mobile-nav">
+  <a href="#home"><span>⌂</span>Home</a>
+  <a href="#classes"><span>🎓</span>Classes</a>
+  <a href="#learning"><span>📚</span>Learning</a>
+  <a href="#profile"><span>👤</span>Profile</a>
+</nav>
+
 <script>
-function showMessage(section){
-alert(section+" is planned for a future EDUVANTA update.");
-}
 
-const studentClassSelect=document.getElementById("studentClass");
+/* STUDENT PROFILE */
+
 const searchInput=document.getElementById("search");
-const classGrid=document.getElementById("classGrid");
+const classCards=document.querySelectorAll(".class-card");
+const profileText=document.getElementById("profileText");
+const changeClass=document.getElementById("changeClass");
 
-function saveProfile(value){
-if(value){
-localStorage.setItem("eduvantaStudentClass",value);
-}else{
-localStorage.removeItem("eduvantaStudentClass");
-}
-}
-
-// Restore saved class
 const savedClass=localStorage.getItem("eduvantaStudentClass");
 
-if(savedClass){
-const option=Array.from(studentClassSelect.options).find(o=>
-o.value===savedClass || o.textContent===savedClass
-);
-if(option){
-studentClassSelect.value=option.value;
-}
+function updateProfile(){
+
+  const selected=localStorage.getItem("eduvantaStudentClass");
+
+  if(selected){
+    profileText.textContent="Your selected learning level: "+selected;
+    changeClass.textContent="Change Class";
+  }else{
+    profileText.textContent="Choose your class to get started.";
+    changeClass.textContent="Select Class";
+  }
+
 }
 
-// Save class selection
-studentClassSelect.addEventListener("change",function(){
-saveProfile(this.value);
+updateProfile();
+
+changeClass.addEventListener("click",()=>{
+  document.getElementById("classes").scrollIntoView({
+    behavior:"smooth"
+  });
 });
 
-// Search classes
+
+/* SEARCH CLASSES */
+
 searchInput.addEventListener("input",function(){
-const query=this.value.toLowerCase().trim();
 
-document.querySelectorAll(".class-card").forEach(card=>{
-card.style.display=card.textContent.toLowerCase().includes(query)?"":"none";
+  const query=this.value.toLowerCase().trim();
+
+  let visible=0;
+
+  classCards.forEach(card=>{
+
+    const matches=card.textContent.toLowerCase().includes(query);
+
+    card.style.display=matches?"":"none";
+
+    if(matches)visible++;
+
+  });
+
+  document.getElementById("emptyMessage").style.display=
+    visible===0?"block":"none";
+
 });
+
+
+/* CLASS NAVIGATION */
+
+classCards.forEach(card=>{
+
+  const name=card.dataset.name;
+
+  card.href="class.html?class="+encodeURIComponent(name);
+
+  card.addEventListener("click",()=>{
+
+    const isRegularClass=name.startsWith("Class ");
+
+    if(isRegularClass){
+      localStorage.setItem("eduvantaStudentClass",name);
+      localStorage.setItem("eduvantaClass",name);
+    }
+
+  });
+
 });
 
-// Open separate class dashboard
-classGrid.addEventListener("click",function(event){
 
-const card=event.target.closest(".class-card");
-if(!card)return;
+/* RESTORE PROFILE DISPLAY */
 
-const name=card.querySelector("strong").textContent.trim();
-const value=card.dataset.name;
-
-document.querySelectorAll(".class-card").forEach(item=>{
-item.classList.remove("active");
-});
-
-card.classList.add("active");
-
-const option=Array.from(studentClassSelect.options).find(o=>
-o.value.toLowerCase()===value.toLowerCase() ||
-o.textContent.toLowerCase()===name.toLowerCase()
-);
-
-if(option){
-studentClassSelect.value=option.value;
-saveProfile(option.value);
+if(savedClass){
+  updateProfile();
 }
 
-location.href="class.html?class="+encodeURIComponent(name);
-
-});
 </script>
 
 </body>
