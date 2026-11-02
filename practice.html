@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Mode | EDUVANTA</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#fff;font-family:Arial,sans-serif;padding:16px;line-height:1.6}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold;color:#91a4ff}
+.back{background:#26334f;color:white;padding:9px 13px;border-radius:9px;text-decoration:none}
+main{max-width:750px;margin:30px auto}
+.muted{color:#aab4ca}
+.panel{background:#151e33;border:1px solid #293653;border-radius:16px;padding:20px}
+.option{display:block;width:100%;text-align:left;margin:10px 0;padding:14px;background:#202c47;color:white;border:1px solid #344568;border-radius:10px;font-size:16px;cursor:pointer}
+.option:disabled{cursor:default;opacity:1}
+.option.correct{border-color:#39c98a;background:#153b34}
+.option.wrong{border-color:#f07878;background:#44272e}
+button.next{margin-top:18px;padding:12px 18px;border:0;border-radius:10px;background:#647ce8;color:white;font-size:15px}
+button:disabled{opacity:.4}
+#feedback{margin-top:15px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">EDUVANTA</div>
+<a class="back" id="backButton" href="#">← Back</a>
+</header>
+
+<main>
+<p class="muted" id="courseInfo"></p>
+<h1 id="pageTitle">Practice Mode</h1>
+<p class="muted">Answer each question and check your understanding.</p>
+
+<section class="panel">
+<p class="muted" id="questionCount"></p>
+<h2 id="question"></h2>
+<div id="options"></div>
+<div id="feedback"></div>
+<button class="next" id="nextButton" disabled>Next Question →</button>
+</section>
+
+<p class="muted" id="score"></p>
+</main>
+
+<script>
+const params=new URLSearchParams(location.search);
+const selectedClass=params.get("class")||"Class 12";
+const board=params.get("board")||"CBSE";
+const subject=params.get("subject")||"Physics";
+const chapter=params.get("chapter")||"Electric Charges and Fields";
+const number=params.get("number")||"1";
+
+document.getElementById("courseInfo").textContent=
+board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
+
+document.getElementById("pageTitle").textContent=chapter+" — Practice";
+
+document.getElementById("backButton").href=
+"chapter.html?"+new URLSearchParams({
+class:selectedClass,board,subject,chapter,number
+}).toString();
+
+const physicsQuestions=[
+{
+q:"What is the SI unit of electric charge?",
+options:["Newton","Coulomb","Volt","Ampere"],
+answer:1,
+explanation:"Electric charge ka SI unit Coulomb (C) hai."
+},
+{
+q:"Which particles carry a positive charge?",
+options:["Electrons","Neutrons","Protons","Photons"],
+answer:2,
+explanation:"Protons carry positive electric charge."
+},
+{
+q:"What happens between two like charges?",
+options:["Attraction","Repulsion","No force","Fusion"],
+answer:1,
+explanation:"Like charges repel each other."
+},
+{
+q:"What is the value of elementary charge?",
+options:["1.6 × 10⁻¹⁹ C","9 × 10⁹ C","8.85 × 10⁻¹² C","1.6 × 10⁻⁹ C"],
+answer:0,
+explanation:"Elementary charge ka magnitude 1.6 × 10⁻¹⁹ C hai."
+},
+{
+q:"Which principle states that total charge remains conserved?",
+options:["Superposition","Conservation of charge","Quantisation","Coulomb's law"],
+answer:1,
+explanation:"Total electric charge is conserved; it is neither created nor destroyed."
+},
+{
+q:"What is the formula for quantisation of charge?",
+options:["F = ma","q = ne","V = IR","E = mc²"],
+answer:1,
+explanation:"Charge is q = ne, where n is an integer."
+},
+{
+q:"What is the SI unit of electric field?",
+options:["N/C","C/N","J/C","N m"],
+answer:0,
+explanation:"Electric field ka SI unit Newton per Coulomb (N/C) hai."
+},
+{
+q:"In which direction is an electric dipole moment?",
+options:["Positive to negative","Negative to positive","Always upward","No direction"],
+answer:1,
+explanation:"Dipole moment direction negative charge se positive charge ki taraf hoti hai."
+},
+{
+q:"Which law gives the force between two stationary point charges?",
+options:["Ohm's law","Gauss's law","Coulomb's law","Faraday's law"],
+answer:2,
+explanation:"Coulomb's law describes electrostatic force between point charges."
+},
+{
+q:"What is the SI unit of electric flux?",
+options:["N/C","N m²/C","C m","J/C"],
+answer:1,
+explanation:"Electric flux ka SI unit N m²/C hai."
+}
+];
+
+const otherQuestions=[];
+const questions=(subject==="Physics" && number==="1")?physicsQuestions:otherQuestions;
+
+let current=0;
+let totalCorrect=0;
+let answered=false;
+
+const question=document.getElementById("question");
+const options=document.getElementById("options");
+const feedback=document.getElementById("feedback");
+const nextButton=document.getElementById("nextButton");
+const questionCount=document.getElementById("questionCount");
+const score=document.getElementById("score");
+
+function showQuestion(){
+answered=false;
+feedback.textContent="";
+nextButton.disabled=true;
+nextButton.textContent="Next Question →";
+
+const item=questions[current];
+question.textContent=item.q;
+questionCount.textContent="Question "+(current+1)+" of "+questions.length;
+options.innerHTML="";
+
+item.options.forEach((option,index)=>{
+const button=document.createElement("button");
+button.className="option";
+button.textContent=String.fromCharCode(65+index)+". "+option;
+button.onclick=()=>checkAnswer(index);
+options.appendChild(button);
+});
+
+score.textContent="Correct answers: "+totalCorrect;
+}
+
+function checkAnswer(selected){
+if(answered)return;
+answered=true;
+
+const item=questions[current];
+const buttons=options.querySelectorAll("button");
+
+buttons.forEach((button,index)=>{
+button.disabled=true;
+if(index===item.answer)button.classList.add("correct");
+if(index===selected && selected!==item.answer)button.classList.add("wrong");
+});
+
+if(selected===item.answer){
+totalCorrect++;
+feedback.textContent="Correct! "+item.explanation;
+feedback.style.color="#55dda5";
+}else{
+feedback.textContent="Incorrect. Correct answer: "+item.options[item.answer]+". "+item.explanation;
+feedback.style.color="#ff9999";
+}
+
+score.textContent="Correct answers: "+totalCorrect;
+nextButton.disabled=false;
+}
+
+nextButton.onclick=()=>{
+if(current<questions.length-1){
+current++;
+showQuestion();
+}else{
+question.textContent="Practice Completed!";
+options.innerHTML="";
+feedback.textContent="Your final score: "+totalCorrect+" / "+questions.length;
+nextButton.textContent="Restart Practice";
+nextButton.disabled=false;
+nextButton.onclick=()=>{
+current=0;
+totalCorrect=0;
+nextButton.onclick=nextQuestion;
+showQuestion();
+};
+}
+};
+
+function nextQuestion(){
+if(current<questions.length-1){
+current++;
+showQuestion();
+}else{
+question.textContent="Practice Completed!";
+options.innerHTML="";
+feedback.textContent="Your final score: "+totalCorrect+" / "+questions.length;
+nextButton.textContent="Restart Practice";
+nextButton.onclick=()=>{
+current=0;
+totalCorrect=0;
+nextButton.onclick=nextQuestion;
+showQuestion();
+};
+}
+}
+
+nextButton.onclick=nextQuestion;
+
+if(questions.length===0){
+question.textContent="Practice questions are being prepared for this chapter.";
+options.innerHTML="";
+questionCount.textContent="Coming soon";
+nextButton.style.display="none";
+}else{
+showQuestion();
+}
+</script>
+</body>
+</html>
