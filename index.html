@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
 <meta name="description" content="EDUVANTA - Your smart learning destination.">
 <link rel="manifest" href="manifest.json">
-<title>EDUVANTA | Learn Beyond Limits</title>
-
-<style>
+<title>EDUVANTA | Learn Beyond Limits</title><style>
 :root{
   --bg:#0b1020;--surface:#131d33;--surface2:#1b2943;
   --border:#293a59;--text:#f4f7ff;--muted:#a5b2ca;
@@ -68,6 +65,16 @@ main{width:100%;max-width:1150px;padding:30px 5% 90px;margin:auto}
 .continue-empty{padding:18px 0 4px}
 .continue-empty .empty-icon{font-size:30px;margin-bottom:12px}
 .continue-empty p{color:var(--muted);font-size:13px;line-height:1.7}
+.continue-details{padding:15px 0 2px}
+.continue-details h4{font-size:18px;margin-bottom:8px;line-height:1.4}
+.continue-meta{color:var(--muted);font-size:12px;line-height:1.8}
+.continue-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.continue-links a{
+ display:inline-block;padding:10px 13px;border-radius:9px;
+ background:var(--surface2);border:1px solid var(--border);
+ color:var(--teal);font-size:12px;font-weight:bold
+}
+.continue-links a:hover{border-color:var(--teal)}
 .goal-card{background:linear-gradient(140deg,#172747,#123c51)}
 .goal-number{font-size:30px;font-weight:800;color:var(--teal);margin:10px 0}
 .goal-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
@@ -124,10 +131,7 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
  .mobile-nav a{color:var(--muted);font-size:11px;text-align:center}
  .mobile-nav span{display:block;font-size:19px;margin-bottom:3px}
 }
-</style>
-</head>
-
-<body>
+</style></head><body>
 <header>
  <a class="logo" href="#home">
   <img src="icon.svg" alt="EDUVANTA">
@@ -138,9 +142,7 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
   <a href="#classes">Classes</a><a href="#learning">Learning</a>
  </nav>
  <a class="header-btn" href="#classes">Start Learning →</a>
-</header>
-
-<main>
+</header><main>
 <section class="hero" id="home">
  <div class="tag">YOUR SMART LEARNING DESTINATION</div>
  <h1>Learn Beyond <span>Limits.</span></h1>
@@ -149,9 +151,7 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
   <a class="primary-btn" href="#classes">Explore Classes →</a>
   <a class="secondary-btn" href="#dashboard">My Dashboard</a>
  </div>
-</section>
-
-<section class="profile-card" id="profile">
+</section><section class="profile-card" id="profile">
  <div class="profile-info">
   <div class="avatar">🎓</div>
   <div>
@@ -160,25 +160,19 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
   </div>
  </div>
  <button class="profile-action" id="changeClass">Select Class</button>
-</section>
-
-<section class="section" id="dashboard">
+</section><section class="section" id="dashboard">
  <div class="section-heading">
   <div><h2>My Smart Dashboard</h2><p class="muted">Your personal study space.</p></div>
- </div>
-
- <div class="dashboard-grid">
+ </div> <div class="dashboard-grid">
   <div class="dashboard-card">
    <h3>▶ Continue Learning</h3>
    <div id="continueArea" class="continue-empty">
     <div class="empty-icon">📘</div>
     <p>No recently opened chapter is recorded yet.</p>
-    <p>Open a chapter and your continue-learning shortcut will appear here after tracking is connected.</p>
+    <p>Open a chapter to see your latest learning activity here.</p>
     <a class="card-link" href="#classes">Choose a class →</a>
    </div>
-  </div>
-
-  <div class="goal-card">
+  </div>  <div class="goal-card">
    <h3>🎯 Daily Study Goal</h3>
    <p class="muted">Track your study time on this device.</p>
    <div class="goal-number"><span id="minutesDone">0</span><span class="muted"> / </span><span id="goalMinutes">60</span><small class="muted"> min</small></div>
@@ -195,9 +189,7 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
    <p class="muted" style="margin-top:10px">Study time is self-reported, not automatically measured.</p>
   </div>
  </div>
-</section>
-
-<section class="section">
+</section><section class="section">
  <div class="section-heading">
   <div><h2>Your Learning Space</h2><p class="muted">Quick access to your study tools.</p></div>
  </div>
@@ -207,9 +199,7 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
   <div class="stat-card"><div class="stat-icon">🎯</div><h3>Learning Goals</h3><p>Set and track your daily study target.</p></div>
   <div class="stat-card"><div class="stat-icon">📈</div><h3>Progress</h3><p>Chapter-wise analytics will be connected in a later update.</p></div>
  </div>
-</section>
-
-<section class="section" id="classes">
+</section><section class="section" id="classes">
  <div class="section-heading">
   <div><h2>Choose Your Learning Level</h2><p class="muted">Select a class or exam category.</p></div>
  </div>
@@ -233,9 +223,7 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
   <a class="class-card" data-name="UPSC" href="#"><strong>UPSC</strong><small>Civil Services</small></a>
   <div class="empty" id="emptyMessage">No matching class found.</div>
  </div>
-</section>
-
-<section class="section" id="learning">
+</section><section class="section" id="learning">
  <div class="section-heading">
   <div><h2>Explore Learning</h2><p class="muted">Choose a way to continue your studies.</p></div>
  </div>
@@ -266,22 +254,16 @@ footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;colo
   More classes, chapters, lessons, practice questions and learning tools will be added in upcoming updates. Only currently available content is shown inside each learning section.
  </div>
 </section>
-</main>
-
-<footer>
+</main><footer>
  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
  A learning platform built for students.<br>
  © 2026 EDUVANTA. All rights reserved.
-</footer>
-
-<div class="mobile-nav">
+</footer><div class="mobile-nav">
  <a href="#home"><span>⌂</span>Home</a>
  <a href="#dashboard"><span>📊</span>Dashboard</a>
  <a href="#classes"><span>🎓</span>Classes</a>
  <a href="#learning"><span>📚</span>Learning</a>
-</div>
-
-<script>
+</div><script>
 const searchInput=document.getElementById("search");
 const classCards=document.querySelectorAll(".class-card");
 const profileText=document.getElementById("profileText");
@@ -321,6 +303,81 @@ classCards.forEach(card=>{
   }
  });
 });
+
+/* CONTINUE LEARNING — LAST OPENED CHAPTER */
+function safeLocalLink(value){
+ if(typeof value!=="string"||!value.trim())return null;
+ try{
+  const url=new URL(value,window.location.href);
+  if(url.origin!==window.location.origin)return null;
+  return url.href;
+ }catch(error){
+  return null;
+ }
+}
+
+function renderContinueLearning(){
+ const area=document.getElementById("continueArea");
+ let chapterData;
+
+ try{
+  chapterData=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null");
+ }catch(error){
+  chapterData=null;
+ }
+
+ if(!chapterData||typeof chapterData!=="object"||!chapterData.chapter){
+  return;
+ }
+
+ area.className="continue-details";
+ area.replaceChildren();
+
+ const icon=document.createElement("div");
+ icon.className="empty-icon";
+ icon.textContent="📘";
+
+ const title=document.createElement("h4");
+ title.textContent=chapterData.chapter;
+
+ const meta=document.createElement("p");
+ meta.className="continue-meta";
+ const details=[
+  chapterData.class,
+  chapterData.board,
+  chapterData.subject,
+  chapterData.number?"Chapter "+chapterData.number:null
+ ].filter(Boolean);
+ meta.textContent=details.join(" • ");
+
+ const links=document.createElement("div");
+ links.className="continue-links";
+
+ const linkOptions=[
+  {label:"📖 Read Book",url:chapterData.bookUrl},
+  {label:"▶ Watch Lessons",url:chapterData.lessonUrl},
+  {label:"✍️ Practice",url:chapterData.practiceUrl}
+ ];
+
+ linkOptions.forEach(item=>{
+  const safeUrl=safeLocalLink(item.url);
+  if(!safeUrl)return;
+  const link=document.createElement("a");
+  link.href=safeUrl;
+  link.textContent=item.label;
+  links.appendChild(link);
+ });
+
+ area.append(icon,title,meta);
+ if(links.children.length)area.appendChild(links);
+ else{
+  const note=document.createElement("p");
+  note.className="muted";
+  note.textContent="Learning links are not available for this chapter yet.";
+  area.appendChild(note);
+ }
+}
+renderContinueLearning();
 
 /* DAILY STUDY GOAL — SELF-REPORTED MINUTES */
 const today=new Date().toLocaleDateString("en-CA");
@@ -368,6 +425,5 @@ document.getElementById("setGoal").addEventListener("click",()=>{
  renderGoal();
 });
 renderGoal();
-</script>
-</body>
+</script></body>
 </html>
