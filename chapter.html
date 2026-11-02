@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +21,7 @@ main{max-width:800px;margin:35px auto}
 <body>
 <header>
 <div class="logo">EDUVANTA</div>
-<a class="back" href="javascript:history.back()">← Back</a>
+<a class="back" id="backButton" href="#">← Back</a>
 </header>
 
 <main>
@@ -57,7 +56,13 @@ const board=params.get("board")||"CBSE";
 const subject=params.get("subject")||"Physics";
 const chapter=params.get("chapter")||"Chapter";
 const number=params.get("number")||"1";
-
+document.getElementById("backButton").href=
+"subject.html?"+new URLSearchParams({
+class:selectedClass,
+board:board,
+subject:subject
+}).toString();
+  
 document.getElementById("courseInfo").textContent=
 board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
 
