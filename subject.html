@@ -4,67 +4,200 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>Subject | EDUVANTA</title>
+<meta name="description" content="Explore subject-wise chapters on EDUVANTA.">
+<title>Subject Dashboard | EDUVANTA</title>
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  padding:18px;
-  background:#0b1020;
-  color:#fff;
-  font-family:Arial,sans-serif;
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#1b2943;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
 header{
+  position:sticky;
+  top:0;
+  z-index:10;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:14px 6%;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
 }
 .logo{
   font-size:22px;
-  font-weight:bold;
-  color:#8b9cff;
+  font-weight:800;
+  letter-spacing:.5px;
 }
+.logo span{color:var(--teal)}
 .back{
-  background:#202a43;
-  color:white;
+  background:var(--surface2);
+  border:1px solid var(--border);
   padding:10px 14px;
-  border-radius:10px;
-  text-decoration:none;
+  border-radius:9px;
+  font-size:13px;
 }
 main{
-  max-width:850px;
-  margin:35px auto;
+  max-width:1000px;
+  margin:auto;
+  padding:28px 5% 70px;
 }
-.muted{color:#aab4ca}
-.panel{
-  background:#151e33;
-  border:1px solid #293653;
-  padding:18px;
-  border-radius:16px;
-  margin-top:20px;
+.hero{
+  padding:34px 25px;
+  border-radius:21px;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 65%,#123c51);
+}
+.tag{
+  display:inline-block;
+  color:var(--teal);
+  background:#ffffff15;
+  padding:8px 12px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:16px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,43px);
+  margin-bottom:12px;
+  line-height:1.2;
+}
+.hero h1 span{color:var(--teal)}
+.hero p{
+  color:#d0dced;
+  font-size:14px;
+  line-height:1.8;
+}
+.section{margin-top:30px}
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:12px;
+  margin-bottom:16px;
+}
+.section-heading h2{font-size:21px;margin-bottom:6px}
+.muted{color:var(--muted);font-size:13px;line-height:1.7}
+.count{
+  color:var(--teal);
+  font-size:12px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+.search{
+  width:100%;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  margin-bottom:17px;
+  font-size:14px;
+  color:white;
+  background:var(--surface);
+  outline:none;
+}
+.search:focus{border-color:var(--blue)}
+.chapter-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
 }
 .chapter{
-  display:block;
   width:100%;
+  display:flex;
+  align-items:center;
+  gap:14px;
   text-align:left;
-  background:#202c47;
-  border:1px solid #344568;
-  color:white;
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text);
   padding:17px;
-  margin:10px 0;
-  border-radius:12px;
-  font-size:16px;
+  border-radius:14px;
   cursor:pointer;
+  transition:.2s;
 }
-.chapter small{
+.chapter:hover{
+  transform:translateY(-3px);
+  border-color:var(--teal);
+  background:var(--surface2);
+}
+.chapter-number{
+  width:43px;
+  height:43px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:#283a60;
+  color:var(--teal);
+  font-size:14px;
+  font-weight:bold;
+}
+.chapter-info{flex:1;min-width:0}
+.chapter-info strong{
   display:block;
-  color:#aab4ca;
-  margin-top:7px;
+  font-size:14px;
+  line-height:1.5;
 }
-.chapter:hover{border-color:#91a4ff}
-@media(max-width:450px){
-  body{padding:14px}
+.chapter-info small{
+  display:block;
+  color:var(--muted);
+  margin-top:6px;
+  font-size:11px;
+}
+.arrow{color:var(--teal);font-size:19px}
+.empty{
+  display:none;
+  grid-column:1/-1;
+  text-align:center;
+  padding:25px;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+.notice{
+  margin-top:22px;
+  padding:16px;
+  border:1px solid #24534f;
+  background:#132d36;
+  color:#b9e9e1;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.7;
+}
+footer{
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:25px 5%;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+@media(max-width:600px){
+  header{padding:13px 5%}
+  .logo{font-size:20px}
+  main{padding:20px 5% 55px}
+  .hero{padding:28px 20px}
+  .chapter-list{grid-template-columns:1fr;gap:10px}
+  .chapter{padding:15px}
 }
 </style>
 </head>
@@ -72,53 +205,88 @@ main{
 <body>
 
 <header>
-  <div class="logo">EDUVANTA</div>
+  <a class="logo" href="index.html">EDU<span>VANTA</span></a>
   <a class="back" id="backButton" href="#">← Back</a>
 </header>
 
 <main>
 
-<p class="muted" id="classBoard"></p>
-
-<h1 id="subjectTitle">Subject</h1>
-
-<p class="muted">
-Select a chapter to continue learning.
-</p>
-
-<section class="panel">
-  <h2>Chapters</h2>
-  <div id="chapterList"></div>
+<section class="hero">
+  <div class="tag">YOUR SUBJECT DASHBOARD</div>
+  <h1>Explore <span id="subjectTitle">Physics</span></h1>
+  <p id="classBoard">Class 12 • CBSE</p>
+  <p style="margin-top:10px">
+    Select a chapter and continue your learning journey.
+  </p>
 </section>
+
+<section class="section">
+
+  <div class="section-heading">
+    <div>
+      <h2>Chapter Library</h2>
+      <p class="muted">Find and open your desired chapter.</p>
+    </div>
+    <span class="count" id="chapterCount">0 Chapters</span>
+  </div>
+
+  <input
+    type="search"
+    class="search"
+    id="chapterSearch"
+    placeholder="Search chapters..."
+    aria-label="Search chapters"
+  >
+
+  <div class="chapter-list" id="chapterList">
+    <div class="empty" id="emptyMessage">
+      No matching chapter found.
+    </div>
+  </div>
+
+</section>
+
+<div class="notice">
+  <strong>Learning tip:</strong>
+  Study chapters in sequence, understand the concepts and then
+  attempt practice questions. Some chapter resources are still
+  being developed.
+</div>
 
 </main>
 
+<footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  A learning platform built for students.<br>
+  © 2026 EDUVANTA. All rights reserved.
+</footer>
+
 <script>
-/* GET URL PARAMETERS */
+/* URL PARAMETERS */
 
-const params=new URLSearchParams(location.search);
+const params = new URLSearchParams(location.search);
 
-const selectedClass=params.get("class")||"Class 12";
-const board=params.get("board")||"CBSE";
-const subject=params.get("subject")||"Physics";
+const selectedClass = params.get("class") || "Class 12";
+const board = params.get("board") || "CBSE";
+const subject = params.get("subject") || "Physics";
 
-/* BACK BUTTON: CLASS DASHBOARD */
+/* BACK BUTTON */
 
-document.getElementById("backButton").href=
-"class.html?"+new URLSearchParams({
-  class:selectedClass
-}).toString();
+document.getElementById("backButton").href =
+  "class.html?" + new URLSearchParams({
+    class:selectedClass
+  }).toString();
 
 /* PAGE INFORMATION */
 
-document.getElementById("classBoard").textContent=
-board+" • "+selectedClass;
+document.getElementById("classBoard").textContent =
+  board + " • " + selectedClass;
 
-document.getElementById("subjectTitle").textContent=subject;
+document.getElementById("subjectTitle").textContent = subject;
 
 /* CHAPTER DATA */
 
-const chapters={
+const chapters = {
 
 Physics:[
 "Electric Charges and Fields",
@@ -168,29 +336,58 @@ Mathematics:[
 
 };
 
-/* SHOW CHAPTERS */
+/* FIND SUBJECT */
 
-const list=document.getElementById("chapterList");
-
-const subjectKey=Object.keys(chapters).find(
-  x=>x.toLowerCase()===subject.toLowerCase()
+const subjectKey = Object.keys(chapters).find(
+  key => key.toLowerCase() === subject.toLowerCase()
 );
+
+const list = document.getElementById("chapterList");
+const search = document.getElementById("chapterSearch");
+const emptyMessage = document.getElementById("emptyMessage");
+const count = document.getElementById("chapterCount");
 
 if(subjectKey){
 
-  chapters[subjectKey].forEach((chapter,index)=>{
+  const chapterData = chapters[subjectKey];
 
-    const button=document.createElement("button");
+  count.textContent = chapterData.length + " Chapters";
 
-    button.className="chapter";
+  chapterData.forEach((chapter,index)=>{
 
-    button.innerHTML=
-      "Chapter "+(index+1)+": "+chapter+
-      "<small>Open chapter learning options →</small>";
+    const button = document.createElement("button");
 
-    button.onclick=function(){
+    button.type = "button";
+    button.className = "chapter";
+    button.dataset.name = chapter.toLowerCase();
 
-      const query=new URLSearchParams({
+    const number = document.createElement("span");
+    number.className = "chapter-number";
+    number.textContent = String(index+1).padStart(2,"0");
+
+    const info = document.createElement("span");
+    info.className = "chapter-info";
+
+    const title = document.createElement("strong");
+    title.textContent = chapter;
+
+    const subtitle = document.createElement("small");
+    subtitle.textContent = "Chapter " + (index+1) + " • Open learning options";
+
+    info.appendChild(title);
+    info.appendChild(subtitle);
+
+    const arrow = document.createElement("span");
+    arrow.className = "arrow";
+    arrow.textContent = "→";
+
+    button.appendChild(number);
+    button.appendChild(info);
+    button.appendChild(arrow);
+
+    button.addEventListener("click",()=>{
+
+      const query = new URLSearchParams({
         class:selectedClass,
         board:board,
         subject:subject,
@@ -198,9 +395,9 @@ if(subjectKey){
         number:String(index+1)
       });
 
-      location.href="chapter.html?"+query.toString();
+      location.href = "chapter.html?" + query.toString();
 
-    };
+    });
 
     list.appendChild(button);
 
@@ -208,10 +405,37 @@ if(subjectKey){
 
 }else{
 
-  list.textContent=
+  count.textContent = "Not Available";
+  search.style.display = "none";
+  emptyMessage.style.display = "block";
+  emptyMessage.textContent =
     "Chapter list is not available for this subject yet.";
 
 }
+
+/* SEARCH CHAPTERS */
+
+search.addEventListener("input",function(){
+
+  const query = this.value.toLowerCase().trim();
+  const cards = list.querySelectorAll(".chapter");
+
+  let visible = 0;
+
+  cards.forEach(card=>{
+
+    const matches = card.dataset.name.includes(query);
+
+    card.style.display = matches ? "flex" : "none";
+
+    if(matches) visible++;
+
+  });
+
+  emptyMessage.style.display =
+    visible === 0 ? "block" : "none";
+
+});
 
 </script>
 
