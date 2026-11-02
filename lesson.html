@@ -1,178 +1,433 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
 <title>Lesson Mode | EDUVANTA</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:#fff;font-family:Arial,sans-serif;line-height:1.7}
-header{background:#111a2e;padding:13px 17px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #293653}
-.logo{font-size:21px;font-weight:bold;color:#91a4ff}
-.back{background:#26334f;color:white;text-decoration:none;padding:8px 13px;border-radius:9px}
-main{max-width:800px;margin:28px auto;padding:0 16px 40px}
+
+body{
+  margin:0;
+  background:#0b1020;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  line-height:1.7;
+}
+
+header{
+  background:#111a2e;
+  padding:13px 17px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #293653;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  color:#91a4ff;
+}
+
+.back{
+  background:#26334f;
+  color:white;
+  text-decoration:none;
+  padding:8px 13px;
+  border-radius:9px;
+}
+
+main{
+  max-width:800px;
+  margin:28px auto;
+  padding:0 16px 40px;
+}
+
 .muted{color:#aab4ca}
-.panel{background:#151e33;border:1px solid #293653;border-radius:16px;padding:20px}
-.progress{height:8px;background:#293653;border-radius:20px;overflow:hidden;margin:15px 0}
-.progress div{height:100%;width:0;background:#91a4ff;transition:.2s}
-.lesson{background:#202c47;border-radius:12px;padding:18px;min-height:210px}
-button{border:0;border-radius:10px;padding:12px 17px;background:#647ce8;color:white;font-size:15px;cursor:pointer}
-button:disabled{opacity:.35;cursor:not-allowed}
-.controls{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
-#lessonCount{font-size:14px;color:#aab4ca}
+
+.panel{
+  background:#151e33;
+  border:1px solid #293653;
+  border-radius:16px;
+  padding:20px;
+}
+
+.progress{
+  height:8px;
+  background:#293653;
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.progress div{
+  height:100%;
+  width:0;
+  background:#91a4ff;
+  transition:.2s;
+}
+
+.lesson{
+  background:#202c47;
+  border-radius:12px;
+  padding:18px;
+  min-height:210px;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:12px 17px;
+  background:#647ce8;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+
+.controls{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:18px;
+}
+
+#lessonCount{
+  font-size:14px;
+  color:#aab4ca;
+}
+
+@media(max-width:450px){
+  main{margin:20px auto}
+  .panel{padding:15px}
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="logo">EDUVANTA</div>
-<a class="back" id="backButton" href="#">← Back</a>
+  <div class="logo">EDUVANTA</div>
+  <a class="back" id="backButton" href="#">← Back</a>
 </header>
 
 <main>
-<p class="muted" id="courseInfo"></p>
-<h1 id="chapterTitle">Lesson Mode</h1>
-<p class="muted">Learn one concept at a time.</p>
 
-<section class="panel">
-<div id="lessonCount"></div>
-<div class="progress"><div id="progressBar"></div></div>
+  <p class="muted" id="courseInfo"></p>
 
-<article class="lesson">
-<h2 id="lessonTitle"></h2>
-<div id="lessonContent"></div>
-</article>
+  <h1 id="chapterTitle">Lesson Mode</h1>
 
-<div class="controls">
-<button id="previous">← Previous</button>
-<button id="next">Next →</button>
-</div>
-</section>
+  <p class="muted">Learn one concept at a time.</p>
+
+  <section class="panel">
+
+    <div id="lessonCount"></div>
+
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+
+    <article class="lesson">
+      <h2 id="lessonTitle"></h2>
+      <div id="lessonContent"></div>
+    </article>
+
+    <div class="controls">
+      <button id="previous">← Previous</button>
+      <button id="next">Next →</button>
+    </div>
+
+  </section>
+
 </main>
 
 <script>
+
+/* GET PAGE DETAILS */
+
 const params=new URLSearchParams(location.search);
+
 const selectedClass=params.get("class")||"Class 12";
 const board=params.get("board")||"CBSE";
 const subject=params.get("subject")||"Physics";
 const chapter=params.get("chapter")||"Electric Charges and Fields";
 const number=params.get("number")||"1";
 
+
+/* SHOW COURSE DETAILS */
+
 document.getElementById("courseInfo").textContent=
 board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
+
 document.getElementById("chapterTitle").textContent=chapter;
 
+
+/* FIXED BACK BUTTON */
+
+const backQuery=new URLSearchParams({
+  class:selectedClass,
+  board:board,
+  subject:subject,
+  chapter:chapter,
+  number:number
+});
+
 document.getElementById("backButton").href=
-"chapter.html?"+new URLSearchParams({
-class:selectedClass,board,subject,chapter,number
-}).toString();
+"chapter.html?"+backQuery.toString();
+
+
+/* LESSON CONTENT: PHYSICS CHAPTER 1 */
 
 const lessons=[
+
 {
 title:"Introduction to Electric Charge",
-content:`<p>Electric charge is a basic property of matter due to which particles experience electrical force.</p>
+content:`
+<p>Electric charge is a basic property of matter due to which particles experience electrical force.</p>
+
 <p><b>Exam definition:</b> Electric charge is the fundamental property of matter responsible for electrical interactions.</p>
-<p>SI unit of charge is Coulomb (C).</p>`
+
+<p>SI unit of charge is Coulomb (C).</p>
+`
 },
+
 {
 title:"Types of Electric Charges",
-content:`<p>There are two types of electric charges:</p>
-<ul><li>Positive charge (+): Found on protons.</li>
-<li>Negative charge (-): Found on electrons.</li></ul>
-<p>Like charges repel each other, whereas unlike charges attract each other.</p>`
+content:`
+<p>There are two types of electric charges:</p>
+
+<ul>
+<li>Positive charge (+): Found on protons.</li>
+<li>Negative charge (-): Found on electrons.</li>
+</ul>
+
+<p>Like charges repel each other, whereas unlike charges attract each other.</p>
+`
 },
+
 {
 title:"Properties of Electric Charge",
-content:`<p><b>1. Additivity:</b> Total charge is the algebraic sum of individual charges.</p>
+content:`
+<p><b>1. Additivity:</b> Total charge is the algebraic sum of individual charges.</p>
+
 <p><b>2. Conservation:</b> Charge can neither be created nor destroyed; it can only be transferred.</p>
+
 <p><b>3. Quantisation:</b> Charge exists in integral multiples of elementary charge.</p>
+
 <p><b>Formula:</b> q = ne</p>
-<p>e = 1.6 × 10⁻¹⁹ C</p>`
+
+<p>e = 1.6 × 10⁻¹⁹ C</p>
+`
 },
+
 {
 title:"Conductors and Insulators",
-content:`<p><b>Conductors:</b> Materials in which electric charges can move freely.</p>
+content:`
+<p><b>Conductors:</b> Materials in which electric charges can move freely.</p>
+
 <p>Examples: Copper and aluminium.</p>
+
 <p><b>Insulators:</b> Materials in which electric charges cannot move freely.</p>
-<p>Examples: Rubber and glass.</p>`
+
+<p>Examples: Rubber and glass.</p>
+`
 },
+
 {
 title:"Coulomb's Law",
-content:`<p><b>Statement:</b> The electrostatic force between two stationary point charges is directly proportional to the product of their charges and inversely proportional to the square of their separation.</p>
+content:`
+<p><b>Statement:</b> The electrostatic force between two stationary point charges is directly proportional to the product of their charges and inversely proportional to the square of their separation.</p>
+
 <p><b>Formula:</b> F = k |q₁q₂| / r²</p>
-<p>In vacuum, k ≈ 9 × 10⁹ N m²/C².</p>`
+
+<p>In vacuum, k ≈ 9 × 10⁹ N m²/C².</p>
+`
 },
+
 {
 title:"Principle of Superposition",
-content:`<p>When several charges act on a charge, the net force is the vector sum of the individual forces.</p>
+content:`
+<p>When several charges act on a charge, the net force is the vector sum of the individual forces.</p>
+
 <p><b>Formula:</b> Fnet = F₁ + F₂ + F₃ + ...</p>
-<p>Remember: Force is a vector quantity, so direction must be considered.</p>`
+
+<p>Remember: Force is a vector quantity, so direction must be considered.</p>
+`
 },
+
 {
 title:"Electric Field",
-content:`<p>Electric field is the region around a charge in which another charge experiences an electric force.</p>
+content:`
+<p>Electric field is the region around a charge in which another charge experiences an electric force.</p>
+
 <p><b>Formula:</b> E = F/q₀</p>
+
 <p>SI unit: N/C or V/m.</p>
-<p>For a point charge: E = k|Q|/r².</p>`
+
+<p>For a point charge: E = k|Q|/r².</p>
+`
 },
+
 {
 title:"Electric Field Lines",
-content:`<ul>
+content:`
+<ul>
 <li>Field lines start from positive charges and end at negative charges.</li>
+
 <li>Two electric field lines never intersect.</li>
+
 <li>Closer lines indicate a stronger electric field.</li>
+
 <li>Field lines are perpendicular to a conductor's surface in electrostatic equilibrium.</li>
-</ul>`
+</ul>
+`
 },
+
 {
 title:"Electric Dipole",
-content:`<p>An electric dipole consists of two equal and opposite charges separated by a small distance.</p>
+content:`
+<p>An electric dipole consists of two equal and opposite charges separated by a small distance.</p>
+
 <p><b>Dipole moment:</b> p = q × 2a</p>
+
 <p>Direction is from negative charge to positive charge.</p>
-<p>SI unit: C m.</p>`
+
+<p>SI unit: C m.</p>
+`
 },
+
 {
 title:"Electric Flux",
-content:`<p>Electric flux measures the electric field passing through a surface.</p>
+content:`
+<p>Electric flux measures the electric field passing through a surface.</p>
+
 <p><b>Formula:</b> Φ = EA cos θ</p>
+
 <p>SI unit: N m²/C.</p>
-<p>θ is the angle between the electric field and the area vector.</p>`
+
+<p>θ is the angle between the electric field and the area vector.</p>
+`
 },
+
 {
 title:"Gauss's Law",
-content:`<p><b>Statement:</b> Total electric flux through a closed surface equals the enclosed charge divided by ε₀.</p>
+content:`
+<p><b>Statement:</b> Total electric flux through a closed surface equals the enclosed charge divided by ε₀.</p>
+
 <p><b>Formula:</b> Φ = q(enclosed)/ε₀</p>
-<p>Mathematical form: ∮ E · dA = q(enclosed)/ε₀.</p>`
+
+<p>Mathematical form: ∮ E · dA = q(enclosed)/ε₀.</p>
+`
 }
+
 ];
 
+
+/* CHECK CONTENT AVAILABILITY */
+
+const isPhysicsChapter1=
+subject==="Physics" &&
+number==="1" &&
+chapter==="Electric Charges and Fields";
+
+
+/* ELEMENTS */
+
 let current=0;
+
 const title=document.getElementById("lessonTitle");
 const content=document.getElementById("lessonContent");
 const count=document.getElementById("lessonCount");
 const bar=document.getElementById("progressBar");
+
 const previous=document.getElementById("previous");
 const next=document.getElementById("next");
 
+
+/* SHOW LESSON */
+
 function showLesson(){
-const lesson=lessons[current];
-title.textContent=lesson.title;
-content.innerHTML=lesson.content;
-count.textContent="Lesson "+(current+1)+" of "+lessons.length;
-bar.style.width=((current+1)/lessons.length*100)+"%";
-previous.disabled=current===0;
-next.textContent=current===lessons.length-1?"Completed ✓":"Next →";
+
+  if(!isPhysicsChapter1){
+
+    title.textContent="Lessons Coming Soon";
+
+    content.innerHTML=`
+      <p>Detailed lessons for this chapter are being prepared.</p>
+
+      <p>Please return to Learning Modes and choose another available option.</p>
+    `;
+
+    count.textContent="Content not available yet";
+
+    bar.style.width="0%";
+
+    previous.disabled=true;
+    next.disabled=true;
+
+    return;
+  }
+
+  next.disabled=false;
+
+  const lesson=lessons[current];
+
+  title.textContent=lesson.title;
+
+  content.innerHTML=lesson.content;
+
+  count.textContent=
+  "Lesson "+(current+1)+" of "+lessons.length;
+
+  bar.style.width=
+  ((current+1)/lessons.length*100)+"%";
+
+  previous.disabled=current===0;
+
+  next.textContent=
+  current===lessons.length-1
+  ?"Completed ✓"
+  :"Next →";
+
 }
 
+
+/* PREVIOUS BUTTON */
+
 previous.onclick=()=>{
-if(current>0){current--;showLesson();}
+
+  if(current>0){
+    current--;
+    showLesson();
+  }
+
 };
+
+
+/* NEXT BUTTON */
 
 next.onclick=()=>{
-if(current<lessons.length-1){current++;showLesson();}
+
+  if(current<lessons.length-1){
+    current++;
+    showLesson();
+  }
+
 };
 
+
+/* INITIAL LOAD */
+
 showLesson();
+
 </script>
+
 </body>
 </html>
