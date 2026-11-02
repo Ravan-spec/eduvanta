@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>EDUVANTA | Lesson Mode</title>
-
-<style>
+<title>EDUVANTA | Lesson Mode</title><style>
 :root{
   --bg:#0b1020;
   --surface:#131d33;
@@ -130,7 +127,7 @@ main{
   background:#293653;
   border-radius:20px;
   overflow:hidden;
-  margin-bottom:20px;
+  margin-bottom:12px;
 }
 .progress div{
   height:100%;
@@ -138,6 +135,14 @@ main{
   background:linear-gradient(90deg,var(--blue),var(--teal));
   border-radius:20px;
   transition:width .3s;
+}
+.completion-summary{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:18px;
 }
 .lesson{
   background:var(--surface2);
@@ -183,21 +188,27 @@ main{
 .controls{
   display:flex;
   justify-content:space-between;
-  gap:12px;
+  flex-wrap:wrap;
+  gap:10px;
   margin-top:20px;
 }
 .btn{
   border:1px solid var(--border);
   border-radius:10px;
-  padding:12px 17px;
+  padding:12px 15px;
   background:var(--surface2);
   color:white;
-  font-size:14px;
+  font-size:13px;
   font-weight:bold;
 }
 .btn.primary{
   background:linear-gradient(135deg,#637ee8,#5268c9);
   border-color:transparent;
+}
+.btn.completed{
+  background:#12443f;
+  border-color:var(--teal);
+  color:var(--teal);
 }
 .btn:disabled{
   opacity:.35;
@@ -245,71 +256,46 @@ footer{
   .lesson{padding:18px 15px}
   .lesson h2{font-size:21px}
   .lesson-content{font-size:15px}
-  .btn{padding:11px 12px;font-size:13px}
+  .btn{padding:11px 12px;font-size:12px}
+  .controls{justify-content:center}
+  .controls button{flex:1}
 }
-</style>
-</head>
-
-<body>
-
-<header>
+</style></head><body><header>
   <div class="header-inner">
     <a class="logo" href="index.html">EDU<span>VANTA</span></a>
     <a class="back" id="backButton" href="#">← Learning Modes</a>
   </div>
-</header>
-
-<main>
-
-<section class="hero">
+</header><main><section class="hero">
   <div class="tag">EDUVANTA LEARNING MODE</div>
   <h1 id="chapterTitle">Lesson Mode</h1>
-  <p class="muted">Learn one concept at a time. Understand, revise and move forward.</p>
-
-  <div class="course-tags">
+  <p class="muted">Learn one concept at a time. Understand, revise and move forward.</p>  <div class="course-tags">
     <span id="boardInfo"></span>
     <span id="classInfo"></span>
     <span id="subjectInfo"></span>
     <span id="chapterInfo"></span>
   </div>
-</section>
-
-<section class="panel">
-
-  <div class="progress-top">
+</section><section class="panel">  <div class="progress-top">
     <span id="lessonCount">Loading lessons...</span>
     <span id="progressPercent">0%</span>
-  </div>
-
-  <div class="progress">
+  </div>  <div class="progress">
     <div id="progressBar"></div>
-  </div>
-
-  <article class="lesson" id="lessonCard">
+  </div>  <div class="completion-summary">
+    <span id="completedCount">0 completed</span>
+    <span id="remainingCount">11 remaining</span>
+  </div>  <article class="lesson" id="lessonCard">
     <div class="lesson-number" id="lessonNumber"></div>
     <h2 id="lessonTitle"></h2>
     <div class="lesson-content" id="lessonContent"></div>
-  </article>
-
-  <div class="lesson-tip" id="lessonTip">
+  </article>  <div class="lesson-tip" id="lessonTip">
     💡 Tip: Understand the concept before moving to the next lesson.
-  </div>
-
-  <div class="controls">
+  </div>  <div class="controls">
     <button class="btn" id="previous">← Previous</button>
+    <button class="btn" id="markComplete">✓ Mark Complete</button>
     <button class="btn primary" id="next">Next →</button>
-  </div>
-
-</section>
-
-</main>
-
-<footer>
+  </div></section></main><footer>
   <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
   Study one concept at a time.
-</footer>
-
-<script>
+</footer><script>
 
 /* PAGE PARAMETERS */
 
@@ -327,7 +313,6 @@ document.getElementById("boardInfo").textContent = board;
 document.getElementById("classInfo").textContent = selectedClass;
 document.getElementById("subjectInfo").textContent = subject;
 document.getElementById("chapterInfo").textContent = "Chapter " + number;
-
 document.getElementById("chapterTitle").textContent = chapter;
 
 /* BACK NAVIGATION */
@@ -442,11 +427,8 @@ title:"Electric Field Lines",
 content:`
 <ul>
 <li>Field lines start from positive charges and end at negative charges.</li>
-
 <li>Two electric field lines never intersect.</li>
-
 <li>Closer lines indicate a stronger electric field.</li>
-
 <li>Field lines are perpendicular to a conductor's surface in electrostatic equilibrium.</li>
 </ul>
 `
@@ -513,8 +495,9 @@ const lessonNumber = document.getElementById("lessonNumber");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
 const lessonTip = document.getElementById("lessonTip");
+const markComplete = document.getElementById("markComplete");
 
-/* SAVE PROGRESS SEPARATELY FOR EACH CHAPTER */
+/* STORAGE KEYS */
 
 const storageKey = "eduvanta_lesson_" + [
   board,
@@ -524,40 +507,153 @@ const storageKey = "eduvanta_lesson_" + [
   chapter
 ].join("_");
 
+const completedKey = storageKey + "_completed";
+const lastChapterKey = "eduvantaLastChapter";
+
+let completedLessons = [];
+
+/* LOAD COMPLETED LESSONS */
+
+function loadCompletedLessons(){
+  try{
+    const saved = JSON.parse(
+      localStorage.getItem(completedKey) || "[]"
+    );
+
+    completedLessons = Array.isArray(saved)
+      ? [...new Set(saved.filter(n =>
+          Number.isInteger(n) &&
+          n >= 0 &&
+          n < lessons.length
+        ))]
+      : [];
+
+  }catch(error){
+    completedLessons = [];
+  }
+}
+
+/* SAVE COMPLETED LESSONS */
+
+function saveCompletedLessons(){
+
+  const progressData = {
+    completed:completedLessons,
+    total:lessons.length,
+    chapter:chapter,
+    number:number,
+    subject:subject,
+    class:selectedClass,
+    board:board,
+    updatedAt:new Date().toISOString()
+  };
+
+  try{
+    localStorage.setItem(
+      completedKey,
+      JSON.stringify(completedLessons)
+    );
+
+    const allProgress = JSON.parse(
+      localStorage.getItem("eduvantaCompletedLessons") || "{}"
+    );
+
+    allProgress[storageKey] = progressData;
+
+    localStorage.setItem(
+      "eduvantaCompletedLessons",
+      JSON.stringify(allProgress)
+    );
+
+  }catch(error){
+    console.warn("Progress could not be saved.",error);
+  }
+}
+
+/* UPDATE COMPLETION SUMMARY */
+
+function updateCompletionSummary(){
+
+  const completed = completedLessons.length;
+  const total = lessons.length;
+  const remaining = total - completed;
+  const percentage = Math.round((completed / total) * 100);
+
+  document.getElementById("completedCount").textContent =
+    completed + " of " + total + " completed";
+
+  document.getElementById("remainingCount").textContent =
+    remaining + " remaining";
+
+  document.getElementById("progressPercent").textContent =
+    percentage + "% completed";
+
+  bar.style.width = percentage + "%";
+
+}
+
+/* UPDATE COMPLETE BUTTON */
+
+function updateCompleteButton(){
+
+  const isCompleted = completedLessons.includes(current);
+
+  markComplete.textContent = isCompleted
+    ? "✓ Completed"
+    : "✓ Mark Complete";
+
+  markComplete.classList.toggle("completed",isCompleted);
+
+}
+
+/* SAVE CURRENT LESSON POSITION */
+
 function saveProgress(){
+
   try{
     localStorage.setItem(storageKey,String(current));
   }catch(error){
-    console.warn("Progress could not be saved.");
+    console.warn("Lesson position could not be saved.");
   }
+
 }
 
+/* LOAD CURRENT LESSON POSITION */
+
 function loadProgress(){
+
   try{
+
     const saved = Number(localStorage.getItem(storageKey));
 
-    if(Number.isInteger(saved) && saved >= 0 && saved < lessons.length){
+    if(
+      Number.isInteger(saved) &&
+      saved >= 0 &&
+      saved < lessons.length
+    ){
       current = saved;
     }
+
   }catch(error){
     current = 0;
   }
+
 }
 
-/* UPDATE PROGRESS */
+/* UPDATE LESSON NAVIGATION INFORMATION */
 
-function updateProgress(){
-
-  const percentage = Math.round(
-    ((current + 1) / lessons.length) * 100
-  );
+function updateLessonNavigation(){
 
   count.textContent =
     "Lesson " + (current + 1) + " of " + lessons.length;
 
-  percent.textContent = percentage + "%";
+  previous.disabled = current === 0;
+  next.disabled = false;
 
-  bar.style.width = percentage + "%";
+  next.textContent =
+    current === lessons.length - 1
+    ? "Finish ✓"
+    : "Next →";
 
 }
 
@@ -568,7 +664,6 @@ function showLesson(){
   if(!isPhysicsChapter1){
 
     lessonNumber.textContent = "CONTENT NOT AVAILABLE";
-
     title.textContent = "Lessons Coming Soon";
 
     content.innerHTML = `
@@ -582,6 +677,7 @@ function showLesson(){
 
     previous.disabled = true;
     next.disabled = true;
+    markComplete.disabled = true;
 
     lessonTip.style.display = "none";
 
@@ -596,61 +692,97 @@ function showLesson(){
   title.textContent = lesson.title;
   content.innerHTML = lesson.content;
 
-  updateProgress();
-
-  previous.disabled = current === 0;
-
-  next.disabled = false;
-
-  next.textContent =
-    current === lessons.length - 1
-    ? "Finish ✓"
-    : "Next →";
+  updateLessonNavigation();
+  updateCompleteButton();
+  updateCompletionSummary();
 
   lessonTip.style.display = "block";
 
   lessonTip.textContent =
-    current === lessons.length - 1
-    ? "🎯 You have reached the final lesson. Review the concepts before finishing."
-    : "💡 Tip: Understand the concept before moving to the next lesson.";
+    completedLessons.includes(current)
+    ? "✅ You have marked this lesson as completed. You can undo it if needed."
+    : "💡 Tip: Understand the concept before marking it complete.";
 
-  window.scrollTo({top:0,behavior:"smooth"});
+  markComplete.disabled = false;
 
   saveProgress();
 
+  window.scrollTo({top:0,behavior:"smooth"});
+
 }
 
-/* COMPLETION SCREEN */
+/* MARK OR UNMARK LESSON */
+
+markComplete.addEventListener("click",()=>{
+
+  if(!isPhysicsChapter1)return;
+
+  if(completedLessons.includes(current)){
+
+    completedLessons =
+      completedLessons.filter(n => n !== current);
+
+    lessonTip.textContent =
+      "↩️ Completion removed. You can mark this lesson complete again.";
+
+  }else{
+
+    completedLessons.push(current);
+    completedLessons.sort((a,b)=>a-b);
+
+    lessonTip.textContent =
+      "✅ Lesson marked complete. Your progress has been saved.";
+
+  }
+
+  saveCompletedLessons();
+  updateCompleteButton();
+  updateCompletionSummary();
+
+});
+
+/* FINISH SCREEN */
 
 function showCompletion(){
 
-  lessonNumber.textContent = "CHAPTER LESSONS COMPLETED";
+  lessonNumber.textContent = "CHAPTER LEARNING SUMMARY";
 
-  title.textContent = "Well Done!";
+  title.textContent = "Chapter Review";
+
+  const completed = completedLessons.length;
+  const total = lessons.length;
+  const percentage = Math.round((completed / total) * 100);
+
+  const message = completed === total
+    ? "You have marked every lesson as completed."
+    : "You reached the end of the lesson list. Some lessons are still not marked complete.";
 
   content.innerHTML = `
     <div class="completion">
-      <div class="completion-icon">🎉</div>
-      <h2>Lessons Completed!</h2>
-      <p>You have reached the end of all ${lessons.length} available lessons for this chapter.</p>
-      <p>Revise the concepts and practise questions to strengthen your understanding.</p>
-      <button class="btn primary" onclick="restartLessons()">↻ Restart Lessons</button>
+      <div class="completion-icon">${completed === total ? "🎉" : "📘"}</div>
+      <h2>${completed === total ? "All Lessons Completed!" : "Lessons Reached!"}</h2>
+      <p>${message}</p>
+      <p><b>${completed} / ${total}</b> lessons completed</p>
+      <p><b>${percentage}%</b> completion progress</p>
+      <button class="btn primary" id="reviewLessons">↻ Review Lessons</button>
     </div>
   `;
 
-  count.textContent = "All " + lessons.length + " lessons completed";
-  percent.textContent = "100%";
-  bar.style.width = "100%";
+  count.textContent = "Chapter learning summary";
+  percent.textContent = percentage + "% completed";
+  bar.style.width = percentage + "%";
 
   previous.disabled = false;
   next.disabled = true;
-  next.textContent = "Completed ✓";
+  next.textContent = "Finished ✓";
+  markComplete.disabled = true;
 
   lessonTip.style.display = "none";
 
-  try{
-    localStorage.setItem(storageKey,"completed");
-  }catch(error){}
+  document.getElementById("reviewLessons").addEventListener("click",()=>{
+    current = 0;
+    showLesson();
+  });
 
   window.scrollTo({top:0,behavior:"smooth"});
 
@@ -691,7 +823,7 @@ next.addEventListener("click",()=>{
 
 });
 
-/* RESTART */
+/* RESTART LESSON POSITION */
 
 function restartLessons(){
 
@@ -709,11 +841,14 @@ function restartLessons(){
 
 if(isPhysicsChapter1){
 
+  loadCompletedLessons();
+
   try{
+
     const saved = localStorage.getItem(storageKey);
 
     if(saved === "completed"){
-      current = lessons.length;
+      current = lessons.length - 1;
       showCompletion();
     }else{
       loadProgress();
@@ -731,7 +866,5 @@ if(isPhysicsChapter1){
 
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
