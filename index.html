@@ -7,423 +7,1205 @@
 <link rel="manifest" href="manifest.json">
 <title>EDUVANTA | Learn Beyond Limits</title><style>
 :root{
-  --bg:#0b1020;--surface:#131d33;--surface2:#1b2943;
-  --border:#293a59;--text:#f4f7ff;--muted:#a5b2ca;
-  --blue:#7895ff;--teal:#36d6c3;
+  --bg:#0b1020;
+  --surface:#131d33;
+  --surface2:#1b2943;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --blue:#7895ff;
+  --teal:#36d6c3;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh
+}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer}
+
 header{
- position:sticky;top:0;z-index:20;background:#101a30ee;
- backdrop-filter:blur(14px);border-bottom:1px solid var(--border);
- padding:14px 6%;display:flex;align-items:center;
- justify-content:space-between;gap:15px
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#101a30ee;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:14px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px
 }
-.logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:23px;
+  font-weight:800
+}
 .logo img{width:39px;height:39px;object-fit:contain}
 .logo span span{color:var(--teal)}
 nav{display:flex;gap:22px;align-items:center}
 nav a{color:var(--muted);font-size:14px}
 nav a:hover{color:var(--teal)}
-.header-btn{background:var(--blue);color:#081020;padding:10px 15px;border-radius:9px;font-weight:bold;font-size:13px}
-main{width:100%;max-width:1150px;padding:30px 5% 90px;margin:auto}
-.hero{
- position:relative;overflow:hidden;padding:55px 35px;
- border:1px solid var(--border);border-radius:25px;
- background:radial-gradient(circle at 85% 15%,#3458a566,transparent 35%),
- linear-gradient(135deg,#172747,#102c4d 60%,#123c51)
+.header-btn{
+  background:var(--blue);
+  color:#081020;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:bold;
+  font-size:13px
 }
-.tag{display:inline-block;padding:8px 13px;border-radius:30px;background:#ffffff14;color:var(--teal);font-size:11px;font-weight:bold;letter-spacing:1px;margin-bottom:19px}
-.hero h1{font-size:clamp(34px,6vw,57px);line-height:1.15;max-width:650px;margin-bottom:16px}
+
+main{
+  width:100%;
+  max-width:1150px;
+  padding:30px 5% 90px;
+  margin:auto
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:55px 35px;
+  border:1px solid var(--border);
+  border-radius:25px;
+  background:
+    radial-gradient(circle at 85% 15%,#3458a566,transparent 35%),
+    linear-gradient(135deg,#172747,#102c4d 60%,#123c51)
+}
+.tag{
+  display:inline-block;
+  padding:8px 13px;
+  border-radius:30px;
+  background:#ffffff14;
+  color:var(--teal);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:19px
+}
+.hero h1{
+  font-size:clamp(34px,6vw,57px);
+  line-height:1.15;
+  max-width:650px;
+  margin-bottom:16px
+}
 .hero h1 span{color:var(--teal)}
-.hero p{color:#d0dced;max-width:590px;line-height:1.8;font-size:15px}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
-.primary-btn,.secondary-btn{display:inline-block;padding:13px 19px;border-radius:10px;font-weight:bold;font-size:14px;border:0}
+.hero p{
+  color:#d0dced;
+  max-width:590px;
+  line-height:1.8;
+  font-size:15px
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:25px
+}
+.primary-btn,.secondary-btn{
+  display:inline-block;
+  padding:13px 19px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:14px;
+  border:0
+}
 .primary-btn{background:var(--teal);color:#071c24}
-.secondary-btn{background:#ffffff16;color:white;border:1px solid #ffffff2a}
+.secondary-btn{
+  background:#ffffff16;
+  color:white;
+  border:1px solid #ffffff2a
+}
+
 .section{margin-top:40px}
-.section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:12px;
+  margin-bottom:18px
+}
 .section-heading h2{font-size:23px;margin-bottom:6px}
 .muted{color:var(--muted);font-size:13px;line-height:1.7}
 .text-link{color:var(--teal);font-size:13px;font-weight:bold}
+
 .profile-card,.dashboard-card,.goal-card{
- padding:22px;background:var(--surface);border:1px solid var(--border);border-radius:17px
+  padding:22px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:17px
 }
-.profile-card{margin-top:25px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.profile-card{
+  margin-top:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px
+}
 .profile-info{display:flex;align-items:center;gap:15px}
-.avatar{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#293e68;font-size:26px}
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:#293e68;
+  font-size:26px
+}
 .profile-info h3{margin-bottom:5px}
 .profile-action,.small-btn{
- background:var(--surface2);color:white;border:1px solid var(--border);
- padding:11px 15px;border-radius:9px;font-weight:bold
+  background:var(--surface2);
+  color:white;
+  border:1px solid var(--border);
+  padding:11px 15px;
+  border-radius:9px;
+  font-weight:bold
 }
-.dashboard-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:15px}
-.dashboard-card h3,.goal-card h3{font-size:17px;margin-bottom:9px}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:15px
+}
+.dashboard-card h3,.goal-card h3{
+  font-size:17px;
+  margin-bottom:9px
+}
 .continue-empty{padding:18px 0 4px}
 .continue-empty .empty-icon{font-size:30px;margin-bottom:12px}
-.continue-empty p{color:var(--muted);font-size:13px;line-height:1.7}
+.continue-empty p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7
+}
 .continue-details{padding:15px 0 2px}
-.continue-details h4{font-size:18px;margin-bottom:8px;line-height:1.4}
-.continue-meta{color:var(--muted);font-size:12px;line-height:1.8}
-.continue-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.continue-details h4{
+  font-size:18px;
+  margin-bottom:8px;
+  line-height:1.4
+}
+.continue-meta{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8
+}
+.continue-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:16px
+}
 .continue-links a{
- display:inline-block;padding:10px 13px;border-radius:9px;
- background:var(--surface2);border:1px solid var(--border);
- color:var(--teal);font-size:12px;font-weight:bold
+  display:inline-block;
+  padding:10px 13px;
+  border-radius:9px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  color:var(--teal);
+  font-size:12px;
+  font-weight:bold
 }
 .continue-links a:hover{border-color:var(--teal)}
-.goal-card{background:linear-gradient(140deg,#172747,#123c51)}
-.goal-number{font-size:30px;font-weight:800;color:var(--teal);margin:10px 0}
-.goal-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.goal-controls button{padding:9px 12px;border:1px solid #ffffff30;border-radius:8px;background:#ffffff12;color:white}
+
+.goal-card{
+  background:linear-gradient(140deg,#172747,#123c51)
+}
+.goal-number{
+  font-size:30px;
+  font-weight:800;
+  color:var(--teal);
+  margin:10px 0
+}
+.goal-controls{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px
+}
+.goal-controls button{
+  padding:9px 12px;
+  border:1px solid #ffffff30;
+  border-radius:8px;
+  background:#ffffff12;
+  color:white
+}
 .goal-controls button:disabled{opacity:.4;cursor:not-allowed}
-.progress-track{height:9px;border-radius:20px;background:#ffffff20;overflow:hidden;margin:12px 0}
-.progress-fill{height:100%;width:0;background:var(--teal);border-radius:20px;transition:width .3s}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.stat-card{padding:19px;background:var(--surface);border:1px solid var(--border);border-radius:15px}
+.progress-track{
+  height:9px;
+  border-radius:20px;
+  background:#ffffff20;
+  overflow:hidden;
+  margin:12px 0
+}
+.progress-fill{
+  height:100%;
+  width:0;
+  background:var(--teal);
+  border-radius:20px;
+  transition:width .3s
+}
+
+/* LEARNING PROGRESS TRACKER */
+
+.learning-progress-card{
+  margin-top:15px;
+  padding:23px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:17px
+}
+.learning-progress-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:20px
+}
+.learning-progress-header h3{font-size:18px;margin-bottom:5px}
+.overall-percent{
+  font-size:27px;
+  font-weight:800;
+  color:var(--teal)
+}
+.progress-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:20px 0
+}
+.progress-stat{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px
+}
+.progress-stat strong{
+  display:block;
+  font-size:22px;
+  margin-bottom:5px
+}
+.progress-stat span{
+  color:var(--muted);
+  font-size:11px
+}
+.overall-track{
+  height:11px;
+  background:#293653;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0
+}
+.overall-fill{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,var(--blue),var(--teal));
+  border-radius:20px;
+  transition:width .35s
+}
+.chapter-progress-list{
+  display:grid;
+  gap:12px;
+  margin-top:20px
+}
+.chapter-progress-item{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px
+}
+.chapter-progress-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:9px
+}
+.chapter-progress-title{
+  font-size:13px;
+  font-weight:bold;
+  line-height:1.5
+}
+.chapter-progress-detail{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px
+}
+.chapter-progress-percent{
+  color:var(--teal);
+  font-size:13px;
+  font-weight:bold;
+  white-space:nowrap
+}
+.chapter-track{
+  height:7px;
+  border-radius:20px;
+  background:#111b30;
+  overflow:hidden
+}
+.chapter-fill{
+  height:100%;
+  background:var(--teal);
+  border-radius:20px;
+  transition:width .3s
+}
+.progress-empty{
+  padding:20px 10px;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8
+}
+.progress-note{
+  margin-top:15px;
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.7
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
+}
+.stat-card{
+  padding:19px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:15px
+}
 .stat-icon{font-size:25px;margin-bottom:13px}
 .stat-card h3{font-size:15px;margin-bottom:6px}
-.stat-card p{font-size:12px;color:var(--muted);line-height:1.6}
-.search{width:100%;padding:15px;border:1px solid var(--border);border-radius:11px;margin-bottom:17px;font-size:14px;color:white;background:var(--surface);outline:none}
+.stat-card p{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6
+}
+.search{
+  width:100%;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  margin-bottom:17px;
+  font-size:14px;
+  color:white;
+  background:var(--surface);
+  outline:none
+}
 .search:focus{border-color:var(--blue)}
-.classes{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.class-card{padding:19px 12px;background:var(--surface);border:1px solid var(--border);border-radius:13px;text-align:center;transition:.2s}
-.class-card:hover{border-color:var(--teal);background:var(--surface2);transform:translateY(-3px)}
+.classes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px
+}
+.class-card{
+  padding:19px 12px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+  text-align:center;
+  transition:.2s
+}
+.class-card:hover{
+  border-color:var(--teal);
+  background:var(--surface2);
+  transform:translateY(-3px)
+}
 .class-card strong{display:block;font-size:16px}
-.class-card small{display:block;color:var(--muted);margin-top:7px;font-size:11px}
-.empty{display:none;text-align:center;color:var(--muted);padding:25px;grid-column:1/-1}
-.learning-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.learning-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;transition:.2s}
-.learning-card:hover{transform:translateY(-3px);border-color:var(--blue)}
-.learning-icon{width:47px;height:47px;display:grid;place-items:center;background:#283a60;border-radius:13px;font-size:24px;margin-bottom:16px}
+.class-card small{
+  display:block;
+  color:var(--muted);
+  margin-top:7px;
+  font-size:11px
+}
+.empty{
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+  grid-column:1/-1
+}
+.learning-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px
+}
+.learning-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  transition:.2s
+}
+.learning-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--blue)
+}
+.learning-icon{
+  width:47px;
+  height:47px;
+  display:grid;
+  place-items:center;
+  background:#283a60;
+  border-radius:13px;
+  font-size:24px;
+  margin-bottom:16px
+}
 .learning-card h3{font-size:17px;margin-bottom:8px}
-.learning-card p{color:var(--muted);font-size:13px;line-height:1.7;min-height:44px}
-.card-link{display:inline-block;margin-top:16px;color:var(--teal);font-size:13px;font-weight:bold}
-.notice{margin-top:30px;background:#132d36;border:1px solid #24534f;border-radius:13px;padding:18px;color:#b9e9e1;line-height:1.7;font-size:13px}
-footer{border-top:1px solid var(--border);padding:30px 6%;text-align:center;color:var(--muted);font-size:12px;line-height:2}
+.learning-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+  min-height:44px
+}
+.card-link{
+  display:inline-block;
+  margin-top:16px;
+  color:var(--teal);
+  font-size:13px;
+  font-weight:bold
+}
+.notice{
+  margin-top:30px;
+  background:#132d36;
+  border:1px solid #24534f;
+  border-radius:13px;
+  padding:18px;
+  color:#b9e9e1;
+  line-height:1.7;
+  font-size:13px
+}
+footer{
+  border-top:1px solid var(--border);
+  padding:30px 6%;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2
+}
 .mobile-nav{display:none}
+
 @media(max-width:850px){
- .grid{grid-template-columns:repeat(2,1fr)}
- .classes{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .classes{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:600px){
- header{padding:12px 5%}.logo{font-size:20px}.logo img{width:34px;height:34px}
- nav{display:none}.header-btn{font-size:12px;padding:9px 11px}
- main{padding:20px 5% 100px}
- .hero{padding:39px 22px;border-radius:19px}
- .hero h1{font-size:36px}.hero p{font-size:14px}
- .section{margin-top:32px}.section-heading h2{font-size:20px}
- .profile-card{align-items:flex-start;flex-direction:column}
- .dashboard-grid{grid-template-columns:1fr}
- .grid{grid-template-columns:repeat(2,1fr);gap:10px}
- .stat-card{padding:14px}.classes{grid-template-columns:repeat(2,1fr)}
- .learning-grid{grid-template-columns:1fr}
- .learning-card{padding:16px}
- .mobile-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:30;
-  display:flex;justify-content:space-around;background:#111b30f5;
-  backdrop-filter:blur(14px);border-top:1px solid var(--border);
-  padding:11px 5px calc(11px + env(safe-area-inset-bottom))
- }
- .mobile-nav a{color:var(--muted);font-size:11px;text-align:center}
- .mobile-nav span{display:block;font-size:19px;margin-bottom:3px}
+  header{padding:12px 5%}
+  .logo{font-size:20px}
+  .logo img{width:34px;height:34px}
+  nav{display:none}
+  .header-btn{font-size:12px;padding:9px 11px}
+  main{padding:20px 5% 100px}
+  .hero{padding:39px 22px;border-radius:19px}
+  .hero h1{font-size:36px}
+  .hero p{font-size:14px}
+  .section{margin-top:32px}
+  .section-heading h2{font-size:20px}
+  .profile-card{align-items:flex-start;flex-direction:column}
+  .dashboard-grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat-card{padding:14px}
+  .classes{grid-template-columns:repeat(2,1fr)}
+  .learning-grid{grid-template-columns:1fr}
+  .learning-card{padding:16px}
+  .learning-progress-card{padding:17px}
+  .progress-stats{gap:8px}
+  .progress-stat{padding:11px}
+  .progress-stat strong{font-size:19px}
+  .progress-stat span{font-size:10px}
+  .mobile-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:30;
+    display:flex;
+    justify-content:space-around;
+    background:#111b30f5;
+    backdrop-filter:blur(14px);
+    border-top:1px solid var(--border);
+    padding:11px 5px calc(11px + env(safe-area-inset-bottom))
+  }
+  .mobile-nav a{
+    color:var(--muted);
+    font-size:11px;
+    text-align:center
+  }
+  .mobile-nav span{
+    display:block;
+    font-size:19px;
+    margin-bottom:3px
+  }
 }
-</style></head><body>
-<header>
- <a class="logo" href="#home">
-  <img src="icon.svg" alt="EDUVANTA">
-  <span>EDU<span>VANTA</span></span>
- </a>
- <nav>
-  <a href="#home">Home</a><a href="#dashboard">Dashboard</a>
-  <a href="#classes">Classes</a><a href="#learning">Learning</a>
- </nav>
- <a class="header-btn" href="#classes">Start Learning →</a>
-</header><main>
-<section class="hero" id="home">
- <div class="tag">YOUR SMART LEARNING DESTINATION</div>
- <h1>Learn Beyond <span>Limits.</span></h1>
- <p>Discover concepts, explore subjects and build your knowledge with a learning experience designed for your goals.</p>
- <div class="hero-actions">
-  <a class="primary-btn" href="#classes">Explore Classes →</a>
-  <a class="secondary-btn" href="#dashboard">My Dashboard</a>
- </div>
-</section><section class="profile-card" id="profile">
- <div class="profile-info">
-  <div class="avatar">🎓</div>
-  <div>
-   <h3>My Learning Profile</h3>
-   <p class="muted" id="profileText">Choose your class to get started.</p>
+</style></head><body><header>
+  <a class="logo" href="#home">
+    <img src="icon.svg" alt="EDUVANTA">
+    <span>EDU<span>VANTA</span></span>
+  </a>  <nav>
+    <a href="#home">Home</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#classes">Classes</a>
+    <a href="#learning">Learning</a>
+  </nav><a class="header-btn" href="#classes">Start Learning →</a>
+
+</header><main><section class="hero" id="home">
+  <div class="tag">YOUR SMART LEARNING DESTINATION</div>
+  <h1>Learn Beyond <span>Limits.</span></h1>
+  <p>Discover concepts, explore subjects and build your knowledge with a learning experience designed for your goals.</p>  <div class="hero-actions">
+    <a class="primary-btn" href="#classes">Explore Classes →</a>
+    <a class="secondary-btn" href="#dashboard">My Dashboard</a>
   </div>
- </div>
- <button class="profile-action" id="changeClass">Select Class</button>
-</section><section class="section" id="dashboard">
- <div class="section-heading">
-  <div><h2>My Smart Dashboard</h2><p class="muted">Your personal study space.</p></div>
- </div> <div class="dashboard-grid">
-  <div class="dashboard-card">
-   <h3>▶ Continue Learning</h3>
-   <div id="continueArea" class="continue-empty">
+</section><section class="profile-card" id="profile">
+  <div class="profile-info">
+    <div class="avatar">🎓</div>
+    <div>
+      <h3>My Learning Profile</h3>
+      <p class="muted" id="profileText">Choose your class to get started.</p>
+    </div>
+  </div>
+  <button class="profile-action" id="changeClass">Select Class</button>
+</section><section class="section" id="dashboard">  <div class="section-heading">
+    <div>
+      <h2>My Smart Dashboard</h2>
+      <p class="muted">Your personal study space.</p>
+    </div>
+  </div>  <div class="dashboard-grid"><div class="dashboard-card">
+  <h3>▶ Continue Learning</h3>
+
+  <div id="continueArea" class="continue-empty">
     <div class="empty-icon">📘</div>
     <p>No recently opened chapter is recorded yet.</p>
     <p>Open a chapter to see your latest learning activity here.</p>
     <a class="card-link" href="#classes">Choose a class →</a>
-   </div>
-  </div>  <div class="goal-card">
-   <h3>🎯 Daily Study Goal</h3>
-   <p class="muted">Track your study time on this device.</p>
-   <div class="goal-number"><span id="minutesDone">0</span><span class="muted"> / </span><span id="goalMinutes">60</span><small class="muted"> min</small></div>
-   <div class="progress-track"><div class="progress-fill" id="goalFill"></div></div>
-   <p class="muted" id="goalMessage">Your daily study log starts here.</p>
-   <div class="goal-controls">
+  </div>
+</div>
+
+<div class="goal-card">
+  <h3>🎯 Daily Study Goal</h3>
+  <p class="muted">Track your study time on this device.</p>
+
+  <div class="goal-number">
+    <span id="minutesDone">0</span>
+    <span class="muted"> / </span>
+    <span id="goalMinutes">60</span>
+    <small class="muted"> min</small>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="goalFill"></div>
+  </div>
+
+  <p class="muted" id="goalMessage">Your daily study log starts here.</p>
+
+  <div class="goal-controls">
     <button id="add15">+15 min</button>
     <button id="add30">+30 min</button>
     <button id="resetGoal">Reset today</button>
-   </div>
-   <div class="goal-controls">
-    <button id="setGoal">Change goal</button>
-   </div>
-   <p class="muted" style="margin-top:10px">Study time is self-reported, not automatically measured.</p>
   </div>
- </div>
-</section><section class="section">
- <div class="section-heading">
-  <div><h2>Your Learning Space</h2><p class="muted">Quick access to your study tools.</p></div>
- </div>
- <div class="grid">
-  <div class="stat-card"><div class="stat-icon">📚</div><h3>Study Library</h3><p>Chapter-wise study resources.</p></div>
-  <div class="stat-card"><div class="stat-icon">✍️</div><h3>Practice Zone</h3><p>Available chapter practice questions.</p></div>
-  <div class="stat-card"><div class="stat-icon">🎯</div><h3>Learning Goals</h3><p>Set and track your daily study target.</p></div>
-  <div class="stat-card"><div class="stat-icon">📈</div><h3>Progress</h3><p>Chapter-wise analytics will be connected in a later update.</p></div>
- </div>
-</section><section class="section" id="classes">
- <div class="section-heading">
-  <div><h2>Choose Your Learning Level</h2><p class="muted">Select a class or exam category.</p></div>
- </div>
- <input class="search" id="search" type="search" placeholder="Search Class 12, JEE, NEET..." aria-label="Search classes">
- <div class="classes" id="classGrid">
-  <a class="class-card" data-name="Class 1" href="#"><strong>Class 1</strong><small>Primary</small></a>
-  <a class="class-card" data-name="Class 2" href="#"><strong>Class 2</strong><small>Primary</small></a>
-  <a class="class-card" data-name="Class 3" href="#"><strong>Class 3</strong><small>Primary</small></a>
-  <a class="class-card" data-name="Class 4" href="#"><strong>Class 4</strong><small>Primary</small></a>
-  <a class="class-card" data-name="Class 5" href="#"><strong>Class 5</strong><small>Primary</small></a>
-  <a class="class-card" data-name="Class 6" href="#"><strong>Class 6</strong><small>Middle School</small></a>
-  <a class="class-card" data-name="Class 7" href="#"><strong>Class 7</strong><small>Middle School</small></a>
-  <a class="class-card" data-name="Class 8" href="#"><strong>Class 8</strong><small>Middle School</small></a>
-  <a class="class-card" data-name="Class 9" href="#"><strong>Class 9</strong><small>Secondary</small></a>
-  <a class="class-card" data-name="Class 10" href="#"><strong>Class 10</strong><small>Secondary</small></a>
-  <a class="class-card" data-name="Class 11" href="#"><strong>Class 11</strong><small>Senior Secondary</small></a>
-  <a class="class-card" data-name="Class 12" href="#"><strong>Class 12</strong><small>Senior Secondary</small></a>
-  <a class="class-card" data-name="JEE" href="#"><strong>JEE</strong><small>Engineering</small></a>
-  <a class="class-card" data-name="NEET" href="#"><strong>NEET</strong><small>Medical</small></a>
-  <a class="class-card" data-name="CUET" href="#"><strong>CUET</strong><small>University Entrance</small></a>
-  <a class="class-card" data-name="UPSC" href="#"><strong>UPSC</strong><small>Civil Services</small></a>
-  <div class="empty" id="emptyMessage">No matching class found.</div>
- </div>
-</section><section class="section" id="learning">
- <div class="section-heading">
-  <div><h2>Explore Learning</h2><p class="muted">Choose a way to continue your studies.</p></div>
- </div>
- <div class="learning-grid">
-  <article class="learning-card">
-   <div class="learning-icon">📖</div><h3>Learning Library</h3>
-   <p>Open your class and explore chapter-wise learning resources.</p>
-   <a class="card-link" href="#classes">Explore Library →</a>
-  </article>
-  <article class="learning-card">
-   <div class="learning-icon">🧠</div><h3>Practice Zone</h3>
-   <p>Open available chapter practice questions and test yourself.</p>
-   <a class="card-link" href="#classes">Start Practice →</a>
-  </article>
-  <article class="learning-card">
-   <div class="learning-icon">📝</div><h3>Mock Tests</h3>
-   <p>Mock test feature is planned for a future update.</p>
-   <span class="card-link">Coming Soon</span>
-  </article>
-  <article class="learning-card">
-   <div class="learning-icon">📊</div><h3>My Progress</h3>
-   <p>Detailed learning analytics will be added in a future update.</p>
-   <span class="card-link">Coming Soon</span>
-  </article>
- </div>
- <div class="notice">
-  <strong>EDUVANTA is growing!</strong><br>
-  More classes, chapters, lessons, practice questions and learning tools will be added in upcoming updates. Only currently available content is shown inside each learning section.
- </div>
-</section>
-</main><footer>
- <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
- A learning platform built for students.<br>
- © 2026 EDUVANTA. All rights reserved.
+
+  <div class="goal-controls">
+    <button id="setGoal">Change goal</button>
+  </div>
+
+  <p class="muted" style="margin-top:10px">
+    Study time is self-reported, not automatically measured.
+  </p>
+</div>
+
+  </div>  <!-- REAL LEARNING PROGRESS TRACKER -->  <div class="learning-progress-card"><div class="learning-progress-header">
+  <div>
+    <h3>📈 My Learning Progress</h3>
+    <p class="muted">Your completed lessons across tracked chapters.</p>
+  </div>
+  <div class="overall-percent" id="overallPercent">0%</div>
+</div>
+
+<div class="overall-track">
+  <div class="overall-fill" id="overallFill"></div>
+</div>
+
+<div class="progress-stats">
+  <div class="progress-stat">
+    <strong id="totalCompleted">0</strong>
+    <span>Lessons completed</span>
+  </div>
+
+  <div class="progress-stat">
+    <strong id="totalAvailable">0</strong>
+    <span>Lessons available</span>
+  </div>
+
+  <div class="progress-stat">
+    <strong id="trackedChapters">0</strong>
+    <span>Tracked chapters</span>
+  </div>
+</div>
+
+<div id="chapterProgressList" class="chapter-progress-list">
+  <div class="progress-empty">
+    📚 Your learning progress will appear here.<br>
+    Open a lesson and mark it complete to begin tracking.
+  </div>
+</div>
+
+<p class="progress-note">
+  Progress is calculated from lessons you manually mark as complete.
+  It is saved on this device and browser.
+</p>
+
+  </div></section><section class="section">  <div class="section-heading">
+    <div>
+      <h2>Your Learning Space</h2>
+      <p class="muted">Quick access to your study tools.</p>
+    </div>
+  </div>  <div class="grid">
+    <div class="stat-card">
+      <div class="stat-icon">📚</div>
+      <h3>Study Library</h3>
+      <p>Chapter-wise study resources.</p>
+    </div><div class="stat-card">
+  <div class="stat-icon">✍️</div>
+  <h3>Practice Zone</h3>
+  <p>Available chapter practice questions.</p>
+</div>
+
+<div class="stat-card">
+  <div class="stat-icon">🎯</div>
+  <h3>Learning Goals</h3>
+  <p>Set and track your daily study target.</p>
+</div>
+
+<div class="stat-card">
+  <div class="stat-icon">📈</div>
+  <h3>Progress</h3>
+  <p>See your saved lesson completion and chapter-wise progress above.</p>
+</div>
+
+  </div></section><section class="section" id="classes">  <div class="section-heading">
+    <div>
+      <h2>Choose Your Learning Level</h2>
+      <p class="muted">Select a class or exam category.</p>
+    </div>
+  </div><input
+class="search"
+id="search"
+type="search"
+placeholder="Search Class 12, JEE, NEET..."
+aria-label="Search classes"
+
+«»
+
+  <div class="classes" id="classGrid"><a class="class-card" data-name="Class 1" href="#"><strong>Class 1</strong><small>Primary</small></a>
+<a class="class-card" data-name="Class 2" href="#"><strong>Class 2</strong><small>Primary</small></a>
+<a class="class-card" data-name="Class 3" href="#"><strong>Class 3</strong><small>Primary</small></a>
+<a class="class-card" data-name="Class 4" href="#"><strong>Class 4</strong><small>Primary</small></a>
+<a class="class-card" data-name="Class 5" href="#"><strong>Class 5</strong><small>Primary</small></a>
+<a class="class-card" data-name="Class 6" href="#"><strong>Class 6</strong><small>Middle School</small></a>
+<a class="class-card" data-name="Class 7" href="#"><strong>Class 7</strong><small>Middle School</small></a>
+<a class="class-card" data-name="Class 8" href="#"><strong>Class 8</strong><small>Middle School</small></a>
+<a class="class-card" data-name="Class 9" href="#"><strong>Class 9</strong><small>Secondary</small></a>
+<a class="class-card" data-name="Class 10" href="#"><strong>Class 10</strong><small>Secondary</small></a>
+<a class="class-card" data-name="Class 11" href="#"><strong>Class 11</strong><small>Senior Secondary</small></a>
+<a class="class-card" data-name="Class 12" href="#"><strong>Class 12</strong><small>Senior Secondary</small></a>
+<a class="class-card" data-name="JEE" href="#"><strong>JEE</strong><small>Engineering</small></a>
+<a class="class-card" data-name="NEET" href="#"><strong>NEET</strong><small>Medical</small></a>
+<a class="class-card" data-name="CUET" href="#"><strong>CUET</strong><small>University Entrance</small></a>
+<a class="class-card" data-name="UPSC" href="#"><strong>UPSC</strong><small>Civil Services</small></a>
+
+<div class="empty" id="emptyMessage">No matching class found.</div>
+
+  </div></section><section class="section" id="learning">  <div class="section-heading">
+    <div>
+      <h2>Explore Learning</h2>
+      <p class="muted">Choose a way to continue your studies.</p>
+    </div>
+  </div>  <div class="learning-grid"><article class="learning-card">
+  <div class="learning-icon">📖</div>
+  <h3>Learning Library</h3>
+  <p>Open your class and explore chapter-wise learning resources.</p>
+  <a class="card-link" href="#classes">Explore Library →</a>
+</article>
+
+<article class="learning-card">
+  <div class="learning-icon">🧠</div>
+  <h3>Practice Zone</h3>
+  <p>Open available chapter practice questions and test yourself.</p>
+  <a class="card-link" href="#classes">Start Practice →</a>
+</article>
+
+<article class="learning-card">
+  <div class="learning-icon">📝</div>
+  <h3>Mock Tests</h3>
+  <p>Mock test feature is planned for a future update.</p>
+  <span class="card-link">Coming Soon</span>
+</article>
+
+<article class="learning-card">
+  <div class="learning-icon">📊</div>
+  <h3>My Progress</h3>
+  <p>View your lesson completion and chapter progress in the dashboard.</p>
+  <a class="card-link" href="#dashboard">View My Progress →</a>
+</article>
+
+  </div>  <div class="notice">
+    <strong>EDUVANTA is growing!</strong><br>
+    More classes, chapters, lessons, practice questions and learning tools will be added in upcoming updates. Only currently available content is shown inside each learning section.
+  </div></section></main><footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  A learning platform built for students.<br>
+  © 2026 EDUVANTA. All rights reserved.
 </footer><div class="mobile-nav">
- <a href="#home"><span>⌂</span>Home</a>
- <a href="#dashboard"><span>📊</span>Dashboard</a>
- <a href="#classes"><span>🎓</span>Classes</a>
- <a href="#learning"><span>📚</span>Learning</a>
+  <a href="#home"><span>⌂</span>Home</a>
+  <a href="#dashboard"><span>📊</span>Dashboard</a>
+  <a href="#classes"><span>🎓</span>Classes</a>
+  <a href="#learning"><span>📚</span>Learning</a>
 </div><script>
-const searchInput=document.getElementById("search");
-const classCards=document.querySelectorAll(".class-card");
-const profileText=document.getElementById("profileText");
-const changeClass=document.getElementById("changeClass");
+
+/* PROFILE */
+
+const searchInput = document.getElementById("search");
+const classCards = document.querySelectorAll(".class-card");
+const profileText = document.getElementById("profileText");
+const changeClass = document.getElementById("changeClass");
 
 function updateProfile(){
- const selected=localStorage.getItem("eduvantaStudentClass");
- profileText.textContent=selected
-  ?"Your selected learning level: "+selected
-  :"Choose your class to get started.";
- changeClass.textContent=selected?"Change Class":"Select Class";
-}
+
+  const selected = localStorage.getItem("eduvantaStudentClass");
+
+  profileText.textContent = selected
+    ? "Your selected learning level: " + selected
+    : "Choose your class to get started.";
+
+  changeClass.textContent = selected
+    ? "Change Class"
+    : "Select Class";
+  }
+
 updateProfile();
 
 changeClass.addEventListener("click",()=>{
- document.getElementById("classes").scrollIntoView({behavior:"smooth"});
+  document.getElementById("classes").scrollIntoView({behavior:"smooth"});
 });
+
+/* CLASS SEARCH */
 
 searchInput.addEventListener("input",function(){
- const query=this.value.toLowerCase().trim();
- let visible=0;
- classCards.forEach(card=>{
-  const matches=card.textContent.toLowerCase().includes(query);
-  card.style.display=matches?"":"none";
-  if(matches)visible++;
- });
- document.getElementById("emptyMessage").style.display=visible===0?"block":"none";
+
+  const query = this.value.toLowerCase().trim();
+  let visible = 0;
+
+  classCards.forEach(card=>{
+
+    const matches = card.textContent.toLowerCase().includes(query);
+
+    card.style.display = matches ? "" : "none";
+
+    if(matches)visible++;
+
+  });
+
+  document.getElementById("emptyMessage").style.display =
+    visible === 0 ? "block" : "none";
+
 });
+
+/* CLASS LINKS */
 
 classCards.forEach(card=>{
- const name=card.dataset.name;
- card.href="class.html?class="+encodeURIComponent(name);
- card.addEventListener("click",()=>{
-  if(name.startsWith("Class ")){
-   localStorage.setItem("eduvantaStudentClass",name);
-   localStorage.setItem("eduvantaClass",name);
-  }
- });
+
+  const name = card.dataset.name;
+
+  card.href = "class.html?class=" + encodeURIComponent(name);
+
+  card.addEventListener("click",()=>{
+
+    if(name.startsWith("Class ")){
+
+      localStorage.setItem("eduvantaStudentClass",name);
+      localStorage.setItem("eduvantaClass",name);
+
+    }
+
+  });
+
 });
 
-/* CONTINUE LEARNING — LAST OPENED CHAPTER */
+/* CONTINUE LEARNING */
+
 function safeLocalLink(value){
- if(typeof value!=="string"||!value.trim())return null;
- try{
-  const url=new URL(value,window.location.href);
-  if(url.origin!==window.location.origin)return null;
-  return url.href;
- }catch(error){
-  return null;
- }
+
+  if(typeof value !== "string" || !value.trim())return null;
+
+  try{
+
+    const url = new URL(value,window.location.href);
+
+    if(url.origin !== window.location.origin)return null;
+
+    return url.href;
+
+  }catch(error){
+
+    return null;
+
+  }
+
 }
 
 function renderContinueLearning(){
- const area=document.getElementById("continueArea");
- let chapterData;
 
- try{
-  chapterData=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null");
- }catch(error){
-  chapterData=null;
- }
+  const area = document.getElementById("continueArea");
 
- if(!chapterData||typeof chapterData!=="object"||!chapterData.chapter){
-  return;
- }
+  let chapterData;
 
- area.className="continue-details";
- area.replaceChildren();
+  try{
 
- const icon=document.createElement("div");
- icon.className="empty-icon";
- icon.textContent="📘";
+    chapterData = JSON.parse(
+      localStorage.getItem("eduvantaLastChapter") || "null"
+    );
 
- const title=document.createElement("h4");
- title.textContent=chapterData.chapter;
+  }catch(error){
 
- const meta=document.createElement("p");
- meta.className="continue-meta";
- const details=[
-  chapterData.class,
-  chapterData.board,
-  chapterData.subject,
-  chapterData.number?"Chapter "+chapterData.number:null
- ].filter(Boolean);
- meta.textContent=details.join(" • ");
+    chapterData = null;
 
- const links=document.createElement("div");
- links.className="continue-links";
+  }
 
- const linkOptions=[
-  {label:"📖 Read Book",url:chapterData.bookUrl},
-  {label:"▶ Watch Lessons",url:chapterData.lessonUrl},
-  {label:"✍️ Practice",url:chapterData.practiceUrl}
- ];
+  if(!chapterData || typeof chapterData !== "object" || !chapterData.chapter){
+    return;
+  }
 
- linkOptions.forEach(item=>{
-  const safeUrl=safeLocalLink(item.url);
-  if(!safeUrl)return;
-  const link=document.createElement("a");
-  link.href=safeUrl;
-  link.textContent=item.label;
-  links.appendChild(link);
- });
+  area.className = "continue-details";
+  area.replaceChildren();
 
- area.append(icon,title,meta);
- if(links.children.length)area.appendChild(links);
- else{
-  const note=document.createElement("p");
-  note.className="muted";
-  note.textContent="Learning links are not available for this chapter yet.";
-  area.appendChild(note);
- }
+  const icon = document.createElement("div");
+  icon.className = "empty-icon";
+  icon.textContent = "📘";
+
+  const title = document.createElement("h4");
+  title.textContent = chapterData.chapter;
+
+  const meta = document.createElement("p");
+  meta.className = "continue-meta";
+
+  const details = [
+    chapterData.class,
+    chapterData.board,
+    chapterData.subject,
+    chapterData.number ? "Chapter " + chapterData.number : null
+  ].filter(Boolean);
+
+  meta.textContent = details.join(" • ");
+
+  const links = document.createElement("div");
+  links.className = "continue-links";
+
+  const linkOptions = [
+    {label:"📖 Read Book",url:chapterData.bookUrl},
+    {label:"▶ Watch Lessons",url:chapterData.lessonUrl},
+    {label:"✍️ Practice",url:chapterData.practiceUrl}
+  ];
+
+  linkOptions.forEach(item=>{
+
+    const safeUrl = safeLocalLink(item.url);
+
+    if(!safeUrl)return;
+
+    const link = document.createElement("a");
+    link.href = safeUrl;
+    link.textContent = item.label;
+
+    links.appendChild(link);
+
+  });
+
+  area.append(icon,title,meta);
+
+  if(links.children.length){
+
+    area.appendChild(links);
+
+  }else{
+
+    const note = document.createElement("p");
+    note.className = "muted";
+    note.textContent = "Learning links are not available for this chapter yet.";
+
+    area.appendChild(note);
+
+  }
+
 }
+
 renderContinueLearning();
 
-/* DAILY STUDY GOAL — SELF-REPORTED MINUTES */
-const today=new Date().toLocaleDateString("en-CA");
-const minutesKey="eduvantaStudyMinutes_"+today;
-const goalKey="eduvantaDailyGoal";
-let minutes=Number(localStorage.getItem(minutesKey)||0);
-let goal=Number(localStorage.getItem(goalKey)||60);
+/* LEARNING PROGRESS TRACKER */
 
-const minutesDone=document.getElementById("minutesDone");
-const goalMinutes=document.getElementById("goalMinutes");
-const goalFill=document.getElementById("goalFill");
-const goalMessage=document.getElementById("goalMessage");
+function renderLearningProgress(){
+
+  const totalCompletedElement = document.getElementById("totalCompleted");
+  const totalAvailableElement = document.getElementById("totalAvailable");
+  const trackedChaptersElement = document.getElementById("trackedChapters");
+  const overallPercentElement = document.getElementById("overallPercent");
+  const overallFill = document.getElementById("overallFill");
+  const chapterList = document.getElementById("chapterProgressList");
+
+  let allProgress = {};
+
+  try{
+
+    const saved = JSON.parse(
+      localStorage.getItem("eduvantaCompletedLessons") || "{}"
+    );
+
+    if(saved && typeof saved === "object" && !Array.isArray(saved)){
+      allProgress = saved;
+    }
+
+  }catch(error){
+
+    allProgress = {};
+
+  }
+
+  let totalCompleted = 0;
+  let totalAvailable = 0;
+  let validChapters = [];
+
+  Object.entries(allProgress).forEach(([key,data])=>{
+
+    if(!data || typeof data !== "object")return;
+
+    const total = Number(data.total);
+
+    if(!Number.isInteger(total) || total <= 0)return;
+
+    const completed = Array.isArray(data.completed)
+      ? [...new Set(data.completed.filter(n =>
+          Number.isInteger(n) && n >= 0 && n < total
+        ))]
+      : [];
+
+    totalCompleted += completed.length;
+    totalAvailable += total;
+
+    validChapters.push({
+      key:key,
+      chapter:String(data.chapter || "Untitled Chapter"),
+      subject:String(data.subject || "Subject"),
+      className:String(data.class || "Class"),
+      board:String(data.board || ""),
+      completed:completed.length,
+      total:total,
+      percentage:Math.round((completed.length / total) * 100)
+    });
+
+  });
+
+  const overallPercentage = totalAvailable > 0
+    ? Math.round((totalCompleted / totalAvailable) * 100)
+    : 0;
+
+  totalCompletedElement.textContent = totalCompleted;
+  totalAvailableElement.textContent = totalAvailable;
+  trackedChaptersElement.textContent = validChapters.length;
+
+  overallPercentElement.textContent = overallPercentage + "%";
+  overallFill.style.width = overallPercentage + "%";
+
+  chapterList.replaceChildren();
+
+  if(validChapters.length === 0){
+
+    const empty = document.createElement("div");
+    empty.className = "progress-empty";
+    empty.textContent =
+      "📚 No completed lessons yet. Open a lesson and press Mark Complete to start tracking your progress.";
+
+    chapterList.appendChild(empty);
+
+    return;
+
+  }
+
+  validChapters.sort((a,b)=>{
+
+    if(b.percentage !== a.percentage){
+      return b.percentage - a.percentage;
+    }
+
+    return a.chapter.localeCompare(b.chapter);
+
+  });
+
+  validChapters.forEach(item=>{
+
+    const card = document.createElement("div");
+    card.className = "chapter-progress-item";
+
+    const top = document.createElement("div");
+    top.className = "chapter-progress-top";
+
+    const details = document.createElement("div");
+
+    const title = document.createElement("div");
+    title.className = "chapter-progress-title";
+    title.textContent = item.chapter;
+
+    const subtitle = document.createElement("div");
+    subtitle.className = "chapter-progress-detail";
+
+    subtitle.textContent = [
+      item.className,
+      item.board,
+      item.subject
+    ].filter(Boolean).join(" • ");
+
+    details.append(title,subtitle);
+
+    const percent = document.createElement("div");
+    percent.className = "chapter-progress-percent";
+    percent.textContent = item.percentage + "%";
+
+    top.append(details,percent);
+
+    const track = document.createElement("div");
+    track.className = "chapter-track";
+
+    const fill = document.createElement("div");
+    fill.className = "chapter-fill";
+    fill.style.width = item.percentage + "%";
+
+    track.appendChild(fill);
+
+    const count = document.createElement("div");
+    count.className = "chapter-progress-detail";
+    count.style.marginTop = "8px";
+    count.textContent =
+      item.completed + " of " + item.total + " lessons completed";
+
+    card.append(top,track,count);
+
+    chapterList.appendChild(card);
+
+  });
+
+}
+
+renderLearningProgress();
+
+/* DAILY STUDY GOAL */
+
+const today = new Date().toLocaleDateString("en-CA");
+const minutesKey = "eduvantaStudyMinutes_" + today;
+const goalKey = "eduvantaDailyGoal";
+
+let minutes = Number(localStorage.getItem(minutesKey) || 0);
+let goal = Number(localStorage.getItem(goalKey) || 60);
+
+if(!Number.isFinite(minutes) || minutes < 0)minutes = 0;
+if(!Number.isInteger(goal) || goal < 15 || goal > 1440)goal = 60;
+
+const minutesDone = document.getElementById("minutesDone");
+const goalMinutes = document.getElementById("goalMinutes");
+const goalFill = document.getElementById("goalFill");
+const goalMessage = document.getElementById("goalMessage");
 
 function renderGoal(){
- minutesDone.textContent=minutes;
- goalMinutes.textContent=goal;
- goalFill.style.width=Math.min(100,(minutes/goal)*100)+"%";
- goalMessage.textContent=minutes>=goal
-  ?"Daily goal reached. Keep up the consistency!"
-  :(goal-minutes)+" minutes left to reach today's goal.";
- localStorage.setItem(minutesKey,String(minutes));
- localStorage.setItem(goalKey,String(goal));
+
+  minutesDone.textContent = minutes;
+  goalMinutes.textContent = goal;
+
+  goalFill.style.width =
+    Math.min(100,(minutes / goal) * 100) + "%";
+
+  goalMessage.textContent = minutes >= goal
+    ? "Daily goal reached. Keep up the consistency!"
+    : (goal - minutes) + " minutes left to reach today's goal.";
+
+  localStorage.setItem(minutesKey,String(minutes));
+  localStorage.setItem(goalKey,String(goal));
+
 }
+
 function addMinutes(value){
- minutes+=value;
- renderGoal();
-}
-document.getElementById("add15").addEventListener("click",()=>addMinutes(15));
-document.getElementById("add30").addEventListener("click",()=>addMinutes(30));
-document.getElementById("resetGoal").addEventListener("click",()=>{
- if(confirm("Reset today's study minutes?")){
-  minutes=0;
+
+  minutes += value;
   renderGoal();
- }
+
+}
+
+document.getElementById("add15").addEventListener("click",()=>{
+  addMinutes(15);
 });
+
+document.getElementById("add30").addEventListener("click",()=>{
+  addMinutes(30);
+});
+
+document.getElementById("resetGoal").addEventListener("click",()=>{
+
+  if(confirm("Reset today's study minutes?")){
+
+    minutes = 0;
+    renderGoal();
+
+  }
+
+});
+
 document.getElementById("setGoal").addEventListener("click",()=>{
- const answer=prompt("Set your daily study goal in minutes:",String(goal));
- if(answer===null)return;
- const value=Number(answer);
- if(!Number.isInteger(value)||value<15||value>1440){
-  alert("Enter a whole number between 15 and 1440.");
-  return;
- }
- goal=value;
- renderGoal();
+
+  const answer = prompt(
+    "Set your daily study goal in minutes:",
+    String(goal)
+  );
+
+  if(answer === null)return;
+
+  const value = Number(answer);
+
+  if(!Number.isInteger(value) || value < 15 || value > 1440){
+
+    alert("Enter a whole number between 15 and 1440.");
+    return;
+
+  }
+
+  goal = value;
+  renderGoal();
+
 });
+
 renderGoal();
-</script></body>
+
+/* REFRESH PROGRESS WHEN RETURNING TO HOMEPAGE */
+
+window.addEventListener("pageshow",()=>{
+  renderLearningProgress();
+  renderContinueLearning();
+});
+
+window.addEventListener("storage",(event)=>{
+
+  if(
+    event.key === "eduvantaCompletedLessons" ||
+    event.key === "eduvantaLastChapter"
+  ){
+
+    renderLearningProgress();
+    renderContinueLearning();
+
+  }
+
+});
+
+</script>
+
+</body>
 </html>
