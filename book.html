@@ -53,10 +53,12 @@ board+" • "+selectedClass+" • "+subject+" • Chapter "+number;
 document.getElementById("pageTitle").textContent="📖 "+chapter;
 
 document.getElementById("backButton").href=
-"chapter.html?"+new URLSearchParams({
-class:selectedClass,board,subject,chapter,number
+"subject.html?"+new URLSearchParams({
+class:selectedClass,
+board:board,
+subject:subject
 }).toString();
-
+  
 const chapter1 = `
 <h2>Chapter 1: Electric Charges and Fields</h2>
 
