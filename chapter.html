@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +15,8 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
- font-family:Arial,sans-serif;
- background:var(--bg);
- color:var(--text);
- min-height:100vh
+ font-family:Arial,sans-serif;background:var(--bg);
+ color:var(--text);min-height:100vh
 }
 a{text-decoration:none;color:inherit}
 header{
@@ -32,8 +29,7 @@ header{
 .logo{font-size:22px;font-weight:800;letter-spacing:.5px}
 .logo span{color:var(--teal)}
 .back{
- background:var(--surface2);
- border:1px solid var(--border);
+ background:var(--surface2);border:1px solid var(--border);
  padding:10px 14px;border-radius:9px;font-size:13px
 }
 main{max-width:1000px;margin:auto;padding:28px 5% 75px}
@@ -181,6 +177,10 @@ function normalizeClass(value){
  return match ? match[0] : "12";
 }
 
+function clean(value){
+ return String(value || "").trim().toLowerCase();
+}
+
 const classNumber = normalizeClass(params.get("class"));
 const selectedClass = "Class " + classNumber;
 const board = params.get("board") || "CBSE";
@@ -189,6 +189,11 @@ const chapter = params.get("chapter") || "Chapter";
 const number = params.get("number") || "1";
 const stream = params.get("stream") ||
  localStorage.getItem("eduvantaStudentStream") || "";
+
+const subjectKey = clean(subject);
+const chapterKey = clean(chapter);
+const chapterNumber = Number(number);
+const boardKey = clean(board);
 
 document.getElementById("chapterTitle").textContent = chapter;
 document.getElementById("boardInfo").textContent = board;
@@ -232,49 +237,86 @@ const lessonUrl = createModeLink("lesson.html");
 const practiceUrl = createModeLink("practice.html");
 
 /*
- Currently published content:
- Class 12 + Physics + Chapter 1.
- Other chapters are not linked to generic content.
+ BOOK MODE CONTENT:
+ 1. Class 12 Physics Chapter 1
+ 2. Class 12 Physics Chapter 2
+ 3. Class 10 Mathematics Chapter 1
+
+ LESSON AND PRACTICE:
+ Currently available only for Class 12 Physics Chapter 1.
 */
 
-const isAvailable =
+const isPhysicsChapter1 =
  classNumber === "12" &&
- subject.toLowerCase() === "physics" &&
- Number(number) === 1 &&
- chapter.toLowerCase() === "electric charges and fields";
+ subjectKey === "physics" &&
+ chapterNumber === 1 &&
+ chapterKey === "electric charges and fields";
+
+const isPhysicsChapter2 =
+ classNumber === "12" &&
+ subjectKey === "physics" &&
+ chapterNumber === 2 &&
+ chapterKey === "electrostatic potential and capacitance";
+
+const isClass10MathsChapter1 =
+ classNumber === "10" &&
+ boardKey === "cbse" &&
+ subjectKey === "mathematics" &&
+ chapterNumber === 1 &&
+ chapterKey === "real numbers";
+
+const isBookAvailable =
+ isPhysicsChapter1 ||
+ isPhysicsChapter2 ||
+ isClass10MathsChapter1;
 
 function enableMode(id,url,statusId,label){
  const card = document.getElementById(id);
  card.href = url;
+ card.classList.remove("disabled");
  card.classList.add("available");
+ card.removeAttribute("aria-disabled");
  document.getElementById(statusId).textContent = label;
 }
 
 function disableMode(id,statusId){
  const card = document.getElementById(id);
  card.removeAttribute("href");
+ card.classList.remove("available");
  card.classList.add("disabled");
  card.setAttribute("aria-disabled","true");
  document.getElementById(statusId).textContent = "Coming Soon";
 }
 
-if(isAvailable){
-
- enableMode("bookLink",bookUrl,"bookStatus","Open Book Mode →");
- enableMode("lessonLink",lessonUrl,"lessonStatus","Start Lessons →");
- enableMode("practiceLink",practiceUrl,"practiceStatus","Start Practice →");
-
- document.getElementById("availabilityNotice").textContent =
-  "Learning content is available for this chapter. Start with Book Mode, continue with lessons and then test yourself in Practice Mode.";
-
+if(isBookAvailable){
+ enableMode(
+  "bookLink",bookUrl,"bookStatus","Open Book Mode →"
+ );
 }else{
-
  disableMode("bookLink","bookStatus");
+}
+
+if(isPhysicsChapter1){
+ enableMode(
+  "lessonLink",lessonUrl,"lessonStatus","Start Lessons →"
+ );
+ enableMode(
+  "practiceLink",practiceUrl,"practiceStatus","Start Practice →"
+ );
+}else{
  disableMode("lessonLink","lessonStatus");
  disableMode("practiceLink","practiceStatus");
+}
 
+if(isPhysicsChapter1){
  document.getElementById("availabilityNotice").textContent =
-  "The chapter is listed in EDUVANTA, but its notes, lessons and practice questions have not been published yet. This content will be added separately for the selected class and subject.";
+  "Book, Lessons and Practice are available for this chapter. Start with Book Mode, continue with lessons and then test yourself.";
+}else if(isBookAvailable){
+ document.getElementById("availabilityNotice").textContent =
+  "Book Mode is available for this chapter. Lessons and Practice are coming soon.";
+}else{
+ document.getElementById("availabilityNotice").textContent =
+  "This chapter is listed in EDUVANTA, but its learning content has not been published yet.";
 }
 
 /* SAVE LAST OPENED CHAPTER */
@@ -286,10 +328,10 @@ const lastChapter = {
  chapter:chapter,
  number:number,
  stream:stream,
- bookUrl:bookUrl,
- lessonUrl:lessonUrl,
- practiceUrl:practiceUrl,
- available:isAvailable,
+ bookUrl:isBookAvailable ? bookUrl : "",
+ lessonUrl:isPhysicsChapter1 ? lessonUrl : "",
+ practiceUrl:isPhysicsChapter1 ? practiceUrl : "",
+ available:isBookAvailable,
  updatedAt:new Date().toISOString()
 };
 
@@ -303,7 +345,10 @@ localStorage.setItem(
 localStorage.setItem("eduvantaClass",selectedClass);
 localStorage.setItem("eduvantaBoard",board);
 localStorage.setItem("eduvantaSubject",subject);
-if(stream) localStorage.setItem("eduvantaStudentStream",stream);
+
+if(stream){
+ localStorage.setItem("eduvantaStudentStream",stream);
+}
 </script>
 
 </body>
