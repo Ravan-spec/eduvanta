@@ -231,15 +231,16 @@ footer{
     <span id="classInfo">Class 12</span>
     <span id="subjectInfo">Physics</span>
     <span id="numberInfo">Chapter 1</span>
+    <span id="streamInfo" hidden></span>
   </div>
 </section>
 
 <div class="reader-toolbar">
   <span class="toolbar-label">Reading settings</span>
   <div class="controls">
-    <button class="control-btn" id="decreaseFont">A−</button>
-    <button class="control-btn" id="increaseFont">A+</button>
-    <button class="control-btn" id="resetFont">↺</button>
+    <button class="control-btn" id="decreaseFont" aria-label="Decrease font size">A−</button>
+    <button class="control-btn" id="increaseFont" aria-label="Increase font size">A+</button>
+    <button class="control-btn" id="resetFont" aria-label="Reset font size">↺</button>
   </div>
 </div>
 
@@ -269,8 +270,7 @@ const board = params.get("board") || "CBSE";
 const subject = params.get("subject") || "Physics";
 const chapter = params.get("chapter") || "Electric Charges and Fields";
 const number = Number(params.get("number") || 1);
-
-/* COURSE INFORMATION */
+const stream = params.get("stream") || "";
 
 function escapeHTML(value){
   return String(value).replace(/[&<>"']/g,function(char){
@@ -284,6 +284,8 @@ function escapeHTML(value){
   });
 }
 
+const normalizedClass = selectedClass.toLowerCase().replace(/\s/g,"");
+
 document.getElementById("pageTitle").innerHTML =
   "📖 <span>" + escapeHTML(chapter) + "</span>";
 
@@ -292,20 +294,31 @@ document.getElementById("classInfo").textContent = selectedClass;
 document.getElementById("subjectInfo").textContent = subject;
 document.getElementById("numberInfo").textContent = "Chapter " + number;
 
+if(stream){
+  const streamInfo = document.getElementById("streamInfo");
+  streamInfo.textContent = stream;
+  streamInfo.hidden = false;
+}
+
 /* BACK NAVIGATION */
 
-const backURL = "chapter.html?" + new URLSearchParams({
+const backParams = {
   class:selectedClass,
   board:board,
   subject:subject,
   chapter:chapter,
   number:String(number)
-}).toString();
+};
+
+if(stream) backParams.stream = stream;
+
+const backURL = "chapter.html?" + new URLSearchParams(backParams).toString();
 
 document.getElementById("backButton").href = backURL;
 document.getElementById("backBottom").href = backURL;
 
-/* CHAPTER 1 CONTENT */
+
+/* CLASS 12 PHYSICS CHAPTER 1 */
 
 const chapter1 = `
 
@@ -429,7 +442,8 @@ const chapter1 = `
 </div>
 `;
 
-/* CHAPTER 2 CONTENT */
+
+/* CLASS 12 PHYSICS CHAPTER 2 */
 
 const chapter2 = `
 
@@ -455,119 +469,64 @@ const chapter2 = `
 </ul>
 
 <h2>1. Work Done in Moving a Charge</h2>
-
 <p>Jab hum kisi electric field mein ek charge ko ek point se doosre point tak move karte hain, toh electric force ke against ya along work ho sakta hai.</p>
-
 <p>Electrostatic field mein kisi charge ko slowly move karne ke liye external agent ko work karna pad sakta hai.</p>
-
 <p><b>Important idea:</b> Electrostatic force conservative force hota hai. Isliye closed path mein electrostatic force ka total work zero hota hai.</p>
-
-<div class="formula">
-W(closed path) = 0
-</div>
+<div class="formula">W(closed path) = 0</div>
 
 <h3>Conservative Force</h3>
 <p>A conservative force is a force for which work done depends only on the initial and final positions, not on the path followed.</p>
-
 <p>Examples: Electrostatic force and gravitational force.</p>
 
 <h2>2. Electric Potential</h2>
-
 <p><b>Definition:</b> Electric potential at a point is the work done per unit positive test charge by an external agent in bringing the charge from infinity to that point slowly, without changing its kinetic energy.</p>
-
-<div class="formula">
-V = W(ext) / q₀
-</div>
-
+<div class="formula">V = W(ext) / q₀</div>
 <p>Where:</p>
 <ul>
 <li>V = Electric potential</li>
 <li>W(ext) = External work done</li>
 <li>q₀ = Positive test charge</li>
 </ul>
-
 <p><b>SI Unit:</b> Volt (V)</p>
-
-<div class="formula">
-1 Volt = 1 Joule / 1 Coulomb
-</div>
-
+<div class="formula">1 Volt = 1 Joule / 1 Coulomb</div>
 <p>Potential is a scalar quantity. Iski koi direction nahi hoti, sirf magnitude aur sign hota hai.</p>
 
 <h3>Electric Potential Difference</h3>
-
 <p>Do points A aur B ke beech potential difference, unit positive charge ko A se B tak slowly move karne mein external work per unit charge ke barabar hota hai.</p>
-
-<div class="formula">
-V(B) − V(A) = W(ext, A→B) / q₀
-</div>
-
+<div class="formula">V(B) − V(A) = W(ext, A→B) / q₀</div>
 <p>Electrostatic force ka work:</p>
-
-<div class="formula">
-W(electric) = q₀ [V(A) − V(B)]
-</div>
-
+<div class="formula">W(electric) = q₀ [V(A) − V(B)]</div>
 <p><b>Remember:</b> Potential difference ek point se doosre point tak change in potential batata hai.</p>
 
 <h2>3. Potential Due to a Point Charge</h2>
-
 <p>Suppose ek point charge Q hai aur hum usse distance r par electric potential calculate karna chahte hain.</p>
-
 <p>Point charge ke karan electric field:</p>
-
-<div class="formula">
-E = (1 / 4πε₀) × Q/r²
-</div>
-
+<div class="formula">E = (1 / 4πε₀) × Q/r²</div>
 <p>Infinity par potential zero choose karte hain.</p>
-
 <p>Potential at distance r:</p>
-
-<div class="formula">
-V = (1 / 4πε₀) × Q/r
-</div>
-
+<div class="formula">V = (1 / 4πε₀) × Q/r</div>
 <p>Or:</p>
-
-<div class="formula">
-V = kQ/r
-</div>
-
+<div class="formula">V = kQ/r</div>
 <p>Where k = 1/(4πε₀).</p>
 
 <h3>Sign of Potential</h3>
-
 <ul>
 <li>Positive charge ke karan potential positive hota hai.</li>
 <li>Negative charge ke karan potential negative hota hai.</li>
 <li>Potential distance badhne par magnitude mein decrease hota hai.</li>
 </ul>
-
 <p><b>Important:</b> Formula mein Q ka algebraic sign use karna hai. Sirf magnitude nahi.</p>
 
 <h2>4. Potential Due to a System of Charges</h2>
-
 <p>Agar kisi point par multiple point charges present hain, toh total electric potential individual potentials ka algebraic sum hota hai.</p>
-
-<div class="formula">
-V = V₁ + V₂ + V₃ + ...
-</div>
-
+<div class="formula">V = V₁ + V₂ + V₃ + ...</div>
 <p>For point charges:</p>
-
-<div class="formula">
-V = k [q₁/r₁ + q₂/r₂ + q₃/r₃ + ...]
-</div>
-
+<div class="formula">V = k [q₁/r₁ + q₂/r₂ + q₃/r₃ + ...]</div>
 <p>Yahan r₁, r₂, r₃ observation point se respective charges ki distances hain.</p>
-
 <p><b>Important:</b> Electric potential scalar quantity hai, isliye vector addition ki zaroorat nahi hoti.</p>
 
 <h3>Numerical Example</h3>
-
 <p><b>Question:</b> Two charges +2 μC and −1 μC are placed at distances 0.2 m and 0.1 m respectively from a point P. Find the potential at P.</p>
-
 <p><b>Given:</b></p>
 <ul>
 <li>q₁ = +2 × 10⁻⁶ C</li>
@@ -576,146 +535,77 @@ V = k [q₁/r₁ + q₂/r₂ + q₃/r₃ + ...]
 <li>r₂ = 0.1 m</li>
 <li>k = 9 × 10⁹ N m²/C²</li>
 </ul>
-
 <p><b>Formula:</b></p>
-<div class="formula">
-V = k(q₁/r₁ + q₂/r₂)
-</div>
-
+<div class="formula">V = k(q₁/r₁ + q₂/r₂)</div>
 <p>Substitute values:</p>
-<div class="formula">
-V = 9 × 10⁹ [(2 × 10⁻⁶/0.2) − (1 × 10⁻⁶/0.1)]
-</div>
-
+<div class="formula">V = 9 × 10⁹ [(2 × 10⁻⁶/0.2) − (1 × 10⁻⁶/0.1)]</div>
 <p>V = 9 × 10⁹ [10 × 10⁻⁶ − 10 × 10⁻⁶]</p>
-
 <p><b>Answer: V = 0 V</b></p>
-
 <p>Notice: Potential zero hone ka matlab ye nahi ki electric field bhi zero hoga.</p>
 
 <h2>5. Potential Due to an Electric Dipole</h2>
-
 <p>Electric dipole consists of two equal and opposite charges separated by a small distance.</p>
-
 <p>Dipole moment:</p>
-
-<div class="formula">
-p = q × 2a
-</div>
-
+<div class="formula">p = q × 2a</div>
 <p>Where 2a is the separation between the charges.</p>
 
 <h3>General Formula</h3>
-
 <p>Dipole ke centre se distance r par kisi point ka angle θ dipole axis ke saath ho, toh dipole potential ka expression (far-field approximation, r much greater than a) hota hai:</p>
-
-<div class="formula">
-V = (1 / 4πε₀) × (p cos θ / r²)
-</div>
-
+<div class="formula">V = (1 / 4πε₀) × (p cos θ / r²)</div>
 <p>Or:</p>
-
-<div class="formula">
-V = kp cos θ / r²
-</div>
+<div class="formula">V = kp cos θ / r²</div>
 
 <h3>Special Cases</h3>
-
 <p><b>(A) Axial Position:</b> Dipole axis par far away point ke liye θ = 0°.</p>
-
-<div class="formula">
-V(axial) = kp/r²
-</div>
-
+<div class="formula">V(axial) = kp/r²</div>
 <p><b>(B) Equatorial Position:</b> Equatorial line par θ = 90°.</p>
-
-<div class="formula">
-V(equatorial) = 0
-</div>
-
+<div class="formula">V(equatorial) = 0</div>
 <p><b>Note:</b> Equatorial line par potential zero hota hai, lekin electric field generally zero nahi hota.</p>
 
 <h2>6. Potential Energy of a System of Charges</h2>
-
 <p>Do point charges ko infinity se unki final positions tak laane mein external work karna padta hai. Ye work system ki electrostatic potential energy ke roop mein store hota hai.</p>
-
 <p>Two point charges q₁ and q₂ separated by distance r:</p>
-
-<div class="formula">
-U = (1 / 4πε₀) × (q₁q₂/r)
-</div>
-
+<div class="formula">U = (1 / 4πε₀) × (q₁q₂/r)</div>
 <p>Or:</p>
-
-<div class="formula">
-U = kq₁q₂/r
-</div>
+<div class="formula">U = kq₁q₂/r</div>
 
 <h3>Sign of Potential Energy</h3>
-
 <ul>
 <li>Like charges: U positive hoti hai.</li>
 <li>Unlike charges: U negative hoti hai.</li>
 </ul>
-
 <p>Three charges ke system ke liye:</p>
-
-<div class="formula">
-U = k(q₁q₂/r₁₂ + q₂q₃/r₂₃ + q₃q₁/r₃₁)
-</div>
-
+<div class="formula">U = k(q₁q₂/r₁₂ + q₂q₃/r₂₃ + q₃q₁/r₃₁)</div>
 <p>Yahan r₁₂, r₂₃ aur r₃₁ respective charge pairs ke beech distances hain.</p>
 
 <h2>7. Potential Energy of a Dipole in Uniform Electric Field</h2>
-
 <p>Jab electric dipole ko uniform electric field mein rakha jata hai, toh us par torque act karta hai.</p>
-
 <p>Dipole ki potential energy:</p>
-
-<div class="formula">
-U = −pE cos θ
-</div>
-
+<div class="formula">U = −pE cos θ</div>
 <p>Where:</p>
 <ul>
 <li>p = Dipole moment</li>
 <li>E = Electric field</li>
 <li>θ = Dipole moment aur electric field ke beech angle</li>
 </ul>
-
 <h3>Special Positions</h3>
-
 <p><b>Stable Equilibrium:</b> θ = 0°</p>
-<div class="formula">
-U = −pE
-</div>
-
+<div class="formula">U = −pE</div>
 <p><b>Unstable Equilibrium:</b> θ = 180°</p>
-<div class="formula">
-U = +pE
-</div>
+<div class="formula">U = +pE</div>
 
 <h2>8. Equipotential Surfaces</h2>
-
 <p><b>Definition:</b> An equipotential surface is a surface on which electric potential is the same at every point.</p>
-
 <h3>Properties</h3>
-
 <ol>
 <li>Equipotential surface par kisi charge ko move karne mein electrostatic work zero hota hai.</li>
 <li>Electric field equipotential surface ke perpendicular hota hai.</li>
 <li>Do equipotential surfaces kabhi intersect nahi karti.</li>
 <li>Jahan equipotential surfaces close hoti hain, wahan electric field stronger hota hai.</li>
 </ol>
-
-<div class="formula">
-W = q ΔV
-</div>
-
+<div class="formula">W = q ΔV</div>
 <p>Equipotential surface par ΔV = 0, isliye W = 0.</p>
-
 <h3>Examples</h3>
-
 <ul>
 <li>Point charge ke liye equipotential surfaces concentric spheres hoti hain.</li>
 <li>Uniform electric field mein equipotential surfaces field ke perpendicular parallel planes hoti hain.</li>
@@ -723,41 +613,20 @@ W = q ΔV
 
 <h2>9. Relation Between Electric Field and Potential</h2>
 <p>Electric field potential ke decrease hone ki direction mein hota hai.</p>
-
 <p>One-dimensional form:</p>
-
-<div class="formula">
-E = −dV/dr
-</div>
-
+<div class="formula">E = −dV/dr</div>
 <p>General vector form:</p>
-
-<div class="formula">
-E = −∇V
-</div>
-
+<div class="formula">E = −∇V</div>
 <p>Uniform electric field mein displacement d ke along:</p>
-
-<div class="formula">
-ΔV = −Ed
-</div>
-
+<div class="formula">ΔV = −Ed</div>
 <p>Yahan d electric field ki direction mein displacement hai.</p>
-
 <p><b>Important:</b> Negative sign batata hai ki electric field ki direction mein potential decrease hota hai.</p>
 
 <h2>10. Electrostatic Potential of a Conductor</h2>
-
 <p>Electrostatic equilibrium mein conductor ke andar electric field zero hota hai.</p>
-
-<div class="formula">
-E(inside conductor) = 0
-</div>
-
+<div class="formula">E(inside conductor) = 0</div>
 <p>Iska matlab conductor ke andar potential constant hota hai.</p>
-
 <h3>Important Properties of Conductors</h3>
-
 <ul>
 <li>Conductor ke interior mein electric field zero hota hai.</li>
 <li>Excess charge conductor ki outer surface par reside karta hai.</li>
@@ -765,36 +634,22 @@ E(inside conductor) = 0
 <li>Electric field conductor ki surface par perpendicular hota hai.</li>
 <li>Electrostatic equilibrium mein conductor ke andar potential constant hota hai.</li>
 </ul>
-
 <h3>Electrostatic Shielding</h3>
-
 <p>Electrostatic shielding is the phenomenon in which the electric field inside a closed conducting shell is zero under electrostatic equilibrium conditions, even when external electric fields are present.</p>
-
 <p>Example: Properly enclosed conducting metal body can protect its interior from external electrostatic fields.</p>
 
 <h2>11. Capacitance</h2>
-
 <p><b>Definition:</b> Capacitance is the ability of a conductor or capacitor to store electric charge per unit potential difference.</p>
-
-<div class="formula">
-C = Q/V
-</div>
-
+<div class="formula">C = Q/V</div>
 <p>Where:</p>
 <ul>
 <li>C = Capacitance</li>
 <li>Q = Charge magnitude</li>
 <li>V = Potential difference</li>
 </ul>
-
 <p><b>SI Unit:</b> Farad (F)</p>
-
-<div class="formula">
-1 F = 1 C/V
-</div>
-
+<div class="formula">1 F = 1 C/V</div>
 <p>Capacitance depends on conductor geometry and the surrounding medium. For an ideal capacitor, it does not depend on Q or V individually.</p>
-
 <h3>Smaller Units</h3>
 <ul>
 <li>1 μF = 10⁻⁶ F</li>
@@ -803,9 +658,7 @@ C = Q/V
 </ul>
 
 <h2>12. Parallel Plate Capacitor</h2>
-
 <p>A parallel plate capacitor consists of two large conducting plates separated by a small distance. The plates carry equal and opposite charges.</p>
-
 <p>Let:</p>
 <ul>
 <li>A = Area of each plate</li>
@@ -813,39 +666,17 @@ C = Q/V
 <li>Q = Charge magnitude on each plate</li>
 <li>σ = Surface charge density</li>
 </ul>
-
 <p>Surface charge density:</p>
-
-<div class="formula">
-σ = Q/A
-</div>
-
+<div class="formula">σ = Q/A</div>
 <p>Electric field between the plates (neglecting edge effects):</p>
-
-<div class="formula">
-E = σ/ε₀
-</div>
-
+<div class="formula">E = σ/ε₀</div>
 <p>Potential difference:</p>
-
-<div class="formula">
-V = Ed = σd/ε₀
-</div>
-
+<div class="formula">V = Ed = σd/ε₀</div>
 <p>Using C = Q/V:</p>
-
-<div class="formula">
-C = ε₀A/d
-</div>
-
+<div class="formula">C = ε₀A/d</div>
 <p><b>Final Formula:</b></p>
-
-<div class="formula">
-C = ε₀A/d
-</div>
-
+<div class="formula">C = ε₀A/d</div>
 <h3>Factors Affecting Capacitance</h3>
-
 <ul>
 <li>Area A increase karne par capacitance increase hoti hai.</li>
 <li>Separation d increase karne par capacitance decrease hoti hai.</li>
@@ -853,288 +684,148 @@ C = ε₀A/d
 </ul>
 
 <h2>13. Dielectric and Dielectric Constant</h2>
-
 <p><b>Dielectric:</b> A dielectric is an insulating material that can be polarised in an electric field.</p>
-
 <p>Examples: Air, glass, mica and plastic.</p>
-
 <p>Dielectric constant K is the ratio of the permittivity of the medium to the permittivity of free space.</p>
-
-<div class="formula">
-K = ε/ε₀
-</div>
-
+<div class="formula">K = ε/ε₀</div>
 <p>For a completely filled parallel plate capacitor:</p>
-
-<div class="formula">
-C = Kε₀A/d
-</div>
-
+<div class="formula">C = Kε₀A/d</div>
 <p>Therefore:</p>
-
-<div class="formula">
-C = KC₀
-</div>
-
+<div class="formula">C = KC₀</div>
 <p>Where C₀ is the capacitance without the dielectric.</p>
-
 <h3>Polarisation</h3>
-
 <p>When a dielectric is placed in an external electric field, its molecules or atoms develop induced dipole moments or their existing dipoles align partially. This phenomenon is called polarisation.</p>
-
 <p>Polarisation reduces the effective electric field inside the dielectric compared with the field that would exist without it, under the usual linear dielectric model.</p>
 
 <h2>14. Combination of Capacitors</h2>
-
 <h3>(A) Capacitors in Parallel</h3>
-
 <p>Parallel combination mein all capacitors ke across potential difference same hota hai.</p>
-
-<div class="formula">
-V = V₁ = V₂ = V₃
-</div>
-
+<div class="formula">V = V₁ = V₂ = V₃</div>
 <p>Total charge:</p>
-
-<div class="formula">
-Q = Q₁ + Q₂ + Q₃
-</div>
-
+<div class="formula">Q = Q₁ + Q₂ + Q₃</div>
 <p>Equivalent capacitance:</p>
-
-<div class="formula">
-Cₚ = C₁ + C₂ + C₃
-</div>
-
+<div class="formula">Cₚ = C₁ + C₂ + C₃</div>
 <p><b>Remember:</b> Parallel combination mein capacitances directly add hoti hain.</p>
 
 <h3>(B) Capacitors in Series</h3>
-
 <p>Series combination mein har capacitor par charge magnitude same hota hai.</p>
-
-<div class="formula">
-Q = Q₁ = Q₂ = Q₃
-</div>
-
+<div class="formula">Q = Q₁ = Q₂ = Q₃</div>
 <p>Total potential difference:</p>
-
-<div class="formula">
-V = V₁ + V₂ + V₃
-</div>
-
+<div class="formula">V = V₁ + V₂ + V₃</div>
 <p>Equivalent capacitance:</p>
-
-<div class="formula">
-1/Cₛ = 1/C₁ + 1/C₂ + 1/C₃
-</div>
-
+<div class="formula">1/Cₛ = 1/C₁ + 1/C₂ + 1/C₃</div>
 <p>For two capacitors:</p>
-
-<div class="formula">
-Cₛ = C₁C₂/(C₁ + C₂)
-</div>
-
+<div class="formula">Cₛ = C₁C₂/(C₁ + C₂)</div>
 <p><b>Remember:</b> Series combination mein reciprocal values add hoti hain.</p>
 
 <h2>15. Energy Stored in a Capacitor</h2>
-
 <p>Capacitor ko charge karte waqt work done hota hai. Ye work capacitor mein electrostatic potential energy ke roop mein store hota hai.</p>
-
 <p>Energy stored:</p>
-
-<div class="formula">
-U = ½ QV
-</div>
-
+<div class="formula">U = ½ QV</div>
 <p>Using Q = CV:</p>
-
-<div class="formula">
-U = ½ CV²
-</div>
-
+<div class="formula">U = ½ CV²</div>
 <p>Using V = Q/C:</p>
-
-<div class="formula">
-U = Q²/(2C)
-</div>
-
+<div class="formula">U = Q²/(2C)</div>
 <h3>All Three Important Forms</h3>
-
-<div class="formula">
-U = ½ QV = ½ CV² = Q²/(2C)
-</div>
-
+<div class="formula">U = ½ QV = ½ CV² = Q²/(2C)</div>
 <p>SI Unit: Joule (J)</p>
-
 <h3>Energy Density</h3>
-
 <p>Energy stored per unit volume of electric field is called energy density.</p>
-
-<div class="formula">
-u = ½ ε₀E²
-</div>
-
+<div class="formula">u = ½ ε₀E²</div>
 <p>For a linear dielectric medium:</p>
-
-<div class="formula">
-u = ½ εE²
-</div>
+<div class="formula">u = ½ εE²</div>
 
 <h2>16. Effect of Dielectric on a Capacitor</h2>
-
 <p>Dielectric insert karne par capacitor ki capacitance increase hoti hai.</p>
-
 <h3>Case 1: Battery Connected</h3>
-
 <p>Battery connected rehne par potential difference constant rehta hai.</p>
-
 <ul>
 <li>Capacitance: C' = KC</li>
 <li>Potential difference: V' = V</li>
 <li>Charge: Q' = KQ</li>
 <li>Energy: U' = KU</li>
 </ul>
-
 <h3>Case 2: Battery Disconnected</h3>
-
 <p>Battery disconnect hone par capacitor ka charge constant rehta hai.</p>
-
 <ul>
 <li>Capacitance: C' = KC</li>
 <li>Charge: Q' = Q</li>
 <li>Potential difference: V' = V/K</li>
 <li>Energy: U' = U/K</li>
 </ul>
-
 <div class="notice">
 <b>Exam alert:</b> Dielectric ke questions mein pehle identify karo ki battery connected hai ya disconnected. Dono cases ke results different hote hain.
 </div>
 
 <h2>17. Solved Numerical 1: Potential Due to a Point Charge</h2>
-
 <p><b>Question:</b> A point charge of +2 μC is placed in air. Find the electric potential at a distance of 0.3 m.</p>
-
 <p><b>Given:</b></p>
 <ul>
 <li>Q = 2 × 10⁻⁶ C</li>
 <li>r = 0.3 m</li>
 <li>k = 9 × 10⁹ N m²/C²</li>
 </ul>
-
 <p><b>Formula:</b></p>
-<div class="formula">
-V = kQ/r
-</div>
-
+<div class="formula">V = kQ/r</div>
 <p>Substitute:</p>
-<div class="formula">
-V = (9 × 10⁹ × 2 × 10⁻⁶)/0.3
-</div>
-
+<div class="formula">V = (9 × 10⁹ × 2 × 10⁻⁶)/0.3</div>
 <p>V = 18 × 10³ / 0.3</p>
-
 <p><b>Answer:</b></p>
-<div class="formula">
-V = 60,000 V
-</div>
+<div class="formula">V = 60,000 V</div>
 
 <h2>18. Solved Numerical 2: Capacitance</h2>
-
 <p><b>Question:</b> A capacitor stores 20 μC charge at a potential difference of 10 V. Find its capacitance.</p>
-
 <p><b>Given:</b></p>
 <ul>
 <li>Q = 20 × 10⁻⁶ C</li>
 <li>V = 10 V</li>
 </ul>
-
 <p><b>Formula:</b></p>
-<div class="formula">
-C = Q/V
-</div>
-
+<div class="formula">C = Q/V</div>
 <p>Substitute:</p>
-<div class="formula">
-C = (20 × 10⁻⁶)/10
-</div>
-
+<div class="formula">C = (20 × 10⁻⁶)/10</div>
 <p><b>Answer:</b></p>
-<div class="formula">
-C = 2 × 10⁻⁶ F = 2 μF
-</div>
+<div class="formula">C = 2 × 10⁻⁶ F = 2 μF</div>
 
 <h2>19. Solved Numerical 3: Parallel Plate Capacitor</h2>
-
 <p><b>Question:</b> A parallel plate capacitor has plate area 0.02 m² and separation 1 mm. Calculate its capacitance in air.</p>
-
 <p><b>Given:</b></p>
 <ul>
 <li>A = 0.02 m²</li>
 <li>d = 1 × 10⁻³ m</li>
 <li>ε₀ = 8.85 × 10⁻¹² F/m</li>
 </ul>
-
 <p><b>Formula:</b></p>
-<div class="formula">
-C = ε₀A/d
-</div>
-
+<div class="formula">C = ε₀A/d</div>
 <p>Substitute:</p>
-<div class="formula">
-C = (8.85 × 10⁻¹² × 0.02)/(10⁻³)
-</div>
-
+<div class="formula">C = (8.85 × 10⁻¹² × 0.02)/(10⁻³)</div>
 <p><b>Answer:</b></p>
-<div class="formula">
-C = 1.77 × 10⁻¹⁰ F
-</div>
+<div class="formula">C = 1.77 × 10⁻¹⁰ F</div>
 
 <h2>20. Solved Numerical 4: Series Combination</h2>
-
 <p><b>Question:</b> Two capacitors of 3 μF and 6 μF are connected in series. Find equivalent capacitance.</p>
-
 <p><b>Formula:</b></p>
-<div class="formula">
-Cₛ = C₁C₂/(C₁ + C₂)
-</div>
-
+<div class="formula">Cₛ = C₁C₂/(C₁ + C₂)</div>
 <p>Substitute:</p>
-<div class="formula">
-Cₛ = (3 × 6)/(3 + 6)
-</div>
-
+<div class="formula">Cₛ = (3 × 6)/(3 + 6)</div>
 <p><b>Answer:</b></p>
-<div class="formula">
-Cₛ = 18/9 = 2 μF
-</div>
+<div class="formula">Cₛ = 18/9 = 2 μF</div>
 
 <h2>21. Solved Numerical 5: Energy Stored</h2>
-
 <p><b>Question:</b> A 4 μF capacitor is connected to a 100 V battery. Find the energy stored.</p>
-
 <p><b>Given:</b></p>
 <ul>
 <li>C = 4 × 10⁻⁶ F</li>
 <li>V = 100 V</li>
 </ul>
-
 <p><b>Formula:</b></p>
-<div class="formula">
-U = ½ CV²
-</div>
-
+<div class="formula">U = ½ CV²</div>
 <p>Substitute:</p>
-<div class="formula">
-U = ½ × 4 × 10⁻⁶ × 100²
-</div>
-
+<div class="formula">U = ½ × 4 × 10⁻⁶ × 100²</div>
 <p><b>Answer:</b></p>
-<div class="formula">
-U = 0.02 J
-</div>
+<div class="formula">U = 0.02 J</div>
 
 <h2>22. Important Formula Revision Sheet</h2>
-
 <div class="formula">1. Potential: V = W/q</div>
 <div class="formula">2. Potential difference: ΔV = W(ext)/q</div>
 <div class="formula">3. Point charge: V = kQ/r</div>
@@ -1154,7 +845,6 @@ U = 0.02 J
 <div class="formula">17. Energy density: u = ½ ε₀E²</div>
 
 <h2>23. Important SI Units</h2>
-
 <ul>
 <li>Electric potential: Volt (V)</li>
 <li>Potential difference: Volt (V)</li>
@@ -1166,7 +856,6 @@ U = 0.02 J
 </ul>
 
 <h2>24. Common Mistakes to Avoid</h2>
-
 <ol>
 <li><b>Charge conversion:</b> μC ko C mein convert karna mat bhoolna. 1 μC = 10⁻⁶ C.</li>
 <li><b>Distance:</b> mm ko metre mein convert karo. 1 mm = 10⁻³ m.</li>
@@ -1179,7 +868,6 @@ U = 0.02 J
 </ol>
 
 <h2>25. Chapter Practice Questions</h2>
-
 <h3>Short Answer Questions</h3>
 <ol>
 <li>Define electric potential. Write its SI unit.</li>
@@ -1190,7 +878,6 @@ U = 0.02 J
 <li>Define capacitance and write its SI unit.</li>
 <li>What is dielectric polarisation?</li>
 </ol>
-
 <h3>Long Answer Questions</h3>
 <ol>
 <li>Derive the expression for electric potential due to a point charge.</li>
@@ -1200,7 +887,6 @@ U = 0.02 J
 <li>Derive the expression for energy stored in a capacitor.</li>
 <li>Derive equivalent capacitance for capacitors connected in series and parallel.</li>
 </ol>
-
 <h3>Numerical Practice</h3>
 <ol>
 <li>A charge of +4 μC is placed in air. Calculate the potential at 0.2 m from it.</li>
@@ -1230,24 +916,322 @@ Read the explanations, practise derivations in your notebook and solve numerical
 </div>
 `;
 
-/* DISPLAY CONTENT */
+  /* CLASS 10 MATHEMATICS - CHAPTER 1: REAL NUMBERS */
+
+const class10RealNumbers = `
+
+<h2>Chapter 1: Real Numbers</h2>
+<p><b>Class:</b> 10 | <b>Subject:</b> Mathematics | <b>Board:</b> CBSE</p>
+
+<h2>1. Introduction to Real Numbers</h2>
+<p>Real numbers are all the numbers that can be represented on the number line. They include rational numbers and irrational numbers.</p>
+
+<h3>Types of Real Numbers</h3>
+<ul>
+<li><b>Natural Numbers (N):</b> 1, 2, 3, 4, ...</li>
+<li><b>Whole Numbers (W):</b> 0, 1, 2, 3, ...</li>
+<li><b>Integers (Z):</b> ..., −3, −2, −1, 0, 1, 2, 3, ...</li>
+<li><b>Rational Numbers (Q):</b> Numbers expressible as p/q, where p and q are integers and q ≠ 0.</li>
+<li><b>Irrational Numbers:</b> Numbers that cannot be expressed as p/q.</li>
+</ul>
+
+<div class="formula">
+Real Numbers = Rational Numbers + Irrational Numbers
+</div>
+
+<p>Examples of rational numbers: 1/2, −3, 0.75, 0.333...</p>
+<p>Examples of irrational numbers: √2, √3, π.</p>
+
+<h2>2. Rational Numbers</h2>
+<p>A number is rational if it can be written in the form:</p>
+<div class="formula">p/q, where p, q ∈ Z and q ≠ 0</div>
+
+<h3>Examples</h3>
+<ul>
+<li>5 = 5/1</li>
+<li>0.5 = 1/2</li>
+<li>0.25 = 1/4</li>
+<li>−7 = −7/1</li>
+</ul>
+
+<h2>3. Irrational Numbers</h2>
+<p>An irrational number cannot be expressed as a ratio of two integers. Its decimal expansion is non-terminating and non-recurring.</p>
+<h3>Examples</h3>
+<ul>
+<li>√2 = 1.414213...</li>
+<li>√3 = 1.732050...</li>
+<li>√5 = 2.236067...</li>
+<li>π = 3.141592...</li>
+</ul>
+
+<div class="notice">
+Remember: Every irrational number is a real number, but every real number is not rational.
+</div>
+
+<h2>4. Euclid's Division Lemma</h2>
+<p><b>Statement:</b> Given two positive integers a and b, there exist unique integers q and r such that:</p>
+<div class="formula">a = bq + r, where 0 ≤ r &lt; b</div>
+
+<p>Here:</p>
+<ul>
+<li>a = Dividend</li>
+<li>b = Divisor</li>
+<li>q = Quotient</li>
+<li>r = Remainder</li>
+</ul>
+
+<h3>Example</h3>
+<p>Divide 17 by 5.</p>
+<div class="formula">17 = 5 × 3 + 2</div>
+<p>Therefore, quotient = 3 and remainder = 2.</p>
+
+<h2>5. Euclid's Division Algorithm</h2>
+<p>Euclid's division algorithm is used to find the HCF (Highest Common Factor) of two positive integers.</p>
+
+<h3>Steps</h3>
+<ol>
+<li>Divide the larger number by the smaller number.</li>
+<li>Write the dividend as divisor × quotient + remainder.</li>
+<li>If the remainder is zero, the divisor is the HCF.</li>
+<li>If the remainder is not zero, divide the previous divisor by the remainder.</li>
+<li>Repeat until the remainder becomes zero.</li>
+<li>The last non-zero remainder is the HCF.</li>
+</ol>
+
+<h3>Solved Example: Find HCF of 135 and 225</h3>
+<p><b>Step 1:</b></p>
+<div class="formula">225 = 135 × 1 + 90</div>
+<p><b>Step 2:</b></p>
+<div class="formula">135 = 90 × 1 + 45</div>
+<p><b>Step 3:</b></p>
+<div class="formula">90 = 45 × 2 + 0</div>
+<p>Remainder zero ho gaya. Last non-zero remainder = 45.</p>
+<div class="formula">HCF(135, 225) = 45</div>
+
+<h2>6. Fundamental Theorem of Arithmetic</h2>
+<p><b>Statement:</b> Every composite number can be expressed as a product of primes, and this factorisation is unique apart from the order of the prime factors.</p>
+<p>In simple words, every composite number can be broken into prime factors in only one unique way, except for the order in which the factors are written.</p>
+
+<h3>Example: Prime Factorisation of 140</h3>
+<div class="formula">
+140 = 2 × 70<br>
+= 2 × 2 × 35<br>
+= 2² × 5 × 7
+</div>
+<p>Prime factors are 2, 5 and 7.</p>
+
+<h2>7. Finding HCF and LCM Using Prime Factorisation</h2>
+<p><b>HCF:</b> Take the common prime factors with the smallest powers.</p>
+<p><b>LCM:</b> Take all prime factors with the greatest powers.</p>
+
+<h3>Solved Example</h3>
+<p>Find HCF and LCM of 12 and 18.</p>
+<p><b>Prime factorisation:</b></p>
+<div class="formula">
+12 = 2² × 3<br>
+18 = 2 × 3²
+</div>
+<p><b>HCF:</b> Common factors with smallest powers.</p>
+<div class="formula">HCF = 2¹ × 3¹ = 6</div>
+<p><b>LCM:</b> All factors with greatest powers.</p>
+<div class="formula">LCM = 2² × 3² = 36</div>
+
+<h3>Important Relationship</h3>
+<p>For any two positive integers:</p>
+<div class="formula">HCF × LCM = Product of the two numbers</div>
+<p>Verification:</p>
+<div class="formula">6 × 36 = 12 × 18 = 216</div>
+
+<h2>8. Irrationality of √2</h2>
+<p><b>To prove:</b> √2 is irrational.</p>
+<p><b>Proof by contradiction:</b></p>
+<ol>
+<li>Assume that √2 is rational.</li>
+<li>Then √2 = a/b, where a and b are coprime integers and b ≠ 0.</li>
+<li>Squaring both sides:</li>
+</ol>
+<div class="formula">2 = a²/b²</div>
+<div class="formula">a² = 2b²</div>
+<p>Therefore, a² is even, so a must be even.</p>
+<p>Let a = 2k.</p>
+<div class="formula">
+(2k)² = 2b²<br>
+4k² = 2b²<br>
+b² = 2k²
+</div>
+<p>Therefore, b is also even.</p>
+<p>This means both a and b have a common factor 2, which contradicts our assumption that they are coprime.</p>
+<div class="formula">Hence, √2 is irrational. Proved.</div>
+
+<h2>9. Decimal Expansion of Rational Numbers</h2>
+<p>Let p/q be a rational number in its lowest form, where q ≠ 0.</p>
+<p>Its decimal expansion can be of two types:</p>
+<ul>
+<li><b>Terminating decimal:</b> Decimal expansion ends after a finite number of digits.</li>
+<li><b>Non-terminating recurring decimal:</b> Decimal expansion continues forever but repeats a pattern.</li>
+</ul>
+<h3>Examples</h3>
+<ul>
+<li>1/2 = 0.5 — Terminating</li>
+<li>3/8 = 0.375 — Terminating</li>
+<li>1/3 = 0.333... — Non-terminating recurring</li>
+<li>2/7 = 0.285714285714... — Non-terminating recurring</li>
+</ul>
+
+<h2>10. Condition for Terminating Decimal Expansion</h2>
+<p>Let p/q be a rational number in lowest form.</p>
+<p>Its decimal expansion terminates if and only if the prime factorisation of q is of the form:</p>
+<div class="formula">q = 2ᵐ × 5ⁿ</div>
+<p>Here m and n are non-negative integers.</p>
+
+<h3>Examples</h3>
+<p><b>Example 1:</b> 7/40</p>
+<div class="formula">40 = 2³ × 5</div>
+<p>Denominator contains only 2 and 5. Therefore, decimal expansion terminates.</p>
+<div class="formula">7/40 = 0.175</div>
+
+<p><b>Example 2:</b> 13/30</p>
+<div class="formula">30 = 2 × 3 × 5</div>
+<p>Denominator contains prime factor 3 also. Therefore, decimal expansion is non-terminating recurring.</p>
+
+<div class="notice">
+Important: Always reduce the fraction to its lowest form before checking the denominator.
+</div>
+
+<h2>11. Solved Questions</h2>
+<h3>Question 1: Find HCF of 96 and 404 using Euclid's algorithm.</h3>
+<div class="formula">
+404 = 96 × 4 + 20<br>
+96 = 20 × 4 + 16<br>
+20 = 16 × 1 + 4<br>
+16 = 4 × 4 + 0
+</div>
+<p>Last non-zero remainder = 4.</p>
+<div class="formula">HCF = 4</div>
+
+<h3>Question 2: Find HCF and LCM of 26 and 91.</h3>
+<p>Prime factorisation:</p>
+<div class="formula">
+26 = 2 × 13<br>
+91 = 7 × 13
+</div>
+<p>HCF = 13</p>
+<p>LCM = 2 × 7 × 13 = 182</p>
+
+<h3>Question 3: Check whether 6/125 has a terminating decimal expansion.</h3>
+<p>125 = 5³. The denominator contains only prime factor 5.</p>
+<div class="formula">6/125 = 0.048</div>
+<p>Therefore, it is terminating.</p>
+
+<h3>Question 4: Check whether 17/210 has a terminating decimal expansion.</h3>
+<p>210 = 2 × 3 × 5 × 7. The denominator contains prime factors other than 2 and 5.</p>
+<p>Therefore, its decimal expansion is non-terminating recurring.</p>
+
+<h2>12. Important Definitions for Boards</h2>
+<ul>
+<li><b>Prime Number:</b> A natural number greater than 1 having exactly two distinct positive factors, 1 and itself.</li>
+<li><b>Composite Number:</b> A natural number greater than 1 having more than two positive factors.</li>
+<li><b>Co-prime Numbers:</b> Two positive integers whose HCF is 1.</li>
+<li><b>HCF:</b> The greatest positive integer that divides two or more given integers exactly.</li>
+<li><b>LCM:</b> The smallest positive integer that is divisible by all the given integers.</li>
+</ul>
+
+<h2>13. Formula and Rule Revision</h2>
+<div class="formula">Euclid's Division Lemma: a = bq + r, 0 ≤ r &lt; b</div>
+<div class="formula">HCF × LCM = Product of two positive integers</div>
+<div class="formula">Terminating decimal: q = 2ᵐ × 5ⁿ</div>
+<div class="formula">Rational number: p/q, q ≠ 0</div>
+
+<h2>14. Common Mistakes to Avoid</h2>
+<ol>
+<li>Euclid's algorithm mein dividend aur divisor ko interchange karne se pehle remainder check karo.</li>
+<li>HCF nikalte waqt last non-zero remainder lena hai.</li>
+<li>HCF aur LCM ke prime powers confuse mat karo: HCF mein smallest powers, LCM mein greatest powers.</li>
+<li>Decimal expansion check karne se pehle fraction ko lowest form mein lao.</li>
+<li>Terminating decimal ke denominator mein prime factors sirf 2 aur 5 hone chahiye.</li>
+<li>Prime number 1 se greater hota hai. Number 1 neither prime nor composite hai.</li>
+</ol>
+
+<h2>15. Practice Questions</h2>
+<h3>Very Short Answer</h3>
+<ol>
+<li>Is 0 a rational number? Give a reason.</li>
+<li>Write the prime factorisation of 84.</li>
+<li>What is a composite number?</li>
+<li>State Euclid's division lemma.</li>
+<li>What are co-prime numbers?</li>
+</ol>
+
+<h3>Short Answer</h3>
+<ol>
+<li>Find the HCF of 156 and 208 using Euclid's algorithm.</li>
+<li>Find the HCF and LCM of 24 and 36 using prime factorisation.</li>
+<li>Explain the Fundamental Theorem of Arithmetic.</li>
+<li>Check whether 17/160 has a terminating decimal expansion.</li>
+<li>Check whether 29/343 has a terminating decimal expansion.</li>
+</ol>
+
+<h3>Long Answer</h3>
+<ol>
+<li>Prove that √3 is irrational.</li>
+<li>Prove that √5 is irrational.</li>
+<li>Explain Euclid's division algorithm with a suitable example.</li>
+<li>Find the HCF of 867 and 255 using Euclid's algorithm.</li>
+</ol>
+
+<h2>16. Chapter Completion Checklist</h2>
+<ul>
+<li>□ Types of real numbers</li>
+<li>□ Rational and irrational numbers</li>
+<li>□ Euclid's division lemma</li>
+<li>□ Euclid's division algorithm</li>
+<li>□ Fundamental Theorem of Arithmetic</li>
+<li>□ HCF and LCM by prime factorisation</li>
+<li>□ Proof of irrationality</li>
+<li>□ Decimal expansion of rational numbers</li>
+<li>□ Terminating and recurring decimals</li>
+<li>□ Solved examples and practice questions</li>
+</ul>
+
+<div class="notice">
+<b>Study instruction:</b> Har theorem ka statement yaad karne ke saath uska proof notebook mein khud likho. Euclid's algorithm ke kam se kam 5 questions aur decimal expansion ke 5 questions solve karo.
+</div>
+
+<div class="notice">
+<b>Content note:</b> These are learning notes, not a substitute for the prescribed NCERT textbook. Verify the applicable topics with the official CBSE 2026–27 syllabus and your school instructions.
+</div>
+`;
+
+  /* DISPLAY THE CORRECT CHAPTER */
 
 const content = document.getElementById("bookContent");
 
-if(subject === "Physics" &&
-   number === 1 &&
-   chapter === "Electric Charges and Fields"){
+if(
+  normalizedClass === "class10" &&
+  board.toUpperCase() === "CBSE" &&
+  subject.toLowerCase() === "mathematics" &&
+  number === 1 &&
+  chapter.toLowerCase() === "real numbers"
+){
+  content.innerHTML = class10RealNumbers;
 
+}else if(
+  normalizedClass === "class12" &&
+  subject === "Physics" &&
+  number === 1 &&
+  chapter === "Electric Charges and Fields"
+){
   content.innerHTML = chapter1;
 
-}else if(subject === "Physics" &&
-         number === 2 &&
-         chapter === "Electrostatic Potential and Capacitance"){
-
+}else if(
+  normalizedClass === "class12" &&
+  subject === "Physics" &&
+  number === 2 &&
+  chapter === "Electrostatic Potential and Capacitance"
+){
   content.innerHTML = chapter2;
 
 }else{
-
   content.innerHTML = `
     <h2>Chapter ${number}: ${escapeHTML(chapter)}</h2>
     <p>Detailed notes for this chapter are being prepared.</p>
@@ -1255,8 +1239,8 @@ if(subject === "Physics" &&
       This chapter's complete notes are not available yet.
     </div>
   `;
-
 }
+
 
 /* FONT SIZE CONTROLS */
 
@@ -1284,10 +1268,10 @@ document.getElementById("resetFont").addEventListener("click",()=>{
   updateFont();
 });
 
+
 /* READING PROGRESS */
 
 function updateProgress(){
-
   const scrollable =
     document.documentElement.scrollHeight - window.innerHeight;
 
@@ -1297,7 +1281,6 @@ function updateProgress(){
 
   document.getElementById("progressBar").style.width =
     Math.min(100,Math.max(0,progress)) + "%";
-
 }
 
 window.addEventListener("scroll",updateProgress);
@@ -1309,3 +1292,5 @@ updateProgress();
 </body>
 </html>
 
+  
+  
