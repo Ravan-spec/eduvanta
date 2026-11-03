@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,8 +26,6 @@ body{
   min-height:100vh;
 }
 a{text-decoration:none;color:inherit}
-button{font:inherit;cursor:pointer}
-
 header{
   position:sticky;
   top:0;
@@ -39,11 +38,7 @@ header{
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);
 }
-.logo{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
+.logo{font-size:22px;font-weight:800;letter-spacing:.5px}
 .logo span{color:var(--teal)}
 .home-btn{
   background:var(--surface2);
@@ -52,13 +47,11 @@ header{
   border-radius:9px;
   font-size:13px;
 }
-
 main{
   max-width:1050px;
   margin:auto;
   padding:28px 5% 85px;
 }
-
 .hero{
   padding:35px 25px;
   border-radius:21px;
@@ -90,39 +83,34 @@ main{
   font-size:14px;
   max-width:600px;
 }
-
 .section{margin-top:32px}
 .heading{margin-bottom:17px}
 .heading h2{font-size:21px;margin-bottom:7px}
 .muted{color:var(--muted);font-size:13px;line-height:1.7}
-
 .panel{
   padding:22px;
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:16px;
 }
-
 .label{
   font-size:13px;
   font-weight:bold;
   margin-bottom:12px;
   display:block;
 }
-
 .board-options{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:1fr;
   gap:12px;
 }
 .board-btn{
   padding:16px 12px;
-  border:1px solid var(--border);
+  border:1px solid var(--teal);
   border-radius:12px;
-  background:var(--surface2);
+  background:#173c42;
   color:var(--text);
   text-align:left;
-  transition:.2s;
 }
 .board-btn strong{display:block;font-size:15px}
 .board-btn small{
@@ -131,13 +119,6 @@ main{
   margin-top:6px;
   font-size:11px;
 }
-.board-btn.active{
-  border-color:var(--teal);
-  background:#173c42;
-  box-shadow:0 0 0 1px var(--teal);
-}
-.board-btn:disabled{opacity:.5;cursor:not-allowed}
-
 .subject-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -178,7 +159,6 @@ main{
   font-size:12px;
   font-weight:bold;
 }
-
 .notice{
   margin-top:20px;
   padding:16px;
@@ -194,7 +174,6 @@ main{
   background:#302819;
   color:#f5dfaa;
 }
-
 footer{
   border-top:1px solid var(--border);
   text-align:center;
@@ -203,14 +182,18 @@ footer{
   font-size:12px;
   line-height:2;
 }
-
 @media(max-width:650px){
   header{padding:13px 5%}
   .logo{font-size:20px}
   main{padding:20px 5% 65px}
   .hero{padding:29px 20px}
   .subject-grid{grid-template-columns:1fr}
-  .subject-card{display:flex;align-items:center;gap:14px;padding:15px}
+  .subject-card{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px;
+  }
   .subject-icon{flex-shrink:0;margin:0}
   .subject-info{flex:1}
   .subject-card p{min-height:0}
@@ -231,31 +214,25 @@ footer{
 
 <section class="hero">
   <div class="tag">YOUR PERSONAL CLASSROOM</div>
-  <h1 id="pageTitle">Welcome to <span>Class 12</span></h1>
+  <h1 id="pageTitle">Welcome to <span>Class 10</span></h1>
   <p id="pageDescription">
-    Choose your education board and explore available subjects.
+    Explore your CBSE subjects and chapter libraries.
   </p>
 </section>
 
 <section class="section">
   <div class="heading">
-    <h2>Choose Your Board</h2>
-    <p class="muted">Select the board you are studying under.</p>
+    <h2>Your Education Board</h2>
+    <p class="muted">Currently available board on EDUVANTA.</p>
   </div>
 
   <div class="panel">
-    <span class="label">Available Education Boards</span>
-
+    <span class="label">Selected Education Board</span>
     <div class="board-options">
-      <button class="board-btn" id="cbseBtn" type="button">
+      <div class="board-btn">
         <strong>CBSE</strong>
         <small>Central Board of Secondary Education</small>
-      </button>
-
-      <button class="board-btn" id="upBtn" type="button">
-        <strong>UP Board</strong>
-        <small>Uttar Pradesh Madhyamik Shiksha Parishad</small>
-      </button>
+      </div>
     </div>
   </div>
 </section>
@@ -268,41 +245,9 @@ footer{
     </p>
   </div>
 
-  <div class="subject-grid" id="subjectGrid">
+  <div class="subject-grid" id="subjectGrid"></div>
 
-    <a class="subject-card" id="physicsLink" href="#">
-      <div class="subject-icon">⚡</div>
-      <div class="subject-info">
-        <h3>Physics</h3>
-        <p>Explore concepts, chapters and practice questions.</p>
-        <span class="open-link">Explore Physics →</span>
-      </div>
-    </a>
-
-    <a class="subject-card" id="chemistryLink" href="#">
-      <div class="subject-icon">🧪</div>
-      <div class="subject-info">
-        <h3>Chemistry</h3>
-        <p>Study chemical concepts and chapter-wise material.</p>
-        <span class="open-link">Explore Chemistry →</span>
-      </div>
-    </a>
-
-    <a class="subject-card" id="mathLink" href="#">
-      <div class="subject-icon">📐</div>
-      <div class="subject-info">
-        <h3>Mathematics</h3>
-        <p>Learn formulas, concepts and solve questions.</p>
-        <span class="open-link">Explore Mathematics →</span>
-      </div>
-    </a>
-
-  </div>
-
-  <div class="notice" id="availabilityNotice">
-    Currently available: Class 12 PCM learning sections.
-    More learning content will be added in future updates.
-  </div>
+  <div class="notice" id="availabilityNotice"></div>
 </section>
 
 </main>
@@ -314,10 +259,19 @@ footer{
 </footer>
 
 <script>
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(location.search);
 
-const selectedClass = params.get("class") || "Class 12";
-const validClass12 = selectedClass === "Class 12";
+function normalizeClass(value){
+  const match = String(value || "12").match(/\d+/);
+  return match ? match[0] : "12";
+}
+
+const classNumber = normalizeClass(params.get("class"));
+const selectedClass = "Class " + classNumber;
+const board = "CBSE";
+
+const savedStream = localStorage.getItem("eduvantaStudentStream") || "";
+const stream = params.get("stream") || savedStream;
 
 const title = document.getElementById("pageTitle");
 const description = document.getElementById("pageDescription");
@@ -325,91 +279,183 @@ const subjectGrid = document.getElementById("subjectGrid");
 const subjectSubtitle = document.getElementById("subjectSubtitle");
 const notice = document.getElementById("availabilityNotice");
 
-title.innerHTML = "Welcome to <span>" + selectedClass + "</span>";
+title.innerHTML =
+  "Welcome to <span>" + selectedClass + "</span>";
 
-const savedClass = localStorage.getItem("eduvantaStudentClass");
+localStorage.setItem("eduvantaStudentClass",selectedClass);
+localStorage.setItem("eduvantaClass",selectedClass);
+localStorage.setItem("eduvantaBoard",board);
 
-if(savedClass === selectedClass){
-  // Keep the saved student class.
-}else if(selectedClass.startsWith("Class ")){
-  localStorage.setItem("eduvantaStudentClass", selectedClass);
-  localStorage.setItem("eduvantaClass", selectedClass);
+if(stream){
+  localStorage.setItem("eduvantaStudentStream",stream);
 }
 
-const cbseBtn = document.getElementById("cbseBtn");
-const upBtn = document.getElementById("upBtn");
+const class10Subjects = [
+  {
+    name:"Mathematics",
+    icon:"📐",
+    description:"Explore Class 10 Mathematics chapters and concepts."
+  },
+  {
+    name:"Science",
+    icon:"🔬",
+    description:"Study Physics, Chemistry and Biology concepts."
+  },
+  {
+    name:"Social Science",
+    icon:"🌍",
+    description:"Explore History, Geography, Civics and Economics."
+  },
+  {
+    name:"English Language & Literature",
+    icon:"📖",
+    description:"Explore prose, poetry and supplementary reading."
+  },
+  {
+    name:"Hindi Course A",
+    icon:"अ",
+    description:"Hindi Course A chapter library."
+  },
+  {
+    name:"Hindi Course B",
+    icon:"अ",
+    description:"Hindi Course B chapter library."
+  }
+];
 
-let board = localStorage.getItem("eduvantaBoard") || "CBSE";
+const class12PCMSubjects = [
+  {
+    name:"Physics",
+    icon:"⚡",
+    description:"Explore concepts, chapters and practice questions."
+  },
+  {
+    name:"Chemistry",
+    icon:"🧪",
+    description:"Study chemical concepts and chapter-wise material."
+  },
+  {
+    name:"Mathematics",
+    icon:"📐",
+    description:"Learn formulas, concepts and solve questions."
+  }
+];
 
-function setBoard(value){
-  board = value;
-  localStorage.setItem("eduvantaBoard", value);
+function createSubjectCard(subject){
 
-  cbseBtn.classList.toggle("active", value === "CBSE");
-  upBtn.classList.toggle("active", value === "UP Board");
+  const card = document.createElement("a");
+  card.className = "subject-card";
 
-  updateSubjectLinks();
+  const icon = document.createElement("div");
+  icon.className = "subject-icon";
+  icon.textContent = subject.icon;
+
+  const info = document.createElement("div");
+  info.className = "subject-info";
+
+  const heading = document.createElement("h3");
+  heading.textContent = subject.name;
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = subject.description;
+
+  const link = document.createElement("span");
+  link.className = "open-link";
+  link.textContent = "Explore " + subject.name + " →";
+
+  info.appendChild(heading);
+  info.appendChild(paragraph);
+  info.appendChild(link);
+
+  card.appendChild(icon);
+  card.appendChild(info);
+
+  const query = new URLSearchParams({
+    class:selectedClass,
+    board:board,
+    subject:subject.name
+  });
+
+  if(stream) query.set("stream",stream);
+
+  card.href = "subject.html?" + query.toString();
+
+  return card;
 }
 
-function updateSubjectLinks(){
+function renderSubjects(){
 
-  if(!validClass12){
+  subjectGrid.innerHTML = "";
+
+  if(classNumber === "10"){
+
     description.textContent =
-      "This learning level is listed in EDUVANTA. Its chapter content is being prepared.";
+      "Explore CBSE Class 10 subjects and their chapter libraries.";
 
     subjectSubtitle.textContent =
-      "Subject-wise content for this class is not available yet.";
+      "Choose your subject. Hindi Course A and B are separate options.";
 
-    subjectGrid.style.display = "none";
+    class10Subjects.forEach(subject=>{
+      subjectGrid.appendChild(createSubjectCard(subject));
+    });
+
+    notice.className = "notice";
+    notice.textContent =
+      "CBSE Class 10 subject chapter lists are available in EDUVANTA. Notes, lessons and practice content are being added separately.";
+
+    return;
+  }
+
+  if(classNumber === "12" && stream.toLowerCase().includes("pcm")){
+
+    description.textContent =
+      "Explore CBSE Class 12 Science PCM subjects.";
+
+    subjectSubtitle.textContent =
+      "Physics, Chemistry and Mathematics.";
+
+    class12PCMSubjects.forEach(subject=>{
+      subjectGrid.appendChild(createSubjectCard(subject));
+    });
+
+    notice.className = "notice";
+    notice.textContent =
+      "Class 12 PCM chapter lists are available. Some learning resources are still being developed.";
+
+    return;
+  }
+
+  if(classNumber === "12" && !stream){
+
+    description.textContent =
+      "Choose your Class 12 stream to continue.";
+
+    subjectSubtitle.textContent =
+      "Your stream is not available in the page link.";
 
     notice.className = "notice warning";
     notice.textContent =
-      "Coming Soon: Detailed lessons, chapters and practice material for " +
-      selectedClass + " are not available yet. Class 12 PCM is currently the available learning section.";
+      "Please return to your profile and select your Class 12 stream. Currently, the chapter library is available for Science PCM.";
+
+    subjectGrid.innerHTML = "";
 
     return;
   }
 
   description.textContent =
-    "Choose your board and explore Class 12 Physics, Chemistry and Mathematics.";
+    "This Class 12 stream is not available yet.";
 
   subjectSubtitle.textContent =
-    "Selected board: " + board + ". Choose a subject to continue.";
+    "More subject libraries will be added in future updates.";
 
-  subjectGrid.style.display = "grid";
-
-  notice.className = "notice";
+  notice.className = "notice warning";
   notice.textContent =
-    "Currently available: Class 12 PCM learning sections. Some chapters may still be under development.";
+    "Currently available: Class 10 subject lists and Class 12 Science PCM chapter lists. Other Class 12 streams are being prepared.";
 
-  const commonParams = {
-    class: selectedClass,
-    board: board
-  };
-
-  document.getElementById("physicsLink").href =
-    "subject.html?" + new URLSearchParams({
-      ...commonParams,
-      subject: "Physics"
-    }).toString();
-
-  document.getElementById("chemistryLink").href =
-    "subject.html?" + new URLSearchParams({
-      ...commonParams,
-      subject: "Chemistry"
-    }).toString();
-
-  document.getElementById("mathLink").href =
-    "subject.html?" + new URLSearchParams({
-      ...commonParams,
-      subject: "Mathematics"
-    }).toString();
+  subjectGrid.innerHTML = "";
 }
 
-cbseBtn.addEventListener("click",()=>setBoard("CBSE"));
-upBtn.addEventListener("click",()=>setBoard("UP Board"));
-
-setBoard(board);
+renderSubjects();
 </script>
 
 </body>
