@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,29 +15,50 @@
  --blue:#7895ff;--teal:#36d6c3;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{
+ font-family:Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh
+}
 a{text-decoration:none;color:inherit}
 header{
- position:sticky;top:0;z-index:10;display:flex;
- justify-content:space-between;align-items:center;
- padding:14px 6%;background:#101a30ee;
- backdrop-filter:blur(14px);border-bottom:1px solid var(--border)
+ position:sticky;top:0;z-index:10;
+ display:flex;justify-content:space-between;
+ align-items:center;padding:14px 6%;
+ background:#101a30ee;backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--border)
 }
 .logo{font-size:22px;font-weight:800;letter-spacing:.5px}
 .logo span{color:var(--teal)}
-.back{background:var(--surface2);border:1px solid var(--border);padding:10px 14px;border-radius:9px;font-size:13px}
+.back{
+ background:var(--surface2);
+ border:1px solid var(--border);
+ padding:10px 14px;border-radius:9px;font-size:13px
+}
 main{max-width:1000px;margin:auto;padding:28px 5% 75px}
 .hero{
- padding:35px 25px;border-radius:21px;border:1px solid var(--border);
- background:radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
+ padding:35px 25px;border-radius:21px;
+ border:1px solid var(--border);
+ background:
+ radial-gradient(circle at 90% 10%,#3458a566,transparent 35%),
  linear-gradient(135deg,#172747,#102c4d 65%,#123c51)
 }
-.tag{display:inline-block;color:var(--teal);background:#ffffff15;padding:8px 12px;border-radius:30px;font-size:11px;font-weight:bold;letter-spacing:1px;margin-bottom:17px}
+.tag{
+ display:inline-block;color:var(--teal);
+ background:#ffffff15;padding:8px 12px;
+ border-radius:30px;font-size:11px;
+ font-weight:bold;letter-spacing:1px;margin-bottom:17px
+}
 .hero h1{font-size:clamp(27px,5vw,42px);line-height:1.25;margin-bottom:13px}
 .hero h1 span{color:var(--teal)}
 .hero p{color:#d0dced;font-size:14px;line-height:1.8}
 .course-info{margin-top:17px;display:flex;flex-wrap:wrap;gap:8px}
-.course-info span{background:#ffffff15;border:1px solid #ffffff20;padding:8px 11px;border-radius:8px;font-size:11px;color:#e1eaff}
+.course-info span{
+ background:#ffffff15;border:1px solid #ffffff20;
+ padding:8px 11px;border-radius:8px;
+ font-size:11px;color:#e1eaff
+}
 .section{margin-top:32px}
 .heading{margin-bottom:17px}
 .heading h2{font-size:22px;margin-bottom:7px}
@@ -44,16 +66,35 @@ main{max-width:1000px;margin:auto;padding:28px 5% 75px}
 .mode-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mode-card{
  display:flex;flex-direction:column;min-height:235px;
- padding:21px;border-radius:16px;background:var(--surface);
- border:1px solid var(--border);transition:.2s
+ padding:21px;border-radius:16px;
+ background:var(--surface);border:1px solid var(--border);
+ transition:.2s
 }
-.mode-card:hover{transform:translateY(-4px);border-color:var(--teal);background:var(--surface2)}
-.mode-icon{width:53px;height:53px;display:grid;place-items:center;background:#283a60;border-radius:15px;font-size:27px;margin-bottom:18px}
+.mode-card.available:hover{
+ transform:translateY(-4px);
+ border-color:var(--teal);background:var(--surface2)
+}
+.mode-card.disabled{opacity:.62;cursor:not-allowed}
+.mode-icon{
+ width:53px;height:53px;display:grid;place-items:center;
+ background:#283a60;border-radius:15px;
+ font-size:27px;margin-bottom:18px
+}
 .mode-card h3{font-size:18px;margin-bottom:9px}
 .mode-card p{color:var(--muted);font-size:13px;line-height:1.7;flex:1}
 .mode-link{display:inline-block;margin-top:19px;color:var(--teal);font-size:13px;font-weight:bold}
-.notice{margin-top:24px;padding:17px;border:1px solid #24534f;background:#132d36;color:#b9e9e1;border-radius:12px;font-size:13px;line-height:1.7}
-footer{border-top:1px solid var(--border);text-align:center;padding:25px 5%;color:var(--muted);font-size:12px;line-height:2}
+.disabled .mode-link{color:#f0c777}
+.notice{
+ margin-top:24px;padding:17px;
+ border:1px solid #24534f;background:#132d36;
+ color:#b9e9e1;border-radius:12px;
+ font-size:13px;line-height:1.7
+}
+footer{
+ border-top:1px solid var(--border);text-align:center;
+ padding:25px 5%;color:var(--muted);
+ font-size:12px;line-height:2
+}
 @media(max-width:700px){
  header{padding:13px 5%}.logo{font-size:20px}
  main{padding:20px 5% 55px}.hero{padding:28px 20px}
@@ -68,9 +109,10 @@ footer{border-top:1px solid var(--border);text-align:center;padding:25px 5%;colo
 </head>
 
 <body>
+
 <header>
  <a class="logo" href="index.html">EDU<span>VANTA</span></a>
- <a class="back" id="backButton" href="#">← Back</a>
+ <a class="back" id="backButton" href="class.html">← Back</a>
 </header>
 
 <main>
@@ -78,11 +120,13 @@ footer{border-top:1px solid var(--border);text-align:center;padding:25px 5%;colo
  <div class="tag">CHAPTER LEARNING SPACE</div>
  <h1>Explore <span id="chapterTitle">Chapter</span></h1>
  <p>Choose your preferred learning method and start understanding this chapter step by step.</p>
+
  <div class="course-info">
   <span id="boardInfo">CBSE</span>
   <span id="classInfo">Class 12</span>
   <span id="subjectInfo">Physics</span>
   <span id="numberInfo">Chapter 1</span>
+  <span id="streamInfo" hidden></span>
  </div>
 </section>
 
@@ -93,31 +137,32 @@ footer{border-top:1px solid var(--border);text-align:center;padding:25px 5%;colo
  </div>
 
  <div class="mode-grid">
+
   <a class="mode-card" id="bookLink" href="#">
    <div class="mode-icon">📖</div>
    <h3>Book Mode</h3>
    <p>Read detailed notes, understand concepts, learn formulas and study solved examples.</p>
-   <span class="mode-link">Open Book Mode →</span>
+   <span class="mode-link" id="bookStatus">Open Book Mode →</span>
   </a>
 
   <a class="mode-card" id="lessonLink" href="#">
    <div class="mode-icon">🎓</div>
    <h3>Lesson Mode</h3>
    <p>Learn through smaller lessons with step-by-step explanations and guided learning.</p>
-   <span class="mode-link">Start Lessons →</span>
+   <span class="mode-link" id="lessonStatus">Start Lessons →</span>
   </a>
 
   <a class="mode-card" id="practiceLink" href="#">
    <div class="mode-icon">✍️</div>
    <h3>Practice Mode</h3>
    <p>Attempt questions, check your answers and improve your understanding of the chapter.</p>
-   <span class="mode-link">Start Practice →</span>
+   <span class="mode-link" id="practiceStatus">Start Practice →</span>
   </a>
+
  </div>
 
- <div class="notice">
-  <strong>Study suggestion:</strong>
-  Start with Book Mode, continue with Lesson Mode and then test your understanding using Practice Mode. Available content varies by chapter.
+ <div class="notice" id="availabilityNotice">
+  Select a learning mode to continue.
  </div>
 </section>
 </main>
@@ -129,59 +174,137 @@ footer{border-top:1px solid var(--border);text-align:center;padding:25px 5%;colo
 </footer>
 
 <script>
-const params=new URLSearchParams(location.search);
+const params = new URLSearchParams(location.search);
 
-const selectedClass=params.get("class")||"Class 12";
-const board=params.get("board")||"CBSE";
-const subject=params.get("subject")||"Physics";
-const chapter=params.get("chapter")||"Chapter";
-const number=params.get("number")||"1";
-
-document.getElementById("chapterTitle").textContent=chapter;
-document.getElementById("boardInfo").textContent=board;
-document.getElementById("classInfo").textContent=selectedClass;
-document.getElementById("subjectInfo").textContent=subject;
-document.getElementById("numberInfo").textContent="Chapter "+number;
-
-document.getElementById("backButton").href=
- "subject.html?"+new URLSearchParams({
-  class:selectedClass,board:board,subject:subject
- }).toString();
-
-function createModeLink(page){
- return page+"?"+new URLSearchParams({
-  class:selectedClass,board:board,subject:subject,
-  chapter:chapter,number:number
- }).toString();
+function normalizeClass(value){
+ const match = String(value || "12").match(/\d+/);
+ return match ? match[0] : "12";
 }
 
-const bookUrl=createModeLink("book.html");
-const lessonUrl=createModeLink("lesson.html");
-const practiceUrl=createModeLink("practice.html");
+const classNumber = normalizeClass(params.get("class"));
+const selectedClass = "Class " + classNumber;
+const board = params.get("board") || "CBSE";
+const subject = params.get("subject") || "Physics";
+const chapter = params.get("chapter") || "Chapter";
+const number = params.get("number") || "1";
+const stream = params.get("stream") ||
+ localStorage.getItem("eduvantaStudentStream") || "";
 
-document.getElementById("bookLink").href=bookUrl;
-document.getElementById("lessonLink").href=lessonUrl;
-document.getElementById("practiceLink").href=practiceUrl;
+document.getElementById("chapterTitle").textContent = chapter;
+document.getElementById("boardInfo").textContent = board;
+document.getElementById("classInfo").textContent = selectedClass;
+document.getElementById("subjectInfo").textContent = subject;
+document.getElementById("numberInfo").textContent = "Chapter " + number;
+
+if(stream){
+ const streamInfo = document.getElementById("streamInfo");
+ streamInfo.textContent = stream;
+ streamInfo.hidden = false;
+}
+
+const backParams = new URLSearchParams({
+ class:selectedClass,
+ board:board,
+ subject:subject
+});
+
+if(stream) backParams.set("stream",stream);
+
+document.getElementById("backButton").href =
+ "subject.html?" + backParams.toString();
+
+function createModeLink(page){
+ const query = new URLSearchParams({
+  class:selectedClass,
+  board:board,
+  subject:subject,
+  chapter:chapter,
+  number:number
+ });
+
+ if(stream) query.set("stream",stream);
+
+ return page + "?" + query.toString();
+}
+
+const bookUrl = createModeLink("book.html");
+const lessonUrl = createModeLink("lesson.html");
+const practiceUrl = createModeLink("practice.html");
+
+/*
+ Currently published content:
+ Class 12 + Physics + Chapter 1.
+ Other chapters are not linked to generic content.
+*/
+
+const isAvailable =
+ classNumber === "12" &&
+ subject.toLowerCase() === "physics" &&
+ Number(number) === 1 &&
+ chapter.toLowerCase() === "electric charges and fields";
+
+function enableMode(id,url,statusId,label){
+ const card = document.getElementById(id);
+ card.href = url;
+ card.classList.add("available");
+ document.getElementById(statusId).textContent = label;
+}
+
+function disableMode(id,statusId){
+ const card = document.getElementById(id);
+ card.removeAttribute("href");
+ card.classList.add("disabled");
+ card.setAttribute("aria-disabled","true");
+ document.getElementById(statusId).textContent = "Coming Soon";
+}
+
+if(isAvailable){
+
+ enableMode("bookLink",bookUrl,"bookStatus","Open Book Mode →");
+ enableMode("lessonLink",lessonUrl,"lessonStatus","Start Lessons →");
+ enableMode("practiceLink",practiceUrl,"practiceStatus","Start Practice →");
+
+ document.getElementById("availabilityNotice").textContent =
+  "Learning content is available for this chapter. Start with Book Mode, continue with lessons and then test yourself in Practice Mode.";
+
+}else{
+
+ disableMode("bookLink","bookStatus");
+ disableMode("lessonLink","lessonStatus");
+ disableMode("practiceLink","practiceStatus");
+
+ document.getElementById("availabilityNotice").textContent =
+  "The chapter is listed in EDUVANTA, but its notes, lessons and practice questions have not been published yet. This content will be added separately for the selected class and subject.";
+}
 
 /* SAVE LAST OPENED CHAPTER */
-const lastChapter={
+
+const lastChapter = {
  class:selectedClass,
  board:board,
  subject:subject,
  chapter:chapter,
  number:number,
+ stream:stream,
  bookUrl:bookUrl,
  lessonUrl:lessonUrl,
  practiceUrl:practiceUrl,
+ available:isAvailable,
  updatedAt:new Date().toISOString()
 };
 
-localStorage.setItem("eduvantaLastChapter",JSON.stringify(lastChapter));
+localStorage.setItem(
+ "eduvantaLastChapter",
+ JSON.stringify(lastChapter)
+);
 
 /* SAVE LAST SELECTED COURSE */
+
 localStorage.setItem("eduvantaClass",selectedClass);
 localStorage.setItem("eduvantaBoard",board);
 localStorage.setItem("eduvantaSubject",subject);
+if(stream) localStorage.setItem("eduvantaStudentStream",stream);
 </script>
+
 </body>
 </html>
