@@ -21,7 +21,8 @@ body{
  font-family:Inter,Arial,sans-serif;min-height:100vh;padding-bottom:95px;
 }
 a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
 .container{max-width:1100px;margin:auto;padding:0 18px}
 .hidden{display:none!important}
 
@@ -51,6 +52,10 @@ header{
 }
 .logout{
  border:1px solid #713b55;background:#30182a;color:#ffb4c2;
+ border-radius:10px;padding:9px 11px;font-size:11px;font-weight:bold;
+}
+.edit-profile-btn{
+ border:1px solid #28608b;background:#102b4a;color:#9cecff;
  border-radius:10px;padding:9px 11px;font-size:11px;font-weight:bold;
 }
 
@@ -229,6 +234,50 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* EDIT PROFILE MODAL */
+.modal-overlay{
+ position:fixed;inset:0;z-index:100;
+ background:#020611dc;display:none;align-items:center;
+ justify-content:center;padding:16px;overflow-y:auto;
+}
+.modal-overlay.open{display:flex}
+.modal{
+ width:100%;max-width:460px;max-height:90vh;overflow-y:auto;
+ background:linear-gradient(145deg,#122342,#091429);
+ border:1px solid #31527e;border-radius:20px;padding:22px;
+ box-shadow:0 20px 70px #0009;
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.modal-head h2{font-size:19px}
+.modal-close{
+ width:32px;height:32px;border:1px solid #405777;border-radius:9px;
+ background:#172a48;color:white;font-size:19px;
+}
+.form-field{margin-bottom:14px}
+.form-field label{
+ display:block;font-size:12px;color:#b9c9e6;margin-bottom:7px;
+}
+.form-field input,.form-field select{
+ width:100%;padding:12px;border-radius:10px;
+ border:1px solid #29466c;background:#08152a;color:white;
+ font-size:13px;outline:none;
+}
+.form-field input:focus,.form-field select:focus{border-color:var(--cyan)}
+.form-field input:disabled{
+ color:#91a3c2;background:#0b1930;opacity:1;
+}
+.form-hint{font-size:10px;color:#9baed0;margin-top:6px;line-height:1.5}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions button{
+ flex:1;padding:12px;border-radius:10px;font-weight:bold;font-size:12px;
+}
+.cancel-btn{background:#172a48;border:1px solid #385174;color:#dce8ff}
+.save-btn{background:linear-gradient(90deg,#08c9db,#258bff);border:0;color:#04152c}
+.save-btn:disabled{opacity:.6;cursor:wait}
+#editStatus{font-size:11px;line-height:1.5;margin-top:12px;min-height:16px}
+.status-error{color:#ff9eaa}
+.status-success{color:#48f4bc}
+
 @media(max-width:600px){
  header{padding:12px 15px}
  .brand-icon{width:40px;height:40px;font-size:23px}
@@ -254,9 +303,13 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  .test-copy h3{font-size:12px}
  .test-copy p{font-size:9px}
  .test-banner a{font-size:10px;padding:9px}
+ .edit-profile-btn{padding:8px;font-size:10px}
+ .logout{padding:8px;font-size:10px}
+ .profile{width:34px;height:34px}
 }
-@media(max-width:360px){
+@media(max-width:380px){
  .stream-pill{display:none}
+ .header-right{gap:6px}
  .quick-card strong{font-size:8px}
  .progress-layout{gap:6px}
 }
@@ -285,6 +338,7 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  <div class="header-right">
   <div class="stream-pill" id="streamBadge">CLASS 12</div>
   <div class="profile" id="profileInitial">S</div>
+  <button class="edit-profile-btn" id="openEditBtn">Edit</button>
   <button class="logout" id="logoutBtn">Logout</button>
  </div>
 </header>
@@ -349,13 +403,13 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 <section class="section" id="tools">
  <div class="section-heading"><h2>⚡ Quick Access</h2></div>
  <div class="quick-grid">
-  <a href="class.html?class=Class%2012" class="quick-card q-blue">
+  <a href="class.html?class=Class%2012" id="studyCard" class="quick-card q-blue">
    <div class="icon">📖</div><strong>Study<br>Library</strong>
-   <small>Open subjects</small>
+   <small id="studyCardNote">Open subjects</small>
   </a>
-  <a href="practice.html" class="quick-card q-green">
+  <a href="practice.html" id="practiceCard" class="quick-card q-green">
    <div class="icon">✅</div><strong>Practice<br>Questions</strong>
-   <small>Available practice</small>
+   <small id="practiceCardNote">Available practice</small>
   </a>
   <a href="#continue" class="quick-card q-purple">
    <div class="icon">▶️</div><strong>Continue<br>Learning</strong>
@@ -385,7 +439,10 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 </section>
 
 <section class="section">
- <div class="section-heading"><h2>🎓 My Learning Profile</h2></div>
+ <div class="section-heading">
+  <h2>🎓 My Learning Profile</h2>
+  <button class="edit-profile-btn" id="profileEditBtn">✏️ Edit Profile</button>
+ </div>
  <div class="panel stream-panel">
   <div class="stream-top">
    <div class="stream-icon" id="streamIcon">🎓</div>
@@ -406,14 +463,14 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  </div>
 </section>
 
-<section class="section">
+<section class="section" id="practiceSection">
  <div class="test-banner">
   <div class="test-trophy">🏆</div>
   <div class="test-copy">
    <h3>Practice Your Knowledge</h3>
    <p>Try the currently available chapter practice.</p>
   </div>
-  <a href="practice.html">Start →</a>
+  <a href="practice.html" id="practiceBannerLink">Start →</a>
  </div>
 </section>
 
@@ -442,10 +499,78 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 <nav class="bottom-nav">
  <a class="nav-item active" href="#"><span>⌂</span>Home</a>
  <a class="nav-item" href="#progress"><span>▥</span>Progress</a>
- <a class="nav-item" href="class.html?class=Class%2012"><span>📖</span>Study</a>
+ <a class="nav-item" href="class.html?class=Class%2012" id="studyNav"><span>📖</span>Study</a>
  <a class="nav-item" href="#tools"><span>☷</span>More</a>
 </nav>
 
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="editModal">
+ <div class="modal">
+  <div class="modal-head">
+   <h2>✏️ Edit Learning Profile</h2>
+   <button class="modal-close" id="closeEditBtn" aria-label="Close">×</button>
+  </div>
+
+  <form id="editProfileForm">
+   <div class="form-field">
+    <label for="editName">Full Name</label>
+    <input id="editName" type="text" maxlength="60" required>
+   </div>
+
+   <div class="form-field">
+    <label for="editUsername">Username</label>
+    <input id="editUsername" type="text" minlength="3" maxlength="20"
+     pattern="[A-Za-z0-9_]{3,20}" required>
+    <div class="form-hint">3–20 characters. Only letters, numbers and underscore.</div>
+   </div>
+
+   <div class="form-field">
+    <label for="editEmail">Gmail / Email (cannot be changed)</label>
+    <input id="editEmail" type="email" disabled>
+   </div>
+
+   <div class="form-field">
+    <label for="editBoard">Board</label>
+    <select id="editBoard" required>
+     <option value="CBSE">CBSE</option>
+     <option value="UP Board">UP Board</option>
+    </select>
+   </div>
+
+   <div class="form-field">
+    <label for="editClass">Class</label>
+    <select id="editClass" required>
+     <option value="10">Class 10</option>
+     <option value="12">Class 12</option>
+    </select>
+   </div>
+
+   <div class="form-field" id="editStreamField">
+    <label for="editStream">Stream</label>
+    <select id="editStream">
+     <option value="">Select your stream</option>
+     <option value="Science PCM">Science PCM</option>
+     <option value="Science PCB">Science PCB</option>
+     <option value="Commerce">Commerce</option>
+     <option value="Arts/Humanities">Arts / Humanities</option>
+    </select>
+   </div>
+
+   <div class="form-hint">
+    Changing your class or stream updates your dashboard subjects.
+    Your previous learning records are not automatically deleted.
+   </div>
+
+   <div id="editStatus" role="status"></div>
+
+   <div class="modal-actions">
+    <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
+    <button type="submit" class="save-btn" id="saveProfileBtn">Save Changes</button>
+   </div>
+  </form>
+ </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -468,6 +593,7 @@ const db=firebase.firestore();
 const el=id=>document.getElementById(id);
 
 let student=null;
+let currentUser=null;
 
 function showApp(){
  el("loadingScreen").classList.add("hidden");
@@ -482,19 +608,25 @@ function showLoading(text){
 
 function showError(text){
  el("loadingScreen").innerHTML=
-  '<div style="padding:25px;max-width:420px"><h2 style="color:#ff9eaa;margin-bottom:12px">Dashboard Error</h2><p>'+text.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))+'</p><p style="margin-top:15px"><a style="color:#39dce9" href="auth.html">Return to Login</a></p></div>';
+  '<div style="padding:25px;max-width:420px"><h2 style="color:#ff9eaa;margin-bottom:12px">Dashboard Error</h2><p>'+
+  escapeHTML(text)+
+  '</p><p style="margin-top:15px"><a style="color:#39dce9" href="auth.html">Return to Login</a></p></div>';
 }
 
-function renderProfile(data){
- student=data;
- const name=data.name||"Student";
- const stream=data.stream||"Not selected";
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
 
- el("studentName").textContent=name;
- el("profileInitial").textContent=name.charAt(0).toUpperCase();
- el("streamBadge").textContent=stream.toUpperCase();
- el("profileStream").textContent=stream;
- el("profileDetails").textContent=(data.board||"CBSE")+" • Class "+(data.class||"12");
+/* PROFILE DISPLAY */
+function getSubjects(data){
+ const classNumber=String(data.class||"12");
+ const stream=data.stream||"";
+
+ if(classNumber==="10"){
+  return ["Mathematics","Science","Social Science","English","Hindi"];
+ }
 
  const subjects={
   "Science PCM":["Physics","Chemistry","Mathematics","English"],
@@ -502,28 +634,131 @@ function renderProfile(data){
   "Commerce":["Accountancy","Business Studies","Economics","English"],
   "Arts/Humanities":["History","Political Science","Geography","English"]
  };
+ return subjects[stream]||[];
+}
+
+function getProfileIcon(data){
+ if(String(data.class)==="10")return "📚";
  const icons={
-  "Science PCM":"⚛️","Science PCB":"🧬",
-  "Commerce":"📊","Arts/Humanities":"🎨"
+  "Science PCM":"⚛️",
+  "Science PCB":"🧬",
+  "Commerce":"📊",
+  "Arts/Humanities":"🎨"
  };
- const list=subjects[stream]||[];
- el("streamIcon").textContent=icons[stream]||"🎓";
+ return icons[data.stream]||"🎓";
+}
+
+function hasCurrentResources(data){
+ return String(data.class||"12")==="12" &&
+  (data.stream||"")==="Science PCM";
+}
+
+function renderProfile(data){
+ student=data;
+
+ const name=data.name||"Student";
+ const classNumber=String(data.class||"12");
+ const board=data.board||"CBSE";
+ const stream=classNumber==="10"?"Class 10":(data.stream||"Stream not selected");
+
+ el("studentName").textContent=name;
+ el("profileInitial").textContent=name.charAt(0).toUpperCase();
+ el("streamBadge").textContent="CLASS "+classNumber;
+ el("profileStream").textContent=stream;
+ el("profileDetails").textContent=board+" • Class "+classNumber;
+ el("streamIcon").textContent=getProfileIcon(data);
+
  el("subjectTags").replaceChildren();
- list.forEach(subject=>{
+ getSubjects(data).forEach(subject=>{
   const tag=document.createElement("span");
   tag.textContent=subject;
   el("subjectTags").appendChild(tag);
  });
 
- const available=["Science PCM","Science PCB"].includes(stream);
- el("streamNote").textContent=available
-  ?"Your stream profile is saved. Current EDUVANTA study resources are being expanded; check the Study Library for available chapters."
-  :"Your profile is saved. Study materials for this stream will be added before its study cards are activated.";
+ if(classNumber==="10"){
+  el("streamNote").textContent=
+   "Your Class 10 profile is active. Class 10 subject cards and study resources will appear here when they are added to EDUVANTA.";
+  el("welcomeText").textContent=
+   "Your "+board+" Class 10 learning journey continues here.";
+ }else{
+  el("streamNote").textContent=hasCurrentResources(data)
+   ?"Your Science PCM profile is active. Current study resources are being expanded; open the Study Library to access available chapters."
+   :"Your profile is saved. Study materials for this stream will be activated when the relevant resources are added.";
+  el("welcomeText").textContent=
+   "Your "+board+" Class 12 "+(data.stream||"")+" learning journey continues here.";
+ }
 
- el("welcomeText").textContent=
-  "Your CBSE Class 12 "+stream+" learning journey continues here.";
+ updateStudyLinks(data);
 }
 
+function updateStudyLinks(data){
+ const available=hasCurrentResources(data);
+ const studyCard=el("studyCard");
+ const studyNav=el("studyNav");
+ const practiceCard=el("practiceCard");
+ const practiceBanner=el("practiceBannerLink");
+ const practiceSection=el("practiceSection");
+
+ if(available){
+  studyCard.href="class.html?class=Class%2012";
+  studyCard.classList.remove("coming");
+  el("studyCardNote").textContent="Open subjects";
+  studyNav.href="class.html?class=Class%2012";
+
+  practiceCard.href="practice.html";
+  practiceCard.classList.remove("coming");
+  el("practiceCardNote").textContent="Available practice";
+  practiceBanner.href="practice.html";
+  practiceBanner.textContent="Start →";
+  practiceSection.classList.remove("hidden");
+ }else{
+  studyCard.removeAttribute("href");
+  studyCard.classList.add("coming");
+  el("studyCardNote").textContent="Coming soon";
+  studyNav.href="#tools";
+
+  practiceCard.removeAttribute("href");
+  practiceCard.classList.add("coming");
+  el("practiceCardNote").textContent="Coming soon";
+  practiceBanner.removeAttribute("href");
+  practiceBanner.textContent="Coming soon";
+  practiceSection.classList.add("hidden");
+ }
+}
+
+/* AUTHENTICATION */
+auth.onAuthStateChanged(async user=>{
+ if(!user){
+  window.location.replace("auth.html");
+  return;
+ }
+
+ currentUser=user;
+ showLoading("Loading your student profile...");
+
+ try{
+  const snap=await db.collection("users").doc(user.uid).get();
+  if(!snap.exists){
+   window.location.replace("auth.html");
+   return;
+  }
+
+  const data=snap.data();
+  if(!data.email && user.email){
+   data.email=user.email;
+  }
+
+  renderProfile(data);
+  showApp();
+  refreshDashboard();
+  loadGoal();
+  renderGoal();
+ }catch(error){
+  showError("Could not load your profile. Check your internet connection and Firestore security rules. "+error.message);
+ }
+});
+
+/* LOGOUT */
 el("logoutBtn").addEventListener("click",async()=>{
  if(!confirm("Are you sure you want to logout?"))return;
  try{
@@ -534,29 +769,157 @@ el("logoutBtn").addEventListener("click",async()=>{
  }
 });
 
-/* USER AUTHENTICATION AND PROFILE */
-auth.onAuthStateChanged(async user=>{
- if(!user){
-  window.location.replace("auth.html");
+/* EDIT PROFILE MODAL */
+function openEditModal(){
+ if(!student||!currentUser)return;
+
+ el("editName").value=student.name||"";
+ el("editUsername").value=student.username||"";
+ el("editEmail").value=currentUser.email||student.email||"";
+ el("editBoard").value=student.board||"CBSE";
+ el("editClass").value=String(student.class||"12");
+ el("editStream").value=student.stream||"";
+ updateStreamField();
+ setEditStatus("");
+ el("editModal").classList.add("open");
+}
+
+function closeEditModal(){
+ el("editModal").classList.remove("open");
+}
+
+function updateStreamField(){
+ const isClass12=el("editClass").value==="12";
+ el("editStreamField").classList.toggle("hidden",!isClass12);
+ el("editStream").required=isClass12;
+ if(!isClass12)el("editStream").value="";
+}
+
+function setEditStatus(message,type){
+ const status=el("editStatus");
+ status.textContent=message;
+ status.className=type==="error"?"status-error":
+  type==="success"?"status-success":"";
+}
+
+el("openEditBtn").addEventListener("click",openEditModal);
+el("profileEditBtn").addEventListener("click",openEditModal);
+el("closeEditBtn").addEventListener("click",closeEditModal);
+el("cancelEditBtn").addEventListener("click",closeEditModal);
+el("editClass").addEventListener("change",updateStreamField);
+
+el("editModal").addEventListener("click",event=>{
+ if(event.target===el("editModal"))closeEditModal();
+});
+
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape")closeEditModal();
+});
+
+/* SAVE PROFILE + USERNAME UNIQUENESS */
+el("editProfileForm").addEventListener("submit",async event=>{
+ event.preventDefault();
+
+ if(!currentUser||!student)return;
+
+ const name=el("editName").value.trim();
+ const username=el("editUsername").value.trim().toLowerCase();
+ const board=el("editBoard").value;
+ const classNumber=el("editClass").value;
+ const stream=classNumber==="12"?el("editStream").value:"";
+
+ if(name.length<2){
+  setEditStatus("Please enter a valid full name.","error");return;
+ }
+
+ if(!/^[a-z0-9_]{3,20}$/.test(username)){
+  setEditStatus("Username must be 3–20 characters using letters, numbers or underscore.","error");
   return;
  }
- showLoading("Loading your student profile...");
+
+ if(!["10","12"].includes(classNumber)){
+  setEditStatus("Please select Class 10 or Class 12.","error");return;
+ }
+
+ if(classNumber==="12" &&
+  !["Science PCM","Science PCB","Commerce","Arts/Humanities"].includes(stream)){
+  setEditStatus("Please select a valid Class 12 stream.","error");return;
+ }
+
+ const oldUsername=String(student.username||"").toLowerCase();
+ const userRef=db.collection("users").doc(currentUser.uid);
+ const newUsernameRef=db.collection("usernames").doc(username);
+ const oldUsernameRef=oldUsername
+  ?db.collection("usernames").doc(oldUsername):null;
+
+ const saveButton=el("saveProfileBtn");
+ saveButton.disabled=true;
+ saveButton.textContent="Saving...";
+ setEditStatus("Saving your profile...");
+
  try{
-  const snap=await db.collection("users").doc(user.uid).get();
-  if(!snap.exists){
-   window.location.replace("auth.html");
-   return;
-  }
-  renderProfile(snap.data());
-  showApp();
-  refreshDashboard();
-  renderGoal();
+  const updatedData={
+   name:name,
+   username:username,
+   board:board,
+   class:classNumber,
+   stream:stream,
+   email:currentUser.email||student.email||"",
+   uid:currentUser.uid,
+   authProvider:student.authProvider||"email",
+   createdAt:student.createdAt||firebase.firestore.FieldValue.serverTimestamp(),
+   updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+  };
+
+  await db.runTransaction(async transaction=>{
+   const userSnap=await transaction.get(userRef);
+   if(!userSnap.exists){
+    throw new Error("Student profile not found. Please login again.");
+   }
+
+   const usernameChanged=username!==oldUsername;
+
+   if(usernameChanged){
+    const newUsernameSnap=await transaction.get(newUsernameRef);
+
+    if(newUsernameSnap.exists &&
+      newUsernameSnap.data().uid!==currentUser.uid){
+     throw new Error("This username is already taken. Try another one.");
+    }
+
+    let oldUsernameSnap=null;
+    if(oldUsernameRef){
+     oldUsernameSnap=await transaction.get(oldUsernameRef);
+    }
+
+    transaction.set(newUsernameRef,{
+     uid:currentUser.uid,
+     username:username
+    });
+
+    if(oldUsernameSnap&&oldUsernameSnap.exists&&
+      oldUsernameSnap.data().uid===currentUser.uid){
+     transaction.delete(oldUsernameRef);
+    }
+   }
+
+   transaction.set(userRef,updatedData,{merge:true});
+  });
+
+  student={...student,...updatedData};
+  renderProfile(student);
+  closeEditModal();
+  alert("Profile updated successfully!");
  }catch(error){
-  showError("Could not load your profile. Check your internet connection and Firestore security rules. "+error.message);
+  console.error("Profile update error:",error);
+  setEditStatus(error.message||"Could not save your profile.","error");
+ }finally{
+  saveButton.disabled=false;
+  saveButton.textContent="Save Changes";
  }
 });
 
- /* CONTINUE LEARNING */
+/* CONTINUE LEARNING */
 function safeLocalLink(value){
  if(typeof value!=="string"||!value.trim())return null;
  try{
@@ -567,7 +930,10 @@ function safeLocalLink(value){
 
 function renderContinue(){
  let data=null;
- try{data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null")}catch(e){}
+ try{
+  data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null");
+ }catch(e){}
+
  const panel=el("continuePanel");
  panel.replaceChildren();
 
@@ -579,20 +945,33 @@ function renderContinue(){
   return;
  }
 
+ /* Do not show another class's saved chapter as current learning. */
+ if(student && String(data.class||"").replace("Class ","")!==String(student.class||"12")){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="Your saved chapter belongs to a different class. Open your current Study Library to continue.";
+  panel.appendChild(empty);
+  return;
+ }
+
  const content=document.createElement("div");
  content.className="continue-content";
  const art=document.createElement("div");
  art.className="chapter-art";
  art.textContent="⚡";
+
  const info=document.createElement("div");
  info.className="chapter-info";
  const subject=document.createElement("div");
  subject.className="subject";
  subject.textContent=[data.subject,data.class].filter(Boolean).join(" • ");
+
  const title=document.createElement("h3");
  title.textContent=data.chapter;
+
  const detail=document.createElement("p");
  detail.textContent="Chapter "+(data.number||"")+" • "+(data.board||"");
+
  const actions=document.createElement("div");
  actions.className="chapter-actions";
 
@@ -600,8 +979,11 @@ function renderContinue(){
   const safe=safeLocalLink(url);
   if(!safe)return;
   const a=document.createElement("a");
-  a.href=safe;a.textContent=label;actions.appendChild(a);
+  a.href=safe;
+  a.textContent=label;
+  actions.appendChild(a);
  });
+
  info.append(subject,title,detail,actions);
  content.append(art,info);
  panel.appendChild(content);
@@ -622,14 +1004,19 @@ function renderProgress(){
   if(!item||typeof item!=="object")return;
   const count=Number(item.total);
   if(!Number.isInteger(count)||count<=0)return;
+
   const done=Array.isArray(item.completed)
    ?[...new Set(item.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<count))]:[];
-  completed+=done.length;total+=count;
+
+  completed+=done.length;
+  total+=count;
+
   chapters.push({
    name:String(item.chapter||"Chapter"),
    subject:String(item.subject||"Subject"),
    className:String(item.class||"Class"),
-   done:done.length,total:count,
+   done:done.length,
+   total:count,
    percent:Math.round(done.length/count*100)
   });
  });
@@ -643,26 +1030,46 @@ function renderProgress(){
 
  const list=el("chapterProgressList");
  list.replaceChildren();
+
  if(!chapters.length){
   const empty=document.createElement("div");
   empty.className="empty";
   empty.textContent="📚 Complete a lesson to see your learning statistics.";
-  list.appendChild(empty);return;
+  list.appendChild(empty);
+  return;
  }
 
  chapters.sort((a,b)=>b.percent-a.percent);
+
  chapters.forEach(ch=>{
-  const box=document.createElement("div");box.className="chapter-item";
-  const row=document.createElement("div");row.className="chapter-row";
-  const name=document.createElement("strong");name.textContent=ch.name;
-  const pct=document.createElement("span");pct.textContent=ch.percent+"%";
+  const box=document.createElement("div");
+  box.className="chapter-item";
+
+  const row=document.createElement("div");
+  row.className="chapter-row";
+
+  const name=document.createElement("strong");
+  name.textContent=ch.name;
+
+  const pct=document.createElement("span");
+  pct.textContent=ch.percent+"%";
+
   row.append(name,pct);
-  const meta=document.createElement("div");meta.className="chapter-meta";
+
+  const meta=document.createElement("div");
+  meta.className="chapter-meta";
   meta.textContent=ch.subject+" • "+ch.className+" • "+ch.done+"/"+ch.total+" lessons";
-  const track=document.createElement("div");track.className="mini-track";
-  const fill=document.createElement("div");fill.className="mini-fill";
-  fill.style.width=ch.percent+"%";track.appendChild(fill);
-  box.append(row,meta,track);list.appendChild(box);
+
+  const track=document.createElement("div");
+  track.className="mini-track";
+
+  const fill=document.createElement("div");
+  fill.className="mini-fill";
+  fill.style.width=ch.percent+"%";
+
+  track.appendChild(fill);
+  box.append(row,meta,track);
+  list.appendChild(box);
  });
 }
 
@@ -671,44 +1078,56 @@ function refreshDashboard(){
  renderProgress();
 }
 
-/* DAILY STUDY GOAL - CURRENTLY DEVICE-LOCAL */
+/* DAILY STUDY GOAL - DEVICE LOCAL */
 function dateKey(){
  const d=new Date();
  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
+
 let minutes=0,goal=60;
+
 function loadGoal(){
  const key="eduvantaStudyMinutes_"+dateKey();
  minutes=Number(localStorage.getItem(key)||0);
  goal=Number(localStorage.getItem("eduvantaDailyGoal")||60);
+
  if(!Number.isFinite(minutes)||minutes<0)minutes=0;
  if(!Number.isInteger(goal)||goal<15||goal>1440)goal=60;
 }
+
 function renderGoal(){
  el("minutesDone").textContent=minutes;
  el("goalMinutes").textContent=goal;
  el("goalFill").style.width=Math.min(100,minutes/goal*100)+"%";
  el("goalMessage").textContent=minutes>=goal
   ?"✓ Daily goal completed!":(goal-minutes)+" minutes left to reach your goal.";
+
  localStorage.setItem("eduvantaStudyMinutes_"+dateKey(),String(minutes));
  localStorage.setItem("eduvantaDailyGoal",String(goal));
 }
+
 el("add15").onclick=()=>{minutes+=15;renderGoal()};
 el("add30").onclick=()=>{minutes+=30;renderGoal()};
+
 el("setGoal").onclick=()=>{
  const answer=prompt("Daily goal in minutes:",goal);
  if(answer===null)return;
+
  const value=Number(answer);
  if(!Number.isInteger(value)||value<15||value>1440){
-  alert("Enter a number between 15 and 1440.");return;
+  alert("Enter a number between 15 and 1440.");
+  return;
  }
- goal=value;renderGoal();
+
+ goal=value;
+ renderGoal();
 };
-loadGoal();
 
 window.addEventListener("pageshow",refreshDashboard);
 window.addEventListener("storage",e=>{
- if(["eduvantaCompletedLessons","eduvantaLastChapter"].includes(e.key))refreshDashboard();
+ if(["eduvantaCompletedLessons","eduvantaLastChapter"].includes(e.key)){
+  refreshDashboard();
+ }
 });
 </script>
 </body>
