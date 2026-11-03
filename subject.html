@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<meta name="description" content="Explore subject-wise chapters on EDUVANTA.">
+<meta name="description" content="Explore CBSE Class 10 and Class 12 subject chapters on EDUVANTA.">
 <title>Subject Dashboard | EDUVANTA</title>
 
 <style>
@@ -38,11 +38,7 @@ header{
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);
 }
-.logo{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:.5px;
-}
+.logo{font-size:22px;font-weight:800;letter-spacing:.5px}
 .logo span{color:var(--teal)}
 .back{
   background:var(--surface2);
@@ -81,11 +77,7 @@ main{
   line-height:1.2;
 }
 .hero h1 span{color:var(--teal)}
-.hero p{
-  color:#d0dced;
-  font-size:14px;
-  line-height:1.8;
-}
+.hero p{color:#d0dced;font-size:14px;line-height:1.8}
 .section{margin-top:30px}
 .section-heading{
   display:flex;
@@ -96,12 +88,7 @@ main{
 }
 .section-heading h2{font-size:21px;margin-bottom:6px}
 .muted{color:var(--muted);font-size:13px;line-height:1.7}
-.count{
-  color:var(--teal);
-  font-size:12px;
-  font-weight:bold;
-  white-space:nowrap;
-}
+.count{color:var(--teal);font-size:12px;font-weight:bold;white-space:nowrap}
 .search{
   width:100%;
   padding:15px;
@@ -139,28 +126,18 @@ main{
   background:var(--surface2);
 }
 .chapter-number{
-  width:43px;
-  height:43px;
-  flex-shrink:0;
-  display:grid;
-  place-items:center;
+  width:43px;height:43px;flex-shrink:0;
+  display:grid;place-items:center;
   border-radius:12px;
   background:#283a60;
   color:var(--teal);
-  font-size:14px;
-  font-weight:bold;
+  font-size:14px;font-weight:bold;
 }
 .chapter-info{flex:1;min-width:0}
-.chapter-info strong{
-  display:block;
-  font-size:14px;
-  line-height:1.5;
-}
+.chapter-info strong{display:block;font-size:14px;line-height:1.5}
 .chapter-info small{
-  display:block;
-  color:var(--muted);
-  margin-top:6px;
-  font-size:11px;
+  display:block;color:var(--muted);
+  margin-top:6px;font-size:11px;
 }
 .arrow{color:var(--teal);font-size:19px}
 .empty{
@@ -206,22 +183,20 @@ footer{
 
 <header>
   <a class="logo" href="index.html">EDU<span>VANTA</span></a>
-  <a class="back" id="backButton" href="#">← Back</a>
+  <a class="back" id="backButton" href="class.html">← Back</a>
 </header>
 
 <main>
-
 <section class="hero">
   <div class="tag">YOUR SUBJECT DASHBOARD</div>
-  <h1>Explore <span id="subjectTitle">Physics</span></h1>
-  <p id="classBoard">Class 12 • CBSE</p>
+  <h1>Explore <span id="subjectTitle">Subject</span></h1>
+  <p id="classBoard">Class 10 • CBSE</p>
   <p style="margin-top:10px">
     Select a chapter and continue your learning journey.
   </p>
 </section>
 
 <section class="section">
-
   <div class="section-heading">
     <div>
       <h2>Chapter Library</h2>
@@ -243,16 +218,14 @@ footer{
       No matching chapter found.
     </div>
   </div>
-
 </section>
 
 <div class="notice">
   <strong>Learning tip:</strong>
   Study chapters in sequence, understand the concepts and then
-  attempt practice questions. Some chapter resources are still
-  being developed.
+  attempt practice questions. Chapter listing does not mean that
+  notes and lessons for every chapter have already been published.
 </div>
-
 </main>
 
 <footer>
@@ -262,101 +235,243 @@ footer{
 </footer>
 
 <script>
-/* URL PARAMETERS */
-
 const params = new URLSearchParams(location.search);
 
-const selectedClass = params.get("class") || "Class 12";
+function normalizeClass(value){
+  const digits = String(value || "").match(/\d+/);
+  return digits ? digits[0] : "12";
+}
+
+const selectedClass = normalizeClass(params.get("class"));
 const board = params.get("board") || "CBSE";
 const subject = params.get("subject") || "Physics";
+const stream = params.get("stream") || "";
 
-/* BACK BUTTON */
+const classLabel = "Class " + selectedClass;
 
 document.getElementById("backButton").href =
   "class.html?" + new URLSearchParams({
-    class:selectedClass
+    class: classLabel,
+    board: board
   }).toString();
 
-/* PAGE INFORMATION */
-
 document.getElementById("classBoard").textContent =
-  board + " • " + selectedClass;
+  board + " • " + classLabel +
+  (stream ? " • " + stream : "");
 
 document.getElementById("subjectTitle").textContent = subject;
 
-/* CHAPTER DATA */
+/* CLASS 10 CBSE CHAPTERS */
 
-const chapters = {
+const class10Chapters = {
+  "Mathematics":[
+    "Real Numbers",
+    "Polynomials",
+    "Pair of Linear Equations in Two Variables",
+    "Quadratic Equations",
+    "Arithmetic Progressions",
+    "Triangles",
+    "Coordinate Geometry",
+    "Introduction to Trigonometry",
+    "Some Applications of Trigonometry",
+    "Circles",
+    "Areas Related to Circles",
+    "Surface Areas and Volumes",
+    "Statistics",
+    "Probability"
+  ],
 
-Physics:[
-"Electric Charges and Fields",
-"Electrostatic Potential and Capacitance",
-"Current Electricity",
-"Moving Charges and Magnetism",
-"Magnetism and Matter",
-"Electromagnetic Induction",
-"Alternating Current",
-"Electromagnetic Waves",
-"Ray Optics and Optical Instruments",
-"Wave Optics",
-"Dual Nature of Radiation and Matter",
-"Atoms",
-"Nuclei",
-"Semiconductor Electronics"
-],
+  "Science":[
+    "Chemical Reactions and Equations",
+    "Acids, Bases and Salts",
+    "Metals and Non-metals",
+    "Carbon and its Compounds",
+    "Life Processes",
+    "Control and Coordination",
+    "How do Organisms Reproduce?",
+    "Heredity",
+    "Light – Reflection and Refraction",
+    "The Human Eye and the Colourful World",
+    "Electricity",
+    "Magnetic Effects of Electric Current",
+    "Our Environment"
+  ],
 
-Chemistry:[
-"Solutions",
-"Electrochemistry",
-"Chemical Kinetics",
-"The d- and f-Block Elements",
-"Coordination Compounds",
-"Haloalkanes and Haloarenes",
-"Alcohols, Phenols and Ethers",
-"Aldehydes, Ketones and Carboxylic Acids",
-"Amines",
-"Biomolecules"
-],
+  "Social Science":[
+    "The Rise of Nationalism in Europe",
+    "Nationalism in India",
+    "The Making of a Global World",
+    "The Age of Industrialisation",
+    "Print Culture and the Modern World",
+    "Resources and Development",
+    "Forest and Wildlife Resources",
+    "Water Resources",
+    "Agriculture",
+    "Minerals and Energy Resources",
+    "Manufacturing Industries",
+    "Lifelines of National Economy",
+    "Power Sharing",
+    "Federalism",
+    "Gender, Religion and Caste",
+    "Political Parties",
+    "Outcomes of Democracy",
+    "Development",
+    "Sectors of the Indian Economy",
+    "Money and Credit",
+    "Globalisation and the Indian Economy",
+    "Consumer Rights"
+  ],
 
-Mathematics:[
-"Relations and Functions",
-"Inverse Trigonometric Functions",
-"Matrices",
-"Determinants",
-"Continuity and Differentiability",
-"Application of Derivatives",
-"Integrals",
-"Application of Integrals",
-"Differential Equations",
-"Vector Algebra",
-"Three Dimensional Geometry",
-"Linear Programming",
-"Probability"
-]
+  "English Language & Literature":[
+    "A Letter to God",
+    "Nelson Mandela: Long Walk to Freedom",
+    "Two Stories about Flying",
+    "From the Diary of Anne Frank",
+    "Glimpses of India",
+    "Mijbil the Otter",
+    "Madam Rides the Bus",
+    "The Sermon at Benares",
+    "The Proposal",
+    "Dust of Snow",
+    "Fire and Ice",
+    "A Tiger in the Zoo",
+    "How to Tell Wild Animals",
+    "The Ball Poem",
+    "Amanda!",
+    "The Trees",
+    "Fog",
+    "The Tale of Custard the Dragon",
+    "For Anne Gregory",
+    "A Triumph of Surgery",
+    "The Thief's Story",
+    "The Midnight Visitor",
+    "A Question of Trust",
+    "Footprints Without Feet",
+    "The Making of a Scientist",
+    "The Necklace",
+    "Bholi",
+    "The Book That Saved the Earth"
+  ],
 
+  "Hindi Course A":[
+    "सूरदास के पद",
+    "राम-लक्ष्मण-परशुराम संवाद",
+    "आत्मकथ्य",
+    "उत्साह और अट नहीं रही",
+    "यह दंतुरित मुस्कान और फसल",
+    "छाया मत छूना",
+    "कन्यादान",
+    "संगतकार",
+    "नेताजी का चश्मा",
+    "बालगोबिन भगत",
+    "लखनवी अंदाज़",
+    "मानवीय करुणा की दिव्य चमक",
+    "एक कहानी यह भी",
+    "स्त्री शिक्षा के विरोधी कुतर्कों का खंडन",
+    "नौबतखाने में इबादत",
+    "संस्कृति",
+    "माता का आँचल",
+    "जॉर्ज पंचम की नाक",
+    "साना-साना हाथ जोड़ि",
+    "एही ठैयाँ झुलनी हेरानी हो रामा!",
+    "मैं क्यों लिखता हूँ?"
+  ],
+
+  "Hindi Course B":[
+    "साखी",
+    "पद",
+    "दोहे",
+    "मनुष्यता",
+    "पर्वत प्रदेश में पावस",
+    "मधुर-मधुर मेरे दीपक जल",
+    "तोप",
+    "कर चले हम फ़िदा",
+    "आत्मत्राण",
+    "बड़े भाई साहब",
+    "डायरी का एक पन्ना",
+    "तताँरा-वामीरो कथा",
+    "तीसरी कसम के शिल्पकार शैलेंद्र",
+    "गिरगिट",
+    "अब कहाँ दूसरे के दुख से दुखी होने वाले",
+    "पतझर में टूटी पत्तियाँ",
+    "कारतूस",
+    "हरिहर काका",
+    "टोपी शुक्ला",
+    "सपनों के-से दिन"
+  ]
 };
 
-/* FIND SUBJECT */
+/* CLASS 12 CHAPTERS */
 
-const subjectKey = Object.keys(chapters).find(
-  key => key.toLowerCase() === subject.toLowerCase()
-);
+const class12Chapters = {
+  "Physics":[
+    "Electric Charges and Fields",
+    "Electrostatic Potential and Capacitance",
+    "Current Electricity",
+    "Moving Charges and Magnetism",
+    "Magnetism and Matter",
+    "Electromagnetic Induction",
+    "Alternating Current",
+    "Electromagnetic Waves",
+    "Ray Optics and Optical Instruments",
+    "Wave Optics",
+    "Dual Nature of Radiation and Matter",
+    "Atoms",
+    "Nuclei",
+    "Semiconductor Electronics"
+  ],
+
+  "Chemistry":[
+    "Solutions",
+    "Electrochemistry",
+    "Chemical Kinetics",
+    "The d- and f-Block Elements",
+    "Coordination Compounds",
+    "Haloalkanes and Haloarenes",
+    "Alcohols, Phenols and Ethers",
+    "Aldehydes, Ketones and Carboxylic Acids",
+    "Amines",
+    "Biomolecules"
+  ],
+
+  "Mathematics":[
+    "Relations and Functions",
+    "Inverse Trigonometric Functions",
+    "Matrices",
+    "Determinants",
+    "Continuity and Differentiability",
+    "Application of Derivatives",
+    "Integrals",
+    "Application of Integrals",
+    "Differential Equations",
+    "Vector Algebra",
+    "Three Dimensional Geometry",
+    "Linear Programming",
+    "Probability"
+  ]
+};
+
+/* SELECT CHAPTER DATA BY CLASS */
+
+const chapterData =
+  selectedClass === "10"
+    ? class10Chapters[subject]
+    : selectedClass === "12"
+      ? class12Chapters[subject]
+      : null;
 
 const list = document.getElementById("chapterList");
 const search = document.getElementById("chapterSearch");
 const emptyMessage = document.getElementById("emptyMessage");
 const count = document.getElementById("chapterCount");
 
-if(subjectKey){
-
-  const chapterData = chapters[subjectKey];
+if(Array.isArray(chapterData)){
 
   count.textContent = chapterData.length + " Chapters";
 
   chapterData.forEach((chapter,index)=>{
 
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "chapter";
     button.dataset.name = chapter.toLowerCase();
@@ -372,7 +487,8 @@ if(subjectKey){
     title.textContent = chapter;
 
     const subtitle = document.createElement("small");
-    subtitle.textContent = "Chapter " + (index+1) + " • Open learning options";
+    subtitle.textContent =
+      "Chapter " + (index+1) + " • Open learning options";
 
     info.appendChild(title);
     info.appendChild(subtitle);
@@ -388,19 +504,19 @@ if(subjectKey){
     button.addEventListener("click",()=>{
 
       const query = new URLSearchParams({
-        class:selectedClass,
-        board:board,
-        subject:subject,
-        chapter:chapter,
-        number:String(index+1)
+        class: classLabel,
+        board: board,
+        subject: subject,
+        chapter: chapter,
+        number: String(index+1)
       });
 
-      location.href = "chapter.html?" + query.toString();
+      if(stream) query.set("stream",stream);
 
+      location.href = "chapter.html?" + query.toString();
     });
 
     list.appendChild(button);
-
   });
 
 }else{
@@ -409,34 +525,26 @@ if(subjectKey){
   search.style.display = "none";
   emptyMessage.style.display = "block";
   emptyMessage.textContent =
-    "Chapter list is not available for this subject yet.";
-
+    "Chapter list is not available for this class and subject yet.";
 }
 
-/* SEARCH CHAPTERS */
+/* SEARCH */
 
 search.addEventListener("input",function(){
 
   const query = this.value.toLowerCase().trim();
   const cards = list.querySelectorAll(".chapter");
-
   let visible = 0;
 
   cards.forEach(card=>{
-
     const matches = card.dataset.name.includes(query);
-
     card.style.display = matches ? "flex" : "none";
-
     if(matches) visible++;
-
   });
 
   emptyMessage.style.display =
     visible === 0 ? "block" : "none";
-
 });
-
 </script>
 
 </body>
