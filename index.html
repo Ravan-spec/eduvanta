@@ -18,7 +18,8 @@
 html{scroll-behavior:smooth}
 body{
  background:var(--bg);color:var(--white);
- font-family:Inter,Arial,sans-serif;min-height:100vh;padding-bottom:95px;
+ font-family:Inter,Arial,sans-serif;min-height:100vh;
+ padding-bottom:95px;
 }
 a{text-decoration:none;color:inherit}
 button,input,select{font-family:inherit}
@@ -35,7 +36,6 @@ header{
  width:46px;height:46px;border-radius:15px;display:grid;
  place-items:center;font-size:27px;
  background:linear-gradient(135deg,#1479ed,#08d8e9);
- box-shadow:0 0 25px #087aff55;
 }
 .brand-name{font-size:22px;font-weight:900;letter-spacing:-1px}
 .brand-name span{color:var(--cyan)}
@@ -50,14 +50,11 @@ header{
  background:linear-gradient(135deg,#267aff,#783bff);
  display:grid;place-items:center;font-weight:900;font-size:17px;
 }
-.logout{
- border:1px solid #713b55;background:#30182a;color:#ffb4c2;
+.logout,.edit-profile-btn{
  border-radius:10px;padding:9px 11px;font-size:11px;font-weight:bold;
 }
-.edit-profile-btn{
- border:1px solid #28608b;background:#102b4a;color:#9cecff;
- border-radius:10px;padding:9px 11px;font-size:11px;font-weight:bold;
-}
+.logout{border:1px solid #713b55;background:#30182a;color:#ffb4c2}
+.edit-profile-btn{border:1px solid #28608b;background:#102b4a;color:#9cecff}
 
 .hero{
  margin-top:10px;position:relative;overflow:hidden;
@@ -84,7 +81,6 @@ header{
  gap:10px;margin-bottom:14px;
 }
 .section-heading h2{font-size:19px}
-.section-heading a{color:var(--cyan);font-size:12px;font-weight:bold}
 .section-sub{font-size:11px;color:var(--muted);margin-top:5px}
 .panel{
  background:linear-gradient(145deg,#101e3a,#0b152a);
@@ -113,24 +109,55 @@ header{
 .stat-mini strong{display:block;font-size:21px;margin:8px 0 4px}
 .stat-mini small{color:var(--muted);font-size:10px}
 
-.goal-panel{
+.pomodoro-panel{
  background:linear-gradient(145deg,#191a69,#171e60 65%,#102b6b);
  border-color:#4141a7;
 }
-.goal-heading{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:bold}
-.goal-heading span{font-size:27px}
-.goal-time{font-size:26px;font-weight:900;margin:18px 0 12px}
-.goal-time small{font-size:12px;color:#c0caff}
-.goal-track{height:9px;border-radius:20px;background:#ffffff20;overflow:hidden}
-.goal-fill{
- height:100%;width:0%;border-radius:20px;
- background:linear-gradient(90deg,#00d9d5,#08a7ff);
+.pomo-top{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:10px;flex-wrap:wrap;
 }
-.goal-message{font-size:11px;color:#48f4bc;margin-top:12px}
-.goal-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
-.goal-actions button{
- background:#ffffff16;border:1px solid #ffffff25;color:white;
- border-radius:9px;padding:8px 11px;font-size:11px;
+.pomo-heading{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:bold}
+.pomo-heading span{font-size:27px}
+.pomo-mode{
+ color:#a9efff;font-size:10px;font-weight:bold;
+ border:1px solid #ffffff35;background:#ffffff13;
+ border-radius:20px;padding:7px 10px;
+}
+.pomo-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
+.pomo-tabs button{
+ border:1px solid #ffffff35;background:#ffffff12;color:white;
+ border-radius:20px;padding:8px 11px;font-size:10px;
+}
+.pomo-tabs button.active{background:#08c9db;color:#04152c;border-color:#08c9db;font-weight:bold}
+.pomo-clock{
+ width:190px;height:190px;border-radius:50%;margin:22px auto 15px;
+ display:grid;place-items:center;position:relative;
+ background:conic-gradient(#08d8e9 0deg,#ffffff20 0deg);
+}
+.pomo-clock:before{
+ content:"";position:absolute;inset:9px;border-radius:50%;
+ background:#171d5c;
+}
+.pomo-clock-content{position:relative;text-align:center}
+.pomo-clock-content strong{font-size:42px;letter-spacing:2px;display:block}
+.pomo-clock-content small{font-size:11px;color:#c4d5ff}
+.pomo-controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.pomo-controls button{
+ border:1px solid #ffffff30;background:#ffffff16;color:white;
+ border-radius:12px;padding:11px 17px;font-weight:bold;font-size:12px;
+}
+.pomo-controls .primary{
+ background:linear-gradient(90deg,#08d8e9,#258bff);
+ color:#04152c;border:0;min-width:110px;
+}
+.pomo-session-info{
+ text-align:center;font-size:11px;color:#cbd8ff;margin-top:15px;
+}
+.pomo-session-info strong{color:#49f2d5}
+.pomo-message{
+ text-align:center;color:#48f4bc;font-size:11px;
+ margin-top:10px;min-height:16px;
 }
 
 .quick-grid{
@@ -154,7 +181,7 @@ header{
 .q-cyan{background:linear-gradient(145deg,#07564c,#102c3b)}
 .coming{opacity:.7;cursor:not-allowed}
 
-.stream-panel{
+.stream-panel,.continue-panel{
  background:linear-gradient(120deg,#10264c,#0a1832);
  border-color:#254c86;
 }
@@ -173,9 +200,6 @@ header{
 }
 .stream-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:14px}
 
-.continue-panel{
- background:linear-gradient(120deg,#10264c,#0a1832);border-color:#254c86;
-}
 .continue-content{display:flex;gap:13px;align-items:center;margin-top:12px}
 .chapter-art{
  width:90px;height:90px;flex-shrink:0;border-radius:15px;
@@ -205,6 +229,17 @@ header{
  padding:11px 14px;border-radius:11px;font-size:11px;font-weight:bold;
 }
 
+.statistics-grid{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;
+}
+.statistics-card{
+ background:linear-gradient(145deg,#101e3a,#0b152a);
+ border:1px solid var(--border);border-radius:16px;padding:15px 10px;
+ text-align:center;min-width:0;
+}
+.statistics-card .emoji{font-size:23px}
+.statistics-card strong{display:block;font-size:21px;margin:9px 0 5px}
+.statistics-card small{font-size:10px;color:var(--muted);line-height:1.4}
 .chapter-list{display:grid;gap:10px}
 .chapter-item{padding:13px;background:#111f3a;border:1px solid var(--border);border-radius:12px}
 .chapter-row{display:flex;justify-content:space-between;gap:10px;font-size:12px}
@@ -234,18 +269,17 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* EDIT PROFILE MODAL */
+/* EDIT PROFILE */
 .modal-overlay{
- position:fixed;inset:0;z-index:100;
- background:#020611dc;display:none;align-items:center;
- justify-content:center;padding:16px;overflow-y:auto;
+ position:fixed;inset:0;z-index:100;background:#020611dc;
+ display:none;align-items:center;justify-content:center;
+ padding:16px;overflow-y:auto;
 }
 .modal-overlay.open{display:flex}
 .modal{
  width:100%;max-width:460px;max-height:90vh;overflow-y:auto;
  background:linear-gradient(145deg,#122342,#091429);
  border:1px solid #31527e;border-radius:20px;padding:22px;
- box-shadow:0 20px 70px #0009;
 }
 .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .modal-head h2{font-size:19px}
@@ -254,23 +288,15 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  background:#172a48;color:white;font-size:19px;
 }
 .form-field{margin-bottom:14px}
-.form-field label{
- display:block;font-size:12px;color:#b9c9e6;margin-bottom:7px;
-}
+.form-field label{display:block;font-size:12px;color:#b9c9e6;margin-bottom:7px}
 .form-field input,.form-field select{
  width:100%;padding:12px;border-radius:10px;
- border:1px solid #29466c;background:#08152a;color:white;
- font-size:13px;outline:none;
+ border:1px solid #29466c;background:#08152a;color:white;font-size:13px;
 }
-.form-field input:focus,.form-field select:focus{border-color:var(--cyan)}
-.form-field input:disabled{
- color:#91a3c2;background:#0b1930;opacity:1;
-}
+.form-field input:disabled{color:#91a3c2;background:#0b1930;opacity:1}
 .form-hint{font-size:10px;color:#9baed0;margin-top:6px;line-height:1.5}
 .modal-actions{display:flex;gap:10px;margin-top:20px}
-.modal-actions button{
- flex:1;padding:12px;border-radius:10px;font-weight:bold;font-size:12px;
-}
+.modal-actions button{flex:1;padding:12px;border-radius:10px;font-weight:bold;font-size:12px}
 .cancel-btn{background:#172a48;border:1px solid #385174;color:#dce8ff}
 .save-btn{background:linear-gradient(90deg,#08c9db,#258bff);border:0;color:#04152c}
 .save-btn:disabled{opacity:.6;cursor:wait}
@@ -278,6 +304,9 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 .status-error{color:#ff9eaa}
 .status-success{color:#48f4bc}
 
+@media(max-width:700px){
+ .statistics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 @media(max-width:600px){
  header{padding:12px 15px}
  .brand-icon{width:40px;height:40px;font-size:23px}
@@ -303,9 +332,10 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  .test-copy h3{font-size:12px}
  .test-copy p{font-size:9px}
  .test-banner a{font-size:10px;padding:9px}
- .edit-profile-btn{padding:8px;font-size:10px}
- .logout{padding:8px;font-size:10px}
+ .edit-profile-btn,.logout{padding:8px;font-size:10px}
  .profile{width:34px;height:34px}
+ .pomo-clock{width:170px;height:170px}
+ .pomo-clock-content strong{font-size:36px}
 }
 @media(max-width:380px){
  .stream-pill{display:none}
@@ -317,7 +347,6 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 </head>
 
 <body>
-
 <div id="loadingScreen">
  <div>
   <div class="loader"></div>
@@ -326,7 +355,6 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 </div>
 
 <div id="app" class="hidden">
-
 <header>
  <a class="brand" href="index.html">
   <div class="brand-icon">🎓</div>
@@ -344,7 +372,6 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 </header>
 
 <main class="container">
-
 <section class="hero">
  <div class="hero-content">
   <div style="font-size:11px;color:#b9d6ff;font-weight:bold;letter-spacing:1px">
@@ -357,53 +384,114 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  <div class="robot">🤖</div>
 </section>
 
+<!-- MY PROGRESS -->
 <section class="section">
- <div class="stats-grid">
-  <div class="panel">
-   <div class="panel-title">📊 My Progress</div>
-   <div class="progress-layout">
-    <div class="progress-ring" id="progressRing">
-     <div class="ring-content">
-      <strong id="overallPercent">0%</strong>
-      <small>Overall</small>
-     </div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-mini">
-     <div class="emoji">📖</div>
-     <strong id="completedCount">0</strong>
-     <small>Lessons</small>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat-mini">
-     <div class="emoji">🏆</div>
-     <strong id="chapterCount">0</strong>
-     <small>Chapters</small>
+ <div class="panel">
+  <div class="panel-title">📊 My Progress</div>
+  <p class="section-sub">Your current class and stream learning progress.</p>
+  <div class="progress-layout">
+   <div class="progress-ring" id="progressRing">
+    <div class="ring-content">
+     <strong id="overallPercent">0%</strong>
+     <small>Overall</small>
     </div>
    </div>
-  </div>
-
-  <div class="panel goal-panel">
-   <div class="goal-heading"><span>🎯</span> Daily Goal</div>
-   <div class="goal-time">
-    <span id="minutesDone">0</span>
-    <small>/ <span id="goalMinutes">60</span> min</small>
+   <div class="stat-divider"></div>
+   <div class="stat-mini">
+    <div class="emoji">📖</div>
+    <strong id="completedCount">0</strong>
+    <small>Completed lessons</small>
    </div>
-   <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
-   <div class="goal-message" id="goalMessage"></div>
-   <div class="goal-actions">
-    <button id="add15">+15 min</button>
-    <button id="add30">+30 min</button>
-    <button id="setGoal">Set Goal</button>
+   <div class="stat-divider"></div>
+   <div class="stat-mini">
+    <div class="emoji">🏆</div>
+    <strong id="chapterCount">0</strong>
+    <small>Chapters started</small>
    </div>
   </div>
  </div>
 </section>
 
+<!-- POMODORO TIMER -->
+<section class="section" id="pomodoro">
+ <div class="panel pomodoro-panel">
+  <div class="pomo-top">
+   <div class="pomo-heading"><span>🍅</span> Pomodoro Focus Timer</div>
+   <div class="pomo-mode" id="pomoMode">FOCUS TIME</div>
+  </div>
+  <div class="pomo-tabs">
+   <button class="active" data-mode="focus">Focus 25 min</button>
+   <button data-mode="short">Short Break 5 min</button>
+   <button data-mode="long">Long Break 15 min</button>
+  </div>
+  <div class="pomo-clock" id="pomoClock">
+   <div class="pomo-clock-content">
+    <strong id="pomoTime">25:00</strong>
+    <small id="pomoLabel">Time to focus</small>
+   </div>
+  </div>
+  <div class="pomo-controls">
+   <button class="primary" id="pomoStart">Start</button>
+   <button id="pomoReset">Reset</button>
+   <button id="pomoSkip">Skip</button>
+  </div>
+  <div class="pomo-session-info">
+   Completed focus sessions today: <strong id="pomoSessions">0</strong>
+  </div>
+  <div class="pomo-message" id="pomoMessage">
+   Start a focus session when you are ready.
+  </div>
+ </div>
+</section>
+
+<!-- LEARNING STATISTICS -->
+<section class="section" id="progress">
+ <div class="section-heading">
+  <div>
+   <h2>📈 Learning Statistics</h2>
+   <p class="section-sub">Daily study activity and learning status.</p>
+  </div>
+ </div>
+ <div class="statistics-grid">
+  <div class="statistics-card">
+   <div class="emoji">⏱️</div>
+   <strong id="statStudyTime">0 min</strong>
+   <small>Study time today</small>
+  </div>
+  <div class="statistics-card">
+   <div class="emoji">🎯</div>
+   <strong id="statGoalStatus">0%</strong>
+   <small>Daily goal completed</small>
+  </div>
+  <div class="statistics-card">
+   <div class="emoji">📚</div>
+   <strong id="statRemaining">0</strong>
+   <small>Lessons remaining</small>
+  </div>
+  <div class="statistics-card">
+   <div class="emoji">🚀</div>
+   <strong id="statInProgress">0</strong>
+   <small>Chapters in progress</small>
+  </div>
+ </div>
+ <div class="panel" style="margin-top:13px">
+  <div class="section-heading">
+   <div>
+    <h2 style="font-size:15px">Chapter Progress</h2>
+    <p class="section-sub">Progress in your selected class only.</p>
+   </div>
+  </div>
+  <div class="chapter-list" id="chapterProgressList">
+   <div class="empty">Your progress will appear here after completing lessons.</div>
+  </div>
+ </div>
+</section>
+
+<!-- QUICK ACCESS -->
 <section class="section" id="tools">
  <div class="section-heading"><h2>⚡ Quick Access</h2></div>
  <div class="quick-grid">
-  <a href="class.html?class=Class%2012" id="studyCard" class="quick-card q-blue">
+  <a href="class.html" id="studyCard" class="quick-card q-blue">
    <div class="icon">📖</div><strong>Study<br>Library</strong>
    <small id="studyCardNote">Open subjects</small>
   </a>
@@ -415,9 +503,9 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
    <div class="icon">▶️</div><strong>Continue<br>Learning</strong>
    <small>Last chapter</small>
   </a>
-  <a href="#progress" class="quick-card q-cyan">
-   <div class="icon">📈</div><strong>My<br>Progress</strong>
-   <small>View statistics</small>
+  <a href="#pomodoro" class="quick-card q-cyan">
+   <div class="icon">🍅</div><strong>Focus<br>Timer</strong>
+   <small>Pomodoro</small>
   </a>
   <div class="quick-card q-orange coming">
    <div class="icon">📝</div><strong>Mock<br>Tests</strong>
@@ -438,6 +526,7 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  </div>
 </section>
 
+<!-- LEARNING PROFILE -->
 <section class="section">
  <div class="section-heading">
   <h2>🎓 My Learning Profile</h2>
@@ -456,6 +545,7 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
  </div>
 </section>
 
+<!-- CONTINUE LEARNING -->
 <section class="section" id="continue">
  <div class="section-heading"><h2>📖 Continue Learning</h2></div>
  <div class="panel continue-panel" id="continuePanel">
@@ -473,21 +563,6 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
   <a href="practice.html" id="practiceBannerLink">Start →</a>
  </div>
 </section>
-
-<section class="section" id="progress">
- <div class="section-heading">
-  <div>
-   <h2>📈 Learning Statistics</h2>
-   <p class="section-sub">Your completed lessons and chapter progress.</p>
-  </div>
- </div>
- <div class="panel">
-  <div class="chapter-list" id="chapterProgressList">
-   <div class="empty">Your progress will appear here after completing lessons.</div>
-  </div>
- </div>
-</section>
-
 </main>
 
 <footer>
@@ -499,10 +574,9 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 <nav class="bottom-nav">
  <a class="nav-item active" href="#"><span>⌂</span>Home</a>
  <a class="nav-item" href="#progress"><span>▥</span>Progress</a>
- <a class="nav-item" href="class.html?class=Class%2012" id="studyNav"><span>📖</span>Study</a>
+ <a class="nav-item" href="class.html" id="studyNav"><span>📖</span>Study</a>
  <a class="nav-item" href="#tools"><span>☷</span>More</a>
 </nav>
-
 </div>
 
 <!-- EDIT PROFILE MODAL -->
@@ -512,25 +586,21 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
    <h2>✏️ Edit Learning Profile</h2>
    <button class="modal-close" id="closeEditBtn" aria-label="Close">×</button>
   </div>
-
   <form id="editProfileForm">
    <div class="form-field">
     <label for="editName">Full Name</label>
     <input id="editName" type="text" maxlength="60" required>
    </div>
-
    <div class="form-field">
     <label for="editUsername">Username</label>
     <input id="editUsername" type="text" minlength="3" maxlength="20"
      pattern="[A-Za-z0-9_]{3,20}" required>
     <div class="form-hint">3–20 characters. Only letters, numbers and underscore.</div>
    </div>
-
    <div class="form-field">
     <label for="editEmail">Gmail / Email (cannot be changed)</label>
     <input id="editEmail" type="email" disabled>
    </div>
-
    <div class="form-field">
     <label for="editBoard">Board</label>
     <select id="editBoard" required>
@@ -538,7 +608,6 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
      <option value="UP Board">UP Board</option>
     </select>
    </div>
-
    <div class="form-field">
     <label for="editClass">Class</label>
     <select id="editClass" required>
@@ -546,7 +615,6 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
      <option value="12">Class 12</option>
     </select>
    </div>
-
    <div class="form-field" id="editStreamField">
     <label for="editStream">Stream</label>
     <select id="editStream">
@@ -557,14 +625,11 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
      <option value="Arts/Humanities">Arts / Humanities</option>
     </select>
    </div>
-
    <div class="form-hint">
-    Changing your class or stream updates your dashboard subjects.
-    Your previous learning records are not automatically deleted.
+    Your dashboard and learning records are separated by class and stream.
+    Your previous records are retained.
    </div>
-
    <div id="editStatus" role="status"></div>
-
    <div class="modal-actions">
     <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
     <button type="submit" class="save-btn" id="saveProfileBtn">Save Changes</button>
@@ -578,7 +643,7 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig = {
+const firebaseConfig={
  apiKey:"AIzaSyB-9GjrfHDIwbEjScWd5vBRpUvbQX9U2bc",
  authDomain:"eduvanta-93826.firebaseapp.com",
  projectId:"eduvanta-93826",
@@ -595,17 +660,21 @@ const el=id=>document.getElementById(id);
 let student=null;
 let currentUser=null;
 
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
 function showApp(){
  el("loadingScreen").classList.add("hidden");
  el("app").classList.remove("hidden");
 }
-
 function showLoading(text){
  el("loadingScreen").classList.remove("hidden");
  el("loadingScreen").querySelector("div div:last-child").textContent=text;
  el("app").classList.add("hidden");
 }
-
 function showError(text){
  el("loadingScreen").innerHTML=
   '<div style="padding:25px;max-width:420px"><h2 style="color:#ff9eaa;margin-bottom:12px">Dashboard Error</h2><p>'+
@@ -613,59 +682,95 @@ function showError(text){
   '</p><p style="margin-top:15px"><a style="color:#39dce9" href="auth.html">Return to Login</a></p></div>';
 }
 
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+/* CLASS AND STREAM SCOPE */
+function classNumber(){
+ return String(student?.class||"12").replace("Class ","");
+}
+function currentScope(){
+ const cls=classNumber();
+ const board=student?.board||"CBSE";
+ const stream=cls==="12"?(student?.stream||"NoStream"):"";
+ return board+"_class"+cls+"_"+stream.replace(/[^a-z0-9]/gi,"");
+}
+function scopeKey(name){
+ return "eduvanta_"+name+"_"+currentScope();
+}
+function dateKey(){
+ const d=new Date();
+ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function dailyMinutesKey(){
+ return scopeKey("studyMinutes")+"_"+dateKey();
+}
+function sessionsKey(){
+ return scopeKey("focusSessions")+"_"+dateKey();
 }
 
-/* PROFILE DISPLAY */
+/* PROFILE */
 function getSubjects(data){
- const classNumber=String(data.class||"12");
- const stream=data.stream||"";
-
- if(classNumber==="10"){
+ const cls=String(data.class||"12");
+ if(cls==="10"){
   return ["Mathematics","Science","Social Science","English","Hindi"];
  }
-
  const subjects={
   "Science PCM":["Physics","Chemistry","Mathematics","English"],
   "Science PCB":["Physics","Chemistry","Biology","English"],
   "Commerce":["Accountancy","Business Studies","Economics","English"],
   "Arts/Humanities":["History","Political Science","Geography","English"]
  };
- return subjects[stream]||[];
+ return subjects[data.stream]||[];
 }
-
 function getProfileIcon(data){
  if(String(data.class)==="10")return "📚";
- const icons={
-  "Science PCM":"⚛️",
-  "Science PCB":"🧬",
-  "Commerce":"📊",
-  "Arts/Humanities":"🎨"
- };
- return icons[data.stream]||"🎓";
+ return {
+  "Science PCM":"⚛️","Science PCB":"🧬",
+  "Commerce":"📊","Arts/Humanities":"🎨"
+ }[data.stream]||"🎓";
 }
 
+/*
+ * Resource routing:
+ * Both classes use class.html with a class query.
+ * The target page must read this query and display actual class resources.
+ */
+function studyLibraryUrl(){
+ const cls=classNumber();
+ const params=new URLSearchParams();
+ params.set("class","Class "+cls);
+ params.set("board",student?.board||"CBSE");
+ if(cls==="12"&&student?.stream)params.set("stream",student.stream);
+ return "class.html?"+params.toString();
+}
+function practiceUrl(){
+ const cls=classNumber();
+ const params=new URLSearchParams();
+ params.set("class","Class "+cls);
+ params.set("board",student?.board||"CBSE");
+ if(cls==="12"&&student?.stream)params.set("stream",student.stream);
+ return "practice.html?"+params.toString();
+}
 function hasCurrentResources(data){
+ /*
+  * Current project has confirmed Class 12 Science PCM routes.
+  * Other streams/classes should not be falsely labelled as fully available
+  * until their real content pages have been created.
+  */
  return String(data.class||"12")==="12" &&
   (data.stream||"")==="Science PCM";
 }
 
 function renderProfile(data){
  student=data;
-
  const name=data.name||"Student";
- const classNumber=String(data.class||"12");
+ const cls=String(data.class||"12");
  const board=data.board||"CBSE";
- const stream=classNumber==="10"?"Class 10":(data.stream||"Stream not selected");
+ const stream=cls==="10"?"Class 10":(data.stream||"Stream not selected");
 
  el("studentName").textContent=name;
  el("profileInitial").textContent=name.charAt(0).toUpperCase();
- el("streamBadge").textContent="CLASS "+classNumber;
+ el("streamBadge").textContent="CLASS "+cls;
  el("profileStream").textContent=stream;
- el("profileDetails").textContent=board+" • Class "+classNumber;
+ el("profileDetails").textContent=board+" • Class "+cls;
  el("streamIcon").textContent=getProfileIcon(data);
 
  el("subjectTags").replaceChildren();
@@ -675,15 +780,14 @@ function renderProfile(data){
   el("subjectTags").appendChild(tag);
  });
 
- if(classNumber==="10"){
+ if(cls==="10"){
   el("streamNote").textContent=
-   "Your Class 10 profile is active. Class 10 subject cards and study resources will appear here when they are added to EDUVANTA.";
+   "Class 10 profile selected. Study Library opens the Class 10 route. Only materials actually added to EDUVANTA will be available.";
   el("welcomeText").textContent=
    "Your "+board+" Class 10 learning journey continues here.";
  }else{
-  el("streamNote").textContent=hasCurrentResources(data)
-   ?"Your Science PCM profile is active. Current study resources are being expanded; open the Study Library to access available chapters."
-   :"Your profile is saved. Study materials for this stream will be activated when the relevant resources are added.";
+  el("streamNote").textContent=
+   "Class 12 "+(data.stream||"")+" profile selected. Your dashboard progress and focus records are separated by stream.";
   el("welcomeText").textContent=
    "Your "+board+" Class 12 "+(data.stream||"")+" learning journey continues here.";
  }
@@ -693,36 +797,28 @@ function renderProfile(data){
 
 function updateStudyLinks(data){
  const available=hasCurrentResources(data);
- const studyCard=el("studyCard");
- const studyNav=el("studyNav");
- const practiceCard=el("practiceCard");
- const practiceBanner=el("practiceBannerLink");
- const practiceSection=el("practiceSection");
+ const url=studyLibraryUrl();
+ const practice=practiceUrl();
+
+ el("studyCard").href=url;
+ el("studyNav").href=url;
+ el("studyCard").classList.remove("coming");
+ el("studyCardNote").textContent=available?"Open subjects":"Open class library";
 
  if(available){
-  studyCard.href="class.html?class=Class%2012";
-  studyCard.classList.remove("coming");
-  el("studyCardNote").textContent="Open subjects";
-  studyNav.href="class.html?class=Class%2012";
-
-  practiceCard.href="practice.html";
-  practiceCard.classList.remove("coming");
+  el("practiceCard").href=practice;
+  el("practiceCard").classList.remove("coming");
   el("practiceCardNote").textContent="Available practice";
-  practiceBanner.href="practice.html";
-  practiceBanner.textContent="Start →";
-  practiceSection.classList.remove("hidden");
+  el("practiceBannerLink").href=practice;
+  el("practiceBannerLink").textContent="Start →";
+  el("practiceSection").classList.remove("hidden");
  }else{
-  studyCard.removeAttribute("href");
-  studyCard.classList.add("coming");
-  el("studyCardNote").textContent="Coming soon";
-  studyNav.href="#tools";
-
-  practiceCard.removeAttribute("href");
-  practiceCard.classList.add("coming");
-  el("practiceCardNote").textContent="Coming soon";
-  practiceBanner.removeAttribute("href");
-  practiceBanner.textContent="Coming soon";
-  practiceSection.classList.add("hidden");
+  el("practiceCard").removeAttribute("href");
+  el("practiceCard").classList.add("coming");
+  el("practiceCardNote").textContent="Not available yet";
+  el("practiceBannerLink").removeAttribute("href");
+  el("practiceBannerLink").textContent="Coming soon";
+  el("practiceSection").classList.add("hidden");
  }
 }
 
@@ -732,27 +828,22 @@ auth.onAuthStateChanged(async user=>{
   window.location.replace("auth.html");
   return;
  }
-
  currentUser=user;
  showLoading("Loading your student profile...");
-
  try{
   const snap=await db.collection("users").doc(user.uid).get();
   if(!snap.exists){
    window.location.replace("auth.html");
    return;
   }
-
   const data=snap.data();
-  if(!data.email && user.email){
-   data.email=user.email;
-  }
+  if(!data.email&&user.email)data.email=user.email;
 
   renderProfile(data);
+  loadPomodoro();
   showApp();
   refreshDashboard();
-  loadGoal();
-  renderGoal();
+  renderPomodoro();
  }catch(error){
   showError("Could not load your profile. Check your internet connection and Firestore security rules. "+error.message);
  }
@@ -762,6 +853,7 @@ auth.onAuthStateChanged(async user=>{
 el("logoutBtn").addEventListener("click",async()=>{
  if(!confirm("Are you sure you want to logout?"))return;
  try{
+  stopTicker();
   await auth.signOut();
   window.location.replace("auth.html");
  }catch(error){
@@ -769,10 +861,9 @@ el("logoutBtn").addEventListener("click",async()=>{
  }
 });
 
-/* EDIT PROFILE MODAL */
+/* EDIT PROFILE */
 function openEditModal(){
  if(!student||!currentUser)return;
-
  el("editName").value=student.name||"";
  el("editUsername").value=student.username||"";
  el("editEmail").value=currentUser.email||student.email||"";
@@ -783,87 +874,66 @@ function openEditModal(){
  setEditStatus("");
  el("editModal").classList.add("open");
 }
-
-function closeEditModal(){
- el("editModal").classList.remove("open");
-}
-
+function closeEditModal(){el("editModal").classList.remove("open")}
 function updateStreamField(){
- const isClass12=el("editClass").value==="12";
- el("editStreamField").classList.toggle("hidden",!isClass12);
- el("editStream").required=isClass12;
- if(!isClass12)el("editStream").value="";
+ const is12=el("editClass").value==="12";
+ el("editStreamField").classList.toggle("hidden",!is12);
+ el("editStream").required=is12;
+ if(!is12)el("editStream").value="";
 }
-
 function setEditStatus(message,type){
  const status=el("editStatus");
  status.textContent=message;
- status.className=type==="error"?"status-error":
-  type==="success"?"status-success":"";
+ status.className=type==="error"?"status-error":type==="success"?"status-success":"";
 }
-
 el("openEditBtn").addEventListener("click",openEditModal);
 el("profileEditBtn").addEventListener("click",openEditModal);
 el("closeEditBtn").addEventListener("click",closeEditModal);
 el("cancelEditBtn").addEventListener("click",closeEditModal);
 el("editClass").addEventListener("change",updateStreamField);
-
 el("editModal").addEventListener("click",event=>{
  if(event.target===el("editModal"))closeEditModal();
 });
-
 document.addEventListener("keydown",event=>{
  if(event.key==="Escape")closeEditModal();
 });
 
-/* SAVE PROFILE + USERNAME UNIQUENESS */
 el("editProfileForm").addEventListener("submit",async event=>{
  event.preventDefault();
-
  if(!currentUser||!student)return;
 
  const name=el("editName").value.trim();
  const username=el("editUsername").value.trim().toLowerCase();
  const board=el("editBoard").value;
- const classNumber=el("editClass").value;
- const stream=classNumber==="12"?el("editStream").value:"";
+ const cls=el("editClass").value;
+ const stream=cls==="12"?el("editStream").value:"";
 
  if(name.length<2){
   setEditStatus("Please enter a valid full name.","error");return;
  }
-
  if(!/^[a-z0-9_]{3,20}$/.test(username)){
-  setEditStatus("Username must be 3–20 characters using letters, numbers or underscore.","error");
-  return;
+  setEditStatus("Username must be 3–20 characters using letters, numbers or underscore.","error");return;
  }
-
- if(!["10","12"].includes(classNumber)){
+ if(!["10","12"].includes(cls)){
   setEditStatus("Please select Class 10 or Class 12.","error");return;
  }
-
- if(classNumber==="12" &&
-  !["Science PCM","Science PCB","Commerce","Arts/Humanities"].includes(stream)){
+ if(cls==="12"&&!["Science PCM","Science PCB","Commerce","Arts/Humanities"].includes(stream)){
   setEditStatus("Please select a valid Class 12 stream.","error");return;
  }
 
  const oldUsername=String(student.username||"").toLowerCase();
  const userRef=db.collection("users").doc(currentUser.uid);
  const newUsernameRef=db.collection("usernames").doc(username);
- const oldUsernameRef=oldUsername
-  ?db.collection("usernames").doc(oldUsername):null;
-
+ const oldUsernameRef=oldUsername?db.collection("usernames").doc(oldUsername):null;
  const saveButton=el("saveProfileBtn");
+
  saveButton.disabled=true;
  saveButton.textContent="Saving...";
  setEditStatus("Saving your profile...");
 
  try{
   const updatedData={
-   name:name,
-   username:username,
-   board:board,
-   class:classNumber,
-   stream:stream,
+   name,username,board,class:cls,stream,
    email:currentUser.email||student.email||"",
    uid:currentUser.uid,
    authProvider:student.authProvider||"email",
@@ -873,45 +943,32 @@ el("editProfileForm").addEventListener("submit",async event=>{
 
   await db.runTransaction(async transaction=>{
    const userSnap=await transaction.get(userRef);
-   if(!userSnap.exists){
-    throw new Error("Student profile not found. Please login again.");
-   }
+   if(!userSnap.exists)throw new Error("Student profile not found. Please login again.");
 
-   const usernameChanged=username!==oldUsername;
-
-   if(usernameChanged){
-    const newUsernameSnap=await transaction.get(newUsernameRef);
-
-    if(newUsernameSnap.exists &&
-      newUsernameSnap.data().uid!==currentUser.uid){
+   const changed=username!==oldUsername;
+   if(changed){
+    const newSnap=await transaction.get(newUsernameRef);
+    if(newSnap.exists&&newSnap.data().uid!==currentUser.uid){
      throw new Error("This username is already taken. Try another one.");
     }
+    let oldSnap=null;
+    if(oldUsernameRef)oldSnap=await transaction.get(oldUsernameRef);
 
-    let oldUsernameSnap=null;
-    if(oldUsernameRef){
-     oldUsernameSnap=await transaction.get(oldUsernameRef);
-    }
-
-    transaction.set(newUsernameRef,{
-     uid:currentUser.uid,
-     username:username
-    });
-
-    if(oldUsernameSnap&&oldUsernameSnap.exists&&
-      oldUsernameSnap.data().uid===currentUser.uid){
+    transaction.set(newUsernameRef,{uid:currentUser.uid,username});
+    if(oldSnap&&oldSnap.exists&&oldSnap.data().uid===currentUser.uid){
      transaction.delete(oldUsernameRef);
     }
    }
-
    transaction.set(userRef,updatedData,{merge:true});
   });
 
   student={...student,...updatedData};
   renderProfile(student);
+  refreshDashboard();
   closeEditModal();
   alert("Profile updated successfully!");
  }catch(error){
-  console.error("Profile update error:",error);
+  console.error(error);
   setEditStatus(error.message||"Could not save your profile.","error");
  }finally{
   saveButton.disabled=false;
@@ -919,7 +976,7 @@ el("editProfileForm").addEventListener("submit",async event=>{
  }
 });
 
-/* CONTINUE LEARNING */
+/* SAFE INTERNAL LINKS */
 function safeLocalLink(value){
  if(typeof value!=="string"||!value.trim())return null;
  try{
@@ -928,12 +985,10 @@ function safeLocalLink(value){
  }catch(e){return null}
 }
 
+/* CONTINUE LEARNING */
 function renderContinue(){
  let data=null;
- try{
-  data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null");
- }catch(e){}
-
+ try{data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null")}catch(e){}
  const panel=el("continuePanel");
  panel.replaceChildren();
 
@@ -945,11 +1000,27 @@ function renderContinue(){
   return;
  }
 
- /* Do not show another class's saved chapter as current learning. */
- if(student && String(data.class||"").replace("Class ","")!==String(student.class||"12")){
+ const savedClass=String(data.class||"").replace("Class ","");
+ if(student&&savedClass&&savedClass!==classNumber()){
   const empty=document.createElement("div");
   empty.className="empty";
-  empty.textContent="Your saved chapter belongs to a different class. Open your current Study Library to continue.";
+  empty.textContent="Your saved chapter belongs to another class. Open your current Study Library to continue.";
+  panel.appendChild(empty);
+  return;
+ }
+
+ if(student&&data.board&&data.board!==student.board){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="Your saved chapter belongs to another board. Open your current Study Library.";
+  panel.appendChild(empty);
+  return;
+ }
+
+ if(student&&classNumber()==="12"&&data.stream&&data.stream!==student.stream){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="Your saved chapter belongs to another stream. Open your current Study Library.";
   panel.appendChild(empty);
   return;
  }
@@ -968,13 +1039,11 @@ function renderContinue(){
 
  const title=document.createElement("h3");
  title.textContent=data.chapter;
-
  const detail=document.createElement("p");
  detail.textContent="Chapter "+(data.number||"")+" • "+(data.board||"");
 
  const actions=document.createElement("div");
  actions.className="chapter-actions";
-
  [["📖 Notes",data.bookUrl],["▶ Lessons",data.lessonUrl],["✍ Practice",data.practiceUrl]].forEach(([label,url])=>{
   const safe=safeLocalLink(url);
   if(!safe)return;
@@ -983,13 +1052,25 @@ function renderContinue(){
   a.textContent=label;
   actions.appendChild(a);
  });
-
  info.append(subject,title,detail,actions);
  content.append(art,info);
  panel.appendChild(content);
 }
 
-/* LOCAL LEARNING PROGRESS */
+/* CLASS-WISE PROGRESS */
+function belongsToCurrentProfile(item){
+ if(!student)return false;
+ const cls=classNumber();
+ const itemClass=String(item.class||"").replace("Class ","");
+ if(itemClass&&itemClass!==cls)return false;
+
+ if(item.board&&item.board!==student.board)return false;
+
+ if(cls==="12"&&item.stream&&item.stream!==student.stream)return false;
+
+ return true;
+}
+
 function renderProgress(){
  let saved={};
  try{
@@ -1000,13 +1081,16 @@ function renderProgress(){
  let completed=0,total=0;
  const chapters=[];
 
- Object.values(saved).forEach(item=>{
+ Object.entries(saved).forEach(([key,item])=>{
   if(!item||typeof item!=="object")return;
+  if(!belongsToCurrentProfile(item))return;
+
   const count=Number(item.total);
   if(!Number.isInteger(count)||count<=0)return;
 
   const done=Array.isArray(item.completed)
-   ?[...new Set(item.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<count))]:[];
+   ?[...new Set(item.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<count))]
+   :[];
 
   completed+=done.length;
   total+=count;
@@ -1014,17 +1098,20 @@ function renderProgress(){
   chapters.push({
    name:String(item.chapter||"Chapter"),
    subject:String(item.subject||"Subject"),
-   className:String(item.class||"Class"),
-   done:done.length,
-   total:count,
+   className:String(item.class||("Class "+classNumber())),
+   done:done.length,total:count,
    percent:Math.round(done.length/count*100)
   });
  });
 
  const percent=total?Math.round(completed/total*100):0;
+ const started=chapters.filter(ch=>ch.done>0).length;
+ const remaining=Math.max(0,total-completed);
+ const inProgress=chapters.filter(ch=>ch.done>0&&ch.done<ch.total).length;
+
  el("overallPercent").textContent=percent+"%";
  el("completedCount").textContent=completed;
- el("chapterCount").textContent=chapters.length;
+ el("chapterCount").textContent=started;
  el("progressRing").style.background=
   "conic-gradient(var(--cyan) "+(percent*3.6)+"deg,#25395e 0deg)";
 
@@ -1034,43 +1121,44 @@ function renderProgress(){
  if(!chapters.length){
   const empty=document.createElement("div");
   empty.className="empty";
-  empty.textContent="📚 Complete a lesson to see your learning statistics.";
+  empty.textContent="No lessons completed for "+student.board+" Class "+classNumber()+(classNumber()==="12"?" "+(student.stream||""):"")+". Your chapter progress will appear here after completing lessons.";
   list.appendChild(empty);
-  return;
+ }else{
+  chapters.sort((a,b)=>b.percent-a.percent);
+  chapters.forEach(ch=>{
+   const box=document.createElement("div");
+   box.className="chapter-item";
+   const row=document.createElement("div");
+   row.className="chapter-row";
+   const name=document.createElement("strong");
+   name.textContent=ch.name;
+   const pct=document.createElement("span");
+   pct.textContent=ch.percent+"%";
+   row.append(name,pct);
+
+   const meta=document.createElement("div");
+   meta.className="chapter-meta";
+   meta.textContent=ch.subject+" • "+ch.className+" • "+ch.done+"/"+ch.total+" lessons";
+
+   const track=document.createElement("div");
+   track.className="mini-track";
+   const fill=document.createElement("div");
+   fill.className="mini-fill";
+   fill.style.width=ch.percent+"%";
+   track.appendChild(fill);
+   box.append(row,meta,track);
+   list.appendChild(box);
+  });
  }
 
- chapters.sort((a,b)=>b.percent-a.percent);
+ const minutes=Number(localStorage.getItem(dailyMinutesKey())||0);
+ const dailyGoal=Number(localStorage.getItem(scopeKey("dailyGoal"))||60);
+ const goal=Number.isFinite(dailyGoal)&&dailyGoal>0?dailyGoal:60;
 
- chapters.forEach(ch=>{
-  const box=document.createElement("div");
-  box.className="chapter-item";
-
-  const row=document.createElement("div");
-  row.className="chapter-row";
-
-  const name=document.createElement("strong");
-  name.textContent=ch.name;
-
-  const pct=document.createElement("span");
-  pct.textContent=ch.percent+"%";
-
-  row.append(name,pct);
-
-  const meta=document.createElement("div");
-  meta.className="chapter-meta";
-  meta.textContent=ch.subject+" • "+ch.className+" • "+ch.done+"/"+ch.total+" lessons";
-
-  const track=document.createElement("div");
-  track.className="mini-track";
-
-  const fill=document.createElement("div");
-  fill.className="mini-fill";
-  fill.style.width=ch.percent+"%";
-
-  track.appendChild(fill);
-  box.append(row,meta,track);
-  list.appendChild(box);
- });
+ el("statStudyTime").textContent=minutes+" min";
+ el("statGoalStatus").textContent=Math.min(100,Math.round(minutes/goal*100))+"%";
+ el("statRemaining").textContent=remaining;
+ el("statInProgress").textContent=inProgress;
 }
 
 function refreshDashboard(){
@@ -1078,55 +1166,274 @@ function refreshDashboard(){
  renderProgress();
 }
 
-/* DAILY STUDY GOAL - DEVICE LOCAL */
-function dateKey(){
- const d=new Date();
- return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+/* POMODORO TIMER */
+const POMO_DURATIONS={
+ focus:25*60,
+ short:5*60,
+ long:15*60
+};
+const POMO_LABELS={
+ focus:"FOCUS TIME",
+ short:"SHORT BREAK",
+ long:"LONG BREAK"
+};
+
+let pomoMode="focus";
+let pomoRemaining=POMO_DURATIONS.focus;
+let pomoRunning=false;
+let pomoEndAt=null;
+let pomoTicker=null;
+let pomoFocusCount=0;
+let pomoMessageText="Start a focus session when you are ready.";
+
+function pomoStorageKey(){
+ return scopeKey("pomodoroState");
+}
+function readFocusSessions(){
+ return Number(localStorage.getItem(sessionsKey())||0)||0;
+}
+function savePomodoro(){
+ const state={
+  mode:pomoMode,
+  remaining:pomoRemaining,
+  running:pomoRunning,
+  endAt:pomoEndAt,
+  focusCount:pomoFocusCount
+ };
+ localStorage.setItem(pomoStorageKey(),JSON.stringify(state));
+}
+function loadPomodoro(){
+ pomoFocusCount=readFocusSessions();
+ try{
+  const state=JSON.parse(localStorage.getItem(pomoStorageKey())||"null");
+  if(!state)return;
+
+  if(!POMO_DURATIONS[state.mode])return;
+  pomoMode=state.mode;
+  pomoRemaining=Math.max(0,Math.min(POMO_DURATIONS[pomoMode],Number(state.remaining)||0));
+  pomoFocusCount=Number(state.focusCount)||0;
+
+  if(state.running&&state.endAt){
+   pomoEndAt=Number(state.endAt);
+   pomoRunning=true;
+   const left=Math.ceil((pomoEndAt-Date.now())/1000);
+   if(left<=0){
+    pomoRemaining=0;
+    pomoRunning=false;
+    pomoEndAt=null;
+    completePomodoro();
+   }else{
+    pomoRemaining=left;
+    startTicker();
+   }
+  }
+ }catch(error){
+  console.warn("Could not restore timer",error);
+ }
 }
 
-let minutes=0,goal=60;
-
-function loadGoal(){
- const key="eduvantaStudyMinutes_"+dateKey();
- minutes=Number(localStorage.getItem(key)||0);
- goal=Number(localStorage.getItem("eduvantaDailyGoal")||60);
-
- if(!Number.isFinite(minutes)||minutes<0)minutes=0;
- if(!Number.isInteger(goal)||goal<15||goal>1440)goal=60;
+function formatTime(seconds){
+ const safe=Math.max(0,Math.floor(seconds));
+ const m=Math.floor(safe/60);
+ const s=safe%60;
+ return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
 }
+function renderPomodoro(){
+ el("pomoTime").textContent=formatTime(pomoRemaining);
+ el("pomoMode").textContent=POMO_LABELS[pomoMode];
+ el("pomoLabel").textContent=
+  pomoMode==="focus"?"Time to focus":
+  pomoMode==="short"?"Take a short break":"Take a long break";
 
-function renderGoal(){
- el("minutesDone").textContent=minutes;
- el("goalMinutes").textContent=goal;
- el("goalFill").style.width=Math.min(100,minutes/goal*100)+"%";
- el("goalMessage").textContent=minutes>=goal
-  ?"✓ Daily goal completed!":(goal-minutes)+" minutes left to reach your goal.";
+ el("pomoStart").textContent=pomoRunning?"Pause":(pomoRemaining<POMO_DURATIONS[pomoMode]?"Resume":"Start");
+ el("pomoSessions").textContent=readFocusSessions();
 
- localStorage.setItem("eduvantaStudyMinutes_"+dateKey(),String(minutes));
- localStorage.setItem("eduvantaDailyGoal",String(goal));
+ document.querySelectorAll(".pomo-tabs button").forEach(button=>{
+  button.classList.toggle("active",button.dataset.mode===pomoMode);
+ });
+
+ const total=POMO_DURATIONS[pomoMode];
+ const elapsed=total-pomoRemaining;
+ const angle=total?Math.max(0,Math.min(360,elapsed/total*360)):0;
+ el("pomoClock").style.background=
+  "conic-gradient(#08d8e9 "+angle+"deg,#ffffff20 "+angle+"deg)";
+ el("pomoMessage").textContent=pomoMessageText;
 }
-
-el("add15").onclick=()=>{minutes+=15;renderGoal()};
-el("add30").onclick=()=>{minutes+=30;renderGoal()};
-
-el("setGoal").onclick=()=>{
- const answer=prompt("Daily goal in minutes:",goal);
- if(answer===null)return;
-
- const value=Number(answer);
- if(!Number.isInteger(value)||value<15||value>1440){
-  alert("Enter a number between 15 and 1440.");
+function stopTicker(){
+ if(pomoTicker){
+  clearInterval(pomoTicker);
+  pomoTicker=null;
+ }
+}
+function startTicker(){
+ stopTicker();
+ pomoTicker=setInterval(()=>{
+  if(!pomoRunning||!pomoEndAt)return;
+  pomoRemaining=Math.max(0,Math.ceil((pomoEndAt-Date.now())/1000));
+  if(pomoRemaining<=0){
+   pomoRunning=false;
+   pomoEndAt=null;
+   stopTicker();
+   completePomodoro();
+  }
+  savePomodoro();
+  renderPomodoro();
+ },250);
+}
+function startOrPausePomodoro(){
+ if(pomoRunning){
+  pomoRemaining=Math.max(0,Math.ceil((pomoEndAt-Date.now())/1000));
+  pomoRunning=false;
+  pomoEndAt=null;
+  stopTicker();
+  pomoMessageText="Timer paused. Resume when you are ready.";
+  savePomodoro();
+  renderPomodoro();
   return;
  }
 
- goal=value;
- renderGoal();
-};
+ if(pomoRemaining<=0)pomoRemaining=POMO_DURATIONS[pomoMode];
+ pomoRunning=true;
+ pomoEndAt=Date.now()+pomoRemaining*1000;
+ pomoMessageText=pomoMode==="focus"?"Stay focused. You can do this!":"Relax and recharge.";
+ savePomodoro();
+ startTicker();
+ renderPomodoro();
+}
+function selectPomodoroMode(mode){
+ if(!POMO_DURATIONS[mode])return;
+ stopTicker();
+ pomoRunning=false;
+ pomoEndAt=null;
+ pomoMode=mode;
+ pomoRemaining=POMO_DURATIONS[mode];
+ pomoMessageText=mode==="focus"?"Ready for a focus session.":"Take a moment to recharge.";
+ savePomodoro();
+ renderPomodoro();
+}
+function resetPomodoro(){
+ stopTicker();
+ pomoRunning=false;
+ pomoEndAt=null;
+ pomoRemaining=POMO_DURATIONS[pomoMode];
+ pomoMessageText="Timer reset.";
+ savePomodoro();
+ renderPomodoro();
+}
+function completePomodoro(){
+ stopTicker();
+ pomoRunning=false;
+ pomoEndAt=null;
 
-window.addEventListener("pageshow",refreshDashboard);
-window.addEventListener("storage",e=>{
- if(["eduvantaCompletedLessons","eduvantaLastChapter"].includes(e.key)){
+ if(pomoMode==="focus"){
+  /*
+   * Only a fully completed 25-minute focus timer adds study time.
+   * A paused, reset or skipped timer does not add study minutes.
+   */
+  const minutes=Number(localStorage.getItem(dailyMinutesKey())||0);
+  localStorage.setItem(dailyMinutesKey(),String(minutes+25));
+
+  const sessions=readFocusSessions()+1;
+  localStorage.setItem(sessionsKey(),String(sessions));
+  pomoFocusCount=sessions;
+
+  if(sessions%4===0){
+   pomoMode="long";
+   pomoRemaining=POMO_DURATIONS.long;
+   pomoMessageText="Focus session completed! Time for a 15-minute long break.";
+  }else{
+   pomoMode="short";
+   pomoRemaining=POMO_DURATIONS.short;
+   pomoMessageText="Focus session completed! Time for a 5-minute short break.";
+  }
+ }else{
+  pomoMode="focus";
+  pomoRemaining=POMO_DURATIONS.focus;
+  pomoMessageText="Break completed. Ready for another focus session?";
+ }
+
+ savePomodoro();
+ renderPomodoro();
+ renderProgress();
+
+ if(typeof Notification!=="undefined"&&Notification.permission==="granted"){
+  try{
+   new Notification("EDUVANTA Pomodoro",{
+    body:pomoMessageText
+   });
+  }catch(e){}
+ }
+}
+function skipPomodoro(){
+ if(pomoRunning){
+  const confirmSkip=confirm("Skip the current timer? It will not count as a completed focus session.");
+  if(!confirmSkip)return;
+ }
+ stopTicker();
+ pomoRunning=false;
+ pomoEndAt=null;
+
+ if(pomoMode==="focus"){
+  pomoMode="short";
+  pomoRemaining=POMO_DURATIONS.short;
+  pomoMessageText="Focus timer skipped. No study time was added.";
+ }else{
+  pomoMode="focus";
+  pomoRemaining=POMO_DURATIONS.focus;
+  pomoMessageText="Break skipped. Ready to focus?";
+ }
+ savePomodoro();
+ renderPomodoro();
+}
+
+el("pomoStart").addEventListener("click",startOrPausePomodoro);
+el("pomoReset").addEventListener("click",resetPomodoro);
+el("pomoSkip").addEventListener("click",skipPomodoro);
+
+document.querySelectorAll(".pomo-tabs button").forEach(button=>{
+ button.addEventListener("click",()=>{
+  if(pomoRunning){
+   const ok=confirm("Change timer mode? The running timer will stop.");
+   if(!ok)return;
+  }
+  selectPomodoroMode(button.dataset.mode);
+ });
+});
+
+/* OPTIONAL NOTIFICATIONS */
+if("Notification" in window&&Notification.permission==="default"){
+ /*
+  * No permission popup is forced on page load.
+  * The browser notification can be enabled by the user manually later.
+  */
+}
+
+/* CROSS-TAB REFRESH */
+window.addEventListener("pageshow",()=>{
+ if(student)refreshDashboard();
+});
+window.addEventListener("storage",event=>{
+ if(!event.key)return;
+ if(event.key==="eduvantaCompletedLessons"||
+    event.key==="eduvantaLastChapter"||
+    event.key===dailyMinutesKey()||
+    event.key===sessionsKey()){
+  pomoFocusCount=readFocusSessions();
   refreshDashboard();
+  renderPomodoro();
+ }
+});
+
+document.addEventListener("visibilitychange",()=>{
+ if(!document.hidden&&pomoRunning&&pomoEndAt){
+  pomoRemaining=Math.max(0,Math.ceil((pomoEndAt-Date.now())/1000));
+  if(pomoRemaining<=0){
+   pomoRunning=false;
+   pomoEndAt=null;
+   completePomodoro();
+  }else{
+   renderPomodoro();
+  }
  }
 });
 </script>
