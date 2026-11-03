@@ -15,45 +15,32 @@
   --muted:#9eacc5;
   --blue:#718cff;
   --cyan:#35dfd0;
-  --danger:#ff7777;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  min-height:100vh;
-  padding:25px 15px;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(circle at 15% 10%,#183e7055,transparent 35%),
-    radial-gradient(circle at 90% 90%,#49328a44,transparent 35%),
-    var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
+  min-height:100vh;padding:25px 15px;display:grid;place-items:center;
+  background:radial-gradient(circle at 15% 10%,#183e7055,transparent 35%),
+  radial-gradient(circle at 90% 90%,#49328a44,transparent 35%),var(--bg);
+  color:var(--text);font-family:Arial,sans-serif;
 }
 .container{width:100%;max-width:440px}
 .brand{text-align:center;margin-bottom:23px}
 .brand-icon{
-  width:62px;height:62px;margin:auto auto 12px;
-  display:grid;place-items:center;
-  border-radius:19px;
-  background:linear-gradient(135deg,#35dfd0,#718cff);
+  width:62px;height:62px;margin:auto auto 12px;display:grid;place-items:center;
+  border-radius:19px;background:linear-gradient(135deg,#35dfd0,#718cff);
   color:#071322;font-size:29px;font-weight:900;
 }
 .brand h1{font-size:27px;letter-spacing:1px}
 .brand h1 span{color:var(--cyan)}
 .brand p{color:var(--muted);font-size:13px;margin-top:7px}
 .card{
-  background:#111d33ee;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:25px;
-  box-shadow:0 20px 70px #0005;
+  background:#111d33ee;border:1px solid var(--border);border-radius:22px;
+  padding:25px;box-shadow:0 20px 70px #0005;
 }
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:23px}
 .tab{
-  border:1px solid var(--border);border-radius:10px;
-  background:#1a2942;color:var(--muted);
-  padding:12px;font-weight:bold;
+  border:1px solid var(--border);border-radius:10px;background:#1a2942;
+  color:var(--muted);padding:12px;font-weight:bold;
 }
 .tab.active{background:var(--blue);color:#081020;border-color:var(--blue)}
 h2{font-size:22px;margin-bottom:7px}
@@ -61,9 +48,8 @@ h2{font-size:22px;margin-bottom:7px}
 .field{margin-bottom:15px}
 label{display:block;font-size:12px;color:#c5d1e6;margin-bottom:7px}
 input,select{
-  width:100%;padding:13px 14px;
-  border:1px solid var(--border);border-radius:10px;
-  background:#0b1528;color:white;font-size:14px;outline:none;
+  width:100%;padding:13px 14px;border:1px solid var(--border);
+  border-radius:10px;background:#0b1528;color:white;font-size:14px;outline:none;
 }
 input:focus,select:focus{border-color:var(--cyan)}
 select option{background:#0b1528}
@@ -76,23 +62,18 @@ select option{background:#0b1528}
 .btn{
   width:100%;padding:14px;border:0;border-radius:11px;
   background:linear-gradient(100deg,var(--cyan),#8aa1ff);
-  color:#071322;font-weight:800;font-size:14px;
-  cursor:pointer;margin-top:5px;
+  color:#071322;font-weight:800;font-size:14px;cursor:pointer;margin-top:5px;
 }
 .google-btn{
-  width:100%;padding:13px;border:1px solid var(--border);
-  border-radius:11px;background:#17243a;color:white;
-  font-weight:bold;cursor:pointer;margin-top:13px;
+  width:100%;padding:13px;border:1px solid var(--border);border-radius:11px;
+  background:#17243a;color:white;font-weight:bold;cursor:pointer;margin-top:13px;
 }
 .google-btn span{margin-right:9px;font-size:17px}
 .divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:11px}
 .divider:before,.divider:after{content:"";height:1px;background:var(--border);flex:1}
 .switch{text-align:center;color:var(--muted);font-size:13px;margin-top:19px}
 .switch button{border:0;background:none;color:var(--cyan);font-weight:bold}
-.message{
-  display:none;padding:11px;border-radius:9px;
-  margin:0 0 15px;font-size:12px;line-height:1.5;
-}
+.message{display:none;padding:11px;border-radius:9px;margin:0 0 15px;font-size:12px;line-height:1.5}
 .message.error{display:block;background:#632d3544;color:#ffaaaa;border:1px solid #8d424c}
 .message.success{display:block;background:#174c4544;color:#8ff0d9;border:1px solid #277b6d}
 .note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:16px;text-align:center}
@@ -104,7 +85,6 @@ select option{background:#0b1528}
 
 <body>
 <div class="container">
-
   <div class="brand">
     <div class="brand-icon">E</div>
     <h1>EDU<span>VANTA</span></h1>
@@ -119,7 +99,7 @@ select option{background:#0b1528}
 
     <div id="message" class="message"></div>
 
-    <!-- LOGIN FORM -->
+    <!-- LOGIN -->
     <form id="loginForm">
       <h2>Welcome Back 👋</h2>
       <p class="sub">Login to continue your learning journey.</p>
@@ -138,21 +118,16 @@ select option{background:#0b1528}
       </div>
 
       <button class="btn" type="submit">Login to EDUVANTA →</button>
-
       <div class="divider">OR</div>
-      <button class="google-btn" id="googleLogin" type="button">
-        <span>G</span> Continue with Google
-      </button>
+      <button class="google-btn" id="googleLogin" type="button"><span>G</span> Continue with Google</button>
 
-      <p class="switch">New student?
-        <button type="button" id="goSignup">Create account</button>
-      </p>
+      <p class="switch">New student? <button type="button" id="goSignup">Create account</button></p>
     </form>
 
-    <!-- SIGNUP FORM -->
+    <!-- EMAIL SIGNUP -->
     <form id="signupForm" class="hidden">
       <h2>Create Your Account ✨</h2>
-      <p class="sub">Set up your personal Class 12 learning profile.</p>
+      <p class="sub">Set up your personal learning profile.</p>
 
       <div class="field">
         <label for="fullName">Full Name</label>
@@ -178,8 +153,24 @@ select option{background:#0b1528}
       </div>
 
       <div class="field">
+        <label for="board">Board</label>
+        <select id="board" required>
+          <option value="CBSE" selected>CBSE</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="studentClass">Choose Class</label>
+        <select id="studentClass" required>
+          <option value="">Select your class</option>
+          <option value="10">Class 10</option>
+          <option value="12">Class 12</option>
+        </select>
+      </div>
+
+      <div class="field hidden" id="streamField">
         <label for="stream">Choose Your Stream</label>
-        <select id="stream" required>
+        <select id="stream">
           <option value="">Select your stream</option>
           <option value="Science PCM">Science – PCM</option>
           <option value="Science PCB">Science – PCB</option>
@@ -188,34 +179,16 @@ select option{background:#0b1528}
         </select>
       </div>
 
-      <div class="field">
-        <label for="board">Board</label>
-        <select id="board" required>
-          <option value="CBSE" selected>CBSE</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Class</label>
-        <input value="Class 12" disabled>
-      </div>
-
       <button class="btn" type="submit">Create My Account →</button>
-
       <div class="divider">OR</div>
-      <button class="google-btn" id="googleSignup" type="button">
-        <span>G</span> Sign up with Google
-      </button>
-
-      <p class="switch">Already registered?
-        <button type="button" id="goLogin">Login</button>
-      </p>
+      <button class="google-btn" id="googleSignup" type="button"><span>G</span> Sign up with Google</button>
+      <p class="switch">Already registered? <button type="button" id="goLogin">Login</button></p>
     </form>
 
     <!-- GOOGLE PROFILE COMPLETION -->
     <form id="profileForm" class="hidden">
       <h2>Complete Your Profile 🎓</h2>
-      <p class="sub">Your Google account is connected. Choose a username and stream to continue.</p>
+      <p class="sub">Choose your class and learning details to continue.</p>
 
       <div class="field">
         <label for="googleName">Full Name</label>
@@ -228,8 +201,24 @@ select option{background:#0b1528}
       </div>
 
       <div class="field">
+        <label for="googleBoard">Board</label>
+        <select id="googleBoard" required>
+          <option value="CBSE" selected>CBSE</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="googleClass">Choose Class</label>
+        <select id="googleClass" required>
+          <option value="">Select your class</option>
+          <option value="10">Class 10</option>
+          <option value="12">Class 12</option>
+        </select>
+      </div>
+
+      <div class="field hidden" id="googleStreamField">
         <label for="googleStream">Your Stream</label>
-        <select id="googleStream" required>
+        <select id="googleStream">
           <option value="">Select your stream</option>
           <option value="Science PCM">Science – PCM</option>
           <option value="Science PCB">Science – PCB</option>
@@ -242,13 +231,11 @@ select option{background:#0b1528}
     </form>
 
     <p class="note">
-      By continuing, you agree to use EDUVANTA responsibly.
-      Your password is handled by Firebase Authentication, not stored in your profile database.
+      Your password is handled by Firebase Authentication and is not stored in your profile database.
     </p>
   </div>
 </div>
 
-<!-- Firebase Compatibility SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
@@ -267,7 +254,6 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
-
 const $ = id => document.getElementById(id);
 const message = $("message");
 
@@ -281,7 +267,7 @@ function clearMessage(){
 }
 function setLoading(form, loading){
   form.classList.toggle("loading", loading);
-  form.querySelectorAll("button").forEach(b => b.disabled = loading);
+  form.querySelectorAll("button").forEach(button => button.disabled = loading);
 }
 function showForm(which){
   clearMessage();
@@ -299,6 +285,19 @@ function cleanUsername(value){
 function validUsername(value){
   return /^[a-z0-9_]{3,20}$/.test(value);
 }
+function updateStreamVisibility(classId, fieldId, streamId){
+  const isClass12 = $(classId).value === "12";
+  $(fieldId).classList.toggle("hidden", !isClass12);
+  $(streamId).required = isClass12;
+  if(!isClass12) $(streamId).value = "";
+}
+$("studentClass").addEventListener("change", () =>
+  updateStreamVisibility("studentClass","streamField","stream")
+);
+$("googleClass").addEventListener("change", () =>
+  updateStreamVisibility("googleClass","googleStreamField","googleStream")
+);
+
 function friendlyError(error){
   const codes = {
     "auth/email-already-in-use":"This email is already registered. Please login.",
@@ -318,9 +317,17 @@ function friendlyError(error){
 
 async function saveStudentProfile(user, details){
   const username = cleanUsername(details.username);
+  const studentClass = String(details.studentClass);
+  const stream = studentClass === "12" ? details.stream : "";
 
   if(!validUsername(username)){
     throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
+  }
+  if(!["10","12"].includes(studentClass)){
+    throw new Error("Please select Class 10 or Class 12.");
+  }
+  if(studentClass === "12" && !stream){
+    throw new Error("Please select your stream.");
   }
 
   const userRef = db.collection("users").doc(user.uid);
@@ -338,20 +345,20 @@ async function saveStudentProfile(user, details){
     }
 
     transaction.set(userRef, {
-      uid: user.uid,
-      name: details.name.trim(),
-      username: username,
-      email: user.email || "",
-      board: "CBSE",
-      class: "12",
-      stream: details.stream,
-      authProvider: details.provider || "password",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      uid:user.uid,
+      name:details.name.trim(),
+      username:username,
+      email:user.email || "",
+      board:details.board || "CBSE",
+      class:studentClass,
+      stream:stream,
+      authProvider:details.provider || "password",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
 
     transaction.set(usernameRef, {
-      uid: user.uid,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      uid:user.uid,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
   });
 
@@ -367,7 +374,7 @@ async function routeSignedInUser(user){
     }else{
       $("googleName").value = user.displayName || "";
       showForm("profile");
-      showMessage("Complete your profile to enter EDUVANTA.", "success");
+      showMessage("Complete your profile to enter EDUVANTA.","success");
     }
   }catch(error){
     showMessage(friendlyError(error));
@@ -391,8 +398,7 @@ $("signupForm").addEventListener("submit", async event => {
   event.preventDefault();
   clearMessage();
   const form = $("signupForm");
-  setLoading(form, true);
-
+  setLoading(form,true);
   let createdUser = null;
 
   try{
@@ -400,28 +406,31 @@ $("signupForm").addEventListener("submit", async event => {
     const username = cleanUsername($("username").value);
     const email = $("signupEmail").value.trim();
     const password = $("signupPassword").value;
+    const studentClass = $("studentClass").value;
     const stream = $("stream").value;
+    const board = $("board").value;
 
     if(!validUsername(username)){
       throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
     }
-    if(!stream) throw new Error("Please select your stream.");
+    if(!studentClass) throw new Error("Please select your class.");
+    if(studentClass === "12" && !stream) throw new Error("Please select your stream.");
 
-    const credential = await auth.createUserWithEmailAndPassword(email, password);
+    const credential = await auth.createUserWithEmailAndPassword(email,password);
     createdUser = credential.user;
 
-    await saveStudentProfile(createdUser, {
-      name, username, stream, provider:"password"
+    await saveStudentProfile(createdUser,{
+      name,username,studentClass,stream,board,provider:"password"
     });
   }catch(error){
     if(createdUser){
       showMessage("Account created, but profile saving failed: " + friendlyError(error) +
-        " Please do not create another account. Sign in with this email and contact support.");
+        " Do not create another account. Sign in with this email and contact support.");
     }else{
       showMessage(friendlyError(error));
     }
   }finally{
-    setLoading(form, false);
+    setLoading(form,false);
   }
 });
 
@@ -429,7 +438,7 @@ $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
   clearMessage();
   const form = $("loginForm");
-  setLoading(form, true);
+  setLoading(form,true);
   try{
     await auth.signInWithEmailAndPassword(
       $("loginEmail").value.trim(),
@@ -439,7 +448,7 @@ $("loginForm").addEventListener("submit", async event => {
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
-    setLoading(form, false);
+    setLoading(form,false);
   }
 });
 
@@ -461,21 +470,24 @@ $("profileForm").addEventListener("submit", async event => {
   event.preventDefault();
   clearMessage();
   const form = $("profileForm");
-  setLoading(form, true);
+  setLoading(form,true);
+
   try{
     const user = auth.currentUser;
     if(!user) throw new Error("Please sign in with Google again.");
 
-    await saveStudentProfile(user, {
+    await saveStudentProfile(user,{
       name:$("googleName").value.trim(),
       username:$("googleUsername").value,
+      board:$("googleBoard").value,
+      studentClass:$("googleClass").value,
       stream:$("googleStream").value,
       provider:"google"
     });
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
-    setLoading(form, false);
+    setLoading(form,false);
   }
 });
 
@@ -484,4 +496,4 @@ auth.onAuthStateChanged(user => {
 });
 </script>
 </body>
-            </html>
+</html>
