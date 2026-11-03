@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>EDUVANTA | Login & Signup</title>
+
+<style>
+:root {
+  --bg:#080e1d;
+  --card:#111d33;
+  --border:#263957;
+  --text:#f4f7ff;
+  --muted:#9eacc5;
+  --blue:#718cff;
+  --cyan:#35dfd0;
+  --danger:#ff7777;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  padding:25px 15px;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 15% 10%,#183e7055,transparent 35%),
+    radial-gradient(circle at 90% 90%,#49328a44,transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+.container{width:100%;max-width:440px}
+.brand{text-align:center;margin-bottom:23px}
+.brand-icon{
+  width:62px;height:62px;margin:auto auto 12px;
+  display:grid;place-items:center;
+  border-radius:19px;
+  background:linear-gradient(135deg,#35dfd0,#718cff);
+  color:#071322;font-size:29px;font-weight:900;
+}
+.brand h1{font-size:27px;letter-spacing:1px}
+.brand h1 span{color:var(--cyan)}
+.brand p{color:var(--muted);font-size:13px;margin-top:7px}
+.card{
+  background:#111d33ee;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 20px 70px #0005;
+}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:23px}
+.tab{
+  border:1px solid var(--border);border-radius:10px;
+  background:#1a2942;color:var(--muted);
+  padding:12px;font-weight:bold;
+}
+.tab.active{background:var(--blue);color:#081020;border-color:var(--blue)}
+h2{font-size:22px;margin-bottom:7px}
+.sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.field{margin-bottom:15px}
+label{display:block;font-size:12px;color:#c5d1e6;margin-bottom:7px}
+input,select{
+  width:100%;padding:13px 14px;
+  border:1px solid var(--border);border-radius:10px;
+  background:#0b1528;color:white;font-size:14px;outline:none;
+}
+input:focus,select:focus{border-color:var(--cyan)}
+select option{background:#0b1528}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:65px}
+.show-pass{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  border:0;background:none;color:var(--cyan);font-size:12px;
+}
+.btn{
+  width:100%;padding:14px;border:0;border-radius:11px;
+  background:linear-gradient(100deg,var(--cyan),#8aa1ff);
+  color:#071322;font-weight:800;font-size:14px;
+  cursor:pointer;margin-top:5px;
+}
+.google-btn{
+  width:100%;padding:13px;border:1px solid var(--border);
+  border-radius:11px;background:#17243a;color:white;
+  font-weight:bold;cursor:pointer;margin-top:13px;
+}
+.google-btn span{margin-right:9px;font-size:17px}
+.divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:11px}
+.divider:before,.divider:after{content:"";height:1px;background:var(--border);flex:1}
+.switch{text-align:center;color:var(--muted);font-size:13px;margin-top:19px}
+.switch button{border:0;background:none;color:var(--cyan);font-weight:bold}
+.message{
+  display:none;padding:11px;border-radius:9px;
+  margin:0 0 15px;font-size:12px;line-height:1.5;
+}
+.message.error{display:block;background:#632d3544;color:#ffaaaa;border:1px solid #8d424c}
+.message.success{display:block;background:#174c4544;color:#8ff0d9;border:1px solid #277b6d}
+.note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:16px;text-align:center}
+.hidden{display:none!important}
+.loading{opacity:.65;pointer-events:none}
+@media(max-width:380px){.card{padding:19px}.brand h1{font-size:24px}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="brand">
+    <div class="brand-icon">E</div>
+    <h1>EDU<span>VANTA</span></h1>
+    <p>Learn Beyond Limits</p>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" id="loginTab" type="button">Login</button>
+      <button class="tab" id="signupTab" type="button">Create Account</button>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+      <h2>Welcome Back 👋</h2>
+      <p class="sub">Login to continue your learning journey.</p>
+
+      <div class="field">
+        <label for="loginEmail">Email / Gmail</label>
+        <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <div class="password-wrap">
+          <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+          <button class="show-pass" type="button" data-target="loginPassword">Show</button>
+        </div>
+      </div>
+
+      <button class="btn" type="submit">Login to EDUVANTA →</button>
+
+      <div class="divider">OR</div>
+      <button class="google-btn" id="googleLogin" type="button">
+        <span>G</span> Continue with Google
+      </button>
+
+      <p class="switch">New student?
+        <button type="button" id="goSignup">Create account</button>
+      </p>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" class="hidden">
+      <h2>Create Your Account ✨</h2>
+      <p class="sub">Set up your personal Class 12 learning profile.</p>
+
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" placeholder="Enter your name" maxlength="60" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="e.g. student123" minlength="3" maxlength="20" autocomplete="username" required>
+      </div>
+
+      <div class="field">
+        <label for="signupEmail">Gmail / Email Address</label>
+        <input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="signupPassword">Create Password</label>
+        <div class="password-wrap">
+          <input id="signupPassword" type="password" placeholder="Minimum 6 characters" minlength="6" autocomplete="new-password" required>
+          <button class="show-pass" type="button" data-target="signupPassword">Show</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="stream">Choose Your Stream</label>
+        <select id="stream" required>
+          <option value="">Select your stream</option>
+          <option value="Science PCM">Science – PCM</option>
+          <option value="Science PCB">Science – PCB</option>
+          <option value="Commerce">Commerce</option>
+          <option value="Arts/Humanities">Arts / Humanities</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="board">Board</label>
+        <select id="board" required>
+          <option value="CBSE" selected>CBSE</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Class</label>
+        <input value="Class 12" disabled>
+      </div>
+
+      <button class="btn" type="submit">Create My Account →</button>
+
+      <div class="divider">OR</div>
+      <button class="google-btn" id="googleSignup" type="button">
+        <span>G</span> Sign up with Google
+      </button>
+
+      <p class="switch">Already registered?
+        <button type="button" id="goLogin">Login</button>
+      </p>
+    </form>
+
+    <!-- GOOGLE PROFILE COMPLETION -->
+    <form id="profileForm" class="hidden">
+      <h2>Complete Your Profile 🎓</h2>
+      <p class="sub">Your Google account is connected. Choose a username and stream to continue.</p>
+
+      <div class="field">
+        <label for="googleName">Full Name</label>
+        <input id="googleName" type="text" maxlength="60" required>
+      </div>
+
+      <div class="field">
+        <label for="googleUsername">Choose Username</label>
+        <input id="googleUsername" type="text" minlength="3" maxlength="20" placeholder="e.g. student123" required>
+      </div>
+
+      <div class="field">
+        <label for="googleStream">Your Stream</label>
+        <select id="googleStream" required>
+          <option value="">Select your stream</option>
+          <option value="Science PCM">Science – PCM</option>
+          <option value="Science PCB">Science – PCB</option>
+          <option value="Commerce">Commerce</option>
+          <option value="Arts/Humanities">Arts / Humanities</option>
+        </select>
+      </div>
+
+      <button class="btn" type="submit">Save Profile & Continue →</button>
+    </form>
+
+    <p class="note">
+      By continuing, you agree to use EDUVANTA responsibly.
+      Your password is handled by Firebase Authentication, not stored in your profile database.
+    </p>
+  </div>
+</div>
+
+<!-- Firebase Compatibility SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB-9GjrfHDIwbEjScWd5vBRpUvbQX9U2bc",
+  authDomain: "eduvanta-93826.firebaseapp.com",
+  projectId: "eduvanta-93826",
+  storageBucket: "eduvanta-93826.firebasestorage.app",
+  messagingSenderId: "33328294092",
+  appId: "1:33328294092:web:7f51cd4ecb6b970be27a69"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const $ = id => document.getElementById(id);
+const message = $("message");
+
+function showMessage(text, type="error"){
+  message.textContent = text;
+  message.className = "message " + type;
+}
+function clearMessage(){
+  message.textContent = "";
+  message.className = "message";
+}
+function setLoading(form, loading){
+  form.classList.toggle("loading", loading);
+  form.querySelectorAll("button").forEach(b => b.disabled = loading);
+}
+function showForm(which){
+  clearMessage();
+  $("loginForm").classList.toggle("hidden", which !== "login");
+  $("signupForm").classList.toggle("hidden", which !== "signup");
+  $("profileForm").classList.toggle("hidden", which !== "profile");
+  $("loginTab").classList.toggle("active", which === "login");
+  $("signupTab").classList.toggle("active", which === "signup");
+  $("loginTab").classList.toggle("hidden", which === "profile");
+  $("signupTab").classList.toggle("hidden", which === "profile");
+}
+function cleanUsername(value){
+  return value.trim().toLowerCase();
+}
+function validUsername(value){
+  return /^[a-z0-9_]{3,20}$/.test(value);
+}
+function friendlyError(error){
+  const codes = {
+    "auth/email-already-in-use":"This email is already registered. Please login.",
+    "auth/invalid-email":"Please enter a valid email address.",
+    "auth/weak-password":"Password must contain at least 6 characters.",
+    "auth/user-not-found":"No account found. Please sign up first.",
+    "auth/wrong-password":"Incorrect password. Try again.",
+    "auth/invalid-credential":"Email or password is incorrect.",
+    "auth/popup-closed-by-user":"Google sign-in was closed before completion.",
+    "auth/popup-blocked":"Popup was blocked. Allow popups and try again.",
+    "auth/unauthorized-domain":"This website domain is not authorized in Firebase Authentication.",
+    "auth/network-request-failed":"Network error. Check your internet connection.",
+    "permission-denied":"Firestore permission denied. Check your Firestore Rules."
+  };
+  return codes[error.code] || error.message || "Something went wrong. Please try again.";
+}
+
+async function saveStudentProfile(user, details){
+  const username = cleanUsername(details.username);
+
+  if(!validUsername(username)){
+    throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
+  }
+
+  const userRef = db.collection("users").doc(user.uid);
+  const usernameRef = db.collection("usernames").doc(username);
+
+  await db.runTransaction(async transaction => {
+    const existingUser = await transaction.get(userRef);
+    const existingUsername = await transaction.get(usernameRef);
+
+    if(existingUser.exists){
+      throw new Error("A profile already exists for this account. Please login.");
+    }
+    if(existingUsername.exists){
+      throw new Error("This username is already taken. Please choose another.");
+    }
+
+    transaction.set(userRef, {
+      uid: user.uid,
+      name: details.name.trim(),
+      username: username,
+      email: user.email || "",
+      board: "CBSE",
+      class: "12",
+      stream: details.stream,
+      authProvider: details.provider || "password",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    transaction.set(usernameRef, {
+      uid: user.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  });
+
+  window.location.replace("index.html");
+}
+
+async function routeSignedInUser(user){
+  if(!user) return;
+  try{
+    const snap = await db.collection("users").doc(user.uid).get();
+    if(snap.exists){
+      window.location.replace("index.html");
+    }else{
+      $("googleName").value = user.displayName || "";
+      showForm("profile");
+      showMessage("Complete your profile to enter EDUVANTA.", "success");
+    }
+  }catch(error){
+    showMessage(friendlyError(error));
+  }
+}
+
+$("loginTab").onclick = () => showForm("login");
+$("signupTab").onclick = () => showForm("signup");
+$("goSignup").onclick = () => showForm("signup");
+$("goLogin").onclick = () => showForm("login");
+
+document.querySelectorAll(".show-pass").forEach(button => {
+  button.addEventListener("click", () => {
+    const input = $(button.dataset.target);
+    input.type = input.type === "password" ? "text" : "password";
+    button.textContent = input.type === "password" ? "Show" : "Hide";
+  });
+});
+
+$("signupForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearMessage();
+  const form = $("signupForm");
+  setLoading(form, true);
+
+  let createdUser = null;
+
+  try{
+    const name = $("fullName").value.trim();
+    const username = cleanUsername($("username").value);
+    const email = $("signupEmail").value.trim();
+    const password = $("signupPassword").value;
+    const stream = $("stream").value;
+
+    if(!validUsername(username)){
+      throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
+    }
+    if(!stream) throw new Error("Please select your stream.");
+
+    const credential = await auth.createUserWithEmailAndPassword(email, password);
+    createdUser = credential.user;
+
+    await saveStudentProfile(createdUser, {
+      name, username, stream, provider:"password"
+    });
+  }catch(error){
+    if(createdUser){
+      showMessage("Account created, but profile saving failed: " + friendlyError(error) +
+        " Please do not create another account. Sign in with this email and contact support.");
+    }else{
+      showMessage(friendlyError(error));
+    }
+  }finally{
+    setLoading(form, false);
+  }
+});
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearMessage();
+  const form = $("loginForm");
+  setLoading(form, true);
+  try{
+    await auth.signInWithEmailAndPassword(
+      $("loginEmail").value.trim(),
+      $("loginPassword").value
+    );
+    await routeSignedInUser(auth.currentUser);
+  }catch(error){
+    showMessage(friendlyError(error));
+  }finally{
+    setLoading(form, false);
+  }
+});
+
+async function googleSignIn(){
+  clearMessage();
+  const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({prompt:"select_account"});
+  try{
+    const result = await auth.signInWithPopup(provider);
+    await routeSignedInUser(result.user);
+  }catch(error){
+    showMessage(friendlyError(error));
+  }
+}
+$("googleLogin").onclick = googleSignIn;
+$("googleSignup").onclick = googleSignIn;
+
+$("profileForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearMessage();
+  const form = $("profileForm");
+  setLoading(form, true);
+  try{
+    const user = auth.currentUser;
+    if(!user) throw new Error("Please sign in with Google again.");
+
+    await saveStudentProfile(user, {
+      name:$("googleName").value.trim(),
+      username:$("googleUsername").value,
+      stream:$("googleStream").value,
+      provider:"google"
+    });
+  }catch(error){
+    showMessage(friendlyError(error));
+  }finally{
+    setLoading(form, false);
+  }
+});
+
+auth.onAuthStateChanged(user => {
+  if(user) routeSignedInUser(user);
+});
+</script>
+</body>
+            </html>
