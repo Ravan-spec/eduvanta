@@ -2,174 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050b19">
 <meta name="description" content="EDUVANTA - Your personal learning platform">
-<title>EDUVANTA | Learn Beyond Limits</title>
+<title>EDUVANTA | Student Dashboard</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
 :root{
- --bg:#050b19;
- --card:#0d1830;
- --card2:#111f3d;
- --border:#1d3158;
- --white:#f4f7ff;
- --muted:#9baed0;
- --cyan:#08d8e9;
- --blue:#258bff;
- --purple:#713bff;
- --green:#00dc9b;
+ --bg:#050b19;--card:#0d1830;--card2:#111f3d;
+ --border:#1d3158;--white:#f4f7ff;--muted:#9baed0;
+ --cyan:#08d8e9;--blue:#258bff;--purple:#713bff;--green:#00dc9b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
- background:var(--bg);
- color:var(--white);
- font-family:Inter,Arial,sans-serif;
- min-height:100vh;
- padding-bottom:100px;
+ background:var(--bg);color:var(--white);
+ font-family:Inter,Arial,sans-serif;min-height:100vh;padding-bottom:95px;
 }
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer}
 .container{max-width:1100px;margin:auto;padding:0 18px}
+.hidden{display:none!important}
 
-/* HEADER */
 header{
  display:flex;align-items:center;justify-content:space-between;
- padding:17px 20px;max-width:1100px;margin:auto;
+ padding:16px 20px;max-width:1100px;margin:auto;
 }
 .brand{display:flex;align-items:center;gap:11px}
 .brand-icon{
- width:48px;height:48px;border-radius:15px;
- display:grid;place-items:center;font-size:29px;
+ width:46px;height:46px;border-radius:15px;display:grid;
+ place-items:center;font-size:27px;
  background:linear-gradient(135deg,#1479ed,#08d8e9);
  box-shadow:0 0 25px #087aff55;
 }
-.brand-name{font-size:23px;font-weight:900;letter-spacing:-1px}
+.brand-name{font-size:22px;font-weight:900;letter-spacing:-1px}
 .brand-name span{color:var(--cyan)}
-.brand-tag{font-size:11px;color:var(--muted);margin-top:3px}
-.header-right{display:flex;align-items:center;gap:13px}
-.header-icon{
- width:40px;height:40px;border:1px solid var(--border);
- border-radius:50%;display:grid;place-items:center;
- background:var(--card);font-size:18px;
+.brand-tag{font-size:10px;color:var(--muted);margin-top:3px}
+.header-right{display:flex;align-items:center;gap:10px}
+.stream-pill{
+ background:#112b4a;border:1px solid #28527c;color:#8cecf2;
+ padding:8px 11px;border-radius:20px;font-size:10px;font-weight:bold;
 }
 .profile{
- width:42px;height:42px;border-radius:50%;
+ width:40px;height:40px;border-radius:50%;
  background:linear-gradient(135deg,#267aff,#783bff);
- display:grid;place-items:center;font-weight:900;font-size:18px;
+ display:grid;place-items:center;font-weight:900;font-size:17px;
+}
+.logout{
+ border:1px solid #713b55;background:#30182a;color:#ffb4c2;
+ border-radius:10px;padding:9px 11px;font-size:11px;font-weight:bold;
 }
 
-/* WELCOME HERO */
 .hero{
  margin-top:10px;position:relative;overflow:hidden;
- border-radius:25px;padding:30px 25px;min-height:210px;
+ border-radius:25px;padding:30px 25px;min-height:205px;
  border:1px solid #3845a7;
  background:
  radial-gradient(circle at 80% 10%,#275bff77,transparent 40%),
  linear-gradient(115deg,#111b73,#082c70 65%,#101d49);
 }
-.hero:after{
- content:"✦  ·  ✧     ·  ✦";
- position:absolute;right:25px;top:25px;
- color:#71f3ff;font-size:24px;opacity:.7;
-}
-.hero-content{position:relative;z-index:2;max-width:75%}
-.hero h1{font-size:30px;line-height:1.3;margin:12px 0}
+.hero-content{position:relative;z-index:2;max-width:76%}
+.hero h1{font-size:29px;line-height:1.3;margin:12px 0}
 .hero h1 span{color:#13e4d7}
-.hero p{font-size:14px;color:#c7d8ff;line-height:1.7}
+.hero p{font-size:13px;color:#c7d8ff;line-height:1.7}
 .hero-btn{
- display:inline-block;margin-top:20px;padding:13px 19px;
+ display:inline-block;margin-top:17px;padding:12px 18px;
  border-radius:30px;background:linear-gradient(90deg,#16bfff,#4e9cff);
- color:#03162c;font-size:13px;font-weight:900;
- box-shadow:0 5px 25px #009dff55;
+ color:#03162c;font-size:12px;font-weight:900;
 }
-.robot{
- position:absolute;right:23px;bottom:0;font-size:105px;
- filter:drop-shadow(0 0 22px #00cfff88);
-}
+.robot{position:absolute;right:20px;bottom:0;font-size:100px}
 
-/* SECTION */
-.section{margin-top:29px}
+.section{margin-top:28px}
 .section-heading{
  display:flex;justify-content:space-between;align-items:center;
- gap:10px;margin-bottom:15px;
+ gap:10px;margin-bottom:14px;
 }
-.section-heading h2{font-size:20px}
+.section-heading h2{font-size:19px}
 .section-heading a{color:var(--cyan);font-size:12px;font-weight:bold}
 .section-sub{font-size:11px;color:var(--muted);margin-top:5px}
-
-/* STATS */
-.stats-grid{
- display:grid;grid-template-columns:1.4fr 1fr;
- gap:13px;
-}
 .panel{
  background:linear-gradient(145deg,#101e3a,#0b152a);
- border:1px solid var(--border);border-radius:21px;padding:19px;
- box-shadow:0 8px 25px #00000018;
+ border:1px solid var(--border);border-radius:20px;padding:18px;
 }
-.panel-title{font-size:17px;font-weight:800}
+.stats-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:13px}
+.panel-title{font-size:16px;font-weight:800}
 .progress-layout{
  display:flex;align-items:center;justify-content:space-around;
- gap:12px;margin-top:18px;
+ gap:10px;margin-top:18px;
 }
 .progress-ring{
- width:125px;height:125px;border-radius:50%;
+ width:112px;height:112px;border-radius:50%;
  display:grid;place-items:center;position:relative;
- background:conic-gradient(var(--cyan) 0deg,#258bff 115deg,#25395e 115deg);
+ background:conic-gradient(var(--cyan) 0deg,#25395e 0deg);
 }
 .progress-ring:before{
- content:"";position:absolute;inset:10px;border-radius:50%;
- background:#101d36;
+ content:"";position:absolute;inset:9px;border-radius:50%;background:#101d36;
 }
 .ring-content{position:relative;text-align:center}
-.ring-content strong{display:block;font-size:25px}
-.ring-content small{font-size:11px;color:var(--muted)}
-.stat-divider{width:1px;height:90px;background:var(--border)}
+.ring-content strong{display:block;font-size:24px}
+.ring-content small{font-size:10px;color:var(--muted)}
+.stat-divider{width:1px;height:75px;background:var(--border)}
 .stat-mini{text-align:center}
-.stat-mini .emoji{font-size:26px}
-.stat-mini strong{display:block;font-size:23px;margin:9px 0 4px}
-.stat-mini small{color:var(--muted);font-size:11px}
+.stat-mini .emoji{font-size:24px}
+.stat-mini strong{display:block;font-size:21px;margin:8px 0 4px}
+.stat-mini small{color:var(--muted);font-size:10px}
 
-/* DAILY GOAL */
 .goal-panel{
  background:linear-gradient(145deg,#191a69,#171e60 65%,#102b6b);
  border-color:#4141a7;
 }
-.goal-heading{display:flex;align-items:center;gap:11px;font-size:16px;font-weight:bold}
-.goal-heading span{font-size:29px}
-.goal-time{font-size:27px;font-weight:900;margin:20px 0 12px}
-.goal-time small{font-size:13px;color:#c0caff}
-.goal-track{
- height:10px;border-radius:20px;background:#ffffff20;overflow:hidden;
-}
+.goal-heading{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:bold}
+.goal-heading span{font-size:27px}
+.goal-time{font-size:26px;font-weight:900;margin:18px 0 12px}
+.goal-time small{font-size:12px;color:#c0caff}
+.goal-track{height:9px;border-radius:20px;background:#ffffff20;overflow:hidden}
 .goal-fill{
  height:100%;width:0%;border-radius:20px;
  background:linear-gradient(90deg,#00d9d5,#08a7ff);
 }
-.goal-message{font-size:11px;color:#48f4bc;margin-top:13px}
-.goal-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.goal-message{font-size:11px;color:#48f4bc;margin-top:12px}
+.goal-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
 .goal-actions button{
  background:#ffffff16;border:1px solid #ffffff25;color:white;
  border-radius:9px;padding:8px 11px;font-size:11px;
 }
 
-/* QUICK ACCESS */
 .quick-grid{
- display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
- gap:12px;
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;
 }
 .quick-card{
- min-height:125px;border-radius:19px;padding:16px 8px;
- text-align:center;border:1px solid #ffffff0c;
+ min-height:118px;border-radius:17px;padding:13px 7px;
+ text-align:center;border:1px solid #ffffff12;
  display:flex;flex-direction:column;justify-content:center;align-items:center;
  transition:.2s;
 }
-.quick-card:hover{transform:translateY(-4px);border-color:#ffffff44}
-.quick-card .icon{font-size:33px;margin-bottom:10px}
-.quick-card strong{font-size:13px;line-height:1.5}
+.quick-card:hover{transform:translateY(-3px);border-color:#ffffff55}
+.quick-card .icon{font-size:30px;margin-bottom:9px}
+.quick-card strong{font-size:12px;line-height:1.5}
 .quick-card small{font-size:10px;margin-top:5px;color:#d2dcff}
 .q-blue{background:linear-gradient(145deg,#092e70,#0a1c43)}
 .q-green{background:linear-gradient(145deg,#064a4a,#0b283e)}
@@ -177,138 +147,132 @@ header{
 .q-orange{background:linear-gradient(145deg,#54311e,#2c1d32)}
 .q-pink{background:linear-gradient(145deg,#4d204d,#211b43)}
 .q-cyan{background:linear-gradient(145deg,#07564c,#102c3b)}
-.disabled{opacity:.7;cursor:default}
+.coming{opacity:.7;cursor:not-allowed}
 
-/* CONTINUE LEARNING */
-.continue-panel{
+.stream-panel{
  background:linear-gradient(120deg,#10264c,#0a1832);
  border-color:#254c86;
 }
-.continue-content{display:flex;gap:13px;align-items:center;margin-top:15px}
+.stream-top{display:flex;align-items:center;gap:13px}
+.stream-icon{
+ width:55px;height:55px;border-radius:15px;
+ display:grid;place-items:center;font-size:27px;
+ background:linear-gradient(135deg,#155a94,#392c8b);
+}
+.stream-top h3{font-size:17px}
+.stream-top p{font-size:11px;color:var(--muted);margin-top:5px}
+.subject-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.subject-tags span{
+ background:#142d4e;border:1px solid #28527c;color:#c7eaff;
+ border-radius:20px;padding:7px 11px;font-size:11px;
+}
+.stream-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:14px}
+
+.continue-panel{
+ background:linear-gradient(120deg,#10264c,#0a1832);border-color:#254c86;
+}
+.continue-content{display:flex;gap:13px;align-items:center;margin-top:12px}
 .chapter-art{
- width:105px;height:100px;flex-shrink:0;border-radius:15px;
- display:grid;place-items:center;font-size:45px;
+ width:90px;height:90px;flex-shrink:0;border-radius:15px;
+ display:grid;place-items:center;font-size:40px;
  background:radial-gradient(circle,#174c92,#0b1d42);
  border:1px solid #315a91;
 }
 .chapter-info{min-width:0;flex:1}
 .chapter-info .subject{color:#8dbaff;font-size:11px}
-.chapter-info h3{font-size:15px;margin:7px 0}
+.chapter-info h3{font-size:14px;margin:7px 0}
 .chapter-info p{font-size:11px;color:var(--muted)}
-.chapter-progress{display:flex;align-items:center;gap:8px;margin-top:12px}
-.chapter-progress .track{height:7px;flex:1;background:#263b60;border-radius:20px;overflow:hidden}
-.chapter-progress .fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue))}
-.chapter-progress span{font-size:11px;font-weight:bold}
+.chapter-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.chapter-actions a{font-size:11px;color:var(--cyan);font-weight:bold}
+.empty{color:var(--muted);font-size:12px;text-align:center;padding:18px;line-height:1.7}
 
-/* CLASSES */
-.class-grid{
- display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;
-}
-.class-box{
- text-align:center;padding:15px 5px;border-radius:15px;
- background:linear-gradient(145deg,#142650,#101b36);
- border:1px solid var(--border);
-}
-.class-box strong{font-size:13px;display:block}
-.class-box small{font-size:9px;color:var(--muted);display:block;margin-top:5px}
-.class-box:hover{border-color:var(--cyan)}
-
-/* TEST BANNER */
 .test-banner{
- display:flex;align-items:center;gap:15px;
- padding:19px;border-radius:20px;
- background:linear-gradient(110deg,#4b19a4,#20218a);
+ display:flex;align-items:center;gap:14px;padding:18px;
+ border-radius:19px;background:linear-gradient(110deg,#4b19a4,#20218a);
  border:1px solid #6646dd;
 }
-.test-trophy{font-size:42px}
+.test-trophy{font-size:39px}
 .test-copy{flex:1}
-.test-copy h3{font-size:16px}
+.test-copy h3{font-size:15px}
 .test-copy p{font-size:11px;color:#dedaff;margin-top:6px}
 .test-banner a{
  background:#6749ff;border:1px solid #8b78ff;
- padding:12px 15px;border-radius:12px;font-size:12px;font-weight:bold;
+ padding:11px 14px;border-radius:11px;font-size:11px;font-weight:bold;
 }
 
-/* PROGRESS */
 .chapter-list{display:grid;gap:10px}
-.chapter-item{
- padding:13px;background:#111f3a;border:1px solid var(--border);
- border-radius:12px;
-}
+.chapter-item{padding:13px;background:#111f3a;border:1px solid var(--border);border-radius:12px}
 .chapter-row{display:flex;justify-content:space-between;gap:10px;font-size:12px}
 .chapter-row span:last-child{color:var(--cyan)}
 .chapter-meta{font-size:10px;color:var(--muted);margin:6px 0}
 .mini-track{height:6px;background:#263955;border-radius:20px;overflow:hidden}
 .mini-fill{height:100%;background:linear-gradient(90deg,#00d9d7,#398bff)}
-.empty{color:var(--muted);font-size:12px;text-align:center;padding:18px;line-height:1.7}
 
-/* BOTTOM NAV */
 .bottom-nav{
  position:fixed;bottom:0;left:0;right:0;z-index:50;
- display:flex;justify-content:space-around;
- padding:10px 5px calc(10px + env(safe-area-inset-bottom));
- background:#081226f5;backdrop-filter:blur(15px);
- border-top:1px solid #243758;
+ display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));
+ background:#081226f5;backdrop-filter:blur(15px);border-top:1px solid #243758;
 }
-.nav-item{
- flex:1;text-align:center;color:#8497bb;font-size:10px;
-}
+.nav-item{flex:1;text-align:center;color:#8497bb;font-size:10px}
 .nav-item span{display:block;font-size:21px;margin-bottom:5px}
 .nav-item.active{color:#15baff}
-.nav-item.active span{filter:drop-shadow(0 0 7px #0bbcff)}
+footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
 
-footer{text-align:center;color:#7385a6;font-size:10px;padding:30px 15px}
-
-/* DESKTOP */
-@media(min-width:800px){
- .container{padding-left:25px;padding-right:25px}
- .hero{padding:40px;min-height:240px}
- .hero h1{font-size:36px}
- .robot{font-size:130px}
- .quick-card{min-height:145px}
+#loadingScreen{
+ min-height:75vh;display:grid;place-items:center;text-align:center;
+ color:var(--muted);font-size:13px;
 }
+.loader{
+ width:38px;height:38px;border:3px solid #29405f;
+ border-top-color:var(--cyan);border-radius:50%;
+ animation:spin .8s linear infinite;margin:0 auto 14px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* MOBILE */
 @media(max-width:600px){
- header{padding:13px 16px}
- .brand-icon{width:41px;height:41px;font-size:24px}
+ header{padding:12px 15px}
+ .brand-icon{width:40px;height:40px;font-size:23px}
  .brand-name{font-size:19px}
  .brand-tag{font-size:9px}
- .header-icon{width:35px;height:35px}
- .profile{width:36px;height:36px}
  .container{padding:0 15px}
- .hero{padding:23px 18px;min-height:195px}
- .hero-content{max-width:80%}
- .hero h1{font-size:24px}
+ .hero{padding:22px 17px;min-height:190px}
+ .hero-content{max-width:82%}
+ .hero h1{font-size:23px}
  .hero p{font-size:11px}
- .hero-btn{font-size:11px;padding:11px 14px}
- .robot{font-size:77px;right:8px}
+ .robot{font-size:75px;right:6px}
  .stats-grid{grid-template-columns:1fr}
- .progress-ring{width:105px;height:105px}
- .progress-ring:before{inset:9px}
- .ring-content strong{font-size:22px}
- .stat-divider{height:75px}
+ .progress-ring{width:100px;height:100px}
  .quick-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
- .quick-card{min-height:105px;padding:10px 3px;border-radius:14px}
- .quick-card .icon{font-size:25px}
- .quick-card strong{font-size:10px}
+ .quick-card{min-height:102px;padding:9px 3px}
+ .quick-card .icon{font-size:24px}
+ .quick-card strong{font-size:9px}
  .quick-card small{font-size:8px}
- .chapter-art{width:83px;height:85px;font-size:35px}
- .chapter-info h3{font-size:13px}
- .class-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
- .test-banner{padding:14px;gap:9px}
- .test-trophy{font-size:32px}
- .test-copy h3{font-size:13px}
- .test-copy p{font-size:9px}
- .test-banner a{font-size:10px;padding:10px}
- .section{margin-top:25px}
- .section-heading h2{font-size:17px}
  .panel{padding:15px}
+ .stream-top h3{font-size:15px}
+ .test-banner{padding:13px;gap:9px}
+ .test-trophy{font-size:30px}
+ .test-copy h3{font-size:12px}
+ .test-copy p{font-size:9px}
+ .test-banner a{font-size:10px;padding:9px}
+}
+@media(max-width:360px){
+ .stream-pill{display:none}
+ .quick-card strong{font-size:8px}
+ .progress-layout{gap:6px}
 }
 </style>
 </head>
 
 <body>
+
+<div id="loadingScreen">
+ <div>
+  <div class="loader"></div>
+  <div>Loading your EDUVANTA dashboard...</div>
+ </div>
+</div>
+
+<div id="app" class="hidden">
 
 <header>
  <a class="brand" href="index.html">
@@ -319,35 +283,30 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:30px 15px}
   </div>
  </a>
  <div class="header-right">
-  <div class="header-icon">♧</div>
-  <div class="profile" id="profileInitial">D</div>
+  <div class="stream-pill" id="streamBadge">CLASS 12</div>
+  <div class="profile" id="profileInitial">S</div>
+  <button class="logout" id="logoutBtn">Logout</button>
  </div>
 </header>
 
 <main class="container">
 
-<!-- WELCOME -->
 <section class="hero">
  <div class="hero-content">
   <div style="font-size:11px;color:#b9d6ff;font-weight:bold;letter-spacing:1px">
-   YOUR LEARNING JOURNEY
+   YOUR PERSONAL LEARNING SPACE
   </div>
   <h1>Hello, <span id="studentName">Student</span>! 👋</h1>
-  <p>Keep studying. Your goals are waiting! Every lesson takes you one step closer.</p>
+  <p id="welcomeText">Your learning journey continues here.</p>
   <a href="#continue" class="hero-btn">Continue Learning →</a>
  </div>
  <div class="robot">🤖</div>
 </section>
 
-<!-- STATS -->
 <section class="section">
  <div class="stats-grid">
-
   <div class="panel">
-   <div class="section-heading">
-    <div class="panel-title">📊 My Progress</div>
-    <a href="#progress">View Details ›</a>
-   </div>
+   <div class="panel-title">📊 My Progress</div>
    <div class="progress-layout">
     <div class="progress-ring" id="progressRing">
      <div class="ring-content">
@@ -377,109 +336,87 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:30px 15px}
     <small>/ <span id="goalMinutes">60</span> min</small>
    </div>
    <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
-   <div class="goal-message" id="goalMessage">60 minutes left to reach your goal.</div>
+   <div class="goal-message" id="goalMessage"></div>
    <div class="goal-actions">
     <button id="add15">+15 min</button>
     <button id="add30">+30 min</button>
     <button id="setGoal">Set Goal</button>
    </div>
   </div>
-
  </div>
 </section>
 
-<!-- QUICK ACCESS -->
 <section class="section" id="tools">
- <div class="section-heading">
-  <h2>⚡ Quick Access</h2>
-  <a href="#classes">See All →</a>
- </div>
-
+ <div class="section-heading"><h2>⚡ Quick Access</h2></div>
  <div class="quick-grid">
-  <a href="#classes" class="quick-card q-blue">
+  <a href="class.html?class=Class%2012" class="quick-card q-blue">
    <div class="icon">📖</div><strong>Study<br>Library</strong>
+   <small>Open subjects</small>
   </a>
-  <a href="#classes" class="quick-card q-green">
+  <a href="practice.html" class="quick-card q-green">
    <div class="icon">✅</div><strong>Practice<br>Questions</strong>
+   <small>Available practice</small>
   </a>
-  <div class="quick-card q-purple disabled">
+  <a href="#continue" class="quick-card q-purple">
+   <div class="icon">▶️</div><strong>Continue<br>Learning</strong>
+   <small>Last chapter</small>
+  </a>
+  <a href="#progress" class="quick-card q-cyan">
+   <div class="icon">📈</div><strong>My<br>Progress</strong>
+   <small>View statistics</small>
+  </a>
+  <div class="quick-card q-orange coming">
    <div class="icon">📝</div><strong>Mock<br>Tests</strong>
-   <small>Coming Soon</small>
+   <small>Coming soon</small>
   </div>
-  <div class="quick-card q-orange disabled">
+  <div class="quick-card q-pink coming">
    <div class="icon">⭐</div><strong>PYQ<br>Questions</strong>
-   <small>Coming Soon</small>
+   <small>Coming soon</small>
   </div>
-  <div class="quick-card q-pink disabled">
+  <div class="quick-card q-purple coming">
    <div class="icon">📑</div><strong>Formula<br>Cards</strong>
-   <small>Coming Soon</small>
+   <small>Coming soon</small>
   </div>
-  <div class="quick-card q-cyan disabled">
-   <div class="icon">📅</div><strong>Daily<br>Challenge</strong>
-   <small>Coming Soon</small>
-  </div>
-  <div class="quick-card q-purple disabled">
-   <div class="icon">🔖</div><strong>My<br>Bookmarks</strong>
-   <small>Coming Soon</small>
-  </div>
-  <div class="quick-card q-blue disabled">
-   <div class="icon">👑</div><strong>Premium</strong>
-   <small>Coming Soon</small>
+  <div class="quick-card q-blue coming">
+   <div class="icon">🔖</div><strong>Bookmarks</strong>
+   <small>Coming soon</small>
   </div>
  </div>
 </section>
 
-<!-- CONTINUE LEARNING -->
+<section class="section">
+ <div class="section-heading"><h2>🎓 My Learning Profile</h2></div>
+ <div class="panel stream-panel">
+  <div class="stream-top">
+   <div class="stream-icon" id="streamIcon">🎓</div>
+   <div>
+    <h3 id="profileStream">Your Stream</h3>
+    <p id="profileDetails">CBSE • Class 12</p>
+   </div>
+  </div>
+  <div class="subject-tags" id="subjectTags"></div>
+  <p class="stream-note" id="streamNote"></p>
+ </div>
+</section>
+
 <section class="section" id="continue">
- <div class="section-heading">
-  <h2>📖 Continue Learning</h2>
-  <a href="#classes">Explore →</a>
- </div>
+ <div class="section-heading"><h2>📖 Continue Learning</h2></div>
  <div class="panel continue-panel" id="continuePanel">
-  <div class="empty">
-   📚 Your recently opened chapter will appear here.<br>
-   Select a class and start learning.
-   <br><br>
-   <a href="#classes" style="color:var(--cyan)">Explore Classes →</a>
-  </div>
+  <div class="empty">Your recently opened chapter will appear here.</div>
  </div>
 </section>
 
-<!-- CLASSES -->
-<section class="section" id="classes">
- <div class="section-heading">
-  <h2>🎓 Your Classes</h2>
-  <a href="class.html?class=Class%2012">Explore All →</a>
- </div>
- <div class="class-grid" id="classGrid">
-  <a class="class-box" data-class="Class 1"><strong>Class 1</strong><small>Primary</small></a>
-  <a class="class-box" data-class="Class 2"><strong>Class 2</strong><small>Primary</small></a>
-  <a class="class-box" data-class="Class 3"><strong>Class 3</strong><small>Primary</small></a>
-  <a class="class-box" data-class="Class 4"><strong>Class 4</strong><small>Primary</small></a>
-  <a class="class-box" data-class="Class 5"><strong>Class 5</strong><small>Primary</small></a>
-  <a class="class-box" data-class="Class 6"><strong>Class 6</strong><small>Middle</small></a>
-  <a class="class-box" data-class="Class 7"><strong>Class 7</strong><small>Middle</small></a>
-  <a class="class-box" data-class="Class 8"><strong>Class 8</strong><small>Middle</small></a>
-  <a class="class-box" data-class="Class 9"><strong>Class 9</strong><small>Secondary</small></a>
-  <a class="class-box" data-class="Class 10"><strong>Class 10</strong><small>Secondary</small></a>
-  <a class="class-box" data-class="Class 11"><strong>Class 11</strong><small>Senior Secondary</small></a>
-  <a class="class-box" data-class="Class 12"><strong>Class 12</strong><small>Senior Secondary</small></a>
- </div>
-</section>
-
-<!-- CHAPTER TEST -->
 <section class="section">
  <div class="test-banner">
   <div class="test-trophy">🏆</div>
   <div class="test-copy">
-   <h3>Take Chapter Test</h3>
-   <p>Check your preparation with chapter practice.</p>
+   <h3>Practice Your Knowledge</h3>
+   <p>Try the currently available chapter practice.</p>
   </div>
-  <a href="class.html?class=Class%2012">Start →</a>
+  <a href="practice.html">Start →</a>
  </div>
 </section>
 
-<!-- LEARNING PROGRESS -->
 <section class="section" id="progress">
  <div class="section-heading">
   <div>
@@ -503,93 +440,174 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:30px 15px}
 </footer>
 
 <nav class="bottom-nav">
- <a class="nav-item active" href="#home"><span>⌂</span>Home</a>
- <a class="nav-item" href="#progress"><span>▥</span>Dashboard</a>
- <a class="nav-item" href="#classes"><span>🎓</span>Classes</a>
+ <a class="nav-item active" href="#"><span>⌂</span>Home</a>
+ <a class="nav-item" href="#progress"><span>▥</span>Progress</a>
+ <a class="nav-item" href="class.html?class=Class%2012"><span>📖</span>Study</a>
  <a class="nav-item" href="#tools"><span>☷</span>More</a>
 </nav>
 
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
 <script>
+const firebaseConfig = {
+ apiKey:"AIzaSyB-9GjrfHDIwbEjScWd5vBRpUvbQX9U2bc",
+ authDomain:"eduvanta-93826.firebaseapp.com",
+ projectId:"eduvanta-93826",
+ storageBucket:"eduvanta-93826.firebasestorage.app",
+ messagingSenderId:"33328294092",
+ appId:"1:33328294092:web:7f51cd4ecb6b970be27a69"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
 const el=id=>document.getElementById(id);
 
-/* STUDENT PROFILE */
-function loadProfile(){
- const name=localStorage.getItem("eduvantaStudentName")||"Student";
+let student=null;
+
+function showApp(){
+ el("loadingScreen").classList.add("hidden");
+ el("app").classList.remove("hidden");
+}
+
+function showLoading(text){
+ el("loadingScreen").classList.remove("hidden");
+ el("loadingScreen").querySelector("div div:last-child").textContent=text;
+ el("app").classList.add("hidden");
+}
+
+function showError(text){
+ el("loadingScreen").innerHTML=
+  '<div style="padding:25px;max-width:420px"><h2 style="color:#ff9eaa;margin-bottom:12px">Dashboard Error</h2><p>'+text.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))+'</p><p style="margin-top:15px"><a style="color:#39dce9" href="auth.html">Return to Login</a></p></div>';
+}
+
+function renderProfile(data){
+ student=data;
+ const name=data.name||"Student";
+ const stream=data.stream||"Not selected";
+
  el("studentName").textContent=name;
  el("profileInitial").textContent=name.charAt(0).toUpperCase();
-}
-loadProfile();
+ el("streamBadge").textContent=stream.toUpperCase();
+ el("profileStream").textContent=stream;
+ el("profileDetails").textContent=(data.board||"CBSE")+" • Class "+(data.class||"12");
 
-/* CLASS LINKS */
-document.querySelectorAll(".class-box").forEach(card=>{
- const className=card.dataset.class;
- card.href="class.html?class="+encodeURIComponent(className);
- card.addEventListener("click",()=>{
-  localStorage.setItem("eduvantaStudentClass",className);
-  localStorage.setItem("eduvantaClass",className);
+ const subjects={
+  "Science PCM":["Physics","Chemistry","Mathematics","English"],
+  "Science PCB":["Physics","Chemistry","Biology","English"],
+  "Commerce":["Accountancy","Business Studies","Economics","English"],
+  "Arts/Humanities":["History","Political Science","Geography","English"]
+ };
+ const icons={
+  "Science PCM":"⚛️","Science PCB":"🧬",
+  "Commerce":"📊","Arts/Humanities":"🎨"
+ };
+ const list=subjects[stream]||[];
+ el("streamIcon").textContent=icons[stream]||"🎓";
+ el("subjectTags").replaceChildren();
+ list.forEach(subject=>{
+  const tag=document.createElement("span");
+  tag.textContent=subject;
+  el("subjectTags").appendChild(tag);
  });
+
+ const available=["Science PCM","Science PCB"].includes(stream);
+ el("streamNote").textContent=available
+  ?"Your stream profile is saved. Current EDUVANTA study resources are being expanded; check the Study Library for available chapters."
+  :"Your profile is saved. Study materials for this stream will be added before its study cards are activated.";
+
+ el("welcomeText").textContent=
+  "Your CBSE Class 12 "+stream+" learning journey continues here.";
+}
+
+el("logoutBtn").addEventListener("click",async()=>{
+ if(!confirm("Are you sure you want to logout?"))return;
+ try{
+  await auth.signOut();
+  window.location.replace("auth.html");
+ }catch(error){
+  alert("Logout failed: "+error.message);
+ }
 });
 
-/* CONTINUE LEARNING */
+/* USER AUTHENTICATION AND PROFILE */
+auth.onAuthStateChanged(async user=>{
+ if(!user){
+  window.location.replace("auth.html");
+  return;
+ }
+ showLoading("Loading your student profile...");
+ try{
+  const snap=await db.collection("users").doc(user.uid).get();
+  if(!snap.exists){
+   window.location.replace("auth.html");
+   return;
+  }
+  renderProfile(snap.data());
+  showApp();
+  refreshDashboard();
+  renderGoal();
+ }catch(error){
+  showError("Could not load your profile. Check your internet connection and Firestore security rules. "+error.message);
+ }
+});
+
+ /* CONTINUE LEARNING */
 function safeLocalLink(value){
  if(typeof value!=="string"||!value.trim())return null;
  try{
   const url=new URL(value,location.href);
   return url.origin===location.origin?url.href:null;
- }catch(e){return null;}
+ }catch(e){return null}
 }
+
 function renderContinue(){
  let data=null;
- try{
-  data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null");
- }catch(e){}
+ try{data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null")}catch(e){}
  const panel=el("continuePanel");
- if(!data||!data.chapter)return;
-
  panel.replaceChildren();
+
+ if(!data||!data.chapter){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="📚 Open a chapter from the Study Library. Your recently opened chapter will appear here.";
+  panel.appendChild(empty);
+  return;
+ }
+
  const content=document.createElement("div");
  content.className="continue-content";
-
  const art=document.createElement("div");
  art.className="chapter-art";
  art.textContent="⚡";
-
  const info=document.createElement("div");
  info.className="chapter-info";
-
  const subject=document.createElement("div");
  subject.className="subject";
  subject.textContent=[data.subject,data.class].filter(Boolean).join(" • ");
-
  const title=document.createElement("h3");
  title.textContent=data.chapter;
-
  const detail=document.createElement("p");
  detail.textContent="Chapter "+(data.number||"")+" • "+(data.board||"");
-
  const actions=document.createElement("div");
- actions.style.cssText="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px";
+ actions.className="chapter-actions";
 
- [
-  ["📖 Notes",data.bookUrl],
-  ["▶ Lessons",data.lessonUrl],
-  ["✍ Practice",data.practiceUrl]
- ].forEach(([label,url])=>{
+ [["📖 Notes",data.bookUrl],["▶ Lessons",data.lessonUrl],["✍ Practice",data.practiceUrl]].forEach(([label,url])=>{
   const safe=safeLocalLink(url);
   if(!safe)return;
   const a=document.createElement("a");
-  a.href=safe;
-  a.textContent=label;
-  a.style.cssText="font-size:11px;color:var(--cyan);font-weight:bold";
-  actions.appendChild(a);
+  a.href=safe;a.textContent=label;actions.appendChild(a);
  });
-
  info.append(subject,title,detail,actions);
  content.append(art,info);
  panel.appendChild(content);
 }
 
-/* COMPLETED LESSON PROGRESS */
+/* LOCAL LEARNING PROGRESS */
 function renderProgress(){
  let saved={};
  try{
@@ -604,14 +622,9 @@ function renderProgress(){
   if(!item||typeof item!=="object")return;
   const count=Number(item.total);
   if(!Number.isInteger(count)||count<=0)return;
-
   const done=Array.isArray(item.completed)
-   ? [...new Set(item.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<count))]
-   : [];
-
-  completed+=done.length;
-  total+=count;
-
+   ?[...new Set(item.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<count))]:[];
+  completed+=done.length;total+=count;
   chapters.push({
    name:String(item.chapter||"Chapter"),
    subject:String(item.subject||"Subject"),
@@ -630,61 +643,54 @@ function renderProgress(){
 
  const list=el("chapterProgressList");
  list.replaceChildren();
-
  if(!chapters.length){
   const empty=document.createElement("div");
   empty.className="empty";
   empty.textContent="📚 Complete a lesson to see your learning statistics.";
-  list.appendChild(empty);
-  return;
+  list.appendChild(empty);return;
  }
 
  chapters.sort((a,b)=>b.percent-a.percent);
  chapters.forEach(ch=>{
-  const box=document.createElement("div");
-  box.className="chapter-item";
-
-  const row=document.createElement("div");
-  row.className="chapter-row";
-  const name=document.createElement("strong");
-  name.textContent=ch.name;
-  const percentText=document.createElement("span");
-  percentText.textContent=ch.percent+"%";
-  row.append(name,percentText);
-
-  const meta=document.createElement("div");
-  meta.className="chapter-meta";
+  const box=document.createElement("div");box.className="chapter-item";
+  const row=document.createElement("div");row.className="chapter-row";
+  const name=document.createElement("strong");name.textContent=ch.name;
+  const pct=document.createElement("span");pct.textContent=ch.percent+"%";
+  row.append(name,pct);
+  const meta=document.createElement("div");meta.className="chapter-meta";
   meta.textContent=ch.subject+" • "+ch.className+" • "+ch.done+"/"+ch.total+" lessons";
-
-  const track=document.createElement("div");
-  track.className="mini-track";
-  const fill=document.createElement("div");
-  fill.className="mini-fill";
-  fill.style.width=ch.percent+"%";
-  track.appendChild(fill);
-
-  box.append(row,meta,track);
-  list.appendChild(box);
+  const track=document.createElement("div");track.className="mini-track";
+  const fill=document.createElement("div");fill.className="mini-fill";
+  fill.style.width=ch.percent+"%";track.appendChild(fill);
+  box.append(row,meta,track);list.appendChild(box);
  });
 }
 
-/* DAILY GOAL */
-const date=new Date().toLocaleDateString("en-CA");
-const minutesKey="eduvantaStudyMinutes_"+date;
-let minutes=Number(localStorage.getItem(minutesKey)||0);
-let goal=Number(localStorage.getItem("eduvantaDailyGoal")||60);
+function refreshDashboard(){
+ renderContinue();
+ renderProgress();
+}
 
-if(!Number.isFinite(minutes)||minutes<0)minutes=0;
-if(!Number.isInteger(goal)||goal<15||goal>1440)goal=60;
-
+/* DAILY STUDY GOAL - CURRENTLY DEVICE-LOCAL */
+function dateKey(){
+ const d=new Date();
+ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+let minutes=0,goal=60;
+function loadGoal(){
+ const key="eduvantaStudyMinutes_"+dateKey();
+ minutes=Number(localStorage.getItem(key)||0);
+ goal=Number(localStorage.getItem("eduvantaDailyGoal")||60);
+ if(!Number.isFinite(minutes)||minutes<0)minutes=0;
+ if(!Number.isInteger(goal)||goal<15||goal>1440)goal=60;
+}
 function renderGoal(){
  el("minutesDone").textContent=minutes;
  el("goalMinutes").textContent=goal;
  el("goalFill").style.width=Math.min(100,minutes/goal*100)+"%";
  el("goalMessage").textContent=minutes>=goal
-  ?"✓ Daily goal completed!"
-  :(goal-minutes)+" minutes left to reach your goal.";
- localStorage.setItem(minutesKey,String(minutes));
+  ?"✓ Daily goal completed!":(goal-minutes)+" minutes left to reach your goal.";
+ localStorage.setItem("eduvantaStudyMinutes_"+dateKey(),String(minutes));
  localStorage.setItem("eduvantaDailyGoal",String(goal));
 }
 el("add15").onclick=()=>{minutes+=15;renderGoal()};
@@ -696,20 +702,13 @@ el("setGoal").onclick=()=>{
  if(!Number.isInteger(value)||value<15||value>1440){
   alert("Enter a number between 15 and 1440.");return;
  }
- goal=value;
- renderGoal();
+ goal=value;renderGoal();
 };
+loadGoal();
 
-/* REFRESH WHEN RETURNING TO DASHBOARD */
-function refresh(){
- renderContinue();
- renderProgress();
-}
-refresh();
-renderGoal();
-window.addEventListener("pageshow",refresh);
+window.addEventListener("pageshow",refreshDashboard);
 window.addEventListener("storage",e=>{
- if(["eduvantaCompletedLessons","eduvantaLastChapter"].includes(e.key))refresh();
+ if(["eduvantaCompletedLessons","eduvantaLastChapter"].includes(e.key))refreshDashboard();
 });
 </script>
 </body>
