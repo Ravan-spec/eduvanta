@@ -2,1446 +2,1624 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#050b19">
-<meta name="description" content="EDUVANTA - Your personal learning platform">
 <title>EDUVANTA | Student Dashboard</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
 :root{
- --bg:#050b19;--card:#0d1830;--card2:#111f3d;
- --border:#1d3158;--white:#f4f7ff;--muted:#9baed0;
- --cyan:#08d8e9;--blue:#258bff;--purple:#713bff;--green:#00dc9b;
+  --bg:#050b19;
+  --card:#101e3a;
+  --card2:#111f3d;
+  --border:#1d3158;
+  --white:#f4f7ff;
+  --muted:#9baed0;
+  --cyan:#08d8e9;
+  --blue:#258bff;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+
+*{box-sizing:border-box}
 body{
- background:var(--bg);color:var(--white);
- font-family:Inter,Arial,sans-serif;min-height:100vh;
- padding-bottom:95px;
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  padding-bottom:80px;
 }
-a{text-decoration:none;color:inherit}
-button,input,select{font-family:inherit}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
 button{cursor:pointer}
-.container{max-width:1100px;margin:auto;padding:0 18px}
 .hidden{display:none!important}
+.container{max-width:1050px;margin:auto;padding:0 16px}
 
 header{
- display:flex;align-items:center;justify-content:space-between;
- padding:16px 20px;max-width:1100px;margin:auto;
+  max-width:1050px;
+  margin:auto;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
 }
-.brand{display:flex;align-items:center;gap:11px}
+.brand{display:flex;gap:10px;align-items:center}
 .brand-icon{
- width:46px;height:46px;border-radius:15px;display:grid;
- place-items:center;font-size:27px;
- background:linear-gradient(135deg,#1479ed,#08d8e9);
+  background:linear-gradient(135deg,#1479ed,#08d8e9);
+  padding:12px;
+  border-radius:13px;
 }
-.brand-name{font-size:22px;font-weight:900;letter-spacing:-1px}
+.brand-name{font-weight:900;font-size:20px}
 .brand-name span{color:var(--cyan)}
-.brand-tag{font-size:10px;color:var(--muted);margin-top:3px}
-.header-right{display:flex;align-items:center;gap:10px}
-.stream-pill{
- background:#112b4a;border:1px solid #28527c;color:#8cecf2;
- padding:8px 11px;border-radius:20px;font-size:10px;font-weight:bold;
+.brand-tag{font-size:10px;color:var(--muted)}
+.header-right{display:flex;align-items:center;gap:7px}
+.pill,.edit,.logout{
+  font-size:10px;
+  padding:8px;
+  border-radius:9px;
+  font-weight:bold;
 }
-.profile{
- width:40px;height:40px;border-radius:50%;
- background:linear-gradient(135deg,#267aff,#783bff);
- display:grid;place-items:center;font-weight:900;font-size:17px;
+.pill{background:#112b4a;color:#8cecf2}
+.avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#267aff,#783bff);
+  font-weight:bold;
 }
-.logout,.edit-profile-btn{
- border-radius:10px;padding:9px 11px;font-size:11px;font-weight:bold;
+.edit{
+  background:#102b4a;
+  color:#9cecff;
+  border:1px solid #28608b;
 }
-.logout{border:1px solid #713b55;background:#30182a;color:#ffb4c2}
-.edit-profile-btn{border:1px solid #28608b;background:#102b4a;color:#9cecff}
+.logout{
+  background:#30182a;
+  color:#ffb4c2;
+  border:1px solid #713b55;
+}
 
 .hero{
- margin-top:10px;position:relative;overflow:hidden;
- border-radius:25px;padding:30px 25px;min-height:205px;
- border:1px solid #3845a7;
- background:
- radial-gradient(circle at 80% 10%,#275bff77,transparent 40%),
- linear-gradient(115deg,#111b73,#082c70 65%,#101d49);
+  margin-top:12px;
+  padding:27px 22px;
+  border:1px solid #3845a7;
+  border-radius:22px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 80% 10%,#275bff77,transparent 40%),
+    linear-gradient(115deg,#111b73,#082c70 65%,#101d49);
 }
-.hero-content{position:relative;z-index:2;max-width:76%}
-.hero h1{font-size:29px;line-height:1.3;margin:12px 0}
+.hero-inner{max-width:78%;position:relative;z-index:1}
+.hero h1{font-size:28px;margin:10px 0}
 .hero h1 span{color:#13e4d7}
-.hero p{font-size:13px;color:#c7d8ff;line-height:1.7}
+.hero p{font-size:13px;line-height:1.7;color:#c7d8ff}
+.hero .robot{position:absolute;right:15px;bottom:0;font-size:88px}
 .hero-btn{
- display:inline-block;margin-top:17px;padding:12px 18px;
- border-radius:30px;background:linear-gradient(90deg,#16bfff,#4e9cff);
- color:#03162c;font-size:12px;font-weight:900;
+  display:inline-block;
+  margin-top:12px;
+  background:linear-gradient(90deg,#16bfff,#4e9cff);
+  color:#03162c;
+  padding:10px 16px;
+  border-radius:25px;
+  font-size:11px;
+  font-weight:bold;
 }
-.robot{position:absolute;right:20px;bottom:0;font-size:100px}
 
-.section{margin-top:28px}
-.section-heading{
- display:flex;justify-content:space-between;align-items:center;
- gap:10px;margin-bottom:14px;
+.section{margin-top:25px}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  gap:8px;
 }
-.section-heading h2{font-size:19px}
-.section-sub{font-size:11px;color:var(--muted);margin-top:5px}
-.panel{
- background:linear-gradient(145deg,#101e3a,#0b152a);
- border:1px solid var(--border);border-radius:20px;padding:18px;
+.section h2{font-size:18px;margin:0}
+.sub{font-size:11px;color:var(--muted);margin-top:5px}
+.panel,.stat-card{
+  background:linear-gradient(145deg,#101e3a,#0b152a);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:16px;
 }
-.stats-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:13px}
-.panel-title{font-size:16px;font-weight:800}
 .progress-layout{
- display:flex;align-items:center;justify-content:space-around;
- gap:10px;margin-top:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  gap:8px;
+  margin-top:16px;
 }
-.progress-ring{
- width:112px;height:112px;border-radius:50%;
- display:grid;place-items:center;position:relative;
- background:conic-gradient(var(--cyan) 0deg,#25395e 0deg);
+.ring{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+  background:conic-gradient(var(--cyan) 0deg,#25395e 0deg);
+  flex-shrink:0;
 }
-.progress-ring:before{
- content:"";position:absolute;inset:9px;border-radius:50%;background:#101d36;
+.ring:before{
+  content:"";
+  position:absolute;
+  inset:9px;
+  border-radius:50%;
+  background:#101d36;
 }
-.ring-content{position:relative;text-align:center}
-.ring-content strong{display:block;font-size:24px}
-.ring-content small{font-size:10px;color:var(--muted)}
-.stat-divider{width:1px;height:75px;background:var(--border)}
+.ring div{position:relative;text-align:center}
+.ring strong{display:block;font-size:22px}
+.ring small,.stat-mini small{font-size:10px;color:var(--muted)}
+.divider{width:1px;height:65px;background:var(--border)}
 .stat-mini{text-align:center}
-.stat-mini .emoji{font-size:24px}
-.stat-mini strong{display:block;font-size:21px;margin:8px 0 4px}
-.stat-mini small{color:var(--muted);font-size:10px}
+.stat-mini b{display:block;font-size:20px;margin:7px}
 
-.pomodoro-panel{
- background:linear-gradient(145deg,#191a69,#171e60 65%,#102b6b);
- border-color:#4141a7;
+.pomo{
+  background:linear-gradient(145deg,#191a69,#171e60 65%,#102b6b);
+  border-color:#4141a7;
 }
 .pomo-top{
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;flex-wrap:wrap;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
 }
-.pomo-heading{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:bold}
-.pomo-heading span{font-size:27px}
-.pomo-mode{
- color:#a9efff;font-size:10px;font-weight:bold;
- border:1px solid #ffffff35;background:#ffffff13;
- border-radius:20px;padding:7px 10px;
+.pomo-top strong{font-size:15px}
+.mode{font-size:10px;color:#a9efff}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.tabs button,.timer-buttons button{
+  background:#ffffff16;
+  border:1px solid #ffffff35;
+  color:white;
+  padding:8px 10px;
+  border-radius:18px;
+  font-size:10px;
 }
-.pomo-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}
-.pomo-tabs button{
- border:1px solid #ffffff35;background:#ffffff12;color:white;
- border-radius:20px;padding:8px 11px;font-size:10px;
+.tabs .active{background:var(--cyan);color:#04152c}
+.clock{
+  width:170px;height:170px;
+  margin:20px auto 14px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+  background:conic-gradient(var(--cyan) 0deg,#ffffff20 0deg);
 }
-.pomo-tabs button.active{background:#08c9db;color:#04152c;border-color:#08c9db;font-weight:bold}
-.pomo-clock{
- width:190px;height:190px;border-radius:50%;margin:22px auto 15px;
- display:grid;place-items:center;position:relative;
- background:conic-gradient(#08d8e9 0deg,#ffffff20 0deg);
+.clock:before{
+  content:"";
+  position:absolute;
+  inset:9px;
+  background:#171d5c;
+  border-radius:50%;
 }
-.pomo-clock:before{
- content:"";position:absolute;inset:9px;border-radius:50%;
- background:#171d5c;
+.clock div{position:relative;text-align:center}
+.clock strong{font-size:37px;display:block}
+.clock small{font-size:10px;color:#c4d5ff}
+.timer-buttons{display:flex;justify-content:center;gap:8px}
+.timer-buttons .primary{
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  color:#04152c;
+  font-weight:bold;
 }
-.pomo-clock-content{position:relative;text-align:center}
-.pomo-clock-content strong{font-size:42px;letter-spacing:2px;display:block}
-.pomo-clock-content small{font-size:11px;color:#c4d5ff}
-.pomo-controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
-.pomo-controls button{
- border:1px solid #ffffff30;background:#ffffff16;color:white;
- border-radius:12px;padding:11px 17px;font-weight:bold;font-size:12px;
-}
-.pomo-controls .primary{
- background:linear-gradient(90deg,#08d8e9,#258bff);
- color:#04152c;border:0;min-width:110px;
-}
-.pomo-session-info{
- text-align:center;font-size:11px;color:#cbd8ff;margin-top:15px;
-}
-.pomo-session-info strong{color:#49f2d5}
-.pomo-message{
- text-align:center;color:#48f4bc;font-size:11px;
- margin-top:10px;min-height:16px;
-}
+.center{text-align:center;font-size:11px;margin-top:12px;color:#cbd8ff}
+.message{color:#48f4bc;min-height:15px}
 
-.quick-grid{
- display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
 }
-.quick-card{
- min-height:118px;border-radius:17px;padding:13px 7px;
- text-align:center;border:1px solid #ffffff12;
- display:flex;flex-direction:column;justify-content:center;align-items:center;
- transition:.2s;
+.quick{
+  min-height:100px;
+  border-radius:15px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:8px 3px;
+  border:1px solid #ffffff16;
+  font-size:10px;
 }
-.quick-card:hover{transform:translateY(-3px);border-color:#ffffff55}
-.quick-card .icon{font-size:30px;margin-bottom:9px}
-.quick-card strong{font-size:12px;line-height:1.5}
-.quick-card small{font-size:10px;margin-top:5px;color:#d2dcff}
-.q-blue{background:linear-gradient(145deg,#092e70,#0a1c43)}
-.q-green{background:linear-gradient(145deg,#064a4a,#0b283e)}
-.q-purple{background:linear-gradient(145deg,#2d1a70,#151c48)}
-.q-orange{background:linear-gradient(145deg,#54311e,#2c1d32)}
-.q-pink{background:linear-gradient(145deg,#4d204d,#211b43)}
-.q-cyan{background:linear-gradient(145deg,#07564c,#102c3b)}
-.coming{opacity:.7;cursor:not-allowed}
+.quick i{font-style:normal;font-size:25px;margin-bottom:7px}
+.blue{background:#092e70}
+.green{background:#064a4a}
+.purple{background:#2d1a70}
+.orange{background:#54311e}
+.pink{background:#4d204d}
+.cyan{background:#07564c}
+.coming{opacity:.6;cursor:default}
 
-.stream-panel,.continue-panel{
- background:linear-gradient(120deg,#10264c,#0a1832);
- border-color:#254c86;
+.profile-panel,.continue{
+  background:linear-gradient(120deg,#10264c,#0a1832);
+  border-color:#254c86;
 }
-.stream-top{display:flex;align-items:center;gap:13px}
-.stream-icon{
- width:55px;height:55px;border-radius:15px;
- display:grid;place-items:center;font-size:27px;
- background:linear-gradient(135deg,#155a94,#392c8b);
+.profile-row,.continue-row{display:flex;align-items:center;gap:12px}
+.profile-icon,.chapter-icon{
+  width:50px;height:50px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:#173b69;
+  font-size:25px;
 }
-.stream-top h3{font-size:17px}
-.stream-top p{font-size:11px;color:var(--muted);margin-top:5px}
-.subject-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.subject-tags span{
- background:#142d4e;border:1px solid #28527c;color:#c7eaff;
- border-radius:20px;padding:7px 11px;font-size:11px;
+.profile-row h3{font-size:15px;margin:0}
+.profile-row p,.chapter-info p{
+  font-size:10px;color:var(--muted);margin:5px 0;
 }
-.stream-note{font-size:11px;color:var(--muted);line-height:1.6;margin-top:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tags span{
+  background:#142d4e;
+  border:1px solid #28527c;
+  border-radius:20px;
+  padding:6px 9px;
+  font-size:10px;
+}
+.note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:10px}
+.chapter-icon{width:75px;height:75px;flex-shrink:0}
+.chapter-info{min-width:0}
+.chapter-info h3{font-size:13px;margin:5px 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px}
+.actions a{font-size:10px;color:var(--cyan)}
+.empty{text-align:center;color:var(--muted);padding:15px;font-size:11px;line-height:1.6}
 
-.continue-content{display:flex;gap:13px;align-items:center;margin-top:12px}
-.chapter-art{
- width:90px;height:90px;flex-shrink:0;border-radius:15px;
- display:grid;place-items:center;font-size:40px;
- background:radial-gradient(circle,#174c92,#0b1d42);
- border:1px solid #315a91;
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat-card{text-align:center;padding:12px 5px}
+.stat-card b{display:block;font-size:18px;margin:7px}
+.stat-card small{font-size:9px;color:var(--muted)}
+.chapter-list{display:grid;gap:8px}
+.chapter-item{
+  background:#111f3a;
+  border:1px solid var(--border);
+  padding:11px;
+  border-radius:10px;
 }
-.chapter-info{min-width:0;flex:1}
-.chapter-info .subject{color:#8dbaff;font-size:11px}
-.chapter-info h3{font-size:14px;margin:7px 0}
-.chapter-info p{font-size:11px;color:var(--muted)}
-.chapter-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-.chapter-actions a{font-size:11px;color:var(--cyan);font-weight:bold}
-.empty{color:var(--muted);font-size:12px;text-align:center;padding:18px;line-height:1.7}
+.chapter-row{display:flex;justify-content:space-between;font-size:11px}
+.chapter-row span{color:var(--cyan)}
+.meta{font-size:9px;color:var(--muted);margin:5px 0}
+.track{height:6px;background:#263955;border-radius:10px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue))}
 
-.test-banner{
- display:flex;align-items:center;gap:14px;padding:18px;
- border-radius:19px;background:linear-gradient(110deg,#4b19a4,#20218a);
- border:1px solid #6646dd;
+.banner{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:linear-gradient(110deg,#4b19a4,#20218a);
+  padding:15px;
+  border-radius:16px;
 }
-.test-trophy{font-size:39px}
-.test-copy{flex:1}
-.test-copy h3{font-size:15px}
-.test-copy p{font-size:11px;color:#dedaff;margin-top:6px}
-.test-banner a{
- background:#6749ff;border:1px solid #8b78ff;
- padding:11px 14px;border-radius:11px;font-size:11px;font-weight:bold;
-}
+.banner div:nth-child(2){flex:1}
+.banner a{background:#6749ff;padding:9px;border-radius:9px;font-size:10px}
+.banner h3{font-size:13px;margin:0}
+.banner p{font-size:10px;color:#dedaff}
 
-.statistics-grid{
- display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;
+.bottom{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  display:flex;
+  justify-content:space-around;
+  background:#081226f5;
+  border-top:1px solid #243758;
+  padding:10px 4px calc(10px + env(safe-area-inset-bottom));
+  z-index:10;
 }
-.statistics-card{
- background:linear-gradient(145deg,#101e3a,#0b152a);
- border:1px solid var(--border);border-radius:16px;padding:15px 10px;
- text-align:center;min-width:0;
-}
-.statistics-card .emoji{font-size:23px}
-.statistics-card strong{display:block;font-size:21px;margin:9px 0 5px}
-.statistics-card small{font-size:10px;color:var(--muted);line-height:1.4}
-.chapter-list{display:grid;gap:10px}
-.chapter-item{padding:13px;background:#111f3a;border:1px solid var(--border);border-radius:12px}
-.chapter-row{display:flex;justify-content:space-between;gap:10px;font-size:12px}
-.chapter-row span:last-child{color:var(--cyan)}
-.chapter-meta{font-size:10px;color:var(--muted);margin:6px 0}
-.mini-track{height:6px;background:#263955;border-radius:20px;overflow:hidden}
-.mini-fill{height:100%;background:linear-gradient(90deg,#00d9d7,#398bff)}
+.bottom a{text-align:center;color:#8497bb;font-size:10px;flex:1}
+.bottom span{display:block;font-size:19px;margin-bottom:3px}
+footer{text-align:center;color:#7385a6;font-size:10px;padding:25px}
 
-.bottom-nav{
- position:fixed;bottom:0;left:0;right:0;z-index:50;
- display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));
- background:#081226f5;backdrop-filter:blur(15px);border-top:1px solid #243758;
+#loading{
+  min-height:75vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
 }
-.nav-item{flex:1;text-align:center;color:#8497bb;font-size:10px}
-.nav-item span{display:block;font-size:21px;margin-bottom:5px}
-.nav-item.active{color:#15baff}
-footer{text-align:center;color:#7385a6;font-size:10px;padding:28px 15px}
-
-#loadingScreen{
- min-height:75vh;display:grid;place-items:center;text-align:center;
- color:var(--muted);font-size:13px;
-}
-.loader{
- width:38px;height:38px;border:3px solid #29405f;
- border-top-color:var(--cyan);border-radius:50%;
- animation:spin .8s linear infinite;margin:0 auto 14px;
+.spinner{
+  width:35px;height:35px;
+  border:3px solid #29405f;
+  border-top-color:var(--cyan);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 12px;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* EDIT PROFILE */
-.modal-overlay{
- position:fixed;inset:0;z-index:100;background:#020611dc;
- display:none;align-items:center;justify-content:center;
- padding:16px;overflow-y:auto;
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#020611e8;
+  z-index:30;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+  overflow:auto;
 }
-.modal-overlay.open{display:flex}
+.overlay.open{display:flex}
 .modal{
- width:100%;max-width:460px;max-height:90vh;overflow-y:auto;
- background:linear-gradient(145deg,#122342,#091429);
- border:1px solid #31527e;border-radius:20px;padding:22px;
+  background:#10203b;
+  border:1px solid #31527e;
+  border-radius:18px;
+  padding:20px;
+  width:100%;
+  max-width:440px;
+  max-height:92vh;
+  overflow:auto;
 }
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.modal-head h2{font-size:19px}
-.modal-close{
- width:32px;height:32px;border:1px solid #405777;border-radius:9px;
- background:#172a48;color:white;font-size:19px;
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
 }
-.form-field{margin-bottom:14px}
-.form-field label{display:block;font-size:12px;color:#b9c9e6;margin-bottom:7px}
-.form-field input,.form-field select{
- width:100%;padding:12px;border-radius:10px;
- border:1px solid #29466c;background:#08152a;color:white;font-size:13px;
+.modal-head h2{font-size:17px}
+.close{
+  background:#172a48;
+  border:1px solid #405777;
+  color:white;
+  border-radius:8px;
+  width:31px;height:31px;
+  font-size:18px;
 }
-.form-field input:disabled{color:#91a3c2;background:#0b1930;opacity:1}
-.form-hint{font-size:10px;color:#9baed0;margin-top:6px;line-height:1.5}
-.modal-actions{display:flex;gap:10px;margin-top:20px}
-.modal-actions button{flex:1;padding:12px;border-radius:10px;font-weight:bold;font-size:12px}
-.cancel-btn{background:#172a48;border:1px solid #385174;color:#dce8ff}
-.save-btn{background:linear-gradient(90deg,#08c9db,#258bff);border:0;color:#04152c}
-.save-btn:disabled{opacity:.6;cursor:wait}
-#editStatus{font-size:11px;line-height:1.5;margin-top:12px;min-height:16px}
-.status-error{color:#ff9eaa}
-.status-success{color:#48f4bc}
+.field{margin:12px 0}
+.field label{
+  display:block;
+  color:#b9c9e6;
+  font-size:11px;
+  margin-bottom:6px;
+}
+.field input,.field select{
+  width:100%;
+  padding:11px;
+  border-radius:9px;
+  border:1px solid #29466c;
+  background:#08152a;
+  color:white;
+  font-size:12px;
+}
+.field input:disabled{opacity:.7}
+.hint{font-size:10px;color:var(--muted);line-height:1.5}
+.modal-actions{display:flex;gap:8px;margin-top:17px}
+.modal-actions button{
+  flex:1;
+  padding:11px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:bold;
+}
+.cancel{background:#172a48;color:white;border:1px solid #385174}
+.save{
+  background:linear-gradient(90deg,var(--cyan),var(--blue));
+  border:0;color:#04152c;
+}
+.save:disabled{opacity:.6}
+#editStatus{font-size:11px;margin-top:10px;min-height:15px}
+.error{color:#ff9eaa}
+.success{color:#48f4bc}
 
-@media(max-width:700px){
- .statistics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:600px){
- header{padding:12px 15px}
- .brand-icon{width:40px;height:40px;font-size:23px}
- .brand-name{font-size:19px}
- .brand-tag{font-size:9px}
- .container{padding:0 15px}
- .hero{padding:22px 17px;min-height:190px}
- .hero-content{max-width:82%}
- .hero h1{font-size:23px}
- .hero p{font-size:11px}
- .robot{font-size:75px;right:6px}
- .stats-grid{grid-template-columns:1fr}
- .progress-ring{width:100px;height:100px}
- .quick-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
- .quick-card{min-height:102px;padding:9px 3px}
- .quick-card .icon{font-size:24px}
- .quick-card strong{font-size:9px}
- .quick-card small{font-size:8px}
- .panel{padding:15px}
- .stream-top h3{font-size:15px}
- .test-banner{padding:13px;gap:9px}
- .test-trophy{font-size:30px}
- .test-copy h3{font-size:12px}
- .test-copy p{font-size:9px}
- .test-banner a{font-size:10px;padding:9px}
- .edit-profile-btn,.logout{padding:8px;font-size:10px}
- .profile{width:34px;height:34px}
- .pomo-clock{width:170px;height:170px}
- .pomo-clock-content strong{font-size:36px}
-}
-@media(max-width:380px){
- .stream-pill{display:none}
- .header-right{gap:6px}
- .quick-card strong{font-size:8px}
- .progress-layout{gap:6px}
+@media(max-width:650px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:23px}
+  .robot{font-size:70px}
+  .hero-inner{max-width:82%}
+  .grid4{gap:6px}
+  .quick{min-height:92px}
+  .quick i{font-size:22px}
+  .quick strong{font-size:9px}
+  .pill{display:none}
+  .header-right{gap:5px}
+  .edit,.logout{padding:7px;font-size:9px}
+  .progress-layout{gap:5px}
 }
 </style>
 </head>
 
 <body>
-<div id="loadingScreen">
- <div>
-  <div class="loader"></div>
-  <div>Loading your EDUVANTA dashboard...</div>
- </div>
+
+<div id="loading">
+  <div>
+    <div class="spinner"></div>
+    <div id="loadingText">Loading your EDUVANTA dashboard...</div>
+  </div>
 </div>
 
 <div id="app" class="hidden">
+
 <header>
- <a class="brand" href="index.html">
-  <div class="brand-icon">🎓</div>
-  <div>
-   <div class="brand-name">EDU<span>VANTA</span></div>
-   <div class="brand-tag">Learn Beyond Limits</div>
+  <a class="brand" href="index.html">
+    <div class="brand-icon">🎓</div>
+    <div>
+      <div class="brand-name">EDU<span>VANTA</span></div>
+      <div class="brand-tag">Learn Beyond Limits</div>
+    </div>
+  </a>
+
+  <div class="header-right">
+    <span class="pill" id="streamBadge">CLASS 12</span>
+    <div class="avatar" id="profileInitial">S</div>
+    <button class="edit" id="openEditBtn">Edit</button>
+    <button class="logout" id="logoutBtn">Logout</button>
   </div>
- </a>
- <div class="header-right">
-  <div class="stream-pill" id="streamBadge">CLASS 12</div>
-  <div class="profile" id="profileInitial">S</div>
-  <button class="edit-profile-btn" id="openEditBtn">Edit</button>
-  <button class="logout" id="logoutBtn">Logout</button>
- </div>
 </header>
 
 <main class="container">
+
 <section class="hero">
- <div class="hero-content">
-  <div style="font-size:11px;color:#b9d6ff;font-weight:bold;letter-spacing:1px">
-   YOUR PERSONAL LEARNING SPACE
+  <div class="hero-inner">
+    <small>YOUR PERSONAL LEARNING SPACE</small>
+    <h1>Hello, <span id="studentName">Student</span>! 👋</h1>
+    <p id="welcomeText">Your learning journey continues here.</p>
+    <a class="hero-btn" href="#continue">Continue Learning →</a>
   </div>
-  <h1>Hello, <span id="studentName">Student</span>! 👋</h1>
-  <p id="welcomeText">Your learning journey continues here.</p>
-  <a href="#continue" class="hero-btn">Continue Learning →</a>
- </div>
- <div class="robot">🤖</div>
+  <div class="robot">🤖</div>
 </section>
 
-<!-- MY PROGRESS -->
-<section class="section">
- <div class="panel">
-  <div class="panel-title">📊 My Progress</div>
-  <p class="section-sub">Your current class and stream learning progress.</p>
+<section class="section panel">
+  <strong>📊 My Progress</strong>
+  <p class="sub">Your current class and stream learning progress.</p>
   <div class="progress-layout">
-   <div class="progress-ring" id="progressRing">
-    <div class="ring-content">
-     <strong id="overallPercent">0%</strong>
-     <small>Overall</small>
+    <div class="ring" id="progressRing">
+      <div>
+        <strong id="overallPercent">0%</strong>
+        <small>Overall</small>
+      </div>
     </div>
-   </div>
-   <div class="stat-divider"></div>
-   <div class="stat-mini">
-    <div class="emoji">📖</div>
-    <strong id="completedCount">0</strong>
-    <small>Completed lessons</small>
-   </div>
-   <div class="stat-divider"></div>
-   <div class="stat-mini">
-    <div class="emoji">🏆</div>
-    <strong id="chapterCount">0</strong>
-    <small>Chapters started</small>
-   </div>
+    <div class="divider"></div>
+    <div class="stat-mini">
+      📖
+      <b id="completedCount">0</b>
+      <small>Completed lessons</small>
+    </div>
+    <div class="divider"></div>
+    <div class="stat-mini">
+      🏆
+      <b id="chapterCount">0</b>
+      <small>Chapters started</small>
+    </div>
   </div>
- </div>
 </section>
 
-<!-- POMODORO TIMER -->
-<section class="section" id="pomodoro">
- <div class="panel pomodoro-panel">
+<section class="section panel pomo" id="pomodoro">
   <div class="pomo-top">
-   <div class="pomo-heading"><span>🍅</span> Pomodoro Focus Timer</div>
-   <div class="pomo-mode" id="pomoMode">FOCUS TIME</div>
+    <strong>🍅 Pomodoro Focus Timer</strong>
+    <span class="mode" id="pomoMode">FOCUS TIME</span>
   </div>
-  <div class="pomo-tabs">
-   <button class="active" data-mode="focus">Focus 25 min</button>
-   <button data-mode="short">Short Break 5 min</button>
-   <button data-mode="long">Long Break 15 min</button>
+
+  <div class="tabs">
+    <button class="active" data-mode="focus">Focus 25 min</button>
+    <button data-mode="short">Short Break 5 min</button>
+    <button data-mode="long">Long Break 15 min</button>
   </div>
-  <div class="pomo-clock" id="pomoClock">
-   <div class="pomo-clock-content">
-    <strong id="pomoTime">25:00</strong>
-    <small id="pomoLabel">Time to focus</small>
-   </div>
+
+  <div class="clock" id="pomoClock">
+    <div>
+      <strong id="pomoTime">25:00</strong>
+      <small id="pomoLabel">Time to focus</small>
+    </div>
   </div>
-  <div class="pomo-controls">
-   <button class="primary" id="pomoStart">Start</button>
-   <button id="pomoReset">Reset</button>
-   <button id="pomoSkip">Skip</button>
+
+  <div class="timer-buttons">
+    <button class="primary" id="pomoStart">Start</button>
+    <button id="pomoReset">Reset</button>
+    <button id="pomoSkip">Skip</button>
   </div>
-  <div class="pomo-session-info">
-   Completed focus sessions today: <strong id="pomoSessions">0</strong>
+
+  <div class="center">
+    Completed focus sessions today: <b id="pomoSessions">0</b>
+    <div class="message" id="pomoMessage">Start a focus session when ready.</div>
   </div>
-  <div class="pomo-message" id="pomoMessage">
-   Start a focus session when you are ready.
-  </div>
- </div>
 </section>
 
-<!-- LEARNING STATISTICS -->
 <section class="section" id="progress">
- <div class="section-heading">
-  <div>
-   <h2>📈 Learning Statistics</h2>
-   <p class="section-sub">Daily study activity and learning status.</p>
+  <div class="section-head">
+    <div>
+      <h2>📈 Learning Statistics</h2>
+      <p class="sub">Daily study activity and learning status.</p>
+    </div>
   </div>
- </div>
- <div class="statistics-grid">
-  <div class="statistics-card">
-   <div class="emoji">⏱️</div>
-   <strong id="statStudyTime">0 min</strong>
-   <small>Study time today</small>
+
+  <div class="stats">
+    <div class="stat-card">⏱️<b id="statStudyTime">0 min</b><small>Study time today</small></div>
+    <div class="stat-card">🎯<b id="statGoalStatus">0%</b><small>Daily goal completed</small></div>
+    <div class="stat-card">📚<b id="statRemaining">0</b><small>Lessons remaining</small></div>
+    <div class="stat-card">🚀<b id="statInProgress">0</b><small>Chapters in progress</small></div>
   </div>
-  <div class="statistics-card">
-   <div class="emoji">🎯</div>
-   <strong id="statGoalStatus">0%</strong>
-   <small>Daily goal completed</small>
-  </div>
-  <div class="statistics-card">
-   <div class="emoji">📚</div>
-   <strong id="statRemaining">0</strong>
-   <small>Lessons remaining</small>
-  </div>
-  <div class="statistics-card">
-   <div class="emoji">🚀</div>
-   <strong id="statInProgress">0</strong>
-   <small>Chapters in progress</small>
-  </div>
- </div>
- <div class="panel" style="margin-top:13px">
-  <div class="section-heading">
-   <div>
+
+  <div class="panel" style="margin-top:12px">
     <h2 style="font-size:15px">Chapter Progress</h2>
-    <p class="section-sub">Progress in your selected class only.</p>
-   </div>
+    <p class="sub">Progress in your selected class only.</p>
+    <div class="chapter-list" id="chapterProgressList">
+      <div class="empty">Your progress will appear here after completing lessons.</div>
+    </div>
   </div>
-  <div class="chapter-list" id="chapterProgressList">
-   <div class="empty">Your progress will appear here after completing lessons.</div>
-  </div>
- </div>
 </section>
 
-<!-- QUICK ACCESS -->
 <section class="section" id="tools">
- <div class="section-heading"><h2>⚡ Quick Access</h2></div>
- <div class="quick-grid">
-  <a href="class.html" id="studyCard" class="quick-card q-blue">
-   <div class="icon">📖</div><strong>Study<br>Library</strong>
-   <small id="studyCardNote">Open subjects</small>
-  </a>
-  <a href="practice.html" id="practiceCard" class="quick-card q-green">
-   <div class="icon">✅</div><strong>Practice<br>Questions</strong>
-   <small id="practiceCardNote">Available practice</small>
-  </a>
-  <a href="#continue" class="quick-card q-purple">
-   <div class="icon">▶️</div><strong>Continue<br>Learning</strong>
-   <small>Last chapter</small>
-  </a>
-  <a href="#pomodoro" class="quick-card q-cyan">
-   <div class="icon">🍅</div><strong>Focus<br>Timer</strong>
-   <small>Pomodoro</small>
-  </a>
-  <div class="quick-card q-orange coming">
-   <div class="icon">📝</div><strong>Mock<br>Tests</strong>
-   <small>Coming soon</small>
+  <div class="section-head"><h2>⚡ Quick Access</h2></div>
+
+  <div class="grid4">
+    <a class="quick blue" id="studyCard" href="class.html">
+      <i>📖</i><strong>Study Library</strong><small id="studyCardNote">Open subjects</small>
+    </a>
+    <a class="quick green" id="practiceCard" href="practice.html">
+      <i>✅</i><strong>Practice Questions</strong><small id="practiceCardNote">Available practice</small>
+    </a>
+    <a class="quick purple" href="#continue"><i>▶️</i><strong>Continue Learning</strong></a>
+    <a class="quick cyan" href="#pomodoro"><i>🍅</i><strong>Focus Timer</strong></a>
+    <div class="quick orange coming"><i>📝</i><strong>Mock Tests</strong><small>Coming soon</small></div>
+    <div class="quick pink coming"><i>⭐</i><strong>PYQ Questions</strong><small>Coming soon</small></div>
+    <div class="quick purple coming"><i>📑</i><strong>Formula Cards</strong><small>Coming soon</small></div>
+    <div class="quick blue coming"><i>🔖</i><strong>Bookmarks</strong><small>Coming soon</small></div>
   </div>
-  <div class="quick-card q-pink coming">
-   <div class="icon">⭐</div><strong>PYQ<br>Questions</strong>
-   <small>Coming soon</small>
-  </div>
-  <div class="quick-card q-purple coming">
-   <div class="icon">📑</div><strong>Formula<br>Cards</strong>
-   <small>Coming soon</small>
-  </div>
-  <div class="quick-card q-blue coming">
-   <div class="icon">🔖</div><strong>Bookmarks</strong>
-   <small>Coming soon</small>
-  </div>
- </div>
 </section>
 
-<!-- LEARNING PROFILE -->
 <section class="section">
- <div class="section-heading">
-  <h2>🎓 My Learning Profile</h2>
-  <button class="edit-profile-btn" id="profileEditBtn">✏️ Edit Profile</button>
- </div>
- <div class="panel stream-panel">
-  <div class="stream-top">
-   <div class="stream-icon" id="streamIcon">🎓</div>
-   <div>
-    <h3 id="profileStream">Your Stream</h3>
-    <p id="profileDetails">CBSE • Class 12</p>
-   </div>
+  <div class="section-head">
+    <h2>🎓 My Learning Profile</h2>
+    <button class="edit" id="profileEditBtn">✏️ Edit Profile</button>
   </div>
-  <div class="subject-tags" id="subjectTags"></div>
-  <p class="stream-note" id="streamNote"></p>
- </div>
+
+  <div class="panel profile-panel">
+    <div class="profile-row">
+      <div class="profile-icon" id="streamIcon">🎓</div>
+      <div>
+        <h3 id="profileStream">Your Stream</h3>
+        <p id="profileDetails">CBSE • Class 12</p>
+      </div>
+    </div>
+    <div class="tags" id="subjectTags"></div>
+    <p class="note" id="streamNote"></p>
+  </div>
 </section>
 
-<!-- CONTINUE LEARNING -->
 <section class="section" id="continue">
- <div class="section-heading"><h2>📖 Continue Learning</h2></div>
- <div class="panel continue-panel" id="continuePanel">
-  <div class="empty">Your recently opened chapter will appear here.</div>
- </div>
+  <div class="section-head"><h2>📖 Continue Learning</h2></div>
+  <div class="panel continue" id="continuePanel">
+    <div class="empty">Your recently opened chapter will appear here.</div>
+  </div>
 </section>
 
 <section class="section" id="practiceSection">
- <div class="test-banner">
-  <div class="test-trophy">🏆</div>
-  <div class="test-copy">
-   <h3>Practice Your Knowledge</h3>
-   <p>Try the currently available chapter practice.</p>
+  <div class="banner">
+    <div style="font-size:32px">🏆</div>
+    <div>
+      <h3>Practice Your Knowledge</h3>
+      <p>Try currently available chapter practice.</p>
+    </div>
+    <a id="practiceBannerLink" href="practice.html">Start →</a>
   </div>
-  <a href="practice.html" id="practiceBannerLink">Start →</a>
- </div>
 </section>
+
 </main>
 
-<footer>
- <strong>EDUVANTA</strong><br>
- Learn Beyond Limits<br>
- © 2026 EDUVANTA
-</footer>
+<footer><b>EDUVANTA</b><br>Learn Beyond Limits · © 2026</footer>
 
-<nav class="bottom-nav">
- <a class="nav-item active" href="#"><span>⌂</span>Home</a>
- <a class="nav-item" href="#progress"><span>▥</span>Progress</a>
- <a class="nav-item" href="class.html" id="studyNav"><span>📖</span>Study</a>
- <a class="nav-item" href="#tools"><span>☷</span>More</a>
+<nav class="bottom">
+  <a href="#"><span>⌂</span>Home</a>
+  <a href="#progress"><span>▥</span>Progress</a>
+  <a id="studyNav" href="class.html"><span>📖</span>Study</a>
+  <a href="#tools"><span>☷</span>More</a>
 </nav>
+
 </div>
 
 <!-- EDIT PROFILE MODAL -->
-<div class="modal-overlay" id="editModal">
- <div class="modal">
-  <div class="modal-head">
-   <h2>✏️ Edit Learning Profile</h2>
-   <button class="modal-close" id="closeEditBtn" aria-label="Close">×</button>
+
+<div class="overlay" id="editModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="modal-head">
+      <h2 id="editTitle">✏️ Edit Learning Profile</h2>
+      <button class="close" type="button" id="closeEditBtn">×</button>
+    </div>
+
+    <form id="editProfileForm">
+
+      <div class="field">
+        <label for="editName">Full Name</label>
+        <input id="editName" maxlength="60" minlength="2" required>
+      </div>
+
+      <div class="field">
+        <label for="editUsername">Username</label>
+        <input id="editUsername" minlength="3" maxlength="20"
+          pattern="[A-Za-z0-9_]{3,20}" required>
+        <p class="hint">3–20 characters: letters, numbers and underscore.</p>
+      </div>
+
+      <div class="field">
+        <label for="editEmail">Email (cannot be changed)</label>
+        <input id="editEmail" type="email" disabled>
+      </div>
+
+      <div class="field">
+        <label for="editBoard">Board</label>
+        <select id="editBoard">
+          <option>CBSE</option>
+          <option>UP Board</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="editClass">Class</label>
+        <select id="editClass">
+          <option value="10">Class 10</option>
+          <option value="12">Class 12</option>
+        </select>
+      </div>
+
+      <div class="field" id="editStreamField">
+        <label for="editStream">Stream</label>
+        <select id="editStream">
+          <option value="">Select stream</option>
+          <option>Math PCM</option>
+          <option>Science PCB</option>
+          <option>Commerce</option>
+          <option>Arts/Humanities</option>
+        </select>
+      </div>
+
+      <p class="hint">
+        Existing browser-based learning records are retained.
+        Changing class or stream changes which records are displayed.
+      </p>
+
+      <div id="editStatus" role="status" aria-live="polite"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel" id="cancelEditBtn">Cancel</button>
+        <button class="save" id="saveProfileBtn" type="submit">Save Changes</button>
+      </div>
+
+    </form>
   </div>
-  <form id="editProfileForm">
-   <div class="form-field">
-    <label for="editName">Full Name</label>
-    <input id="editName" type="text" maxlength="60" required>
-   </div>
-   <div class="form-field">
-    <label for="editUsername">Username</label>
-    <input id="editUsername" type="text" minlength="3" maxlength="20"
-     pattern="[A-Za-z0-9_]{3,20}" required>
-    <div class="form-hint">3–20 characters. Only letters, numbers and underscore.</div>
-   </div>
-   <div class="form-field">
-    <label for="editEmail">Gmail / Email (cannot be changed)</label>
-    <input id="editEmail" type="email" disabled>
-   </div>
-   <div class="form-field">
-    <label for="editBoard">Board</label>
-    <select id="editBoard" required>
-     <option value="CBSE">CBSE</option>
-     <option value="UP Board">UP Board</option>
-    </select>
-   </div>
-   <div class="form-field">
-    <label for="editClass">Class</label>
-    <select id="editClass" required>
-     <option value="10">Class 10</option>
-     <option value="12">Class 12</option>
-    </select>
-   </div>
-   <div class="form-field" id="editStreamField">
-    <label for="editStream">Stream</label>
-    <select id="editStream">
-     <option value="">Select your stream</option>
-     <option value="Science PCM">Science PCM</option>
-     <option value="Science PCB">Science PCB</option>
-     <option value="Commerce">Commerce</option>
-     <option value="Arts/Humanities">Arts / Humanities</option>
-    </select>
-   </div>
-   <div class="form-hint">
-    Your dashboard and learning records are separated by class and stream.
-    Your previous records are retained.
-   </div>
-   <div id="editStatus" role="status"></div>
-   <div class="modal-actions">
-    <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
-    <button type="submit" class="save-btn" id="saveProfileBtn">Save Changes</button>
-   </div>
-  </form>
- </div>
 </div>
+
+<!-- FIREBASE SDK: MUST LOAD BEFORE THE MAIN JAVASCRIPT -->
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig={
- apiKey:"AIzaSyB-9GjrfHDIwbEjScWd5vBRpUvbQX9U2bc",
- authDomain:"eduvanta-93826.firebaseapp.com",
- projectId:"eduvanta-93826",
- storageBucket:"eduvanta-93826.firebasestorage.app",
- messagingSenderId:"33328294092",
- appId:"1:33328294092:web:7f51cd4ecb6b970be27a69"
+"use strict";
+
+/* FIREBASE INITIALIZATION */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB-9GjrfHDIwbEjScWd5vBRpUvbQX9U2bc",
+  authDomain: "eduvanta-93826.firebaseapp.com",
+  projectId: "eduvanta-93826",
+  storageBucket: "eduvanta-93826.firebasestorage.app",
+  messagingSenderId: "33328294092",
+  appId: "1:33328294092:web:7f51cd4ecb6b970be27a69"
 };
 
-firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth();
-const db=firebase.firestore();
-const el=id=>document.getElementById(id);
-
-let student=null;
-let currentUser=null;
-
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-function showApp(){
- el("loadingScreen").classList.add("hidden");
- el("app").classList.remove("hidden");
-}
-function showLoading(text){
- el("loadingScreen").classList.remove("hidden");
- el("loadingScreen").querySelector("div div:last-child").textContent=text;
- el("app").classList.add("hidden");
-}
-function showError(text){
- el("loadingScreen").innerHTML=
-  '<div style="padding:25px;max-width:420px"><h2 style="color:#ff9eaa;margin-bottom:12px">Dashboard Error</h2><p>'+
-  escapeHTML(text)+
-  '</p><p style="margin-top:15px"><a style="color:#39dce9" href="auth.html">Return to Login</a></p></div>';
+const auth = firebase.auth();
+const db = firebase.firestore();
+const $ = id => document.getElementById(id);
+
+let student = null;
+let currentUser = null;
+
+/* PROFILE HELPERS */
+
+function classNo() {
+  return String(student?.class || "12").replace("Class ", "");
 }
 
-/* CLASS AND STREAM SCOPE */
-function classNumber(){
- return String(student?.class||"12").replace("Class ","");
-}
-function currentScope(){
- const cls=classNumber();
- const board=student?.board||"CBSE";
- const stream=cls==="12"?(student?.stream||"NoStream"):"";
- return board+"_class"+cls+"_"+stream.replace(/[^a-z0-9]/gi,"");
-}
-function scopeKey(name){
- return "eduvanta_"+name+"_"+currentScope();
-}
-function dateKey(){
- const d=new Date();
- return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-}
-function dailyMinutesKey(){
- return scopeKey("studyMinutes")+"_"+dateKey();
-}
-function sessionsKey(){
- return scopeKey("focusSessions")+"_"+dateKey();
+function scope() {
+  const c = classNo();
+  const s = c === "12" ? (student?.stream || "NoStream") : "";
+  return (student?.board || "CBSE") +
+    "_class" + c + "_" +
+    s.replace(/[^a-z0-9]/gi, "");
 }
 
-/* PROFILE */
-function getSubjects(data){
- const cls=String(data.class||"12");
- if(cls==="10"){
-  return ["Mathematics","Science","Social Science","English","Hindi"];
- }
- const subjects={
-  "Science PCM":["Physics","Chemistry","Mathematics","English"],
-  "Science PCB":["Physics","Chemistry","Biology","English"],
-  "Commerce":["Accountancy","Business Studies","Economics","English"],
-  "Arts/Humanities":["History","Political Science","Geography","English"]
- };
- return subjects[data.stream]||[];
-}
-function getProfileIcon(data){
- if(String(data.class)==="10")return "📚";
- return {
-  "Science PCM":"⚛️","Science PCB":"🧬",
-  "Commerce":"📊","Arts/Humanities":"🎨"
- }[data.stream]||"🎓";
+function key(name) {
+  return "eduvanta_" + name + "_" + scope();
 }
 
-/*
- * Resource routing:
- * Both classes use class.html with a class query.
- * The target page must read this query and display actual class resources.
- */
-function studyLibraryUrl(){
- const cls=classNumber();
- const params=new URLSearchParams();
- params.set("class","Class "+cls);
- params.set("board",student?.board||"CBSE");
- if(cls==="12"&&student?.stream)params.set("stream",student.stream);
- return "class.html?"+params.toString();
-}
-function practiceUrl(){
- const cls=classNumber();
- const params=new URLSearchParams();
- params.set("class","Class "+cls);
- params.set("board",student?.board||"CBSE");
- if(cls==="12"&&student?.stream)params.set("stream",student.stream);
- return "practice.html?"+params.toString();
-}
-function hasCurrentResources(data){
- /*
-  * Current project has confirmed Class 12 Science PCM routes.
-  * Other streams/classes should not be falsely labelled as fully available
-  * until their real content pages have been created.
-  */
- return String(data.class||"12")==="12" &&
-  (data.stream||"")==="Science PCM";
+function today() {
+  const d = new Date();
+  return d.getFullYear() + "-" +
+    String(d.getMonth() + 1).padStart(2, "0") + "-" +
+    String(d.getDate()).padStart(2, "0");
 }
 
-function renderProfile(data){
- student=data;
- const name=data.name||"Student";
- const cls=String(data.class||"12");
- const board=data.board||"CBSE";
- const stream=cls==="10"?"Class 10":(data.stream||"Stream not selected");
-
- el("studentName").textContent=name;
- el("profileInitial").textContent=name.charAt(0).toUpperCase();
- el("streamBadge").textContent="CLASS "+cls;
- el("profileStream").textContent=stream;
- el("profileDetails").textContent=board+" • Class "+cls;
- el("streamIcon").textContent=getProfileIcon(data);
-
- el("subjectTags").replaceChildren();
- getSubjects(data).forEach(subject=>{
-  const tag=document.createElement("span");
-  tag.textContent=subject;
-  el("subjectTags").appendChild(tag);
- });
-
- if(cls==="10"){
-  el("streamNote").textContent=
-   "Class 10 profile selected. Study Library opens the Class 10 route. Only materials actually added to EDUVANTA will be available.";
-  el("welcomeText").textContent=
-   "Your "+board+" Class 10 learning journey continues here.";
- }else{
-  el("streamNote").textContent=
-   "Class 12 "+(data.stream||"")+" profile selected. Your dashboard progress and focus records are separated by stream.";
-  el("welcomeText").textContent=
-   "Your "+board+" Class 12 "+(data.stream||"")+" learning journey continues here.";
- }
-
- updateStudyLinks(data);
+function minsKey() {
+  return key("studyMinutes") + "_" + today();
 }
 
-function updateStudyLinks(data){
- const available=hasCurrentResources(data);
- const url=studyLibraryUrl();
- const practice=practiceUrl();
-
- el("studyCard").href=url;
- el("studyNav").href=url;
- el("studyCard").classList.remove("coming");
- el("studyCardNote").textContent=available?"Open subjects":"Open class library";
-
- if(available){
-  el("practiceCard").href=practice;
-  el("practiceCard").classList.remove("coming");
-  el("practiceCardNote").textContent="Available practice";
-  el("practiceBannerLink").href=practice;
-  el("practiceBannerLink").textContent="Start →";
-  el("practiceSection").classList.remove("hidden");
- }else{
-  el("practiceCard").removeAttribute("href");
-  el("practiceCard").classList.add("coming");
-  el("practiceCardNote").textContent="Not available yet";
-  el("practiceBannerLink").removeAttribute("href");
-  el("practiceBannerLink").textContent="Coming soon";
-  el("practiceSection").classList.add("hidden");
- }
+function sessionsKey() {
+  return key("focusSessions") + "_" + today();
 }
 
-/* AUTHENTICATION */
-auth.onAuthStateChanged(async user=>{
- if(!user){
-  window.location.replace("auth.html");
-  return;
- }
- currentUser=user;
- showLoading("Loading your student profile...");
- try{
-  const snap=await db.collection("users").doc(user.uid).get();
-  if(!snap.exists){
-   window.location.replace("auth.html");
-   return;
+function subjects(data) {
+  if (String(data.class) === "10") {
+    return ["Mathematics", "Science", "Social Science", "English", "Hindi"];
   }
-  const data=snap.data();
-  if(!data.email&&user.email)data.email=user.email;
 
-  renderProfile(data);
-  loadPomodoro();
-  showApp();
-  refreshDashboard();
-  renderPomodoro();
- }catch(error){
-  showError("Could not load your profile. Check your internet connection and Firestore security rules. "+error.message);
- }
-});
-
-/* LOGOUT */
-el("logoutBtn").addEventListener("click",async()=>{
- if(!confirm("Are you sure you want to logout?"))return;
- try{
-  stopTicker();
-  await auth.signOut();
-  window.location.replace("auth.html");
- }catch(error){
-  alert("Logout failed: "+error.message);
- }
-});
-
-/* EDIT PROFILE */
-function openEditModal(){
- if(!student||!currentUser)return;
- el("editName").value=student.name||"";
- el("editUsername").value=student.username||"";
- el("editEmail").value=currentUser.email||student.email||"";
- el("editBoard").value=student.board||"CBSE";
- el("editClass").value=String(student.class||"12");
- el("editStream").value=student.stream||"";
- updateStreamField();
- setEditStatus("");
- el("editModal").classList.add("open");
+  return {
+    "Science PCM": ["Physics", "Chemistry", "Mathematics", "English"],
+    "Science PCB": ["Physics", "Chemistry", "Biology", "English"],
+    "Commerce": ["Accountancy", "Business Studies", "Economics", "English"],
+    "Arts/Humanities": ["History", "Political Science", "Geography", "English"]
+  }[data.stream] || [];
 }
-function closeEditModal(){el("editModal").classList.remove("open")}
-function updateStreamField(){
- const is12=el("editClass").value==="12";
- el("editStreamField").classList.toggle("hidden",!is12);
- el("editStream").required=is12;
- if(!is12)el("editStream").value="";
+
+function profileIcon(data) {
+  if (String(data.class) === "10") return "📚";
+
+  return {
+    "Science PCM": "⚛️",
+    "Science PCB": "🧬",
+    "Commerce": "📊",
+    "Arts/Humanities": "🎨"
+  }[data.stream] || "🎓";
 }
-function setEditStatus(message,type){
- const status=el("editStatus");
- status.textContent=message;
- status.className=type==="error"?"status-error":type==="success"?"status-success":"";
-}
-el("openEditBtn").addEventListener("click",openEditModal);
-el("profileEditBtn").addEventListener("click",openEditModal);
-el("closeEditBtn").addEventListener("click",closeEditModal);
-el("cancelEditBtn").addEventListener("click",closeEditModal);
-el("editClass").addEventListener("change",updateStreamField);
-el("editModal").addEventListener("click",event=>{
- if(event.target===el("editModal"))closeEditModal();
-});
-document.addEventListener("keydown",event=>{
- if(event.key==="Escape")closeEditModal();
-});
 
-el("editProfileForm").addEventListener("submit",async event=>{
- event.preventDefault();
- if(!currentUser||!student)return;
-
- const name=el("editName").value.trim();
- const username=el("editUsername").value.trim().toLowerCase();
- const board=el("editBoard").value;
- const cls=el("editClass").value;
- const stream=cls==="12"?el("editStream").value:"";
-
- if(name.length<2){
-  setEditStatus("Please enter a valid full name.","error");return;
- }
- if(!/^[a-z0-9_]{3,20}$/.test(username)){
-  setEditStatus("Username must be 3–20 characters using letters, numbers or underscore.","error");return;
- }
- if(!["10","12"].includes(cls)){
-  setEditStatus("Please select Class 10 or Class 12.","error");return;
- }
- if(cls==="12"&&!["Science PCM","Science PCB","Commerce","Arts/Humanities"].includes(stream)){
-  setEditStatus("Please select a valid Class 12 stream.","error");return;
- }
-
- const oldUsername=String(student.username||"").toLowerCase();
- const userRef=db.collection("users").doc(currentUser.uid);
- const newUsernameRef=db.collection("usernames").doc(username);
- const oldUsernameRef=oldUsername?db.collection("usernames").doc(oldUsername):null;
- const saveButton=el("saveProfileBtn");
-
- saveButton.disabled=true;
- saveButton.textContent="Saving...";
- setEditStatus("Saving your profile...");
-
- try{
-  const updatedData={
-   name,username,board,class:cls,stream,
-   email:currentUser.email||student.email||"",
-   uid:currentUser.uid,
-   authProvider:student.authProvider||"email",
-   createdAt:student.createdAt||firebase.firestore.FieldValue.serverTimestamp(),
-   updatedAt:firebase.firestore.FieldValue.serverTimestamp()
-  };
-
-  await db.runTransaction(async transaction=>{
-   const userSnap=await transaction.get(userRef);
-   if(!userSnap.exists)throw new Error("Student profile not found. Please login again.");
-
-   const changed=username!==oldUsername;
-   if(changed){
-    const newSnap=await transaction.get(newUsernameRef);
-    if(newSnap.exists&&newSnap.data().uid!==currentUser.uid){
-     throw new Error("This username is already taken. Try another one.");
-    }
-    let oldSnap=null;
-    if(oldUsernameRef)oldSnap=await transaction.get(oldUsernameRef);
-
-    transaction.set(newUsernameRef,{uid:currentUser.uid,username});
-    if(oldSnap&&oldSnap.exists&&oldSnap.data().uid===currentUser.uid){
-     transaction.delete(oldUsernameRef);
-    }
-   }
-   transaction.set(userRef,updatedData,{merge:true});
+function libraryURL() {
+  const p = new URLSearchParams({
+    class: "Class " + classNo(),
+    board: student?.board || "CBSE"
   });
 
-  student={...student,...updatedData};
-  renderProfile(student);
-  refreshDashboard();
-  closeEditModal();
-  alert("Profile updated successfully!");
- }catch(error){
-  console.error(error);
-  setEditStatus(error.message||"Could not save your profile.","error");
- }finally{
-  saveButton.disabled=false;
-  saveButton.textContent="Save Changes";
- }
+  if (classNo() === "12" && student?.stream) {
+    p.set("stream", student.stream);
+  }
+
+  return "class.html?" + p.toString();
+}
+
+function practiceURL() {
+  const p = new URLSearchParams({
+    class: "Class " + classNo(),
+    board: student?.board || "CBSE"
+  });
+
+  if (classNo() === "12" && student?.stream) {
+    p.set("stream", student.stream);
+  }
+ return "practice.html?" + p.toString();
+}
+
+/* RENDER PROFILE */
+
+function renderProfile(data) {
+  student = data;
+
+  const c = String(data.class || "12");
+  const b = data.board || "CBSE";
+  const name = data.name || "Student";
+
+  $("studentName").textContent = name;
+  $("profileInitial").textContent =
+    (name.trim()[0] || "S").toUpperCase();
+
+  $("streamBadge").textContent = "CLASS " + c;
+  $("profileStream").textContent =
+    c === "10" ? "Class 10" : data.stream || "Stream not selected";
+
+  $("profileDetails").textContent = b + " • Class " + c;
+  $("streamIcon").textContent = profileIcon(data);
+
+  $("subjectTags").replaceChildren();
+
+  subjects(data).forEach(subjectName => {
+    const tag = document.createElement("span");
+    tag.textContent = subjectName;
+    $("subjectTags").append(tag);
+  });
+
+  $("welcomeText").textContent =
+    c === "10"
+      ? "Your " + b + " Class 10 learning journey continues here."
+      : "Your " + b + " Class 12 " +
+        (data.stream || "") + " learning journey continues here.";
+
+  $("streamNote").textContent =
+    c === "10"
+      ? "Class 10 profile selected. Only available learning content will be shown."
+      : "Class 12 " + (data.stream || "") +
+        " profile selected. Progress and focus records are separated by stream.";
+
+  const url = libraryURL();
+
+  $("studyCard").href = url;
+  $("studyNav").href = url;
+
+  const available =
+    c === "12" && data.stream === "Science PCM";
+
+  if (available) {
+    $("practiceCard").href = practiceURL();
+    $("practiceCard").classList.remove("coming");
+    $("practiceCardNote").textContent = "Available practice";
+
+    $("practiceBannerLink").href = practiceURL();
+    $("practiceBannerLink").textContent = "Start →";
+    $("practiceSection").classList.remove("hidden");
+  } else {
+    $("practiceCard").removeAttribute("href");
+    $("practiceCard").classList.add("coming");
+    $("practiceCardNote").textContent = "Not available yet";
+
+    $("practiceBannerLink").removeAttribute("href");
+    $("practiceBannerLink").textContent = "Coming soon";
+    $("practiceSection").classList.add("hidden");
+  }
+}
+ /* EDIT PROFILE MODAL */
+
+function setStatus(message, type = "") {
+  $("editStatus").textContent = message;
+  $("editStatus").className = type;
+}
+
+function updateStreamField() {
+  const isClass12 = $("editClass").value === "12";
+
+  $("editStreamField").classList.toggle("hidden", !isClass12);
+  $("editStream").required = isClass12;
+
+  if (!isClass12) {
+    $("editStream").value = "";
+  }
+}
+
+function openModal() {
+  if (!student || !currentUser) return;
+
+  $("editName").value = student.name || "";
+  $("editUsername").value = student.username || "";
+  $("editEmail").value = currentUser.email || student.email || "";
+  $("editBoard").value = student.board || "CBSE";
+  $("editClass").value = String(student.class || "12");
+  $("editStream").value = student.stream || "";
+
+  updateStreamField();
+  setStatus("");
+
+  $("editModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  $("editModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+$("openEditBtn").onclick = openModal;
+$("profileEditBtn").onclick = openModal;
+$("closeEditBtn").onclick = closeModal;
+$("cancelEditBtn").onclick = closeModal;
+$("editClass").onchange = updateStreamField;
+
+$("editModal").addEventListener("click", event => {
+  if (event.target === $("editModal")) closeModal();
+});
+ document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
 });
 
-/* SAFE INTERNAL LINKS */
-function safeLocalLink(value){
- if(typeof value!=="string"||!value.trim())return null;
- try{
-  const url=new URL(value,location.href);
-  return url.origin===location.origin?url.href:null;
- }catch(e){return null}
-}
+/* SAVE PROFILE TO FIRESTORE */
+
+$("editProfileForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser || !student) return;
+
+  const name = $("editName").value.trim();
+  const username = $("editUsername").value.trim().toLowerCase();
+  const board = $("editBoard").value;
+  const cls = $("editClass").value;
+  const stream = cls === "12" ? $("editStream").value : "";
+
+  if (name.length < 2) {
+    setStatus("Enter a valid full name.", "error");
+    return;
+  }
+
+  if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+    setStatus(
+      "Username must be 3–20 letters, numbers or underscores.",
+      "error"
+    );
+    return;
+  }
+
+  if (cls === "12" &&
+      !["Science PCM", "Science PCB", "Commerce", "Arts/Humanities"].includes(stream)) {
+    setStatus("Select a valid Class 12 stream.", "error");
+    return;
+  }
+
+  const oldUsername = String(student.username || "").toLowerCase();
+
+  const userRef = db.collection("users").doc(currentUser.uid);
+  const newRef = db.collection("usernames").doc(username);
+  const oldRef = oldUsername
+    ? db.collection("usernames").doc(oldUsername)
+    : null;
+
+  const button = $("saveProfileBtn");
+  button.disabled = true;
+  button.textContent = "Saving...";
+
+  setStatus("Saving your profile...");
+
+  try {
+    await currentUser.reload();
+
+    const token = await currentUser.getIdTokenResult(true);
+
+    if (!token.claims.email_verified) {
+      throw new Error(
+        "Email is not verified. Verify your email and log in again."
+      );
+   }
+   const updated = {
+      uid: currentUser.uid,
+      name: name,
+      username: username,
+      board: board,
+      class: cls,
+      stream: stream,
+      email: currentUser.email || student.email || "",
+      authProvider: student.authProvider || "password",
+      updatedAt: new Date()
+    };
+
+    await db.runTransaction(async transaction => {
+      const profileSnap = await transaction.get(userRef);
+
+      if (!profileSnap.exists) {
+        throw new Error("Student profile not found. Please log in again.");
+      }
+
+      if (username !== oldUsername) {
+        const newSnap = await transaction.get(newRef);
+
+        if (newSnap.exists &&
+            newSnap.data().uid !== currentUser.uid) {
+          throw new Error("Username already taken. Choose another.");
+        }
+
+        const oldSnap = oldRef
+          ? await transaction.get(oldRef)
+          : null;
+
+        transaction.set(newRef, {
+          uid: currentUser.uid,
+          username: username,
+          createdAt: new Date()
+        });
+
+        if (oldSnap &&
+            oldSnap.exists &&
+            oldSnap.data().uid === currentUser.uid) {
+          transaction.delete(oldRef);
+        }
+ }
+
+           transaction.set(userRef, updated, {merge: true});
+    });
+
+    student = {...student, ...updated};
+
+    renderProfile(student);
+    refreshDashboard();
+    closeModal();
+
+    alert("Profile updated successfully.");
+
+  } catch (error) {
+    console.error("Profile update failed:", error);
+    setStatus(error.message || "Profile could not be saved.", "error");
+
+  } finally {
+    button.disabled = false;
+    button.textContent = "Save Changes";
+  }
+});
 
 /* CONTINUE LEARNING */
-function renderContinue(){
- let data=null;
- try{data=JSON.parse(localStorage.getItem("eduvantaLastChapter")||"null")}catch(e){}
- const panel=el("continuePanel");
- panel.replaceChildren();
 
- if(!data||!data.chapter){
-  const empty=document.createElement("div");
-  empty.className="empty";
-  empty.textContent="📚 Open a chapter from the Study Library. Your recently opened chapter will appear here.";
-  panel.appendChild(empty);
-  return;
- }
-
- const savedClass=String(data.class||"").replace("Class ","");
- if(student&&savedClass&&savedClass!==classNumber()){
-  const empty=document.createElement("div");
-  empty.className="empty";
-  empty.textContent="Your saved chapter belongs to another class. Open your current Study Library to continue.";
-  panel.appendChild(empty);
-  return;
- }
-
- if(student&&data.board&&data.board!==student.board){
-  const empty=document.createElement("div");
-  empty.className="empty";
-  empty.textContent="Your saved chapter belongs to another board. Open your current Study Library.";
-  panel.appendChild(empty);
-  return;
- }
-
- if(student&&classNumber()==="12"&&data.stream&&data.stream!==student.stream){
-  const empty=document.createElement("div");
-  empty.className="empty";
-  empty.textContent="Your saved chapter belongs to another stream. Open your current Study Library.";
-  panel.appendChild(empty);
-  return;
- }
-
- const content=document.createElement("div");
- content.className="continue-content";
- const art=document.createElement("div");
- art.className="chapter-art";
- art.textContent="⚡";
-
- const info=document.createElement("div");
- info.className="chapter-info";
- const subject=document.createElement("div");
- subject.className="subject";
- subject.textContent=[data.subject,data.class].filter(Boolean).join(" • ");
-
- const title=document.createElement("h3");
- title.textContent=data.chapter;
- const detail=document.createElement("p");
- detail.textContent="Chapter "+(data.number||"")+" • "+(data.board||"");
-
- const actions=document.createElement("div");
- actions.className="chapter-actions";
- [["📖 Notes",data.bookUrl],["▶ Lessons",data.lessonUrl],["✍ Practice",data.practiceUrl]].forEach(([label,url])=>{
-  const safe=safeLocalLink(url);
-  if(!safe)return;
-  const a=document.createElement("a");
-  a.href=safe;
-  a.textContent=label;
-  actions.appendChild(a);
- });
- info.append(subject,title,detail,actions);
- content.append(art,info);
- panel.appendChild(content);
+function localURL(value) {
+  try {
+    const url = new URL(value, location.href);
+    return url.origin === location.origin ? url.href : null;
+  } catch (error) {
+    return null;
+  }
 }
 
-/* CLASS-WISE PROGRESS */
-function belongsToCurrentProfile(item){
- if(!student)return false;
- const cls=classNumber();
- const itemClass=String(item.class||"").replace("Class ","");
- if(itemClass&&itemClass!==cls)return false;
+function renderContinue() {
+  let data = null;
 
- if(item.board&&item.board!==student.board)return false;
+  try {
+    data = JSON.parse(
+      localStorage.getItem("eduvantaLastChapter") || "null"
+    );
+  } catch (error) {}
 
- if(cls==="12"&&item.stream&&item.stream!==student.stream)return false;
+  const panel = $("continuePanel");
+  panel.replaceChildren();
 
- return true;
-}
+  if (!data || !data.chapter) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent =
+      "Open a chapter from Study Library. Your recently opened chapter will appear here.";
+    panel.append(empty);
+    return;
+    }
 
-function renderProgress(){
- let saved={};
- try{
-  const parsed=JSON.parse(localStorage.getItem("eduvantaCompletedLessons")||"{}");
-  if(parsed&&typeof parsed==="object"&&!Array.isArray(parsed))saved=parsed;
- }catch(e){}
+ const savedClass = String(data.class || "").replace("Class ", "");
 
- let completed=0,total=0;
- const chapters=[];
+  if (
+    (savedClass && savedClass !== classNo()) ||
+    (data.board && data.board !== student.board) ||
+    (classNo() === "12" && data.stream && data.stream !== student.stream)
+  ) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent =
+      "This saved chapter belongs to another profile. Open your current Study Library.";
+    panel.append(empty);
+    return;
+  }
 
- Object.entries(saved).forEach(([key,item])=>{
-  if(!item||typeof item!=="object")return;
-  if(!belongsToCurrentProfile(item))return;
+  const row = document.createElement("div");
+  row.className = "continue-row";
 
-  const count=Number(item.total);
-  if(!Number.isInteger(count)||count<=0)return;
+  const icon = document.createElement("div");
+  icon.className = "chapter-icon";
+  icon.textContent = "⚡";
 
-  const done=Array.isArray(item.completed)
-   ?[...new Set(item.completed.filter(n=>Number.isInteger(n)&&n>=0&&n<count))]
-   :[];
+  const info = document.createElement("div");
+  info.className = "chapter-info";
 
-  completed+=done.length;
-  total+=count;
+  const sub = document.createElement("small");
+  sub.textContent = [data.subject, data.class].filter(Boolean).join(" • ");
 
-  chapters.push({
-   name:String(item.chapter||"Chapter"),
-   subject:String(item.subject||"Subject"),
-   className:String(item.class||("Class "+classNumber())),
-   done:done.length,total:count,
-   percent:Math.round(done.length/count*100)
+  const title = document.createElement("h3");
+  title.textContent = data.chapter;
+
+  const meta = document.createElement("p");
+  meta.textContent =
+    "Chapter " + (data.number || "") + " • " + (data.board || "");
+
+  const actions = document.createElement("div");
+  actions.className = "actions";
+
+  [
+    ["📖 Notes", data.bookUrl],
+    ["▶ Lessons", data.lessonUrl],
+    ["✍ Practice", data.practiceUrl]
+  ].forEach(([label, url]) => {
+    const safe = localURL(url);
+
+    if (safe) {
+      const link = document.createElement("a");
+      link.href = safe;
+      link.textContent = label;
+      actions.append(link);
+    }
   });
- });
-
- const percent=total?Math.round(completed/total*100):0;
- const started=chapters.filter(ch=>ch.done>0).length;
- const remaining=Math.max(0,total-completed);
- const inProgress=chapters.filter(ch=>ch.done>0&&ch.done<ch.total).length;
-
- el("overallPercent").textContent=percent+"%";
- el("completedCount").textContent=completed;
- el("chapterCount").textContent=started;
- el("progressRing").style.background=
-  "conic-gradient(var(--cyan) "+(percent*3.6)+"deg,#25395e 0deg)";
-
- const list=el("chapterProgressList");
- list.replaceChildren();
-
- if(!chapters.length){
-  const empty=document.createElement("div");
-  empty.className="empty";
-  empty.textContent="No lessons completed for "+student.board+" Class "+classNumber()+(classNumber()==="12"?" "+(student.stream||""):"")+". Your chapter progress will appear here after completing lessons.";
-  list.appendChild(empty);
- }else{
-  chapters.sort((a,b)=>b.percent-a.percent);
-  chapters.forEach(ch=>{
-   const box=document.createElement("div");
-   box.className="chapter-item";
-   const row=document.createElement("div");
-   row.className="chapter-row";
-   const name=document.createElement("strong");
-   name.textContent=ch.name;
-   const pct=document.createElement("span");
-   pct.textContent=ch.percent+"%";
-   row.append(name,pct);
-
-   const meta=document.createElement("div");
-   meta.className="chapter-meta";
-   meta.textContent=ch.subject+" • "+ch.className+" • "+ch.done+"/"+ch.total+" lessons";
-
-   const track=document.createElement("div");
-   track.className="mini-track";
-   const fill=document.createElement("div");
-   fill.className="mini-fill";
-   fill.style.width=ch.percent+"%";
-   track.appendChild(fill);
-   box.append(row,meta,track);
-   list.appendChild(box);
-  });
- }
-
- const minutes=Number(localStorage.getItem(dailyMinutesKey())||0);
- const dailyGoal=Number(localStorage.getItem(scopeKey("dailyGoal"))||60);
- const goal=Number.isFinite(dailyGoal)&&dailyGoal>0?dailyGoal:60;
-
- el("statStudyTime").textContent=minutes+" min";
- el("statGoalStatus").textContent=Math.min(100,Math.round(minutes/goal*100))+"%";
- el("statRemaining").textContent=remaining;
- el("statInProgress").textContent=inProgress;
+  info.append(sub, title, meta, actions);
+  row.append(icon, info);
+  panel.append(row);
 }
 
-function refreshDashboard(){
- renderContinue();
- renderProgress();
+/* LEARNING PROGRESS */
+
+function belongs(item) {
+  if (!student) return false;
+
+  const currentClass = classNo();
+  const itemClass = String(item.class || "").replace("Class ", "");
+
+  return (
+    (!itemClass || itemClass === currentClass) &&
+    (!item.board || item.board === student.board) &&
+    (
+      currentClass !== "12" ||
+      !item.stream ||
+      item.stream === student.stream
+    )
+  );
+}
+
+function renderProgress() {
+  let saved = {};
+
+  try {
+    const parsed = JSON.parse(
+      localStorage.getItem("eduvantaCompletedLessons") || "{}"
+    );
+
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      saved = parsed;
+    }
+  } catch (error) {}
+
+  let done = 0;
+  let total = 0;
+  const chapters = [];
+
+  Object.values(saved).forEach(item => {
+    if (!item || typeof item !== "object" || !belongs(item)) return;
+
+    const count = Number(item.total);
+
+    if (!Number.isInteger(count) || count < 1) return;
+
+    const completed = Array.isArray(item.completed)
+      ? [...new Set(
+          item.completed.filter(
+            index =>
+              Number.isInteger(index) &&
+              index >= 0 &&
+              index < count
+          )
+        )]
+      : [];
+   done += completed.length;
+    total += count;
+
+    chapters.push({
+      name: item.chapter || "Chapter",
+      subject: item.subject || "Subject",
+      cls: item.class || "Class " + classNo(),
+      done: completed.length,
+      total: count,
+      pct: Math.round(completed.length / count * 100)
+    });
+  });
+
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const remaining = Math.max(0, total - done);
+  const inProgress = chapters.filter(
+    chapter => chapter.done > 0 && chapter.done < chapter.total
+  ).length;
+
+  $("overallPercent").textContent = pct + "%";
+  $("completedCount").textContent = done;
+  $("chapterCount").textContent =
+    chapters.filter(chapter => chapter.done > 0).length;
+
+  $("progressRing").style.background =
+    "conic-gradient(var(--cyan) " + pct * 3.6 + "deg,#25395e 0deg)";
+
+  const list = $("chapterProgressList");
+  list.replaceChildren();
+
+  if (!chapters.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent =
+      "No lessons completed for " + student.board +
+      " Class " + classNo() +
+      ". Progress appears here after completing lessons.";
+
+    list.append(empty);
+
+  } else {
+    chapters.sort((a, b) => b.pct - a.pct);
+
+    chapters.forEach(chapter => {
+      const box = document.createElement("div");
+      box.className = "chapter-item";
+
+      const row = document.createElement("div");
+      row.className = "chapter-row";
+
+      const name = document.createElement("b");
+      name.textContent = chapter.name;
+
+      const percent = document.createElement("span");
+      percent.textContent = chapter.pct + "%";
+
+      row.append(name, percent);
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent =
+        chapter.subject + " • " +
+        chapter.cls + " • " +
+        chapter.done + "/" + chapter.total + " lessons";
+     const track = document.createElement("div");
+      track.className = "track";
+
+      const fill = document.createElement("div");
+      fill.className = "fill";
+      fill.style.width = chapter.pct + "%";
+
+      track.append(fill);
+      box.append(row, meta, track);
+      list.append(box);
+    });
+  }
+
+  const minutes = Number(localStorage.getItem(minsKey()) || 0);
+  let goal = Number(localStorage.getItem(key("dailyGoal")) || 60);
+
+  if (!Number.isFinite(goal) || goal <= 0) goal = 60;
+
+  $("statStudyTime").textContent = minutes + " min";
+  $("statGoalStatus").textContent =
+    Math.min(100, Math.round(minutes / goal * 100)) + "%";
+  $("statRemaining").textContent = remaining;
+  $("statInProgress").textContent = inProgress;
+}
+
+function refreshDashboard() {
+  renderContinue();
+  renderProgress();
 }
 
 /* POMODORO TIMER */
-const POMO_DURATIONS={
- focus:25*60,
- short:5*60,
- long:15*60
-};
-const POMO_LABELS={
- focus:"FOCUS TIME",
- short:"SHORT BREAK",
- long:"LONG BREAK"
+
+const DUR = {
+  focus: 1500,
+  short: 300,
+  long: 900
 };
 
-let pomoMode="focus";
-let pomoRemaining=POMO_DURATIONS.focus;
-let pomoRunning=false;
-let pomoEndAt=null;
-let pomoTicker=null;
-let pomoFocusCount=0;
-let pomoMessageText="Start a focus session when you are ready.";
+const LABEL = {
+  focus: "FOCUS TIME",
+  short: "SHORT BREAK",
+  long: "LONG BREAK"
+};
+ let mode = "focus";
+let remaining = DUR.focus;
+let running = false;
+let endAt = null;
+let ticker = null;
+let message = "Start a focus session when ready.";
 
-function pomoStorageKey(){
- return scopeKey("pomodoroState");
+function saveTimer() {
+  try {
+    localStorage.setItem(
+      key("pomodoroState"),
+      JSON.stringify({mode, remaining, running, endAt})
+    );
+  } catch (error) {}
 }
-function readFocusSessions(){
- return Number(localStorage.getItem(sessionsKey())||0)||0;
-}
-function savePomodoro(){
- const state={
-  mode:pomoMode,
-  remaining:pomoRemaining,
-  running:pomoRunning,
-  endAt:pomoEndAt,
-  focusCount:pomoFocusCount
- };
- localStorage.setItem(pomoStorageKey(),JSON.stringify(state));
-}
-function loadPomodoro(){
- pomoFocusCount=readFocusSessions();
- try{
-  const state=JSON.parse(localStorage.getItem(pomoStorageKey())||"null");
-  if(!state)return;
 
-  if(!POMO_DURATIONS[state.mode])return;
-  pomoMode=state.mode;
-  pomoRemaining=Math.max(0,Math.min(POMO_DURATIONS[pomoMode],Number(state.remaining)||0));
-  pomoFocusCount=Number(state.focusCount)||0;
+function sessions() {
+  return Number(localStorage.getItem(sessionsKey()) || 0) || 0;
+}
 
-  if(state.running&&state.endAt){
-   pomoEndAt=Number(state.endAt);
-   pomoRunning=true;
-   const left=Math.ceil((pomoEndAt-Date.now())/1000);
-   if(left<=0){
-    pomoRemaining=0;
-    pomoRunning=false;
-    pomoEndAt=null;
-    completePomodoro();
-   }else{
-    pomoRemaining=left;
-    startTicker();
-   }
+function formatTime(seconds) {
+  seconds = Math.max(0, Math.floor(seconds));
+
+  return (
+    String(Math.floor(seconds / 60)).padStart(2, "0") +
+    ":" +
+    String(seconds % 60).padStart(2, "0")
+  );
+}
+
+function renderTimer() {
+  $("pomoTime").textContent = formatTime(remaining);
+  $("pomoMode").textContent = LABEL[mode];
+
+  $("pomoLabel").textContent =
+    mode === "focus"
+      ? "Time to focus"
+      : mode === "short"
+        ? "Take a short break"
+        : "Take a long break";
+   $("pomoStart").textContent =
+    running
+      ? "Pause"
+      : remaining < DUR[mode]
+        ? "Resume"
+        : "Start";
+
+  $("pomoSessions").textContent = sessions();
+
+  document.querySelectorAll(".tabs button").forEach(button => {
+    button.classList.toggle("active", button.dataset.mode === mode);
+  });
+
+  const angle =
+    (DUR[mode] - remaining) / DUR[mode] * 360;
+
+  $("pomoClock").style.background =
+    "conic-gradient(var(--cyan) " + angle + "deg,#ffffff20 " + angle + "deg)";
+
+  $("pomoMessage").textContent = message;
+}
+
+function stopTimer() {
+  if (ticker) {
+    clearInterval(ticker);
+    ticker = null;
   }
- }catch(error){
-  console.warn("Could not restore timer",error);
- }
 }
 
-function formatTime(seconds){
- const safe=Math.max(0,Math.floor(seconds));
- const m=Math.floor(safe/60);
- const s=safe%60;
- return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
-}
-function renderPomodoro(){
- el("pomoTime").textContent=formatTime(pomoRemaining);
- el("pomoMode").textContent=POMO_LABELS[pomoMode];
- el("pomoLabel").textContent=
-  pomoMode==="focus"?"Time to focus":
-  pomoMode==="short"?"Take a short break":"Take a long break";
+function completeTimer() {
+  stopTimer();
+  running = false;
+  endAt = null;
 
- el("pomoStart").textContent=pomoRunning?"Pause":(pomoRemaining<POMO_DURATIONS[pomoMode]?"Resume":"Start");
- el("pomoSessions").textContent=readFocusSessions();
+  if (mode === "focus") {
+    const oldMinutes = Number(localStorage.getItem(minsKey()) || 0);
 
- document.querySelectorAll(".pomo-tabs button").forEach(button=>{
-  button.classList.toggle("active",button.dataset.mode===pomoMode);
- });
+    localStorage.setItem(minsKey(), String(oldMinutes + 25));
 
- const total=POMO_DURATIONS[pomoMode];
- const elapsed=total-pomoRemaining;
- const angle=total?Math.max(0,Math.min(360,elapsed/total*360)):0;
- el("pomoClock").style.background=
-  "conic-gradient(#08d8e9 "+angle+"deg,#ffffff20 "+angle+"deg)";
- el("pomoMessage").textContent=pomoMessageText;
-}
-function stopTicker(){
- if(pomoTicker){
-  clearInterval(pomoTicker);
-  pomoTicker=null;
- }
-}
-function startTicker(){
- stopTicker();
- pomoTicker=setInterval(()=>{
-  if(!pomoRunning||!pomoEndAt)return;
-  pomoRemaining=Math.max(0,Math.ceil((pomoEndAt-Date.now())/1000));
-  if(pomoRemaining<=0){
-   pomoRunning=false;
-   pomoEndAt=null;
-   stopTicker();
-   completePomodoro();
+    const count = sessions() + 1;
+    localStorage.setItem(sessionsKey(), String(count));
+
+    mode = count % 4 === 0 ? "long" : "short";
+    remaining = DUR[mode];
+
+    message =
+      mode === "long"
+        ? "Focus complete. Take a 15-minute break."
+        : "Focus complete. Take a 5-minute break.";
+
+  } else {
+    mode = "focus";
+    remaining = DUR.focus;
+    message = "Break complete. Ready to focus?";
   }
-  savePomodoro();
-  renderPomodoro();
- },250);
-}
-function startOrPausePomodoro(){
- if(pomoRunning){
-  pomoRemaining=Math.max(0,Math.ceil((pomoEndAt-Date.now())/1000));
-  pomoRunning=false;
-  pomoEndAt=null;
-  stopTicker();
-  pomoMessageText="Timer paused. Resume when you are ready.";
-  savePomodoro();
-  renderPomodoro();
-  return;
- }
 
- if(pomoRemaining<=0)pomoRemaining=POMO_DURATIONS[pomoMode];
- pomoRunning=true;
- pomoEndAt=Date.now()+pomoRemaining*1000;
- pomoMessageText=pomoMode==="focus"?"Stay focused. You can do this!":"Relax and recharge.";
- savePomodoro();
- startTicker();
- renderPomodoro();
-}
-function selectPomodoroMode(mode){
- if(!POMO_DURATIONS[mode])return;
- stopTicker();
- pomoRunning=false;
- pomoEndAt=null;
- pomoMode=mode;
- pomoRemaining=POMO_DURATIONS[mode];
- pomoMessageText=mode==="focus"?"Ready for a focus session.":"Take a moment to recharge.";
- savePomodoro();
- renderPomodoro();
-}
-function resetPomodoro(){
- stopTicker();
- pomoRunning=false;
- pomoEndAt=null;
- pomoRemaining=POMO_DURATIONS[pomoMode];
- pomoMessageText="Timer reset.";
- savePomodoro();
- renderPomodoro();
-}
-function completePomodoro(){
- stopTicker();
- pomoRunning=false;
- pomoEndAt=null;
-
- if(pomoMode==="focus"){
-  /*
-   * Only a fully completed 25-minute focus timer adds study time.
-   * A paused, reset or skipped timer does not add study minutes.
-   */
-  const minutes=Number(localStorage.getItem(dailyMinutesKey())||0);
-  localStorage.setItem(dailyMinutesKey(),String(minutes+25));
-
-  const sessions=readFocusSessions()+1;
-  localStorage.setItem(sessionsKey(),String(sessions));
-  pomoFocusCount=sessions;
-
-  if(sessions%4===0){
-   pomoMode="long";
-   pomoRemaining=POMO_DURATIONS.long;
-   pomoMessageText="Focus session completed! Time for a 15-minute long break.";
-  }else{
-   pomoMode="short";
-   pomoRemaining=POMO_DURATIONS.short;
-   pomoMessageText="Focus session completed! Time for a 5-minute short break.";
-  }
- }else{
-  pomoMode="focus";
-  pomoRemaining=POMO_DURATIONS.focus;
-  pomoMessageText="Break completed. Ready for another focus session?";
- }
-
- savePomodoro();
- renderPomodoro();
- renderProgress();
-
- if(typeof Notification!=="undefined"&&Notification.permission==="granted"){
-  try{
-   new Notification("EDUVANTA Pomodoro",{
-    body:pomoMessageText
-   });
-  }catch(e){}
- }
-}
-function skipPomodoro(){
- if(pomoRunning){
-  const confirmSkip=confirm("Skip the current timer? It will not count as a completed focus session.");
-  if(!confirmSkip)return;
- }
- stopTicker();
- pomoRunning=false;
- pomoEndAt=null;
-
- if(pomoMode==="focus"){
-  pomoMode="short";
-  pomoRemaining=POMO_DURATIONS.short;
-  pomoMessageText="Focus timer skipped. No study time was added.";
- }else{
-  pomoMode="focus";
-  pomoRemaining=POMO_DURATIONS.focus;
-  pomoMessageText="Break skipped. Ready to focus?";
- }
- savePomodoro();
- renderPomodoro();
-}
-
-el("pomoStart").addEventListener("click",startOrPausePomodoro);
-el("pomoReset").addEventListener("click",resetPomodoro);
-el("pomoSkip").addEventListener("click",skipPomodoro);
-
-document.querySelectorAll(".pomo-tabs button").forEach(button=>{
- button.addEventListener("click",()=>{
-  if(pomoRunning){
-   const ok=confirm("Change timer mode? The running timer will stop.");
-   if(!ok)return;
-  }
-  selectPomodoroMode(button.dataset.mode);
- });
-});
-
-/* OPTIONAL NOTIFICATIONS */
-if("Notification" in window&&Notification.permission==="default"){
- /*
-  * No permission popup is forced on page load.
-  * The browser notification can be enabled by the user manually later.
-  */
-}
-
-/* CROSS-TAB REFRESH */
-window.addEventListener("pageshow",()=>{
- if(student)refreshDashboard();
-});
-window.addEventListener("storage",event=>{
- if(!event.key)return;
- if(event.key==="eduvantaCompletedLessons"||
-    event.key==="eduvantaLastChapter"||
-    event.key===dailyMinutesKey()||
-    event.key===sessionsKey()){
-  pomoFocusCount=readFocusSessions();
+saveTimer();
+  renderTimer();
   refreshDashboard();
-  renderPomodoro();
- }
-});
- 
-document.addEventListener("visibilitychange",()=>{
- if(!document.hidden&&pomoRunning&&pomoEndAt){
-  pomoRemaining=Math.max(0,Math.ceil((pomoEndAt-Date.now())/1000));
-  if(pomoRemaining<=0){
-   pomoRunning=false;
-   pomoEndAt=null;
-   completePomodoro();
-  }else{
-   renderPomodoro();
+
+  if (
+    "Notification" in window &&
+    Notification.permission === "granted"
+  ) {
+    try {
+      new Notification("EDUVANTA Pomodoro", {body: message});
+    } catch (error) {}
   }
- }
+}
+
+function startTicker() {
+  stopTimer();
+
+  ticker = setInterval(() => {
+    if (!running || !endAt) return;
+
+    remaining = Math.max(
+      0,
+      Math.ceil((endAt - Date.now()) / 1000)
+    );
+
+    if (remaining <= 0) {
+      completeTimer();
+      return;
+    }
+
+    saveTimer();
+    renderTimer();
+  }, 250);
+}
+
+function loadTimer() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem(key("pomodoroState")) || "null"
+    );
+
+    if (!saved || !DUR[saved.mode]) return;
+
+    mode = saved.mode;
+    remaining = Math.max(
+      0,
+      Math.min(DUR[mode], Number(saved.remaining) || 0)
+    );
+
+    if (saved.running && saved.endAt) {
+      running = true;
+      endAt = Number(saved.endAt);
+
+      remaining = Math.max(
+        0,
+        Math.ceil((endAt - Date.now()) / 1000)
+      );
+
+      if (remaining <= 0) {
+        completeTimer();
+      } else {
+        startTicker();
+      }
+    }
+
+  } catch (error) {
+    console.warn("Could not restore Pomodoro timer.", error);
+  }
+}
+
+$("pomoStart").onclick = () => {
+  if (running) {
+    remaining = Math.max(
+      0,
+      Math.ceil((endAt - Date.now()) / 1000)
+    );
+
+    running = false;
+    endAt = null;
+    stopTimer();
+    message = "Timer paused.";
+
+  } else {
+    if (remaining <= 0) remaining = DUR[mode];
+
+    running = true;
+    endAt = Date.now() + remaining * 1000;
+
+    message =
+      mode === "focus"
+        ? "Stay focused!"
+        : "Relax and recharge.";
+   startTicker();
+  }
+
+  saveTimer();
+  renderTimer();
+};
+
+$("pomoReset").onclick = () => {
+  stopTimer();
+  running = false;
+  endAt = null;
+  remaining = DUR[mode];
+  message = "Timer reset.";
+
+  saveTimer();
+  renderTimer();
+};
+
+$("pomoSkip").onclick = () => {
+  if (
+    running &&
+    !confirm("Skip timer? It will not count as a completed focus session.")
+  ) return;
+
+  stopTimer();
+  running = false;
+  endAt = null;
+
+  mode = mode === "focus" ? "short" : "focus";
+  remaining = DUR[mode];
+  message = "Timer skipped. No study time was added.";
+
+  saveTimer();
+  renderTimer();
+};
+
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.onclick = () => {
+    if (
+      running &&
+      !confirm("Change mode and stop current timer?")
+    ) return;
+
+    stopTimer();
+    running = false;
+    endAt = null;
+    mode = button.dataset.mode;
+    remaining = DUR[mode];
+    message = "Timer ready.";
+
+    saveTimer();
+    renderTimer();
+  };
 });
+
+/* LOGOUT */
+
+$("logoutBtn").onclick = async () => {
+  if (!confirm("Are you sure you want to logout?")) return;
+
+  stopTimer();
+
+  try {
+    await auth.signOut();
+    location.replace("auth.html?auth=login");
+  } catch (error) {
+    alert("Logout failed: " + error.message);
+  }
+};
+
+/* AUTHENTICATION AND VERIFIED EMAIL CHECK */
+
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    location.replace("auth.html?auth=login");
+    return;
+  }
+
+  currentUser = user;
+
+  try {
+    await user.reload();
+
+    const token = await user.getIdTokenResult(true);
+
+    if (!token.claims.email_verified) {
+      await auth.signOut();
+      location.replace("auth.html?auth=login&verify=required");
+      return;
+    }
+
+    const profileSnapshot = await db
+      .collection("users")
+      .doc(user.uid)
+      .get();
+
+    if (!profileSnapshot.exists) {
+      $("loading").textContent =
+        "Student profile not found. Please log in again.";
+      return;
+ }
+   const data = profileSnapshot.data();
+
+    if (!data.email && user.email) {
+      data.email = user.email;
+    }
+
+    renderProfile(data);
+    loadTimer();
+
+    $("loading").classList.add("hidden");
+    $("app").classList.remove("hidden");
+
+    refreshDashboard();
+    renderTimer();
+
+  } catch (error) {
+    console.error("Dashboard loading error:", error);
+
+    $("loading").textContent =
+      "Dashboard error: " +
+      (error.message || "Please check internet and Firestore rules.");
+  }
+});
+
+/* REFRESH DASHBOARD WHEN RETURNING */
+
+window.addEventListener("pageshow", () => {
+  if (student) refreshDashboard();
+});
+
+window.addEventListener("storage", event => {
+  if (
+    !event.key ||
+    event.key === "eduvantaCompletedLessons" ||
+    event.key === "eduvantaLastChapter" ||
+    event.key === minsKey() ||
+    event.key === sessionsKey()
+  ) {
+    refreshDashboard();
+    renderTimer();
+  }
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && running && endAt) {
+    remaining = Math.max(
+      0,
+      Math.ceil((endAt - Date.now()) / 1000)
+    );
+
+    if (remaining <= 0) {
+      completeTimer();
+    } else {
+      renderTimer();
+    }
+  }
+});
+
 </script>
- 
-
- <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="auth-guard.js"></script>
-
 </body>
 </html>
