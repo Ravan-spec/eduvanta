@@ -77,6 +77,7 @@ select option{background:#0b1528}
 .hidden{display:none!important}
 .loading{opacity:.65;pointer-events:none}
 .verification-email{color:var(--cyan);font-weight:bold;overflow-wrap:anywhere;margin:12px 0 18px;font-size:14px}
+button:disabled{opacity:.6;cursor:not-allowed}
 @media(max-width:380px){.card{padding:19px}.brand h1{font-size:24px}}
 </style>
 </head>
@@ -95,7 +96,7 @@ select option{background:#0b1528}
       <button class="tab" id="signupTab" type="button">Create Account</button>
     </div>
 
-    <div id="message" class="message"></div>
+    <div id="message" class="message" role="status" aria-live="polite"></div>
 
     <form id="loginForm">
       <h2>Welcome Back 👋</h2>
@@ -149,7 +150,9 @@ select option{background:#0b1528}
 
       <div class="field">
         <label for="board">Board</label>
-        <select id="board" required><option value="CBSE" selected>CBSE</option></select>
+        <select id="board" required>
+          <option value="CBSE" selected>CBSE</option>
+        </select>
       </div>
 
       <div class="field">
@@ -203,7 +206,9 @@ select option{background:#0b1528}
 
       <div class="field">
         <label for="googleBoard">Board</label>
-        <select id="googleBoard" required><option value="CBSE" selected>CBSE</option></select>
+        <select id="googleBoard" required>
+          <option value="CBSE" selected>CBSE</option>
+        </select>
       </div>
 
       <div class="field">
@@ -247,7 +252,10 @@ const firebaseConfig = {
   appId: "1:33328294092:web:7f51cd4ecb6b970be27a69"
 };
 
-firebase.initializeApp(firebaseConfig);
+/* FIREBASE INITIALIZATION */
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -262,35 +270,57 @@ function showMessage(text,type="error"){
   message.textContent = text;
   message.className = "message " + type;
 }
+
 function clearMessage(){
   message.textContent = "";
   message.className = "message";
 }
+
 function setLoading(form,loading){
   form.classList.toggle("loading",loading);
-  form.querySelectorAll("button").forEach(button=>button.disabled=loading);
+  form.querySelectorAll("button").forEach(button=>{
+    button.disabled=loading;
+  });
 }
+
 function showForm(which){
   clearMessage();
+
   $("loginForm").classList.toggle("hidden",which!=="login");
   $("signupForm").classList.toggle("hidden",which!=="signup");
   $("profileForm").classList.toggle("hidden",which!=="profile");
   $("verificationPanel").classList.toggle("hidden",which!=="verification");
+
   $("tabs").classList.toggle("hidden",which==="verification"||which==="profile");
+
   $("loginTab").classList.toggle("active",which==="login");
   $("signupTab").classList.toggle("active",which==="signup");
 }
-function cleanUsername(value){return value.trim().toLowerCase()}
-function validUsername(value){return /^[a-z0-9_]{3,20}$/.test(value)}
+
+function cleanUsername(value){
+  return value.trim().toLowerCase();
+}
+
+function validUsername(value){
+  return /^[a-z0-9_]{3,20}$/.test(value);
+}
 
 function updateStreamVisibility(classId,fieldId,streamId){
   const isClass12=$(classId).value==="12";
+
   $(fieldId).classList.toggle("hidden",!isClass12);
   $(streamId).required=isClass12;
+
   if(!isClass12) $(streamId).value="";
 }
-$("studentClass").addEventListener("change",()=>updateStreamVisibility("studentClass","streamField","stream"));
-$("googleClass").addEventListener("change",()=>updateStreamVisibility("googleClass","googleStreamField","googleStream"));
+
+$("studentClass").addEventListener("change",()=>{
+  updateStreamVisibility("studentClass","streamField","stream");
+});
+
+$("googleClass").addEventListener("change",()=>{
+  updateStreamVisibility("googleClass","googleStreamField","googleStream");
+});
 
 function friendlyError(error){
   const codes={
@@ -306,22 +336,25 @@ function friendlyError(error){
     "auth/network-request-failed":"Network error. Check your internet connection.",
     "auth/too-many-requests":"Too many attempts. Please wait and try again.",
     "auth/requires-recent-login":"Please login again and retry.",
-    "permission-denied":"Firestore permission denied. Check your Firestore Rules."
+    "permission-denied":"Firestore permission denied. Check your Firestore Rules.",
+    "failed-precondition":"Firestore operation failed. Check your database setup.",
+    "unavailable":"Firestore is temporarily unavailable. Try again."
   };
+
   return codes[error.code]||error.message||"Something went wrong. Please try again.";
 }
 
-/*
-  SECURITY GATE:
-  Reload the user and force Firebase to issue a fresh ID token.
-  Never trust a button click or a stale emailVerified property alone.
-*/
+/* VERIFY EMAIL USING A FRESH FIREBASE TOKEN */
 async function hasVerifiedEmail(user){
   if(!user) return false;
+
   await user.reload();
+
   const refreshedUser=auth.currentUser;
   if(!refreshedUser) return false;
+
   const tokenResult=await refreshedUser.getIdTokenResult(true);
+
   return tokenResult.claims.email_verified===true;
 }
 
@@ -335,13 +368,18 @@ function showVerification(user){
 function savePendingProfile(details){
   sessionStorage.setItem("eduvantaPendingProfile",JSON.stringify(details));
 }
+
 function getPendingProfile(){
-  try{return JSON.parse(sessionStorage.getItem("eduvantaPendingProfile")||"null")}
-  catch(error){return null}
+  try{
+    return JSON.parse(sessionStorage.getItem("eduvantaPendingProfile")||"null");
+  }catch(error){
+    return null;
+  }
 }
 
 /* PROFILE SAVING */
 async function saveStudentProfile(user,details){
+
   if(!(await hasVerifiedEmail(user))){
     showVerification(auth.currentUser);
     throw new Error("Email verification is required before creating your profile.");
@@ -354,9 +392,11 @@ async function saveStudentProfile(user,details){
   if(!validUsername(username)){
     throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
   }
+
   if(!["10","12"].includes(studentClass)){
     throw new Error("Please select Class 10 or Class 12.");
   }
+
   if(studentClass==="12"&&!stream){
     throw new Error("Please select your stream.");
   }
@@ -365,27 +405,36 @@ async function saveStudentProfile(user,details){
   const usernameRef=db.collection("usernames").doc(username);
 
   await db.runTransaction(async transaction=>{
+
     const existingUser=await transaction.get(userRef);
     const existingUsername=await transaction.get(usernameRef);
 
-    if(existingUser.exists) throw new Error("A profile already exists for this account. Please login.");
-    if(existingUsername.exists) throw new Error("This username is already taken. Please choose another.");
+    if(existingUser.exists){
+      throw new Error("A profile already exists for this account. Please login.");
+    }
+
+    if(existingUsername.exists){
+      throw new Error("This username is already taken. Please choose another.");
+    }
+
+    const now=new Date();
 
     transaction.set(userRef,{
       uid:user.uid,
       name:(details.name||"").trim(),
-      username,
+      username:username,
       email:user.email||"",
       board:details.board||"CBSE",
       class:studentClass,
-      stream,
+      stream:stream,
       authProvider:details.provider||"password",
-      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      createdAt:now,
+      updatedAt:now
     });
 
     transaction.set(usernameRef,{
       uid:user.uid,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      createdAt:now
     });
   });
 
@@ -393,71 +442,98 @@ async function saveStudentProfile(user,details){
   window.location.replace("index.html");
 }
 
-/* VERIFICATION CHECK */
+/* CHECK EMAIL VERIFICATION */
 async function checkVerification(){
+
   if(authActionInProgress) return;
+
   authActionInProgress=true;
   clearMessage();
 
   try{
     const user=auth.currentUser||currentVerificationUser;
-    if(!user) throw new Error("Your session has expired. Please login again.");
+
+    if(!user){
+      throw new Error("Your session has expired. Please login again.");
+    }
 
     const verified=await hasVerifiedEmail(user);
     const refreshedUser=auth.currentUser;
 
     if(!verified||!refreshedUser){
       showVerification(refreshedUser||user);
-      showMessage("Email is NOT verified. Open the actual verification link sent by Firebase, then return here.");
+      showMessage("Email is NOT verified. Open the verification link sent by Firebase, then return here.");
       return;
     }
 
     const pending=getPendingProfile();
 
     if(pending&&pending.email===refreshedUser.email){
-      await saveStudentProfile(refreshedUser,{...pending,provider:"password"});
+      await saveStudentProfile(refreshedUser,{
+        ...pending,
+        provider:"password"
+      });
     }else{
       await routeSignedInUser(refreshedUser);
     }
+
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
     authActionInProgress=false;
   }
 }
+
 $("checkVerification").addEventListener("click",checkVerification);
 
-/* RESEND EMAIL */
+/* RESEND VERIFICATION EMAIL */
 async function resendVerification(){
+
+  if(authActionInProgress) return;
+
   clearMessage();
+
   try{
     const user=auth.currentUser||currentVerificationUser;
-    if(!user) throw new Error("Please login again to resend the verification email.");
+
+    if(!user){
+      throw new Error("Please login again to resend the verification email.");
+    }
 
     const verified=await hasVerifiedEmail(user);
+
     if(verified){
       showMessage("This email is already verified. Continue using the verification button.","success");
       return;
     }
 
-    await user.sendEmailVerification();
+    await auth.currentUser.sendEmailVerification();
+
     showMessage("A new verification link has been sent. Check your inbox and spam folder.","success");
+
   }catch(error){
     showMessage(friendlyError(error));
   }
 }
+
 $("resendVerification").addEventListener("click",resendVerification);
 
+/* BACK TO LOGIN */
 $("backToLogin").addEventListener("click",async()=>{
-  try{await auth.signOut()}catch(error){}
+  try{
+    await auth.signOut();
+  }catch(error){}
+
   currentVerificationUser=null;
   sessionStorage.removeItem("eduvantaPendingProfile");
   showForm("login");
 });
 
-/* ROUTING: EVERY ENTRY TO THE DASHBOARD PASSES THE SAME GATE */
+/* ROUTE SIGNED-IN USER */
 async function routeSignedInUser(user){
+
   if(!user||routingInProgress) return;
+
   routingInProgress=true;
 
   try{
@@ -480,6 +556,7 @@ async function routeSignedInUser(user){
     }
 
     const pending=getPendingProfile();
+
     $("googleName").value=refreshedUser.displayName||"";
 
     if(pending&&pending.email===refreshedUser.email){
@@ -488,11 +565,13 @@ async function routeSignedInUser(user){
       $("googleBoard").value=pending.board||"CBSE";
       $("googleClass").value=pending.studentClass||"";
       $("googleStream").value=pending.stream||"";
+
       updateStreamVisibility("googleClass","googleStreamField","googleStream");
     }
 
     showForm("profile");
     showMessage("Complete your profile to enter EDUVANTA.","success");
+
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
@@ -506,10 +585,11 @@ $("signupTab").onclick=()=>showForm("signup");
 $("goSignup").onclick=()=>showForm("signup");
 $("goLogin").onclick=()=>showForm("login");
 
-/* SHOW PASSWORD */
+/* SHOW / HIDE PASSWORD */
 document.querySelectorAll(".show-pass").forEach(button=>{
   button.addEventListener("click",()=>{
     const input=$(button.dataset.target);
+
     input.type=input.type==="password"?"text":"password";
     button.textContent=input.type==="password"?"Show":"Hide";
   });
@@ -517,8 +597,11 @@ document.querySelectorAll(".show-pass").forEach(button=>{
 
 /* EMAIL SIGNUP */
 $("signupForm").addEventListener("submit",async event=>{
+
   event.preventDefault();
+
   if(authActionInProgress) return;
+
   authActionInProgress=true;
 
   const form=$("signupForm");
@@ -536,30 +619,49 @@ $("signupForm").addEventListener("submit",async event=>{
     const board=$("board").value;
 
     if(!name) throw new Error("Please enter your full name.");
-    if(!validUsername(username)) throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
-    if(!studentClass) throw new Error("Please select your class.");
-    if(studentClass==="12"&&!stream) throw new Error("Please select your stream.");
+
+    if(!validUsername(username)){
+      throw new Error("Username must be 3–20 characters using lowercase letters, numbers or underscore only.");
+    }
+
+    if(!studentClass){
+      throw new Error("Please select your class.");
+    }
+
+    if(studentClass==="12"&&!stream){
+      throw new Error("Please select your stream.");
+    }
 
     const credential=await auth.createUserWithEmailAndPassword(email,password);
     createdUser=credential.user;
 
     savePendingProfile({
-      name,username,email:createdUser.email,studentClass,stream,board
+      name,
+      username,
+      email:createdUser.email,
+      studentClass,
+      stream,
+      board
     });
 
     currentVerificationUser=createdUser;
+
     $("verificationEmail").textContent=createdUser.email||"";
 
     await createdUser.sendEmailVerification();
+
     showVerification(createdUser);
-    showMessage("Verification link sent. You must open it before continuing.","success");
+    showMessage("Verification link sent. Open it before continuing.","success");
+
   }catch(error){
+
     if(createdUser){
       showVerification(createdUser);
-      showMessage("Account created, but the verification email could not be sent. Try Resend Verification Email. "+friendlyError(error));
+      showMessage("Account created, but verification email could not be sent. Use Resend Verification Email. "+friendlyError(error));
     }else{
       showMessage(friendlyError(error));
     }
+
   }finally{
     authActionInProgress=false;
     setLoading(form,false);
@@ -568,8 +670,11 @@ $("signupForm").addEventListener("submit",async event=>{
 
 /* EMAIL LOGIN */
 $("loginForm").addEventListener("submit",async event=>{
+
   event.preventDefault();
+
   if(authActionInProgress) return;
+
   authActionInProgress=true;
 
   const form=$("loginForm");
@@ -591,6 +696,7 @@ $("loginForm").addEventListener("submit",async event=>{
     }
 
     await routeSignedInUser(user);
+
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
@@ -601,7 +707,9 @@ $("loginForm").addEventListener("submit",async event=>{
 
 /* GOOGLE SIGN-IN */
 async function googleSignIn(){
+
   if(authActionInProgress) return;
+
   authActionInProgress=true;
   clearMessage();
 
@@ -610,6 +718,7 @@ async function googleSignIn(){
     provider.setCustomParameters({prompt:"select_account"});
 
     const result=await auth.signInWithPopup(provider);
+
     const verified=await hasVerifiedEmail(result.user);
 
     if(!verified){
@@ -618,19 +727,24 @@ async function googleSignIn(){
     }
 
     await routeSignedInUser(auth.currentUser);
+
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
     authActionInProgress=false;
   }
 }
+
 $("googleLogin").onclick=googleSignIn;
 $("googleSignup").onclick=googleSignIn;
 
-/* PROFILE COMPLETION */
+/* COMPLETE PROFILE */
 $("profileForm").addEventListener("submit",async event=>{
+
   event.preventDefault();
+
   if(authActionInProgress) return;
+
   authActionInProgress=true;
 
   const form=$("profileForm");
@@ -638,7 +752,10 @@ $("profileForm").addEventListener("submit",async event=>{
 
   try{
     const user=auth.currentUser;
-    if(!user) throw new Error("Please sign in again.");
+
+    if(!user){
+      throw new Error("Please sign in again.");
+    }
 
     if(!(await hasVerifiedEmail(user))){
       showVerification(auth.currentUser);
@@ -652,8 +769,11 @@ $("profileForm").addEventListener("submit",async event=>{
       board:$("googleBoard").value,
       studentClass:$("googleClass").value,
       stream:$("googleStream").value,
-      provider:auth.currentUser.providerData[0]?.providerId==="google.com"?"google":"password"
+      provider:auth.currentUser.providerData[0]?.providerId==="google.com"
+        ?"google"
+        :"password"
     });
+
   }catch(error){
     showMessage(friendlyError(error));
   }finally{
@@ -668,6 +788,16 @@ auth.onAuthStateChanged(user=>{
     routeSignedInUser(user);
   }
 });
+
+/* URL REQUESTED LOGIN TAB */
+const urlParams=new URLSearchParams(location.search);
+
+if(urlParams.get("auth")==="signup"){
+  showForm("signup");
+}else{
+  showForm("login");
+}
 </script>
+
 </body>
 </html>
