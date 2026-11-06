@@ -408,6 +408,55 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:25px}
   .edit,.logout{padding:7px;font-size:9px}
   .progress-layout{gap:5px}
 }
+/* BOARD DATE SHEET */
+.datesheet-grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:13px;
+}
+.datesheet-card{
+ padding:18px;
+ border:1px solid #28527c;
+ border-radius:17px;
+ background:linear-gradient(145deg,#102b50,#111b38);
+}
+.datesheet-card .sheet-icon{
+ font-size:30px;
+ margin-bottom:12px;
+}
+.datesheet-card h3{
+ font-size:17px;
+ margin-bottom:7px;
+}
+.datesheet-card p{
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.6;
+ margin-bottom:14px;
+}
+.datesheet-card a{
+ display:inline-block;
+ padding:10px 13px;
+ border-radius:9px;
+ background:#087fbd;
+ color:white;
+ font-size:11px;
+ font-weight:bold;
+}
+.datesheet-status{
+ display:inline-block;
+ margin-bottom:10px;
+ padding:5px 8px;
+ border-radius:20px;
+ background:#263c55;
+ color:#9debf0;
+ font-size:9px;
+ font-weight:bold;
+}
+@media(max-width:600px){
+ .datesheet-grid{grid-template-columns:1fr}
+}
+  
 </style>
 </head>
 
@@ -550,6 +599,46 @@ footer{text-align:center;color:#7385a6;font-size:10px;padding:25px}
   </div>
 </section>
 
+  <!-- BOARD DATE SHEET -->
+<section class="section" id="boardDatesheet">
+  <div class="section-head">
+    <h2>📅 Board Exam Date Sheet 2027</h2>
+  </div>
+
+  <div class="datesheet-grid">
+
+    <div class="datesheet-card">
+      <div class="sheet-icon">📘</div>
+      <span class="datesheet-status">CBSE 2027</span>
+      <h3>Class 10 Date Sheet</h3>
+      <p>Check Class 10 examination schedule and official updates.</p>
+      <a href="https://www.cbse.gov.in/"
+         target="_blank" rel="noopener noreferrer">
+        Open Official Website ↗
+      </a>
+    </div>
+
+    <div class="datesheet-card">
+      <div class="sheet-icon">📗</div>
+      <span class="datesheet-status">CBSE 2027</span>
+      <h3>Class 12 Date Sheet</h3>
+      <p>Check Class 12 examination schedule and official updates.</p>
+      <a href="https://www.cbse.gov.in/"
+         target="_blank" rel="noopener noreferrer">
+        Open Official Website ↗
+      </a>
+    </div>
+
+  </div>
+
+  <p class="section-sub" style="margin-top:12px">
+    Check the latest official CBSE notice for examination dates and timings.
+  </p>
+
+</section>
+
+
+<!-- MY LEARNING PROFILE --> 
 <section class="section">
   <div class="section-head">
     <h2>🎓 My Learning Profile</h2>
