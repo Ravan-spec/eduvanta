@@ -119,6 +119,46 @@ main{
   margin-top:6px;
   font-size:11px;
 }
+
+/* DATE SHEET CARD */
+.date-card{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:19px;
+  background:linear-gradient(135deg,#172c4c,#173c42);
+  border:1px solid var(--teal);
+  border-radius:15px;
+  transition:.2s;
+}
+.date-card:hover{
+  transform:translateY(-3px);
+  border-color:#fff;
+}
+.date-icon{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  background:#ffffff18;
+  border-radius:13px;
+  font-size:25px;
+  flex-shrink:0;
+}
+.date-info{flex:1}
+.date-info h3{font-size:16px;margin-bottom:6px}
+.date-info p{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.date-open{
+  color:var(--teal);
+  font-size:12px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
 .subject-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -220,6 +260,7 @@ footer{
   </p>
 </section>
 
+<!-- EDUCATION BOARD -->
 <section class="section">
   <div class="heading">
     <h2>Your Education Board</h2>
@@ -237,6 +278,21 @@ footer{
   </div>
 </section>
 
+<!-- BOARD DATE SHEET -->
+<section class="section">
+  <a class="date-card" id="dateSheetCard" href="date-sheet.html">
+    <div class="date-icon">📅</div>
+    <div class="date-info">
+      <h3 id="dateSheetTitle">Board Exam Date Sheet 2027</h3>
+      <p id="dateSheetDescription">
+        CBSE Board Examination Schedule
+      </p>
+      <div class="date-open">View Date Sheet →</div>
+    </div>
+  </a>
+</section>
+
+<!-- SUBJECTS -->
 <section class="section" id="subjectsSection">
   <div class="heading">
     <h2>Explore Your Subjects</h2>
@@ -246,7 +302,6 @@ footer{
   </div>
 
   <div class="subject-grid" id="subjectGrid"></div>
-
   <div class="notice" id="availabilityNotice"></div>
 </section>
 
@@ -270,7 +325,9 @@ const classNumber = normalizeClass(params.get("class"));
 const selectedClass = "Class " + classNumber;
 const board = "CBSE";
 
-const savedStream = localStorage.getItem("eduvantaStudentStream") || "";
+const savedStream =
+  localStorage.getItem("eduvantaStudentStream") || "";
+
 const stream = params.get("stream") || savedStream;
 
 const title = document.getElementById("pageTitle");
@@ -279,9 +336,11 @@ const subjectGrid = document.getElementById("subjectGrid");
 const subjectSubtitle = document.getElementById("subjectSubtitle");
 const notice = document.getElementById("availabilityNotice");
 
+/* CLASS TITLE */
 title.innerHTML =
   "Welcome to <span>" + selectedClass + "</span>";
 
+/* SAVE CLASS */
 localStorage.setItem("eduvantaStudentClass",selectedClass);
 localStorage.setItem("eduvantaClass",selectedClass);
 localStorage.setItem("eduvantaBoard",board);
@@ -290,6 +349,20 @@ if(stream){
   localStorage.setItem("eduvantaStudentStream",stream);
 }
 
+/* DATE SHEET CARD */
+const dateSheetCard =
+  document.getElementById("dateSheetCard");
+
+document.getElementById("dateSheetTitle").textContent =
+  selectedClass + " Board Exam Date Sheet 2027";
+
+document.getElementById("dateSheetDescription").textContent =
+  "View CBSE " + selectedClass + " subject-wise examination timetable.";
+
+dateSheetCard.href =
+  "date-sheet.html?class=" + encodeURIComponent(classNumber);
+
+/* CLASS 10 SUBJECTS */
 const class10Subjects = [
   {
     name:"Mathematics",
@@ -323,6 +396,7 @@ const class10Subjects = [
   }
 ];
 
+/* CLASS 12 PCM SUBJECTS */
 const class12PCMSubjects = [
   {
     name:"Physics",
@@ -438,7 +512,6 @@ function renderSubjects(){
       "Please return to your profile and select your Class 12 stream. Currently, the chapter library is available for Science PCM.";
 
     subjectGrid.innerHTML = "";
-
     return;
   }
 
@@ -458,9 +531,9 @@ function renderSubjects(){
 renderSubjects();
 </script>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="auth-guard.js"></script>
-  
+
 </body>
 </html>
