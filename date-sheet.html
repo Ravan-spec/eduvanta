@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>CBSE Date Sheet 2027 | EDUVANTA</title>
+
+<style>
+:root{
+  --bg:#0b1020;
+  --surface:#131d33;
+  --border:#293a59;
+  --text:#f4f7ff;
+  --muted:#a5b2ca;
+  --teal:#36d6c3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 6%;
+  background:#101a30;
+  border-bottom:1px solid var(--border);
+}
+.logo{font-size:22px;font-weight:800}
+.logo span{color:var(--teal)}
+.back{
+  padding:10px 14px;
+  background:#1b2943;
+  border:1px solid var(--border);
+  border-radius:9px;
+  font-size:13px;
+}
+main{
+  max-width:850px;
+  margin:auto;
+  padding:28px 5% 70px;
+}
+.hero{
+  padding:28px 23px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#172747,#123c51);
+  border:1px solid var(--border);
+  margin-bottom:25px;
+}
+.tag{
+  color:var(--teal);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:13px;
+}
+h1{
+  font-size:clamp(25px,5vw,36px);
+  margin-bottom:12px;
+}
+.hero p{
+  color:#d0dced;
+  font-size:13px;
+  line-height:1.8;
+}
+.summary{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-bottom:25px;
+}
+.summary-card{
+  padding:17px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+.summary-card small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:8px;
+}
+.summary-card strong{font-size:16px}
+.panel{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:20px;
+}
+.panel h2{
+  font-size:19px;
+  margin-bottom:7px;
+}
+.sub{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  margin-bottom:17px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+th,td{
+  padding:14px 10px;
+  text-align:left;
+  border-bottom:1px solid var(--border);
+  line-height:1.5;
+}
+th{
+  color:var(--teal);
+  font-size:11px;
+}
+td:first-child{
+  white-space:nowrap;
+  font-weight:bold;
+}
+tr:last-child td{border-bottom:none}
+.note{
+  padding:15px;
+  border-radius:11px;
+  background:#302819;
+  border:1px solid #705b2c;
+  color:#f5dfaa;
+  font-size:12px;
+  line-height:1.8;
+  margin-top:17px;
+}
+.official{
+  display:block;
+  text-align:center;
+  padding:15px;
+  border-radius:11px;
+  background:#173c42;
+  border:1px solid var(--teal);
+  color:var(--teal);
+  font-size:13px;
+  font-weight:bold;
+  margin-top:15px;
+}
+footer{
+  text-align:center;
+  padding:25px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+@media(max-width:520px){
+  header{padding:13px 5%}
+  .logo{font-size:19px}
+  main{padding:20px 4% 55px}
+  .hero{padding:23px 17px}
+  .panel{padding:14px}
+  th,td{padding:12px 7px;font-size:11px}
+  .summary-card{padding:14px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="index.html">EDU<span>VANTA</span></a>
+  <a class="back" id="backButton" href="class.html">← Dashboard</a>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="tag">CBSE BOARD EXAMINATION 2027</div>
+  <h1 id="pageTitle">Board Exam Date Sheet 2027</h1>
+  <p>
+    Subject-wise examination timetable for the
+    CBSE academic session 2026–27.
+  </p>
+</section>
+
+<section class="summary">
+  <div class="summary-card">
+    <small>EXAMINATION START</small>
+    <strong>16 February 2027</strong>
+  </div>
+  <div class="summary-card">
+    <small>EXAM START TIME</small>
+    <strong>10:30 AM</strong>
+  </div>
+</section>
+
+<section class="panel">
+  <h2 id="tableTitle">Subject-wise Schedule</h2>
+  <p class="sub">
+    Officially announced major subject examination dates.
+  </p>
+
+  <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Day</th>
+          <th>Subject</th>
+        </tr>
+      </thead>
+      <tbody id="dateTable"></tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    Important: This is a list of major subjects, not the
+    complete list of all CBSE subject codes and electives.
+    Check your registered subject code and the official
+    CBSE timetable before your examination.
+  </div>
+
+  <a class="official"
+     href="https://www.cbse.gov.in/cbsenew/documents/Datesheet_ClassX%20_XII_2027_Main_06112026.pdf"
+     target="_blank" rel="noopener">
+    View Official CBSE Complete Date Sheet ↗
+  </a>
+</section>
+
+<section class="panel">
+  <h2>Important Instructions</h2>
+  <p class="sub">
+    1. Reach your examination centre according to your admit card.<br><br>
+    2. Check the subject code carefully.<br><br>
+    3. Check the duration and reporting time printed on your admit card.<br><br>
+    4. Carry your admit card and permitted stationery.<br><br>
+    5. Follow the latest CBSE instructions.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <strong>EDUVANTA — Learn Beyond Limits.</strong><br>
+  CBSE Date Sheet 2027<br>
+  © 2026 EDUVANTA. All rights reserved.
+</footer>
+
+<script>
+const params = new URLSearchParams(location.search);
+const classNumber = params.get("class") === "10" ? "10" : "12";
+
+document.getElementById("pageTitle").textContent =
+  "Class " + classNumber + " Board Exam Date Sheet 2027";
+
+document.getElementById("tableTitle").textContent =
+  "Class " + classNumber + " Subject-wise Schedule";
+
+document.getElementById("backButton").href =
+  "class.html?class=" + classNumber;
+
+const schedules = {
+  "10": [
+    ["16 February 2027","Tuesday","Painting"],
+    ["17 February 2027","Wednesday","Mathematics Standard / Basic"],
+    ["18 February 2027","Thursday","Skill Subjects"],
+    ["19 February 2027","Friday","Home Science"],
+    ["22 February 2027","Monday","Science"],
+    ["26 February 2027","Friday","English Communicative / Language and Literature"],
+    ["3 March 2027","Wednesday","Hindi Course A / Hindi Course B"],
+    ["8 March 2027","Monday","Social Science"],
+    ["9 March 2027","Tuesday","Languages and other subjects"]
+  ],
+
+  "12": [
+    ["16 February 2027","Tuesday","Physics"],
+    ["18 February 2027","Thursday","Physical Education"],
+    ["23 February 2027","Tuesday","Accountancy"],
+    ["25 February 2027","Thursday","Geography"],
+    ["27 February 2027","Saturday","Chemistry"],
+    ["2 March 2027","Tuesday","Psychology"],
+    ["5 March 2027","Friday","English Core / Elective"],
+    ["9 March 2027","Tuesday","Mathematics / Applied Mathematics"],
+    ["13 March 2027","Saturday","Hindi Core / Elective"],
+    ["16 March 2027","Tuesday","Economics"],
+    ["19 March 2027","Friday","Political Science"],
+    ["25 March 2027","Thursday","Biology"],
+    ["27 March 2027","Saturday","History"],
+    ["30 March 2027","Tuesday","Sociology"],
+    ["31 March 2027","Wednesday","Computer Science / Informatics Practices / IT"],
+    ["1 April 2027","Thursday","Business Studies / Business Administration"],
+    ["9 April 2027","Friday","Retail / Web Application"]
+  ]
+};
+
+const table = document.getElementById("dateTable");
+
+schedules[classNumber].forEach(item => {
+  const row = document.createElement("tr");
+
+  item.forEach(value => {
+    const cell = document.createElement("td");
+    cell.textContent = value;
+    row.appendChild(cell);
+  });
+
+  table.appendChild(row);
+});
+</script>
+
+</body>
+</html>
